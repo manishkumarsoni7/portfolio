@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manish Kumar Soni | Premium Portfolio & Web Developer & AI Builder</title>
+    
+    <!-- Google Fonts Lookup: Cormorant Garamond + Manrope + Space Grotesk + Syne + JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Manrope:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Brand & Interface Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Loading Screen Overlay -->
+    <div id="loader">
+        <div class="loader-logo">ManishVerse<span>.</span></div>
+        <div class="loader-bar">
+            <div class="loader-progress"></div>
+        </div>
+    </div>
+    
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress"></div>
+    
+    <!-- Premium Interactive Custom Cursor & Mouse Spotlight -->
+    <div id="custom-cursor"></div>
+    <div id="cursor-follower"></div>
+    <div id="mouse-spotlight"></div>
+    
+    <!-- 3D Three.js Canvas Background Container -->
+    <div id="canvas-container"></div>
+
+    <!-- HEADER / NAVIGATION ARCHITECTURE -->
+    <header id="main-header">
+        <a href="#home" class="logo">ManishVerse<span>.</span></a>
+        <nav>
+            <a href="#home" class="active">Home</a>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#experiments">Experiments</a>
+            <a href="#education">Education</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <div class="header-actions">
+            <a href="https://github.com/manishkumarsoni7" target="_blank" rel="noopener noreferrer" class="btn-github-nav" aria-label="GitHub Profile">
+                <i class="fab fa-github"></i>
+            </a>
+            <button class="btn-premium btn-font" onclick="openHire()">Hire Me</button>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="home">
+        <div class="hero-grid">
+            <div class="hero-left">
+                <span class="creative-tag">Design &bull; Code &bull; AI Automation</span>
+                <h1>Hello, I'm <br><span>Manish Kumar Soni</span></h1>
+                <div class="typer-container">
+                    <span class="hero-tagline" id="typewriter"></span>
+                </div>
+                <p class="hero-desc">
+                    Building modern web experiences with code, AI and thoughtful product design. Focused on developing useful digital products, AI-powered applications, and clean frontend architectures.
+                </p>
+                <div class="badge-container">
+                    <span class="badge">Web Developer</span>
+                    <span class="badge">AI Builder</span>
+                    <span class="badge">Next.js &bull; React</span>
+                    <span class="badge">Python &bull; Automation</span>
+                </div>
+                <div class="hero-buttons">
+                    <button class="btn-premium btn-font" onclick="openHire()">Hire Me</button>
+                    <a href="#projects" class="btn-secondary">View Projects</a>
+                </div>
+                <div class="hero-socials">
+                    <a href="https://github.com/manishkumarsoni7" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://www.instagram.com/themanish.ai" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/manishkumarsoni7" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="hero-right">
+                <div class="portrait-container">
+                    <div class="portrait-glow"></div>
+                    <div class="portrait-frame">
+                        <div class="hero-image-wrapper">
+                            <div class="glow-ring"></div>
+                            <img src="manish.jpg" alt="Manish Kumar Soni" class="hero-photo-img" />
+                            <div class="hero-photo-overlay">
+                                <div class="hero-photo-badge">
+                                    <span class="pulse-dot"></span>
+                                    <span>Available &bull; 2026</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="reveal-element">
+        <div class="section-title-wrap">
+            <span class="section-subtitle">The Dossier</span>
+            <h2 class="section-title">My Journey &amp; Vision</h2>
+        </div>
+        <div class="about-grid">
+            <div class="about-story">
+                <h3>Passionate About Building Useful Web &amp; AI Products</h3>
+                <p>I'm Manish Kumar Soni, a developer interested in building modern web products and AI-powered applications. I enjoy taking an idea, understanding how it should work, building the interface, connecting the backend and APIs, and shipping the final product.</p>
+                <p>My focus is on creating clean, functional web software using React, Next.js, Python, and modern AI integration patterns. I prioritize practical utility, clean code architecture, and dependable usability over superficial complexity.</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card glass-card">
+                        <span class="stat-num" data-target="3">0</span>
+                        <span class="stat-lbl">Flagship Builds</span>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <span class="stat-num" data-target="100">0</span>
+                        <span class="stat-lbl">% Code Dedication</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="syne-heading" style="font-size:1.2rem; letter-spacing:2px; margin-bottom:30px; color: var(--gold);">Learning &amp; Growth Journey</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <span class="time-epoch">2026 - Present</span>
+                        <h4 class="time-title">Web Developer &amp; AI Builder</h4>
+                        <p class="time-desc">Building modern web applications, AI document intelligence tools, and API test studios using Next.js, React, Supabase, Python, and modern AI models.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="time-epoch">2024 - 2026</span>
+                        <h4 class="time-title">Foundation &amp; Web Engineering</h4>
+                        <p class="time-desc">Mastered core web fundamentals (HTML5, CSS3, JavaScript ES6+, Python) with deep focus on responsive layout systems, component tokenization, and REST API integrations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section id="skills" class="reveal-element">
+        <div class="section-title-wrap">
+            <span class="section-subtitle">Capabilities</span>
+            <h2 class="section-title">Technical Expertise</h2>
+        </div>
+        <div class="skills-grid">
+            <!-- Skill 1 -->
+            <div class="skill-card glass-card" data-pct="95">
+                <div class="progress-ring-wrap">
+                    <svg width="100" height="100">
+                        <circle stroke="rgba(255,255,255,0.03)" stroke-width="4" fill="transparent" r="42" cx="50" cy="50"/>
+                        <circle class="progress-ring-circle" stroke="var(--gold)" stroke-width="4" fill="transparent" r="42" cx="50" cy="50" stroke-dasharray="263.89" stroke-dashoffset="263.89"/>
+                    </svg>
+                    <div class="skill-pct">0%</div>
+                </div>
+                <span class="skill-name">HTML5</span>
+            </div>
+            <!-- Skill 2 -->
+            <div class="skill-card glass-card" data-pct="92">
+                <div class="progress-ring-wrap">
+                    <svg width="100" height="100">
+                        <circle stroke="rgba(255,255,255,0.03)" stroke-width="4" fill="transparent" r="42" cx="50" cy="50"/>
+                        <circle class="progress-ring-circle" stroke="var(--accent)" stroke-width="4" fill="transparent" r="42" cx="50" cy="50" stroke-dasharray="263.89" stroke-dashoffset="263.89"/>
+                    </svg>
+                    <div class="skill-pct">0%</div>
+                </div>
+                <span class="skill-name">CSS3</span>
+            </div>
+            <!-- Skill 3 -->
+            <div class="skill-card glass-card" data-pct="88">
+                <div class="progress-ring-wrap">
+                    <svg width="100" height="100">
+                        <circle stroke="rgba(255,255,255,0.03)" stroke-width="4" fill="transparent" r="42" cx="50" cy="50"/>
+                        <circle class="progress-ring-circle" stroke="var(--gold2)" stroke-width="4" fill="transparent" r="42" cx="50" cy="50" stroke-dasharray="263.89" stroke-dashoffset="263.89"/>
+                    </svg>
+                    <div class="skill-pct">0%</div>
+                </div>
+                <span class="skill-name">JavaScript</span>
+            </div>
+            <!-- Skill 4 -->
+            <div class="skill-card glass-card" data-pct="85">
+                <div class="progress-ring-wrap">
+                    <svg width="100" height="100">
+                        <circle stroke="rgba(255,255,255,0.03)" stroke-width="4" fill="transparent" r="42" cx="50" cy="50"/>
+                        <circle class="progress-ring-circle" stroke="var(--gold)" stroke-width="4" fill="transparent" r="42" cx="50" cy="50" stroke-dasharray="263.89" stroke-dashoffset="263.89"/>
+                    </svg>
+                    <div class="skill-pct">0%</div>
+                </div>
+                <span class="skill-name">React &amp; Next.js</span>
+            </div>
+            <!-- Skill 5 -->
+            <div class="skill-card glass-card" data-pct="80">
+                <div class="progress-ring-wrap">
+                    <svg width="100" height="100">
+                        <circle stroke="rgba(255,255,255,0.03)" stroke-width="4" fill="transparent" r="42" cx="50" cy="50"/>
+                        <circle class="progress-ring-circle" stroke="var(--gold2)" stroke-width="4" fill="transparent" r="42" cx="50" cy="50" stroke-dasharray="263.89" stroke-dashoffset="263.89"/>
+                    </svg>
+                    <div class="skill-pct">0%</div>
+                </div>
+                <span class="skill-name">Python</span>
+            </div>
+            <!-- Skill 6 -->
+            <div class="skill-card glass-card" data-pct="84">
+                <div class="progress-ring-wrap">
+                    <svg width="100" height="100">
+                        <circle stroke="rgba(255,255,255,0.03)" stroke-width="4" fill="transparent" r="42" cx="50" cy="50"/>
+                        <circle class="progress-ring-circle" stroke="var(--accent)" stroke-width="4" fill="transparent" r="42" cx="50" cy="50" stroke-dasharray="263.89" stroke-dashoffset="263.89"/>
+                    </svg>
+                    <div class="skill-pct">0%</div>
+                </div>
+                <span class="skill-name">AI APIs &amp; Agents</span>
+            </div>
+            <!-- Skill 7 -->
+            <div class="skill-card glass-card" data-pct="78">
+                <div class="progress-ring-wrap">
+                    <svg width="100" height="100">
+                        <circle stroke="rgba(255,255,255,0.03)" stroke-width="4" fill="transparent" r="42" cx="50" cy="50"/>
+                        <circle class="progress-ring-circle" stroke="var(--gold2)" stroke-width="4" fill="transparent" r="42" cx="50" cy="50" stroke-dasharray="263.89" stroke-dashoffset="263.89"/>
+                    </svg>
+                    <div class="skill-pct">0%</div>
+                </div>
+                <span class="skill-name">Supabase &amp; SQL</span>
+            </div>
+            <!-- Skill 8 -->
+            <div class="skill-card glass-card" data-pct="88">
+                <div class="progress-ring-wrap">
+                    <svg width="100" height="100">
+                        <circle stroke="rgba(255,255,255,0.03)" stroke-width="4" fill="transparent" r="42" cx="50" cy="50"/>
+                        <circle class="progress-ring-circle" stroke="var(--gold)" stroke-width="4" fill="transparent" r="42" cx="50" cy="50" stroke-dasharray="263.89" stroke-dashoffset="263.89"/>
+                    </svg>
+                    <div class="skill-pct">0%</div>
+                </div>
+                <span class="skill-name">Git &amp; GitHub</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW I BUILD (5-STEP PROCESS) -->
+    <section id="process" class="reveal-element">
+        <div class="section-title-wrap">
+            <span class="section-subtitle">Methodology</span>
+            <h2 class="section-title">How I Build</h2>
+        </div>
+        <div class="process-grid">
+            <div class="process-card glass-card">
+                <span class="p-num">01</span>
+                <h4>UNDERSTAND</h4>
+                <p>Understand the problem, requirements, user workflows and technical constraints before coding.</p>
+            </div>
+            <div class="process-card glass-card">
+                <span class="p-num">02</span>
+                <h4>DESIGN</h4>
+                <p>Create a clean visual structure, logical information hierarchy, and responsive interface layout.</p>
+            </div>
+            <div class="process-card glass-card">
+                <span class="p-num">03</span>
+                <h4>BUILD</h4>
+                <p>Develop modular, accessible web components using modern stacks (React, Next.js, TypeScript).</p>
+            </div>
+            <div class="process-card glass-card">
+                <span class="p-num">04</span>
+                <h4>INTEGRATE</h4>
+                <p>Connect Supabase databases, AI models, REST endpoints, and automation triggers smoothly.</p>
+            </div>
+            <div class="process-card glass-card">
+                <span class="p-num">05</span>
+                <h4>SHIP</h4>
+                <p>Deploy on Vercel, verify responsive viewports, test performance, and continuously iterate.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section id="projects" class="reveal-element">
+        <div class="section-title-wrap">
+            <span class="section-subtitle">Selected Works</span>
+            <h2 class="section-title">Case Studies &amp; Deployments</h2>
+        </div>
+        
+        <div class="filter-tabs">
+            <button class="filter-btn active" data-filter="all">All Projects</button>
+            <button class="filter-btn" data-filter="ai">AI Applications</button>
+            <button class="filter-btn" data-filter="web">Developer Tools</button>
+            <button class="filter-btn" data-filter="design">Design Systems</button>
+        </div>
+
+        <div class="projects-grid">
+            
+            <!-- Project 1: AutoDoc AI -->
+            <div class="project-card glass-card" data-cat="ai">
+                <div class="project-img-frame">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1000&q=80" alt="AutoDoc AI Platform" class="project-image-cover" />
+                    <div class="project-img-overlay">
+                        <span class="p-badge-tag">AI DOCUMENT Q&amp;A</span>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">AutoDoc AI — Document Intelligence System</h3>
+                    <p class="project-desc">An AI-powered web application allowing users to upload PDFs and text files, parse unstructured data, and perform conversational Q&amp;A with verified source citations.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/manishkumarsoni7" target="_blank" rel="noopener noreferrer" class="proj-link"><i class="fab fa-github"></i> GitHub Code</a>
+                        <button onclick="openCaseStudy('autodoc-ai')" class="proj-link btn-link"><i class="fas fa-arrow-right"></i> View Case Study</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2: DevFlow Studio -->
+            <div class="project-card glass-card" data-cat="web">
+                <div class="project-img-frame">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1000&q=80" alt="DevFlow Studio Dashboard" class="project-image-cover" />
+                    <div class="project-img-overlay">
+                        <span class="p-badge-tag">DEVELOPER TOOL</span>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">DevFlow Studio — API Testing Dashboard</h3>
+                    <p class="project-desc">A centralized browser dashboard for testing REST APIs, inspecting JSON response headers, simulating webhooks, and organizing endpoint test collections.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/manishkumarsoni7" target="_blank" rel="noopener noreferrer" class="proj-link"><i class="fab fa-github"></i> GitHub Code</a>
+                        <button onclick="openCaseStudy('devflow-studio')" class="proj-link btn-link"><i class="fas fa-arrow-right"></i> View Case Study</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 3: OmniUI Design System -->
+            <div class="project-card glass-card" data-cat="design">
+                <div class="project-img-frame">
+                    <img src="https://images.unsplash.com/photo-1607799279861-4dd421887fb3?auto=format&fit=crop&w=1000&q=80" alt="OmniUI Design System" class="project-image-cover" />
+                    <div class="project-img-overlay">
+                        <span class="p-badge-tag">DESIGN INFRASTRUCTURE</span>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">OmniUI — Accessible Component System</h3>
+                    <p class="project-desc">A reusable component library built with React and Tailwind CSS, focusing on semantic markup, keyboard accessibility, and consistent luxury dark themes.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/manishkumarsoni7" target="_blank" rel="noopener noreferrer" class="proj-link"><i class="fab fa-github"></i> GitHub Code</a>
+                        <button onclick="openCaseStudy('omniui-system')" class="proj-link btn-link"><i class="fas fa-arrow-right"></i> View Case Study</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- EXPERIMENTS & SIDE PROJECTS -->
+    <section id="experiments" class="reveal-element">
+        <div class="section-title-wrap">
+            <span class="section-subtitle">Exploration</span>
+            <h2 class="section-title">Experiments &amp; Side Projects</h2>
+        </div>
+        <div class="blog-grid">
+            <div class="blog-card glass-card">
+                <div class="blog-meta">
+                    <span>AI Utility</span>
+                    <span>Next.js &bull; OpenAI</span>
+                </div>
+                <h3 class="blog-title">AI Prompt Context Optimizer</h3>
+                <p class="blog-excerpt">A lightweight utility tool to prune, tokenize, and optimize complex system prompts before API submission.</p>
+                <a href="https://github.com/manishkumarsoni7" target="_blank" rel="noopener noreferrer" class="blog-readmore">View on GitHub <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="blog-card glass-card">
+                <div class="blog-meta">
+                    <span>Developer Tool</span>
+                    <span>Node.js &bull; WebSockets</span>
+                </div>
+                <h3 class="blog-title">Webhook Event Inspector</h3>
+                <p class="blog-excerpt">Real-time webhook payload listener and debugger for local testing without external third-party tunnels.</p>
+                <a href="https://github.com/manishkumarsoni7" target="_blank" rel="noopener noreferrer" class="blog-readmore">View on GitHub <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="blog-card glass-card">
+                <div class="blog-meta">
+                    <span>Automation Flow</span>
+                    <span>n8n &bull; Python</span>
+                </div>
+                <h3 class="blog-title">n8n Automation Flow Kit</h3>
+                <p class="blog-excerpt">Collection of custom automation workflows connecting GitHub webhook events, AI summarization, and Supabase.</p>
+                <a href="https://github.com/manishkumarsoni7" target="_blank" rel="noopener noreferrer" class="blog-readmore">View on GitHub <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- EDUCATION SECTION -->
+    <section id="education" class="reveal-element">
+        <div class="section-title-wrap">
+            <span class="section-subtitle">Academic Background</span>
+            <h2 class="section-title">Education &amp; Credentials</h2>
+        </div>
+        <div class="education-grid">
+            <!-- 12th -->
+            <div class="edu-card glass-card">
+                <span class="edu-badge">Senior Secondary (12th)</span>
+                <h3 class="edu-school">UPG +2 High School</h3>
+                <p class="edu-location">Chaube</p>
+                <div class="edu-footer">
+                    <span>Completed: 2026</span>
+                    <span class="edu-score">Score: 422 / 500</span>
+                </div>
+            </div>
+            <!-- 10th -->
+            <div class="edu-card glass-card">
+                <span class="edu-badge">Secondary (10th)</span>
+                <h3 class="edu-school">UPG +2 High School</h3>
+                <p class="edu-location">Chaube</p>
+                <div class="edu-footer">
+                    <span>Completed: 2024</span>
+                    <span class="edu-score">Score: 434 / 500</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="reveal-element">
+        <div class="section-title-wrap">
+            <span class="section-subtitle">Get In Touch</span>
+            <h2 class="section-title">Let's Work Together</h2>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-details">
+                <div class="contact-info-block">
+                    <h4>GitHub Profile</h4>
+                    <p><a href="https://github.com/manishkumarsoni7" target="_blank" rel="noopener noreferrer" style="color:var(--white); text-decoration:none;">github.com/manishkumarsoni7 ↗</a></p>
+                </div>
+                <div class="contact-info-block">
+                    <h4>LinkedIn</h4>
+                    <p><a href="https://www.linkedin.com/in/manishkumarsoni7" target="_blank" rel="noopener noreferrer" style="color:var(--white); text-decoration:none;">linkedin.com/in/manishkumarsoni7 ↗</a></p>
+                </div>
+                <div class="contact-info-block">
+                    <h4>Instagram</h4>
+                    <p><a href="https://www.instagram.com/themanish.ai" target="_blank" rel="noopener noreferrer" style="color:var(--white); text-decoration:none;">instagram.com/themanish.ai ↗</a></p>
+                </div>
+                <div class="contact-info-block">
+                    <h4>Focus &amp; Roles</h4>
+                    <p>Web Development, AI Integration, Next.js &amp; Python</p>
+                </div>
+                <div class="contact-info-block">
+                    <h4>Availability</h4>
+                    <p>Open for internships, junior developer roles &amp; freelance projects.</p>
+                </div>
+                <div class="contact-info-block">
+                    <h4>Resume</h4>
+                    <p><button onclick="openResumeModal()" style="background:none; border:none; color:var(--gold); font-size:1.1rem; cursor:pointer; padding:0; text-decoration:underline;">View Resume Overview ↗</button></p>
+                </div>
+            </div>
+            
+            <!-- Sleek Floating Label Contact Form -->
+            <form class="contact-form" id="main-contact-form" onsubmit="handleContactSubmit(event)">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder=" " id="input-name" required>
+                    <label class="form-label" for="input-name">Identifier / Full Name</label>
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder=" " id="input-email" required>
+                    <label class="form-label" for="input-email">Communication Email Address</label>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder=" " id="input-subject" required>
+                    <label class="form-label" for="input-subject">Project Objective or Opportunity</label>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" placeholder=" " id="input-msg" rows="4" required></textarea>
+                    <label class="form-label" for="input-msg">Message &amp; Project Scope Details</label>
+                </div>
+                <button type="submit" class="btn-premium btn-font" style="width: fit-content; align-self: flex-start; margin-top:15px;">
+                    Send Dispatch &rarr;
+                </button>
+                <div id="contact-feedback" style="display:none; color:var(--gold); font-size:0.9rem; margin-top:10px;">
+                    &check; Message received! I will get back to you promptly.
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER ARCHITECTURE -->
+    <footer>
+        <div class="footer-top">
+            <div class="footer-brand">
+                <h3>M<span>.</span></h3>
+                <p>Manish Kumar Soni — Building modern web experiences with code, AI and thoughtful product design.</p>
+            </div>
+            <div class="footer-links-wrap">
+                <div class="footer-col">
+                    <h5>Navigation</h5>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#skills">Skills</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Capabilities</h5>
+                    <ul>
+                        <li><a href="#skills">Web Development</a></li>
+                        <li><a href="#skills">AI Building</a></li>
+                        <li><a href="#skills">Next.js &amp; Python</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span class="copy-text">&copy; 2026 Manish Kumar Soni. All Rights Reserved.</span>
+            <a href="#home" class="back-to-top" aria-label="Return to top"><i class="fas fa-arrow-up"></i></a>
+        </div>
+    </footer>
+
+    <!-- ═══ HIRE ME MODAL OVERLAY ═══ -->
+    <div class="overlay" id="overlay" onclick="handleOverlayClick(event)">
+        <div class="tp-hire-sec" id="hireModal">
+            <i class="fa-regular fa-circle-xmark" id="close" onclick="closeHire()"></i>
+            <h2 class="tp-hire-title">Hire <span>Me</span></h2>
+            <p class="tp-hire-subtitle">Tell me about your project or opportunity and let's build something useful together.</p>
+            <form class="tp-hire-form" onsubmit="handleHireSubmit(event)">
+                <div class="tp-hire-row">
+                    <input type="text" placeholder="Full Name" required id="hire-name">
+                    <input type="email" placeholder="Email Address" required id="hire-email">
+                </div>
+                <textarea rows="4" placeholder="Project or Role Details..." required id="hire-msg"></textarea>
+                <button type="submit" class="tp-hire-btn">Send Proposal &rarr;</button>
+                <div id="hire-feedback" style="display:none; color:var(--gold); font-size:0.85rem; text-align:center; margin-top:8px;">
+                    &check; Proposal received! Thank you, Manish will reply soon.
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ═══ RESUME OVERVIEW MODAL ═══ -->
+    <div class="overlay" id="resumeOverlay" onclick="handleResumeOverlayClick(event)">
+        <div class="tp-hire-sec" style="max-width: 620px;">
+            <i class="fa-regular fa-circle-xmark" id="closeResume" onclick="closeResumeModal()"></i>
+            <h2 class="tp-hire-title">Resume <span>Overview</span></h2>
+            <p class="tp-hire-subtitle">Manish Kumar Soni &bull; Web Developer &amp; AI Builder</p>
+            
+            <div style="text-align: left; font-size: 0.9rem; color: var(--muted); line-height: 1.7; margin-bottom: 25px; max-height: 320px; overflow-y: auto; padding-right: 10px;">
+                <div style="margin-bottom: 15px;">
+                    <h4 style="color: var(--white); font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; text-transform: uppercase; margin-bottom: 5px;">Technical Stack</h4>
+                    <p>React, Next.js, JavaScript (ES6+), HTML5, CSS3, Python, Node.js, REST APIs, Generative AI, AI APIs, AI Agents, Supabase, PostgreSQL, Git, GitHub, Vercel, n8n, VS Code.</p>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <h4 style="color: var(--white); font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; text-transform: uppercase; margin-bottom: 5px;">Education</h4>
+                    <p>&bull; <strong>12th:</strong> UPG +2 High School, Chaube (Completed: 2026 | Score: 422 / 500)<br>
+                    &bull; <strong>10th:</strong> UPG +2 High School, Chaube (Completed: 2024 | Score: 434 / 500)</p>
+                </div>
+                <div>
+                    <h4 style="color: var(--white); font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; text-transform: uppercase; margin-bottom: 5px;">Selected Projects</h4>
+                    <p>&bull; <strong>AutoDoc AI:</strong> Document Intelligence &amp; Q&amp;A platform.<br>
+                    &bull; <strong>DevFlow Studio:</strong> Developer workflow &amp; API testing dashboard.<br>
+                    &bull; <strong>OmniUI System:</strong> Accessible React component kit &amp; design tokens.</p>
+                </div>
+            </div>
+
+            <div style="display:flex; justify-content:flex-end; gap:12px;">
+                <button onclick="closeResumeModal()" class="btn-secondary" style="padding: 10px 20px; font-size: 0.85rem;">Close</button>
+                <button onclick="downloadResume()" class="btn-premium btn-font" style="padding: 10px 22px; font-size: 0.85rem;">Download Summary</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ CASE STUDY MODAL ═══ -->
+    <div class="overlay" id="caseStudyOverlay" onclick="handleCaseStudyOverlayClick(event)">
+        <div class="tp-hire-sec" style="max-width: 700px; max-height: 85vh; overflow-y: auto;">
+            <i class="fa-regular fa-circle-xmark" id="closeCaseStudy" onclick="closeCaseStudy()"></i>
+            <div id="case-study-body">
+                <!-- Injected via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Three.js Production Engine Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Application Script -->
+    <script src="app.js"></script>
+</body>
+</html>

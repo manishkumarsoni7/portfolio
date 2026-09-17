@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manish Kumar Soni — Kinetic Studio | Web Developer & AI Builder</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700;800&family=JetBrains+Mono:wght@400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Space Grotesk"', 'sans-serif'],
+            syne: ['"Syne"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            accent: {
+              lime: '#E2F952',
+              cyan: '#06B6D4',
+              purple: '#8B5CF6',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <style>
+    body { background-color: #07070A; color: #EDEDED; overflow-x: hidden; }
+    
+    .retro-grid {
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 36px 36px;
+      mask-image: radial-gradient(ellipse 60% 50% at 50% 0%, #000 70%, transparent 100%);
+    }
+
+    .marquee-track {
+      display: flex; width: max-content; animation: marqueeAnim 26s linear infinite;
+    }
+    @keyframes marqueeAnim { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    .glow-photo-box {
+      border: 2px solid rgba(226, 249, 82, 0.35);
+      box-shadow: 0 0 35px rgba(226, 249, 82, 0.15);
+    }
+
+    .tilt-card {
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+    }
+    .tilt-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 25px rgba(226, 249, 82, 0.08);
+    }
+  </style>
+</head>
+<body class="font-sans antialiased selection:bg-lime-400/30 selection:text-lime-200">
+
+  <!-- Top Theme / Design Variant Switcher Bar -->
+  <div class="fixed top-3 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1.5 p-1.5 rounded-full bg-[#0E0E14]/90 backdrop-blur-2xl border border-white/15 shadow-2xl">
+    <a href="index.html" class="px-3 py-1 rounded-full text-xs font-mono text-neutral-400 hover:text-white transition-colors">
+      1. Cyber-Dark Luxe
+    </a>
+    <a href="variant-unlumen.html" class="px-3 py-1 rounded-full text-xs font-mono text-neutral-400 hover:text-white transition-colors">
+      2. Obsidian Bento
+    </a>
+    <a href="variant-kinetic.html" class="px-3.5 py-1 rounded-full text-xs font-mono font-bold text-black bg-[#E2F952] shadow-sm transition-colors">
+      3. Kinetic Studio
+    </a>
+  </div>
+
+  <!-- Background Retro Grid -->
+  <div class="fixed inset-0 pointer-events-none retro-grid opacity-30 z-0"></div>
+
+  <!-- Header -->
+  <header class="fixed top-14 left-0 right-0 z-40 px-4">
+    <div class="max-w-6xl mx-auto flex items-center justify-between backdrop-blur-xl bg-[#0C0C10]/85 border border-white/10 rounded-2xl px-5 py-3 shadow-2xl">
+      <a href="#hero" class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#E2F952] to-cyan-400 p-[1.5px]">
+          <div class="w-full h-full bg-[#08080C] rounded-[10px] flex items-center justify-center font-syne font-extrabold text-xs text-white">
+            MS
+          </div>
+        </div>
+        <span class="font-heading font-bold text-sm text-white">Manish Kumar Soni</span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6 text-xs font-medium text-neutral-400">
+        <a href="#projects" class="hover:text-white transition-colors">WORK</a>
+        <a href="#skills" class="hover:text-white transition-colors">STACK</a>
+        <a href="#process" class="hover:text-white transition-colors">PROCESS</a>
+        <a href="#education" class="hover:text-white transition-colors">EDUCATION</a>
+        <a href="#contact" class="hover:text-white transition-colors">CONTACT</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="https://github.com/manishsoni7" target="_blank" class="text-xs font-mono text-neutral-400 hover:text-white flex items-center gap-1">
+          GitHub <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+        </a>
+        <a href="#contact" class="px-3.5 py-1.5 rounded-xl text-xs font-bold text-black bg-[#E2F952] hover:bg-[#d6f03f] transition-all shadow-md shadow-[#E2F952]/20">
+          Let's Connect
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero" class="relative z-10 pt-40 pb-20 px-4 sm:px-6 max-w-6xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      
+      <div class="lg:col-span-7">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E2F952]/10 border border-[#E2F952]/30 text-[#E2F952] text-xs font-mono mb-6">
+          <span class="w-2 h-2 rounded-full bg-[#E2F952] animate-pulse"></span>
+          NEXT-GEN WEB EXPERIENCES &bull; AI AGENTS
+        </div>
+
+        <h1 class="font-heading font-extrabold text-4xl sm:text-6xl text-white tracking-tight leading-[1.08]">
+          I build modern web experiences with code, AI and thoughtful product design.
+        </h1>
+
+        <p class="mt-6 text-base sm:text-lg text-neutral-400 font-light leading-relaxed max-w-xl">
+          I'm Manish Kumar Soni — a developer focused on building useful digital products, AI-powered applications and clean frontend architectures.
+        </p>
+
+        <div class="mt-8 flex flex-wrap items-center gap-4">
+          <a href="#projects" class="px-6 py-3.5 rounded-xl text-xs font-bold text-black bg-[#E2F952] hover:bg-[#d4f03c] shadow-xl shadow-[#E2F952]/20 transition-all flex items-center gap-2">
+            View My Work <i data-lucide="arrow-down" class="w-4 h-4"></i>
+          </a>
+          <a href="https://github.com/manishsoni7" target="_blank" class="px-5 py-3.5 rounded-xl text-xs font-mono text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-all flex items-center gap-2">
+            <i data-lucide="github" class="w-4 h-4 text-[#E2F952]"></i> github.com/manishsoni7 ↗
+          </a>
+        </div>
+      </div>
+
+      <!-- Hero Photo Card with Lime Neon Accents -->
+      <div class="lg:col-span-5 flex justify-center">
+        <div class="relative w-full max-w-[360px] aspect-[4/5] rounded-3xl overflow-hidden glow-photo-box group">
+          <img src="manish.jpg" alt="Manish Kumar Soni" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500 filter brightness-95 contrast-105" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent"></div>
+          <div class="absolute bottom-5 left-5 right-5 flex items-center justify-between">
+            <div>
+              <h3 class="font-heading font-bold text-white text-lg">Manish Kumar Soni</h3>
+              <p class="text-xs font-mono text-[#E2F952]">Web Dev &bull; AI Builder</p>
+            </div>
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono bg-[#E2F952]/20 text-[#E2F952] border border-[#E2F952]/40 font-bold">
+              Active &bull; 2026
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Continuous Marquee Ticker -->
+  <section class="relative z-10 py-6 border-y border-white/10 bg-[#0C0C12] overflow-hidden select-none">
+    <div class="marquee-track flex gap-8 whitespace-nowrap text-xs font-mono text-neutral-300">
+      <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 flex items-center gap-2"><i data-lucide="code" class="w-3.5 h-3.5 text-[#E2F952]"></i> React 19</span>
+      <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 flex items-center gap-2"><i data-lucide="zap" class="w-3.5 h-3.5 text-white"></i> Next.js 15</span>
+      <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 flex items-center gap-2"><i data-lucide="terminal" class="w-3.5 h-3.5 text-cyan-400"></i> Python</span>
+      <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 flex items-center gap-2"><i data-lucide="server" class="w-3.5 h-3.5 text-emerald-400"></i> Node.js &bull; REST APIs</span>
+      <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 flex items-center gap-2"><i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#E2F952]"></i> AI APIs &bull; Agents</span>
+      <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 flex items-center gap-2"><i data-lucide="database" class="w-3.5 h-3.5 text-blue-400"></i> Supabase &bull; SQL</span>
+      <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 flex items-center gap-2"><i data-lucide="cloud" class="w-3.5 h-3.5 text-purple-400"></i> Vercel</span>
+      <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 flex items-center gap-2"><i data-lucide="git-branch" class="w-3.5 h-3.5 text-orange-400"></i> Git &bull; GitHub</span>
+      <!-- Loop duplicate -->
+      <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 flex items-center gap-2"><i data-lucide="code" class="w-3.5 h-3.5 text-[#E2F952]"></i> React 19</span>
+      <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 flex items-center gap-2"><i data-lucide="zap" class="w-3.5 h-3.5 text-white"></i> Next.js 15</span>
+      <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 flex items-center gap-2"><i data-lucide="terminal" class="w-3.5 h-3.5 text-cyan-400"></i> Python</span>
+      <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 flex items-center gap-2"><i data-lucide="server" class="w-3.5 h-3.5 text-emerald-400"></i> Node.js &bull; REST APIs</span>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="relative z-10 py-24 px-4 sm:px-6 max-w-6xl mx-auto">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
+      <div>
+        <span class="text-xs font-mono text-[#E2F952] uppercase tracking-wider">Curated Portfolio</span>
+        <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-white mt-1">Selected Work</h2>
+      </div>
+      <p class="text-sm text-neutral-400 max-w-md font-light">
+        A selection of projects built while exploring modern web development, AI integration and product engineering.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <!-- Card 1 -->
+      <div class="tilt-card rounded-3xl bg-[#111116] border border-white/10 overflow-hidden flex flex-col group">
+        <div class="h-48 overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" alt="AutoDoc AI" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+          <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-mono bg-black/80 text-[#E2F952] border border-[#E2F952]/40 font-bold">AI Document Q&amp;A</span>
+        </div>
+        <div class="p-6 flex-1 flex flex-col justify-between">
+          <div>
+            <h3 class="font-heading font-bold text-xl text-white group-hover:text-[#E2F952] transition-colors">AutoDoc AI</h3>
+            <p class="text-xs text-neutral-400 mt-2 leading-relaxed">Document intelligence platform for uploading PDFs, parsing text, and answering contextual queries with verified source citations.</p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-white/5 flex items-center justify-between">
+            <span class="text-[11px] font-mono text-neutral-400">Next.js &bull; Supabase</span>
+            <a href="https://github.com/manishsoni7" target="_blank" class="text-xs font-bold text-[#E2F952] flex items-center gap-1 hover:underline">Code ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="tilt-card rounded-3xl bg-[#111116] border border-white/10 overflow-hidden flex flex-col group">
+        <div class="h-48 overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80" alt="DevFlow Studio" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+          <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-mono bg-black/80 text-cyan-300 border border-cyan-400/40 font-bold">Developer Tool</span>
+        </div>
+        <div class="p-6 flex-1 flex flex-col justify-between">
+          <div>
+            <h3 class="font-heading font-bold text-xl text-white group-hover:text-cyan-300 transition-colors">DevFlow Studio</h3>
+            <p class="text-xs text-neutral-400 mt-2 leading-relaxed">Browser dashboard for testing REST APIs, inspecting JSON response headers, simulating webhooks, and managing test collections.</p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-white/5 flex items-center justify-between">
+            <span class="text-[11px] font-mono text-neutral-400">React &bull; Node.js</span>
+            <a href="https://github.com/manishsoni7" target="_blank" class="text-xs font-bold text-cyan-300 flex items-center gap-1 hover:underline">Code ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="tilt-card rounded-3xl bg-[#111116] border border-white/10 overflow-hidden flex flex-col group">
+        <div class="h-48 overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1607799279861-4dd421887fb3?auto=format&fit=crop&w=800&q=80" alt="OmniUI System" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+          <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-mono bg-black/80 text-purple-300 border border-purple-400/40 font-bold">Design System</span>
+        </div>
+        <div class="p-6 flex-1 flex flex-col justify-between">
+          <div>
+            <h3 class="font-heading font-bold text-xl text-white group-hover:text-purple-300 transition-colors">OmniUI System</h3>
+            <p class="text-xs text-neutral-400 mt-2 leading-relaxed">20+ accessible React components with dark tokens, full keyboard accessibility, and zero unnecessary runtime dependencies.</p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-white/5 flex items-center justify-between">
+            <span class="text-[11px] font-mono text-neutral-400">Tailwind &bull; WCAG AA</span>
+            <a href="https://github.com/manishsoni7" target="_blank" class="text-xs font-bold text-purple-300 flex items-center gap-1 hover:underline">Code ↗</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Education Section -->
+  <section id="education" class="relative z-10 py-20 px-4 sm:px-6 max-w-6xl mx-auto border-t border-white/10">
+    <div class="mb-12">
+      <span class="text-xs font-mono text-[#E2F952] uppercase tracking-wider">Academic Foundation</span>
+      <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-white mt-1">Education &amp; Credentials</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="p-6 sm:p-8 rounded-3xl bg-[#111116] border border-white/10">
+        <span class="text-xs font-mono text-[#E2F952] uppercase tracking-wider font-bold">Senior Secondary (12th)</span>
+        <h3 class="text-xl font-heading font-bold text-white mt-2">UPG +2 High School</h3>
+        <p class="text-xs text-neutral-400 mt-1 font-mono">Chaube</p>
+        <div class="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono">
+          <span class="text-neutral-400">Completed: 2026</span>
+          <span class="text-[#E2F952] font-bold">Score: 422 / 500</span>
+        </div>
+      </div>
+
+      <div class="p-6 sm:p-8 rounded-3xl bg-[#111116] border border-white/10">
+        <span class="text-xs font-mono text-[#E2F952] uppercase tracking-wider font-bold">Secondary (10th)</span>
+        <h3 class="text-xl font-heading font-bold text-white mt-2">UPG +2 High School</h3>
+        <p class="text-xs text-neutral-400 mt-1 font-mono">Chaube</p>
+        <div class="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono">
+          <span class="text-neutral-400">Completed: 2024</span>
+          <span class="text-[#E2F952] font-bold">Score: 434 / 500</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="relative z-10 py-20 px-4 sm:px-6 max-w-5xl mx-auto border-t border-white/10">
+    <div class="p-8 sm:p-12 rounded-3xl bg-[#111116] border border-white/10">
+      <div class="max-w-2xl mb-8">
+        <span class="text-xs font-mono text-[#E2F952] uppercase tracking-wider">Get In Touch</span>
+        <h2 class="font-heading font-extrabold text-3xl text-white mt-1">Let's build something useful.</h2>
+        <p class="text-sm text-neutral-400 mt-2">Open for internships, junior developer roles &amp; web/AI engineering projects.</p>
+      </div>
+
+      <form onsubmit="event.preventDefault(); alert('Message sent! Manish will reply soon.');" class="space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <input type="text" placeholder="Your Name" required class="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/10 text-white text-sm focus:outline-none focus:border-[#E2F952]" />
+          <input type="email" placeholder="Email Address" required class="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/10 text-white text-sm focus:outline-none focus:border-[#E2F952]" />
+        </div>
+        <textarea rows="4" placeholder="Message or project inquiry..." required class="w-full px-4 py-3 rounded-xl bg-black/60 border border-white/10 text-white text-sm focus:outline-none focus:border-[#E2F952] resize-none"></textarea>
+        <button type="submit" class="px-6 py-3 rounded-xl text-xs font-bold text-black bg-[#E2F952] hover:bg-[#d5f03d] shadow-lg shadow-[#E2F952]/20 transition-all">
+          Send Dispatch &rarr;
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="relative z-10 py-10 text-center text-xs font-mono text-neutral-500 border-t border-white/10">
+    &copy; 2026 Manish Kumar Soni &bull; Kinetic Studio Architecture
+  </footer>
+
+  <script>
+    if (window.lucide) window.lucide.createIcons();
+  </script>
+</body>
+</html>
