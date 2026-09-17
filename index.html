@@ -309,8 +309,9 @@
                     <h3 class="project-title">AutoDoc AI — Document Intelligence System</h3>
                     <p class="project-desc">An AI-powered web application allowing users to upload PDFs and text files, parse unstructured data, and perform conversational Q&amp;A with verified source citations.</p>
                     <div class="project-links">
-                        <a href="https://github.com/manishkumarsoni7" target="_blank" rel="noopener noreferrer" class="proj-link"><i class="fab fa-github"></i> GitHub Code</a>
-                        <button onclick="openCaseStudy('autodoc-ai')" class="proj-link btn-link"><i class="fas fa-arrow-right"></i> View Case Study</button>
+                        <button onclick="openLiveDemo('autodoc-ai')" class="proj-link live-demo-btn"><i class="fas fa-play"></i> Try Live App</button>
+                        <button onclick="openCaseStudy('autodoc-ai')" class="proj-link btn-link"><i class="fas fa-file-alt"></i> Case Study</button>
+                        <a href="https://github.com/manishkumarsoni7" target="_blank" rel="noopener noreferrer" class="proj-link"><i class="fab fa-github"></i> Code</a>
                     </div>
                 </div>
             </div>
@@ -327,8 +328,9 @@
                     <h3 class="project-title">DevFlow Studio — API Testing Dashboard</h3>
                     <p class="project-desc">A centralized browser dashboard for testing REST APIs, inspecting JSON response headers, simulating webhooks, and organizing endpoint test collections.</p>
                     <div class="project-links">
-                        <a href="https://github.com/manishkumarsoni7" target="_blank" rel="noopener noreferrer" class="proj-link"><i class="fab fa-github"></i> GitHub Code</a>
-                        <button onclick="openCaseStudy('devflow-studio')" class="proj-link btn-link"><i class="fas fa-arrow-right"></i> View Case Study</button>
+                        <button onclick="openLiveDemo('devflow-studio')" class="proj-link live-demo-btn"><i class="fas fa-play"></i> Try Live App</button>
+                        <button onclick="openCaseStudy('devflow-studio')" class="proj-link btn-link"><i class="fas fa-file-alt"></i> Case Study</button>
+                        <a href="https://github.com/manishkumarsoni7" target="_blank" rel="noopener noreferrer" class="proj-link"><i class="fab fa-github"></i> Code</a>
                     </div>
                 </div>
             </div>
@@ -345,8 +347,9 @@
                     <h3 class="project-title">OmniUI — Accessible Component System</h3>
                     <p class="project-desc">A reusable component library built with React and Tailwind CSS, focusing on semantic markup, keyboard accessibility, and consistent luxury dark themes.</p>
                     <div class="project-links">
-                        <a href="https://github.com/manishkumarsoni7" target="_blank" rel="noopener noreferrer" class="proj-link"><i class="fab fa-github"></i> GitHub Code</a>
-                        <button onclick="openCaseStudy('omniui-system')" class="proj-link btn-link"><i class="fas fa-arrow-right"></i> View Case Study</button>
+                        <button onclick="openLiveDemo('omniui-system')" class="proj-link live-demo-btn"><i class="fas fa-play"></i> Component Studio</button>
+                        <button onclick="openCaseStudy('omniui-system')" class="proj-link btn-link"><i class="fas fa-file-alt"></i> Case Study</button>
+                        <a href="https://github.com/manishkumarsoni7" target="_blank" rel="noopener noreferrer" class="proj-link"><i class="fab fa-github"></i> Code</a>
                     </div>
                 </div>
             </div>
@@ -368,7 +371,10 @@
                 </div>
                 <h3 class="blog-title">AI Prompt Context Optimizer</h3>
                 <p class="blog-excerpt">A lightweight utility tool to prune, tokenize, and optimize complex system prompts before API submission.</p>
-                <a href="https://github.com/manishkumarsoni7" target="_blank" rel="noopener noreferrer" class="blog-readmore">View on GitHub <i class="fas fa-arrow-right"></i></a>
+                <div style="display:flex; gap:16px; margin-top:auto; align-items:center;">
+                    <button onclick="openLiveDemo('promptlens')" class="proj-link live-demo-btn" style="padding:6px 14px; font-size:0.8rem;"><i class="fas fa-play"></i> Try Tool</button>
+                    <a href="https://github.com/manishkumarsoni7" target="_blank" rel="noopener noreferrer" class="blog-readmore"><i class="fab fa-github"></i> GitHub</a>
+                </div>
             </div>
 
             <div class="blog-card glass-card">
@@ -378,7 +384,7 @@
                 </div>
                 <h3 class="blog-title">Webhook Event Inspector</h3>
                 <p class="blog-excerpt">Real-time webhook payload listener and debugger for local testing without external third-party tunnels.</p>
-                <a href="https://github.com/manishkumarsoni7" target="_blank" rel="noopener noreferrer" class="blog-readmore">View on GitHub <i class="fas fa-arrow-right"></i></a>
+                <a href="https://github.com/manishkumarsoni7" target="_blank" rel="noopener noreferrer" class="blog-readmore" style="margin-top:auto;">View on GitHub <i class="fas fa-arrow-right"></i></a>
             </div>
 
             <div class="blog-card glass-card">
@@ -388,7 +394,7 @@
                 </div>
                 <h3 class="blog-title">n8n Automation Flow Kit</h3>
                 <p class="blog-excerpt">Collection of custom automation workflows connecting GitHub webhook events, AI summarization, and Supabase.</p>
-                <a href="https://github.com/manishkumarsoni7" target="_blank" rel="noopener noreferrer" class="blog-readmore">View on GitHub <i class="fas fa-arrow-right"></i></a>
+                <a href="https://github.com/manishkumarsoni7" target="_blank" rel="noopener noreferrer" class="blog-readmore" style="margin-top:auto;">View on GitHub <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
     </section>
@@ -576,6 +582,16 @@
             <i class="fa-regular fa-circle-xmark" id="closeCaseStudy" onclick="closeCaseStudy()"></i>
             <div id="case-study-body">
                 <!-- Injected via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ INTERACTIVE LIVE DEMO MODAL ═══ -->
+    <div class="overlay" id="liveDemoOverlay" onclick="handleLiveDemoOverlayClick(event)">
+        <div class="tp-hire-sec live-demo-modal-container" id="live-demo-modal-card">
+            <i class="fa-regular fa-circle-xmark" id="closeLiveDemo" onclick="closeLiveDemo()"></i>
+            <div id="live-demo-body">
+                <!-- Interactive Mini App Injected via JavaScript -->
             </div>
         </div>
     </div>
