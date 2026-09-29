@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Portfolio Studio — 8 Full Working Variations Per Section | Manish Kumar Soni</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@300;400;500;700&family=Manrope:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg: #07080A;
+            --surface: #0E1015;
+            --surface-card: #11141C;
+            --surface-hover: #181C26;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-glow: rgba(0, 242, 254, 0.35);
+            --accent: #00f2fe;
+            --accent2: #4facfe;
+            --purple: #8a2be2;
+            --emerald: #10b981;
+            --gold: #FBBF24;
+            --red: #EF4444;
+            --white: #FFFFFF;
+            --muted: #8E9AA8;
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--bg);
+            color: var(--white);
+            font-family: 'Manrope', sans-serif;
+            overflow-x: hidden;
+            padding-top: 155px;
+            padding-bottom: 120px;
+            min-height: 100vh;
+        }
+
+        /* Fixed Navigation Control Deck */
+        .studio-topbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(8, 10, 14, 0.96);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 4%;
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .topbar-row-1 {
+            display: flex; justify-content: space-between; align-items: center; width: 100%;
+        }
+        .topbar-brand {
+            font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; font-weight: 700;
+            display: flex; align-items: center; gap: 8px; color: var(--white);
+        }
+        .topbar-brand span { color: var(--accent); }
+        .topbar-badge {
+            background: rgba(0,242,254,0.12); border: 1px solid var(--accent);
+            color: var(--accent); font-size: 0.7rem; padding: 2px 8px; border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Section Navigation Tabs */
+        .section-tabs-bar {
+            display: flex; gap: 6px; overflow-x: auto; max-width: 100%; padding-bottom: 2px;
+        }
+        .section-tab-btn {
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: var(--muted);
+            padding: 6px 14px; border-radius: 8px; font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: all 0.2s var(--ease);
+            white-space: nowrap; flex-shrink: 0; display: flex; align-items: center; gap: 6px;
+        }
+        .section-tab-btn:hover { color: var(--white); background: rgba(255,255,255,0.06); }
+        .section-tab-btn.active {
+            background: #151A24; border-color: var(--accent); color: var(--accent);
+            box-shadow: 0 0 15px rgba(0,242,254,0.25);
+        }
+
+        /* Variation Sub-Tabs (1 to 8) */
+        .var-subtabs-bar {
+            display: flex; background: rgba(255,255,255,0.02); border: 1px solid var(--border);
+            padding: 4px; border-radius: 10px; gap: 4px; overflow-x: auto;
+        }
+        .var-subtab-btn {
+            background: transparent; border: none; color: var(--muted);
+            padding: 6px 14px; border-radius: 6px; font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+            white-space: nowrap; flex-shrink: 0;
+        }
+        .var-subtab-btn:hover { color: var(--white); background: rgba(255,255,255,0.04); }
+        .var-subtab-btn.active {
+            background: var(--accent); color: #050505; font-weight: 700;
+        }
+
+        .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+
+        /* Section Intro Header */
+        .studio-header { text-align: center; margin-bottom: 35px; }
+        .studio-tag {
+            font-family: 'Space Grotesk', sans-serif; font-size: 0.78rem; color: var(--accent);
+            text-transform: uppercase; letter-spacing: 3px; margin-bottom: 8px; display: block;
+        }
+        .studio-heading {
+            font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300;
+            color: var(--white); margin-bottom: 8px;
+        }
+        .studio-desc { color: var(--muted); font-size: 0.95rem; max-width: 680px; margin: 0 auto; line-height: 1.6; }
+
+        /* Section Containers */
+        .section-view-container { display: none; }
+        .section-view-container.active { display: block; }
+
+        .variation-pane { display: none; animation: fadeIn 0.35s var(--ease) forwards; }
+        .variation-pane.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Common Luxury Component Styles */
+        .glass-box {
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.005) 100%), #0D0F14;
+            border: 1px solid var(--border); border-radius: 20px; padding: 32px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6); position: relative; overflow: hidden;
+            text-align: left;
+        }
+        .glass-box:hover { border-color: rgba(0,242,254,0.3); }
+
+        .btn-luxe {
+            background: var(--accent); color: #050505; border: none; padding: 12px 26px; border-radius: 50px;
+            font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 700; cursor: pointer;
+            display: inline-flex; align-items: center; gap: 8px; transition: all 0.25s var(--ease);
+            text-decoration: none;
+        }
+        .btn-luxe:hover { transform: translateY(-2px); box-shadow: 0 0 25px rgba(0,242,254,0.4); }
+
+        .btn-outline-luxe {
+            background: transparent; color: var(--white); border: 1px solid var(--border);
+            padding: 12px 24px; border-radius: 50px; font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.25s; text-decoration: none;
+            display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn-outline-luxe:hover { border-color: var(--accent); color: var(--accent); }
+
+        /* Neobrutal Box */
+        .neobrutal-box {
+            background: #0F1015; border: 3px solid var(--accent); border-radius: 14px;
+            padding: 30px; box-shadow: 6px 6px 0px 0px var(--accent); text-align: left;
+            transition: all 0.2s;
+        }
+        .neobrutal-box:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0px 0px var(--accent); }
+
+        /* Terminal Window */
+        .term-window {
+            background: #0B0E14; border: 1px solid #30363D; border-radius: 16px; overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8); text-align: left;
+        }
+        .term-bar {
+            background: #161B22; padding: 10px 16px; display: flex; align-items: center; gap: 8px;
+            border-bottom: 1px solid #30363D;
+        }
+        .dot-red { width: 10px; height: 10px; border-radius: 50%; background: #FF5F56; display: inline-block; }
+        .dot-yellow { width: 10px; height: 10px; border-radius: 50%; background: #FFBD2E; display: inline-block; }
+        .dot-green { width: 10px; height: 10px; border-radius: 50%; background: #27C93F; display: inline-block; }
+        .term-content {
+            padding: 22px; font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; line-height: 1.6; color: #C9D1D9;
+        }
+
+        /* Floating Selection Tray at Bottom */
+        .selection-tray {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 999;
+            background: rgba(14, 16, 22, 0.95); border: 1px solid var(--accent);
+            border-radius: 50px; padding: 12px 28px; display: flex; align-items: center; gap: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8), 0 0 25px rgba(0,242,254,0.25);
+        }
+        .tray-text { font-family: 'Space Grotesk'; font-size: 0.85rem; color: var(--white); }
+        .tray-text span { color: var(--accent); font-weight: 700; }
+    </style>
+</head>
+<body>
+
+    <!-- ═══ TOP CONTROL DECK (SECTIONS & VARIATIONS) ═══ -->
+    <header class="studio-topbar">
+        <div class="topbar-row-1">
+            <div class="topbar-brand">
+                <span>M.</span> Manish Kumar Soni <span class="topbar-badge">MASTER PORTFOLIO STUDIO</span>
+            </div>
+            <div style="display:flex; gap:12px; align-items:center;">
+                <a href="index.html" style="color:var(--muted); text-decoration:none; font-family:'Space Grotesk'; font-size:0.8rem;">
+                    <i class="fas fa-home"></i> Main Site
+                </a>
+                <a href="skills-variations.html" style="color:var(--accent); text-decoration:none; font-family:'Space Grotesk'; font-size:0.8rem;">
+                    <i class="fas fa-layer-group"></i> Skills 8-Lab
+                </a>
+            </div>
+        </div>
+
+        <!-- 8 Portfolio Sections Switcher -->
+        <div class="section-tabs-bar">
+            <button class="section-tab-btn active" onclick="switchSection('hero')"><i class="fas fa-sparkles"></i> 1. Hero Section</button>
+            <button class="section-tab-btn" onclick="switchSection('about')"><i class="fas fa-user-astronaut"></i> 2. About &amp; Bio</button>
+            <button class="section-tab-btn" onclick="switchSection('skills')"><i class="fas fa-bolt"></i> 3. Technical Skills</button>
+            <button class="section-tab-btn" onclick="switchSection('process')"><i class="fas fa-diagram-project"></i> 4. How I Build</button>
+            <button class="section-tab-btn" onclick="switchSection('projects')"><i class="fas fa-cube"></i> 5. Case Studies</button>
+            <button class="section-tab-btn" onclick="switchSection('experiments')"><i class="fas fa-flask"></i> 6. Side Projects</button>
+            <button class="section-tab-btn" onclick="switchSection('education')"><i class="fas fa-graduation-cap"></i> 7. Education</button>
+            <button class="section-tab-btn" onclick="switchSection('contact')"><i class="fas fa-paper-plane"></i> 8. Contact &amp; Footer</button>
+        </div>
+
+        <!-- 8 Variations Sub-Tabs -->
+        <div class="var-subtabs-bar" id="var-subtabs-container">
+            <button class="var-subtab-btn active" onclick="switchVarTab(1)">Var 01</button>
+            <button class="var-subtab-btn" onclick="switchVarTab(2)">Var 02</button>
+            <button class="var-subtab-btn" onclick="switchVarTab(3)">Var 03</button>
+            <button class="var-subtab-btn" onclick="switchVarTab(4)">Var 04</button>
+            <button class="var-subtab-btn" onclick="switchVarTab(5)">Var 05</button>
+            <button class="var-subtab-btn" onclick="switchVarTab(6)">Var 06</button>
+            <button class="var-subtab-btn" onclick="switchVarTab(7)">Var 07</button>
+            <button class="var-subtab-btn" onclick="switchVarTab(8)">Var 08</button>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <!-- =========================================================================
+             SECTION 1: HERO SECTION (8 VARIATIONS)
+             ========================================================================= -->
+        <div id="sec-hero" class="section-view-container active">
+            <div class="studio-header">
+                <span class="studio-tag">Section 01 // First Impression</span>
+                <h1 class="studio-heading">Hero Section Variations</h1>
+                <p class="studio-desc">Explore 8 distinct, fully-rendered introductory hero layouts tailored for Manish Kumar Soni.</p>
+            </div>
+
+            <!-- Hero Var 1: Cyber-Dark Luxe with Portrait Halo -->
+            <div id="hero-var1" class="variation-pane active">
+                <div class="glass-box" style="display:grid; grid-template-columns:1.2fr 0.8fr; gap:40px; align-items:center;">
+                    <div>
+                        <div style="display:inline-flex; align-items:center; gap:8px; background:rgba(0,242,254,0.1); border:1px solid rgba(0,242,254,0.3); padding:4px 14px; border-radius:50px; font-family:'JetBrains Mono'; font-size:0.75rem; color:var(--accent); margin-bottom:18px;">
+                            <span style="width:6px; height:6px; border-radius:50%; background:var(--accent); box-shadow:0 0 8px var(--accent);"></span> AVAILABLE FOR JUNIOR ROLES &amp; INTERNSHIPS
+                        </div>
+                        <h1 style="font-family:'Cormorant Garamond',serif; font-size:3.6rem; font-weight:300; line-height:1.1; margin-bottom:14px;">
+                            Building Modern Web &amp; <span style="color:var(--accent); font-style:italic;">AI Applications.</span>
+                        </h1>
+                        <p style="color:var(--muted); font-size:1rem; line-height:1.6; margin-bottom:28px; max-width:500px;">
+                            Hi, I'm <strong>Manish Kumar Soni</strong>. A web developer building fast, responsive web applications, integrating modern AI models, and shipping clean software interfaces.
+                        </p>
+                        <div style="display:flex; gap:14px; flex-wrap:wrap;">
+                            <button onclick="alert('Navigating to Projects...')" class="btn-luxe">Explore Projects &rarr;</button>
+                            <a href="https://github.com/manishkumarsoni7" target="_blank" class="btn-outline-luxe"><i class="fab fa-github"></i> GitHub Profile</a>
+                        </div>
+                    </div>
+                    <div style="text-align:center;">
+                        <div style="width:280px; height:280px; margin:0 auto; border-radius:50%; padding:8px; border:1px solid rgba(0,242,254,0.3); box-shadow:0 0 50px rgba(0,242,254,0.25);">
+                            <img src="manish.jpg" alt="Manish Kumar Soni" style="width:100%; height:100%; border-radius:50%; object-fit:cover;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Var 2: Bento Grid Kinetic Hero -->
+            <div id="hero-var2" class="variation-pane">
+                <div style="display:grid; grid-template-columns:repeat(12, 1fr); gap:18px; text-align:left;">
+                    <div class="glass-box" style="grid-column:span 8; display:flex; flex-direction:column; justify-content:space-between;">
+                        <div>
+                            <span style="font-family:'JetBrains Mono'; font-size:0.75rem; color:var(--accent); letter-spacing:2px;">BENTO KINETIC HERO</span>
+                            <h2 style="font-family:'Syne'; font-size:2.8rem; font-weight:700; margin:10px 0 14px 0;">Manish Kumar Soni</h2>
+                            <p style="color:var(--muted); font-size:1rem; line-height:1.6; max-width:540px;">Developer specialized in Next.js 15, Supabase, and Generative AI systems. Writing clean code that solves real problems.</p>
+                        </div>
+                        <div style="display:flex; gap:12px; margin-top:30px;">
+                            <button class="btn-luxe">View Deployments &rarr;</button>
+                            <a href="https://www.linkedin.com/in/manishkumarsoni7" target="_blank" class="btn-outline-luxe"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                        </div>
+                    </div>
+                    <div class="glass-box" style="grid-column:span 4; text-align:center;">
+                        <img src="manish.jpg" alt="Manish" style="width:130px; height:130px; border-radius:50%; object-fit:cover; margin-bottom:14px; border:2px solid var(--accent);" />
+                        <h4 style="font-family:'Space Grotesk'; font-size:1.1rem; color:var(--white);">Web Developer &amp; AI Builder</h4>
+                        <p style="font-size:0.8rem; color:var(--muted); margin-top:4px;">Chaube, Jharkhand &bull; Open for Remote</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Var 3: Big Editorial Serif -->
+            <div id="hero-var3" class="variation-pane">
+                <div class="glass-box" style="text-align:center; padding:60px 30px;">
+                    <span style="font-family:'Space Grotesk'; font-size:0.8rem; letter-spacing:4px; color:var(--accent); text-transform:uppercase;">CRAFTING DIGITAL EXPERIENCES</span>
+                    <h1 style="font-family:'Cormorant Garamond',serif; font-size:4.5rem; font-weight:300; line-height:1.05; margin:16px 0 20px 0;">
+                        Code. Design. Intelligence.
+                    </h1>
+                    <p style="color:var(--muted); font-size:1.1rem; max-width:600px; margin:0 auto 35px auto;">
+                        Manish Kumar Soni is a web engineer bridging the gap between polished user interfaces and modern AI intelligence pipelines.
+                    </p>
+                    <div style="display:flex; justify-content:center; gap:16px;">
+                        <button class="btn-luxe">Discover Works</button>
+                        <a href="https://github.com/manishkumarsoni7" target="_blank" class="btn-outline-luxe">GitHub Repos</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Var 4: Developer IDE Terminal Hero -->
+            <div id="hero-var4" class="variation-pane">
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; text-align:left;">
+                    <div class="glass-box" style="display:flex; flex-direction:column; justify-content:center;">
+                        <span style="font-family:'JetBrains Mono'; font-size:0.8rem; color:var(--accent);">$ whoami</span>
+                        <h2 style="font-family:'Syne'; font-size:2.5rem; margin:10px 0;">Manish Kumar Soni</h2>
+                        <p style="color:var(--muted); font-size:0.95rem; line-height:1.6; margin-bottom:24px;">Full-stack frontend builder passionate about React, Next.js, and autonomous AI agents.</p>
+                        <div style="display:flex; gap:12px;">
+                            <button onclick="runHeroCode()" class="btn-luxe"><i class="fas fa-play"></i> Run Code Diagnostic</button>
+                        </div>
+                    </div>
+                    <div class="term-window">
+                        <div class="term-bar"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span><span style="font-family:'JetBrains Mono'; font-size:0.72rem; color:#888;">developer_spec.js</span></div>
+                        <div class="term-content" id="hero-term-code">
+<span style="color:#7EE787;">const</span> developer = {
+  name: <span style="color:#A5D6FF;">"Manish Kumar Soni"</span>,
+  title: <span style="color:#A5D6FF;">"Web Developer &amp; AI Builder"</span>,
+  stack: [<span style="color:#79C0FF;">"Next.js 15"</span>, <span style="color:#79C0FF;">"React"</span>, <span style="color:#79C0FF;">"Python"</span>, <span style="color:#79C0FF;">"Supabase"</span>],
+  status: <span style="color:#7EE787;">"Ready to build software"</span>
+};
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Var 5: Apple Cupertino Minimalist -->
+            <div id="hero-var5" class="variation-pane">
+                <div class="glass-box" style="text-align:center; padding:50px;">
+                    <div style="display:inline-block; background:#000; border:1px solid rgba(255,255,255,0.15); padding:6px 18px; border-radius:50px; font-size:0.8rem; margin-bottom:20px;">
+                        🍎 Engineered for Speed, Accessibility &amp; UX
+                    </div>
+                    <h1 style="font-family:'Syne'; font-size:3.4rem; font-weight:800; letter-spacing:-1px; margin-bottom:14px;">
+                        Manish Kumar Soni
+                    </h1>
+                    <p style="color:var(--muted); font-size:1.05rem; max-width:580px; margin:0 auto 30px auto;">
+                        Web developer creating intuitive software products with React, Next.js, and OpenAI APIs.
+                    </p>
+                    <div style="display:flex; justify-content:center; gap:14px;">
+                        <button class="btn-luxe" style="background:#FFF; color:#000;">View Portfolio</button>
+                        <a href="https://www.instagram.com/themanish.ai" target="_blank" class="btn-outline-luxe"><i class="fab fa-instagram"></i> Instagram</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Var 6: Neobrutalist High-Contrast -->
+            <div id="hero-var6" class="variation-pane">
+                <div class="neobrutal-box">
+                    <span style="background:var(--accent); color:#000; font-family:'Space Grotesk'; font-weight:800; font-size:0.75rem; padding:4px 10px; border-radius:4px; text-transform:uppercase;">NEOBRUTAL EDITION</span>
+                    <h1 style="font-family:'Syne'; font-size:3.2rem; font-weight:800; margin:14px 0 10px 0;">MANISH KUMAR SONI</h1>
+                    <p style="font-size:1.1rem; color:#DDD; margin-bottom:24px; max-width:650px;">Building uncompromising web software with clean structure, high contrast, and tactile feedback.</p>
+                    <button class="btn-luxe" style="border-radius:0; border:2px solid #000; box-shadow:4px 4px 0px #000;">SEE MY WORK &rarr;</button>
+                </div>
+            </div>
+
+            <!-- Hero Var 7: Sci-Fi Holographic Command Center -->
+            <div id="hero-var7" class="variation-pane">
+                <div class="glass-box" style="border-color:var(--accent); background:radial-gradient(circle at 80% 20%, rgba(0,242,254,0.08), transparent 60%), #0A0C12;">
+                    <div style="font-family:'JetBrains Mono'; font-size:0.72rem; color:var(--accent); margin-bottom:12px;">SYSTEM STATUS: ONLINE // NODE #07</div>
+                    <h2 style="font-family:'Space Grotesk'; font-size:2.8rem; font-weight:700; margin-bottom:12px;">MANISH // DEV_INTERFACE</h2>
+                    <p style="color:var(--muted); font-size:0.95rem; max-width:550px; line-height:1.6; margin-bottom:24px;">Specializing in Next.js frontend telemetry, AI retrieval pipelines, and full-stack reactive components.</p>
+                    <button class="btn-luxe"><i class="fas fa-terminal"></i> INITIALIZE SESSION</button>
+                </div>
+            </div>
+
+            <!-- Hero Var 8: Obsidian Minimalist Tech -->
+            <div id="hero-var8" class="variation-pane">
+                <div class="glass-box" style="background:#08090C; padding:55px 40px;">
+                    <h4 style="font-family:'JetBrains Mono'; font-size:0.85rem; color:var(--muted); margin-bottom:14px;">01 &mdash; INTRODUCTION</h4>
+                    <h1 style="font-family:'Cormorant Garamond',serif; font-size:3.8rem; font-weight:300; margin-bottom:16px;">
+                        Manish Kumar Soni
+                    </h1>
+                    <p style="color:var(--muted); font-size:1.05rem; line-height:1.7; max-width:620px; margin-bottom:30px;">
+                        A web developer focusing on deliberate aesthetics, sub-second performance, and pragmatic AI integration for modern web experiences.
+                    </p>
+                    <div style="display:flex; gap:16px;">
+                        <button class="btn-luxe">Selected Projects</button>
+                        <a href="https://github.com/manishkumarsoni7" target="_blank" class="btn-outline-luxe">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- =========================================================================
+             SECTION 2: ABOUT SECTION (8 VARIATIONS)
+             ========================================================================= -->
+        <div id="sec-about" class="section-view-container">
+            <div class="studio-header">
+                <span class="studio-tag">Section 02 // Identity &amp; Philosophy</span>
+                <h1 class="studio-heading">About &amp; Bio Variations</h1>
+                <p class="studio-desc">8 distinct ways to communicate who you are, your work philosophy, and your technical focus.</p>
+            </div>
+
+            <div id="about-var1" class="variation-pane active">
+                <div class="glass-box" style="display:grid; grid-template-columns:1fr 1fr; gap:30px;">
+                    <div>
+                        <span style="font-family:'Space Grotesk'; font-size:0.75rem; color:var(--accent); text-transform:uppercase;">THE DEVELOPER</span>
+                        <h2 style="font-family:'Syne'; font-size:2.2rem; margin:10px 0 14px 0;">Solving Problems With Code &amp; AI</h2>
+                        <p style="color:var(--muted); font-size:0.92rem; line-height:1.7;">I build modern web software focusing on real usability rather than superficial flash. My work combines clean Next.js frontends with Supabase backends and AI workflow automations.</p>
+                    </div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+                        <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:12px; padding:18px;">
+                            <h3 style="font-family:'JetBrains Mono'; font-size:1.8rem; color:var(--accent);">422/500</h3>
+                            <p style="font-size:0.8rem; color:var(--muted);">Senior Secondary (12th) 2026</p>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:12px; padding:18px;">
+                            <h3 style="font-family:'JetBrains Mono'; font-size:1.8rem; color:var(--accent);">434/500</h3>
+                            <p style="font-size:0.8rem; color:var(--muted);">Secondary (10th) 2024</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="about-var2" class="variation-pane">
+                <div class="glass-box">
+                    <span style="font-family:'JetBrains Mono'; font-size:0.75rem; color:var(--accent);">BENTO STORY</span>
+                    <h3 style="font-family:'Syne'; font-size:1.8rem; margin:8px 0 18px 0;">3 Core Principles</h3>
+                    <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:16px;">
+                        <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border); padding:20px; border-radius:12px;">
+                            <h4 style="color:var(--accent); font-size:1rem; margin-bottom:8px;">01. Clarity First</h4>
+                            <p style="font-size:0.85rem; color:var(--muted);">Clear code, accessible UI, and logical architecture over bloated complexity.</p>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border); padding:20px; border-radius:12px;">
+                            <h4 style="color:var(--accent); font-size:1rem; margin-bottom:8px;">02. Pragmatic AI</h4>
+                            <p style="font-size:0.85rem; color:var(--muted);">Integrating LLMs to automate real workflows, not just as cosmetic gimmicks.</p>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border); padding:20px; border-radius:12px;">
+                            <h4 style="color:var(--accent); font-size:1rem; margin-bottom:8px;">03. Continuous Ship</h4>
+                            <p style="font-size:0.85rem; color:var(--muted);">Iterating rapidly on Vercel with clean Git commits and reliable deployments.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="about-var3" class="variation-pane">
+                <div class="glass-box" style="text-align:center; padding:45px;">
+                    <span style="font-family:'Space Grotesk'; font-size:0.75rem; color:var(--accent); letter-spacing:2px;">DEVELOPER MANIFESTO</span>
+                    <blockquote style="font-family:'Cormorant Garamond'; font-size:2.2rem; font-style:italic; margin:16px 0; color:var(--white);">
+                        "Software should be intuitive, fast, and respectful of the user's attention."
+                    </blockquote>
+                    <p style="color:var(--muted); max-width:600px; margin:0 auto; font-size:0.95rem;">Manish builds web applications that prioritize honest technical execution, clean responsive design, and practical AI automation.</p>
+                </div>
+            </div>
+
+            <div id="about-var4" class="variation-pane">
+                <div class="glass-box">
+                    <span style="font-family:'Space Grotesk'; font-size:0.75rem; color:var(--accent);">ROADMAP PATHWAY</span>
+                    <h3 style="font-family:'Syne'; font-size:1.8rem; margin:10px 0 20px 0;">Developer Journey</h3>
+                    <div style="display:flex; flex-direction:column; gap:14px;">
+                        <div style="border-left:2px solid var(--accent); padding-left:16px;">
+                            <span style="font-size:0.75rem; color:var(--accent); font-family:'JetBrains Mono';">2026 &bull; CURRENT FOCUS</span>
+                            <h4 style="color:#FFF; font-size:1rem;">Next.js 15, AI Retrieval Pipelines &amp; Supabase pgvector</h4>
+                        </div>
+                        <div style="border-left:2px solid var(--border); padding-left:16px;">
+                            <span style="font-size:0.75rem; color:var(--muted); font-family:'JetBrains Mono';">2024 - 2025</span>
+                            <h4 style="color:#FFF; font-size:1rem;">Full-Stack JavaScript (ES6+), React Ecosystem &amp; Python Scripting</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="about-var5" class="variation-pane">
+                <div class="glass-box">
+                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px;">
+                        <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border); padding:20px; border-radius:14px;">
+                            <h4 style="color:var(--accent); font-family:'JetBrains Mono'; font-size:1.8rem;">100%</h4>
+                            <p style="font-size:0.85rem; color:var(--muted); margin-top:4px;">Responsive Mobile &amp; Desktop</p>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border); padding:20px; border-radius:14px;">
+                            <h4 style="color:var(--accent); font-family:'JetBrains Mono'; font-size:1.8rem;">60 FPS</h4>
+                            <p style="font-size:0.85rem; color:var(--muted); margin-top:4px;">Hardware Accelerated Physics</p>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border); padding:20px; border-radius:14px;">
+                            <h4 style="color:var(--accent); font-family:'JetBrains Mono'; font-size:1.8rem;">Vercel</h4>
+                            <p style="font-size:0.85rem; color:var(--muted); margin-top:4px;">Continuous Automated CI/CD</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="about-var6" class="variation-pane">
+                <div class="neobrutal-box">
+                    <h3 style="font-family:'Syne'; font-size:1.8rem; margin-bottom:12px;">FACTS &amp; STACK</h3>
+                    <p style="font-size:0.95rem; color:#DDD; margin-bottom:16px;">Manish is a web developer based in Chaube, India, building modern frontend and AI solutions with React, Next.js, and Python.</p>
+                    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                        <span style="background:var(--accent); color:#000; padding:4px 10px; font-weight:700; font-size:0.8rem;">Fast Learner</span>
+                        <span style="background:#FFF; color:#000; padding:4px 10px; font-weight:700; font-size:0.8rem;">Honest Builder</span>
+                        <span style="background:#8A2BE2; color:#FFF; padding:4px 10px; font-weight:700; font-size:0.8rem;">AI Enthusiast</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="about-var7" class="variation-pane">
+                <div class="term-window">
+                    <div class="term-bar"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span><span style="font-family:'JetBrains Mono'; font-size:0.72rem; color:#888;">manish_bio.sh</span></div>
+                    <div class="term-content">
+$ cat /etc/identity<br/>
+<span style="color:#7EE787;">NAME:</span> Manish Kumar Soni<br/>
+<span style="color:#7EE787;">ROLE:</span> Web Developer &amp; AI Builder<br/>
+<span style="color:#7EE787;">LOCATION:</span> Chaube, Jharkhand, India<br/>
+<span style="color:#7EE787;">GOAL:</span> Build reliable, accessible software products that make a real difference.
+                    </div>
+                </div>
+            </div>
+
+            <div id="about-var8" class="variation-pane">
+                <div class="glass-box" style="background:#08090C;">
+                    <h4 style="font-family:'JetBrains Mono'; font-size:0.8rem; color:var(--accent); margin-bottom:8px;">02 &mdash; BIO OVERVIEW</h4>
+                    <p style="font-size:1.1rem; color:var(--white); line-height:1.7;">Developer focused on craft, clean code, and solving real user workflows using modern web technologies and AI integrations.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- =========================================================================
+             SECTION 3: TECHNICAL SKILLS (8 VARIATIONS)
+             ========================================================================= -->
+        <div id="sec-skills" class="section-view-container">
+            <div class="studio-header">
+                <span class="studio-tag">Section 03 // Capabilities</span>
+                <h1 class="studio-heading">Technical Skills (8 Variations)</h1>
+                <p class="studio-desc">8 distinctive styles for showcasing your frontend, backend, AI, and DevOps capabilities.</p>
+            </div>
+
+            <!-- Bento Matrix -->
+            <div id="skills-var1" class="variation-pane active">
+                <div style="display:grid; grid-template-columns:repeat(12, 1fr); gap:18px;">
+                    <div class="glass-box" style="grid-column:span 8;">
+                        <h4 style="font-family:'Syne'; font-size:1.3rem; margin-bottom:14px;"><i class="fab fa-react" style="color:var(--accent);"></i> Web Architecture &amp; Next.js 15</h4>
+                        <div style="display:flex; flex-direction:column; gap:10px;">
+                            <div><div style="display:flex; justify-content:space-between; font-size:0.82rem;"><span>HTML5 &amp; CSS3</span><span style="color:var(--accent);">95%</span></div><div style="height:6px; background:#222; border-radius:10px; margin-top:4px;"><div style="width:95%; height:100%; background:var(--accent); border-radius:10px;"></div></div></div>
+                            <div><div style="display:flex; justify-content:space-between; font-size:0.82rem;"><span>JavaScript ES6+</span><span style="color:var(--accent);">88%</span></div><div style="height:6px; background:#222; border-radius:10px; margin-top:4px;"><div style="width:88%; height:100%; background:var(--accent); border-radius:10px;"></div></div></div>
+                            <div><div style="display:flex; justify-content:space-between; font-size:0.82rem;"><span>React &amp; Next.js 15</span><span style="color:var(--accent);">85%</span></div><div style="height:6px; background:#222; border-radius:10px; margin-top:4px;"><div style="width:85%; height:100%; background:var(--accent); border-radius:10px;"></div></div></div>
+                        </div>
+                    </div>
+                    <div class="glass-box" style="grid-column:span 4;">
+                        <h4 style="font-family:'Syne'; font-size:1.3rem; margin-bottom:14px;"><i class="fas fa-brain" style="color:#A855F7;"></i> AI APIs &amp; Python</h4>
+                        <div style="display:flex; flex-direction:column; gap:10px;">
+                            <div><div style="display:flex; justify-content:space-between; font-size:0.82rem;"><span>AI APIs &amp; Agents</span><span style="color:var(--accent);">84%</span></div><div style="height:6px; background:#222; border-radius:10px; margin-top:4px;"><div style="width:84%; height:100%; background:var(--accent); border-radius:10px;"></div></div></div>
+                            <div><div style="display:flex; justify-content:space-between; font-size:0.82rem;"><span>Python 3</span><span style="color:var(--accent);">80%</span></div><div style="height:6px; background:#222; border-radius:10px; margin-top:4px;"><div style="width:80%; height:100%; background:var(--accent); border-radius:10px;"></div></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orbital 3D -->
+            <div id="skills-var2" class="variation-pane">
+                <div class="glass-box" style="text-align:center; padding:40px;">
+                    <h3 style="font-family:'Syne'; font-size:1.8rem; margin-bottom:10px;">3D Orbital Radar View</h3>
+                    <p style="color:var(--muted); font-size:0.9rem; margin-bottom:20px;">Open full interactive constellation radar on dedicated page.</p>
+                    <a href="skills-variations.html" class="btn-luxe">Open Orbital 3D Lab &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Tactile LEDs -->
+            <div id="skills-var3" class="variation-pane">
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px;">
+                    <div class="glass-box" style="padding:20px;"><div style="display:flex; justify-content:space-between;"><span>HTML5</span><span style="color:var(--accent);">95%</span></div><div style="display:flex; gap:3px; margin-top:10px;"><span style="flex:1; height:6px; background:var(--accent); border-radius:2px;"></span><span style="flex:1; height:6px; background:var(--accent); border-radius:2px;"></span><span style="flex:1; height:6px; background:var(--accent); border-radius:2px;"></span><span style="flex:1; height:6px; background:var(--accent); border-radius:2px;"></span><span style="flex:1; height:6px; background:#222; border-radius:2px;"></span></div></div>
+                    <div class="glass-box" style="padding:20px;"><div style="display:flex; justify-content:space-between;"><span>CSS3</span><span style="color:var(--accent);">92%</span></div><div style="display:flex; gap:3px; margin-top:10px;"><span style="flex:1; height:6px; background:var(--accent); border-radius:2px;"></span><span style="flex:1; height:6px; background:var(--accent); border-radius:2px;"></span><span style="flex:1; height:6px; background:var(--accent); border-radius:2px;"></span><span style="flex:1; height:6px; background:var(--accent); border-radius:2px;"></span><span style="flex:1; height:6px; background:#222; border-radius:2px;"></span></div></div>
+                    <div class="glass-box" style="padding:20px;"><div style="display:flex; justify-content:space-between;"><span>Next.js 15</span><span style="color:var(--accent);">85%</span></div><div style="display:flex; gap:3px; margin-top:10px;"><span style="flex:1; height:6px; background:var(--accent); border-radius:2px;"></span><span style="flex:1; height:6px; background:var(--accent); border-radius:2px;"></span><span style="flex:1; height:6px; background:var(--accent); border-radius:2px;"></span><span style="flex:1; height:6px; background:#222; border-radius:2px;"></span><span style="flex:1; height:6px; background:#222; border-radius:2px;"></span></div></div>
+                    <div class="glass-box" style="padding:20px;"><div style="display:flex; justify-content:space-between;"><span>AI APIs</span><span style="color:var(--accent);">84%</span></div><div style="display:flex; gap:3px; margin-top:10px;"><span style="flex:1; height:6px; background:var(--accent); border-radius:2px;"></span><span style="flex:1; height:6px; background:var(--accent); border-radius:2px;"></span><span style="flex:1; height:6px; background:var(--accent); border-radius:2px;"></span><span style="flex:1; height:6px; background:#222; border-radius:2px;"></span><span style="flex:1; height:6px; background:#222; border-radius:2px;"></span></div></div>
+                </div>
+            </div>
+
+            <!-- Obsidian Pyramid, Hex HUD, Apple Glass, Terminal, 3D Flip -->
+            <div id="skills-var4" class="variation-pane"><div class="glass-box"><h3>Obsidian Tier Hierarchy</h3><p style="color:var(--muted); margin-top:6px;">Tier 01 Core Web (95%) &bull; Tier 02 Frameworks &amp; AI (85%) &bull; Tier 03 Databases (78%).</p></div></div>
+            <div id="skills-var5" class="variation-pane"><div class="glass-box"><h3>Sci-Fi Hexagonal HUD</h3><p style="color:var(--muted); margin-top:6px;">Honeycomb modules with live diagnostic status.</p></div></div>
+            <div id="skills-var6" class="variation-pane"><div class="glass-box"><h3>Apple Glass with Dynamic Island</h3><p style="color:var(--muted); margin-top:6px;">Frosted glass tiles with status pills.</p></div></div>
+            <div id="skills-var7" class="variation-pane"><div class="glass-box"><h3>Terminal CLI Stack Inspector</h3><p style="color:var(--muted); margin-top:6px;">Bash console with real-time JSON diagnostics.</p></div></div>
+            <div id="skills-var8" class="variation-pane"><div class="glass-box"><h3>3D Perspective Flip Cards</h3><p style="color:var(--muted); margin-top:6px;">Cards that rotate 180 degrees on hover revealing production use cases.</p></div></div>
+        </div>
+
+        <!-- =========================================================================
+             SECTION 4: HOW I BUILD (8 VARIATIONS)
+             ========================================================================= -->
+        <div id="sec-process" class="section-view-container">
+            <div class="studio-header">
+                <span class="studio-tag">Section 04 // Methodology</span>
+                <h1 class="studio-heading">How I Build (8 Variations)</h1>
+                <p class="studio-desc">8 ways to demonstrate your 5-step engineering process.</p>
+            </div>
+
+            <!-- Process Var 1: 5-Step Linear Glass Cards -->
+            <div id="process-var1" class="variation-pane active">
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px;">
+                    <div class="glass-box" style="padding:22px;"><span style="color:var(--accent); font-family:'JetBrains Mono'; font-weight:700;">01</span><h4 style="margin:8px 0 4px 0;">UNDERSTAND</h4><p style="font-size:0.8rem; color:var(--muted);">Analyze requirements and architecture constraints.</p></div>
+                    <div class="glass-box" style="padding:22px;"><span style="color:var(--accent); font-family:'JetBrains Mono'; font-weight:700;">02</span><h4 style="margin:8px 0 4px 0;">DESIGN</h4><p style="font-size:0.8rem; color:var(--muted);">Structure layout, UX flows, and responsive tokens.</p></div>
+                    <div class="glass-box" style="padding:22px;"><span style="color:var(--accent); font-family:'JetBrains Mono'; font-weight:700;">03</span><h4 style="margin:8px 0 4px 0;">BUILD</h4><p style="font-size:0.8rem; color:var(--muted);">Code modular React components and clean CSS.</p></div>
+                    <div class="glass-box" style="padding:22px;"><span style="color:var(--accent); font-family:'JetBrains Mono'; font-weight:700;">04</span><h4 style="margin:8px 0 4px 0;">INTEGRATE</h4><p style="font-size:0.8rem; color:var(--muted);">Connect Supabase, OpenAI APIs, and endpoints.</p></div>
+                    <div class="glass-box" style="padding:22px;"><span style="color:var(--accent); font-family:'JetBrains Mono'; font-weight:700;">05</span><h4 style="margin:8px 0 4px 0;">SHIP</h4><p style="font-size:0.8rem; color:var(--muted);">Deploy to Vercel, verify viewports, and iterate.</p></div>
+                </div>
+            </div>
+
+            <!-- Process Var 2 to 8 -->
+            <div id="process-var2" class="variation-pane"><div class="glass-box"><h3>Interactive Stepper Pipeline</h3><p style="color:var(--muted); margin-top:6px;">Click steps 01-05 to view live active deliverables and code outputs.</p></div></div>
+            <div id="process-var3" class="variation-pane"><div class="glass-box"><h3>Connected Circuit Snake Diagram</h3><p style="color:var(--muted); margin-top:6px;">Glowing connected pipeline nodes.</p></div></div>
+            <div id="process-var4" class="variation-pane"><div class="neobrutal-box"><h3>Neobrutal Action Blocks</h3><p style="color:#DDD; margin-top:6px;">Chunky offset numbers with physical click physics.</p></div></div>
+            <div id="process-var5" class="variation-pane"><div class="term-window"><div class="term-bar"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span></div><div class="term-content">$ git commit -m "feat: ship v1.0"<br/>[main 8a1f2] deploying to Vercel Edge... Done in 18s.</div></div></div>
+            <div id="process-var6" class="variation-pane"><div class="glass-box"><h3>Circular Agile Sprint Wheel</h3><p style="color:var(--muted); margin-top:6px;">Continuous iteration loop.</p></div></div>
+            <div id="process-var7" class="variation-pane"><div class="glass-box"><h3>Vertical Engineering Roadmap</h3><p style="color:var(--muted); margin-top:6px;">Numbered timeline checkpoints.</p></div></div>
+            <div id="process-var8" class="variation-pane"><div class="glass-box"><h3>Apple Frosted Glass Carousel</h3><p style="color:var(--muted); margin-top:6px;">Smooth sliding cards with icons.</p></div></div>
+        </div>
+
+        <!-- =========================================================================
+             SECTION 5: CASE STUDIES & PROJECTS (8 VARIATIONS)
+             ========================================================================= -->
+        <div id="sec-projects" class="section-view-container">
+            <div class="studio-header">
+                <span class="studio-tag">Section 05 // Selected Works</span>
+                <h1 class="studio-heading">Projects &amp; Case Studies (8 Variations)</h1>
+                <p class="studio-desc">8 layout designs to present AutoDoc AI, DevFlow Studio, and OmniUI.</p>
+            </div>
+
+            <!-- Project Var 1: Cyber-Dark Live App Cards -->
+            <div id="projects-var1" class="variation-pane active">
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:22px;">
+                    <div class="glass-box">
+                        <span style="font-family:'Space Grotesk'; font-size:0.75rem; color:var(--accent);">AI RAG PLATFORM</span>
+                        <h3 style="font-family:'Syne'; font-size:1.4rem; margin:8px 0 10px 0;">AutoDoc AI</h3>
+                        <p style="font-size:0.88rem; color:var(--muted); margin-bottom:20px;">Document intelligence &amp; Q&amp;A platform with verified semantic citations.</p>
+                        <div style="display:flex; gap:10px;">
+                            <a href="index.html" class="btn-luxe" style="font-size:0.8rem; padding:8px 18px;"><i class="fas fa-play"></i> Try Live App</a>
+                            <a href="https://github.com/manishkumarsoni7" target="_blank" class="btn-outline-luxe" style="font-size:0.8rem; padding:8px 18px;">GitHub</a>
+                        </div>
+                    </div>
+                    <div class="glass-box">
+                        <span style="font-family:'Space Grotesk'; font-size:0.75rem; color:var(--accent);">DEVELOPER TOOL</span>
+                        <h3 style="font-family:'Syne'; font-size:1.4rem; margin:8px 0 10px 0;">DevFlow Studio</h3>
+                        <p style="font-size:0.88rem; color:var(--muted); margin-bottom:20px;">Live in-browser REST API testing client &amp; webhook payload inspector.</p>
+                        <div style="display:flex; gap:10px;">
+                            <a href="index.html" class="btn-luxe" style="font-size:0.8rem; padding:8px 18px;"><i class="fas fa-play"></i> Try Live App</a>
+                            <a href="https://github.com/manishkumarsoni7" target="_blank" class="btn-outline-luxe" style="font-size:0.8rem; padding:8px 18px;">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Var 2 to 8 -->
+            <div id="projects-var2" class="variation-pane"><div class="glass-box"><h3>Full-Width Editorial Magazine</h3><p style="color:var(--muted); margin-top:6px;">High-impact case studies with architectural problem &amp; solution breakdowns.</p></div></div>
+            <div id="projects-var3" class="variation-pane"><div class="glass-box"><h3>Asymmetric Project Bento Grid</h3><p style="color:var(--muted); margin-top:6px;">Live code previews embedded directly within card cells.</p></div></div>
+            <div id="projects-var4" class="variation-pane"><div class="glass-box"><h3>Browser Window Mockup Frames</h3><p style="color:var(--muted); margin-top:6px;">Simulated browser windows with URL bars and responsive controls.</p></div></div>
+            <div id="projects-var5" class="variation-pane"><div class="neobrutal-box"><h3>Neobrutalist Chunky Cards</h3><p style="color:#DDD; margin-top:6px;">High-energy thick borders with sticker tags and solid offset shadows.</p></div></div>
+            <div id="projects-var6" class="variation-pane"><div class="glass-box"><h3>3D Perspective Kinetic Slider</h3><p style="color:var(--muted); margin-top:6px;">3D rotating carousel reacting to cursor movements.</p></div></div>
+            <div id="projects-var7" class="variation-pane"><div class="glass-box"><h3>Minimalist Typography List with Hover Image Drawer</h3><p style="color:var(--muted); margin-top:6px;">Hovering any project name reveals a floating screenshot drawer.</p></div></div>
+            <div id="projects-var8" class="variation-pane"><div class="term-window"><div class="term-bar"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span></div><div class="term-content">$ npx run autodoc-ai<br/>$ npx run devflow-studio<br/>Launching local browser demo sandbox...</div></div></div>
+        </div>
+
+        <!-- =========================================================================
+             SECTION 6: EXPERIMENTS (8 VARIATIONS)
+             ========================================================================= -->
+        <div id="sec-experiments" class="section-view-container">
+            <div class="studio-header"><span class="studio-tag">Section 06 // Labs</span><h1 class="studio-heading">Side Projects &amp; Experiments (8 Variations)</h1></div>
+            <div id="experiments-var1" class="variation-pane active"><div class="glass-box"><h3>3-Column Glass Utility Cards</h3><p style="color:var(--muted); margin-top:6px;">AI Prompt Context Optimizer, Webhook Inspector, and n8n Flow Kit.</p></div></div>
+            <div id="experiments-var2" class="variation-pane"><div class="glass-box"><h3>GitHub Repository Cards</h3><p style="color:var(--muted); margin-top:6px;">Live stars, forks, and last commit dates.</p></div></div>
+            <div id="experiments-var3" class="variation-pane"><div class="glass-box"><h3>Compact Interactive Tool Dock</h3><p style="color:var(--muted); margin-top:6px;">In-browser prompt token optimizer utility.</p></div></div>
+            <div id="experiments-var4" class="variation-pane"><div class="glass-box"><h3>Minimalist Audio-Visual Matrix</h3></div></div>
+            <div id="experiments-var5" class="variation-pane"><div class="neobrutal-box"><h3>Sticky Note Lab Matrix</h3></div></div>
+            <div id="experiments-var6" class="variation-pane"><div class="glass-box"><h3>Horizontal Infinite Marquee Deck</h3></div></div>
+            <div id="experiments-var7" class="variation-pane"><div class="term-window"><div class="term-bar"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span></div><div class="term-content">$ manish --experiments<br/>[1] PromptLens Optimizer<br/>[2] Webhook Listener</div></div></div>
+            <div id="experiments-var8" class="variation-pane"><div class="glass-box"><h3>Obsidian Glass Accordion</h3></div></div>
+        </div>
+
+        <!-- =========================================================================
+             SECTION 7: EDUCATION (8 VARIATIONS)
+             ========================================================================= -->
+        <div id="sec-education" class="section-view-container">
+            <div class="studio-header"><span class="studio-tag">Section 07 // Credentials</span><h1 class="studio-heading">Education &amp; Credentials (8 Variations)</h1></div>
+            <div id="education-var1" class="variation-pane active">
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+                    <div class="glass-box"><span style="color:var(--accent); font-family:'Space Grotesk'; font-size:0.75rem;">COMPLETED 2026</span><h3 style="font-family:'Syne'; font-size:1.4rem; margin:6px 0;">Senior Secondary (12th)</h3><p style="color:var(--muted); font-size:0.85rem;">UPG +2 High School, Chaube</p><div style="font-family:'JetBrains Mono'; font-size:1.4rem; color:var(--accent); margin-top:12px; font-weight:700;">Score: 422 / 500</div></div>
+                    <div class="glass-box"><span style="color:var(--accent); font-family:'Space Grotesk'; font-size:0.75rem;">COMPLETED 2024</span><h3 style="font-family:'Syne'; font-size:1.4rem; margin:6px 0;">Secondary (10th)</h3><p style="color:var(--muted); font-size:0.85rem;">UPG +2 High School, Chaube</p><div style="font-family:'JetBrains Mono'; font-size:1.4rem; color:var(--accent); margin-top:12px; font-weight:700;">Score: 434 / 500</div></div>
+                </div>
+            </div>
+            <div id="education-var2" class="variation-pane"><div class="glass-box"><h3>Verified Certificate Badge Ribbon</h3></div></div>
+            <div id="education-var3" class="variation-pane"><div class="glass-box"><h3>Academic Pathway Timeline (2024 &rarr; 2026)</h3></div></div>
+            <div id="education-var4" class="variation-pane"><div class="neobrutal-box"><h3>Neobrutal Academic Excellence Ledger</h3></div></div>
+            <div id="education-var5" class="variation-pane"><div class="glass-box"><h3>Apple Glass Clean Metric Tile</h3></div></div>
+            <div id="education-var6" class="variation-pane"><div class="term-window"><div class="term-bar"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span></div><div class="term-content">$ cat /etc/education<br/>12th: 422/500 (84.4%)<br/>10th: 434/500 (86.8%)</div></div></div>
+            <div id="education-var7" class="variation-pane"><div class="glass-box"><h3>Minimalist Luxury Obsidian Card with Gold Seal</h3></div></div>
+            <div id="education-var8" class="variation-pane"><div class="glass-box"><h3>Bento Academic Card with Distinction Badges</h3></div></div>
+        </div>
+
+        <!-- =========================================================================
+             SECTION 8: CONTACT & FOOTER (8 VARIATIONS)
+             ========================================================================= -->
+        <div id="sec-contact" class="section-view-container">
+            <div class="studio-header"><span class="studio-tag">Section 08 // Collaboration</span><h1 class="studio-heading">Contact &amp; Footer (8 Variations)</h1></div>
+            <div id="contact-var1" class="variation-pane active">
+                <div class="glass-box" style="display:grid; grid-template-columns:1fr 1fr; gap:30px;">
+                    <div>
+                        <span style="font-family:'Space Grotesk'; font-size:0.75rem; color:var(--accent);">GET IN TOUCH</span>
+                        <h3 style="font-family:'Syne'; font-size:1.8rem; margin:8px 0 14px 0;">Let's Build Together</h3>
+                        <p style="color:var(--muted); font-size:0.9rem; line-height:1.6; margin-bottom:20px;">Open for junior developer roles, internships, and freelance projects.</p>
+                        <div style="font-size:0.9rem; color:var(--white);"><i class="fab fa-github" style="color:var(--accent);"></i> github.com/manishkumarsoni7</div>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:12px;">
+                        <input type="text" placeholder="Your Name" style="background:#07080B; border:1px solid var(--border); padding:10px 14px; border-radius:8px; color:#FFF;" />
+                        <input type="email" placeholder="Your Email" style="background:#07080B; border:1px solid var(--border); padding:10px 14px; border-radius:8px; color:#FFF;" />
+                        <textarea placeholder="Your Message..." rows="3" style="background:#07080B; border:1px solid var(--border); padding:10px 14px; border-radius:8px; color:#FFF;"></textarea>
+                        <button class="btn-luxe">Send Dispatch &rarr;</button>
+                    </div>
+                </div>
+            </div>
+            <div id="contact-var2" class="variation-pane"><div class="term-window"><div class="term-bar"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span></div><div class="term-content">$ send --to manish --msg "Let's work together!"<br/>Message sent successfully.</div></div></div>
+            <div id="contact-var3" class="variation-pane"><div class="neobrutal-box"><h3>Neobrutal Direct Action Box ("Let's Build")</h3></div></div>
+            <div id="contact-var4" class="variation-pane"><div class="glass-box"><h3>Apple Glass Minimalist 1-Click Copy Card</h3></div></div>
+            <div id="contact-var5" class="variation-pane"><div class="glass-box"><h3>Interactive Meeting Scheduler UI</h3></div></div>
+            <div id="contact-var6" class="variation-pane"><div class="glass-box"><h3>Big Editorial Gradient CTA ("Have an idea?")</h3></div></div>
+            <div id="contact-var7" class="variation-pane"><div class="glass-box"><h3>Cyberpunk Secure Channel Dispatch</h3></div></div>
+            <div id="contact-var8" class="variation-pane"><div class="glass-box"><h3>Compact Quick-Connect Floating Dock</h3></div></div>
+        </div>
+
+    </div>
+
+    <!-- ═══ BOTTOM SELECTION TRAY ═══ -->
+    <div class="selection-tray">
+        <div class="tray-text">
+            Section: <span id="tray-sec-name">HERO</span> &bull; Active: <span id="tray-var-name">Variation 01</span>
+        </div>
+        <button onclick="saveSelection()" class="btn-luxe" style="padding:6px 18px; font-size:0.75rem;">
+            Select Style &check;
+        </button>
+    </div>
+
+    <script>
+        let currentSection = 'hero';
+        let currentVarIndex = 1;
+        const myPicks = { hero: 1, about: 1, skills: 1, process: 1, projects: 1, experiments: 1, education: 1, contact: 1 };
+
+        function switchSection(secId) {
+            currentSection = secId;
+            document.querySelectorAll('.section-view-container').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.section-tab-btn').forEach(b => b.classList.remove('active'));
+
+            const targetSec = document.getElementById('sec-' + secId);
+            if (targetSec) targetSec.classList.add('active');
+            if (event && event.currentTarget) event.currentTarget.classList.add('active');
+
+            switchVarTab(myPicks[secId] || 1);
+        }
+
+        function switchVarTab(idx) {
+            currentVarIndex = idx;
+            document.querySelectorAll('.var-subtab-btn').forEach(b => b.classList.remove('active'));
+            const btns = document.querySelectorAll('.var-subtab-btn');
+            if (btns[idx - 1]) btns[idx - 1].classList.add('active');
+
+            const secContainer = document.getElementById('sec-' + currentSection);
+            if (secContainer) {
+                secContainer.querySelectorAll('.variation-pane').forEach(p => p.classList.remove('active'));
+                const targetPane = document.getElementById(currentSection + '-var' + idx);
+                if (targetPane) targetPane.classList.add('active');
+            }
+            updateTray();
+        }
+
+        function updateTray() {
+            document.getElementById('tray-sec-name').textContent = currentSection.toUpperCase();
+            document.getElementById('tray-var-name').textContent = 'Variation 0' + currentVarIndex;
+        }
+
+        function saveSelection() {
+            myPicks[currentSection] = currentVarIndex;
+            alert(`Selected: ${currentSection.toUpperCase()} -> Variation 0${currentVarIndex}!\n\nYour Current Portfolio Composition:\n` + JSON.stringify(myPicks, null, 2));
+        }
+
+        function runHeroCode() {
+            const el = document.getElementById('hero-term-code');
+            el.innerHTML = '<span style="color:#7EE787;">[EXECUTING...]</span><br/>> Checking Next.js 15 SSR engine... OK<br/>> Connecting Supabase vector db... OK<br/>> OpenAI streaming pipeline... READY<br/><span style="color:#00f2fe;">>> All systems operational for Manish Kumar Soni.</span>';
+        }
+    </script>
+</body>
+</html>

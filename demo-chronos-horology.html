@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KRONOS & CO. — Haute Horlogerie & Bespoke Atelier | Geneva</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            syne: ['Syne', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"Space Mono"', 'monospace'],
+          },
+          colors: {
+            kronos: {
+              gold: '#D4AF37',
+              'gold-light': '#F3E5AB',
+              'gold-dark': '#997E25',
+              rosegold: '#E0A899',
+              platinum: '#E5E4E2',
+              obsidian: '#070709',
+              slate: '#0F1015',
+              card: '#12141C',
+              lume: '#00F0FF',
+              lumeGreen: '#39FF14'
+            }
+          },
+          animation: {
+            'spin-slow': 'spin 20s linear infinite',
+            'spin-reverse': 'spin 15s linear infinite reverse',
+            'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+            'shimmer': 'shimmer 2.5s infinite',
+            'float': 'float 6s ease-in-out infinite',
+          },
+          keyframes: {
+            pulseGlow: {
+              '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
+              '50%': { opacity: '0.8', transform: 'scale(1.05)' },
+            },
+            shimmer: {
+              '0%': { backgroundPosition: '-200% 0' },
+              '100%': { backgroundPosition: '200% 0' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #070709;
+      color: #F1F5F9;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #070709; }
+    ::-webkit-scrollbar-thumb { background: #232733; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
+
+    .border-glow {
+      position: relative;
+    }
+    .border-glow::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(212,175,55,0.4), rgba(255,255,255,0.05), rgba(224,168,153,0.3));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .text-gold-gradient {
+      background: linear-gradient(135deg, #FFF6D6 0%, #D4AF37 50%, #AA820A 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    body.lume-mode {
+      background-color: #020408 !important;
+    }
+    body.lume-mode .watch-hand-lume {
+      box-shadow: 0 0 15px #00F0FF, 0 0 30px #00F0FF;
+      background: #00F0FF !important;
+    }
+    body.lume-mode .dial-lume-dot {
+      background: #00F0FF !important;
+      box-shadow: 0 0 12px #00F0FF, 0 0 24px #00F0FF;
+    }
+
+    .bg-noise {
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+    }
+
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marquee 35s linear infinite;
+    }
+    .marquee-track:hover {
+      animation-play-state: paused;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+  </style>
+</head>
+<body class="bg-kronos-obsidian text-slate-100 antialiased selection:bg-kronos-gold selection:text-black">
+  <div class="fixed inset-0 bg-noise pointer-events-none z-50"></div>
+
+  <!-- Ambient Light Orbs -->
+  <div class="fixed -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-gradient-to-b from-amber-500/10 via-amber-700/5 to-transparent blur-[140px] pointer-events-none -z-10"></div>
+  <div class="fixed bottom-10 right-10 w-[500px] h-[500px] bg-gradient-to-t from-rose-500/5 via-amber-500/5 to-transparent blur-[160px] pointer-events-none -z-10"></div>
+
+  <!-- TOP STATUS BAR -->
+  <header class="border-b border-white/5 bg-kronos-obsidian/80 backdrop-blur-xl sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <div class="flex items-center gap-3">
+        <a href="#hero" class="flex items-center gap-2 group">
+          <div class="w-9 h-9 rounded-full bg-gradient-to-br from-kronos-gold via-amber-700 to-amber-950 p-[1px] shadow-[0_0_20px_rgba(212,175,55,0.3)]">
+            <div class="w-full h-full bg-kronos-obsidian rounded-full flex items-center justify-center group-hover:scale-95 transition-transform">
+              <i data-lucide="compass" class="w-4 h-4 text-kronos-gold animate-spin-slow"></i>
+            </div>
+          </div>
+          <div>
+            <span class="font-syne font-extrabold text-base tracking-[0.25em] uppercase text-slate-100 group-hover:text-kronos-gold transition-colors">KRONOS</span>
+            <span class="text-[9px] font-mono tracking-widest text-kronos-gold block -mt-1 opacity-90">GENÈVE • MANUFACTURE</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-8 text-xs uppercase tracking-widest font-mono text-slate-400">
+        <a href="#calibre" class="hover:text-kronos-gold transition-colors">Calibre 9901</a>
+        <a href="#configurator" class="hover:text-kronos-gold transition-colors flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-kronos-gold animate-ping"></span>
+          Bespoke Studio
+        </a>
+        <a href="#vault" class="hover:text-kronos-gold transition-colors">VIP Commission</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <div class="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/10 text-[11px] font-mono">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="text-slate-400">GENEVA:</span>
+          <span id="geneva-clock" class="text-kronos-gold font-bold">12:00:00 UTC+1</span>
+        </div>
+
+        <button id="audio-tick-btn" title="Toggle Mechanical Escapement Sound (28,800 vph)" class="p-2 rounded-full bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 text-slate-300 hover:text-kronos-gold transition-all flex items-center justify-center active:scale-90">
+          <i data-lucide="volume-x" id="audio-icon" class="w-4 h-4"></i>
+        </button>
+
+        <button id="lume-toggle-btn" title="Super-LumiNova BGW9 Night Mode" class="px-3 py-1.5 rounded-full bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 text-[11px] font-mono text-slate-300 hover:text-kronos-lume hover:border-kronos-lume/40 transition-all flex items-center gap-1.5 active:scale-95">
+          <i data-lucide="moon" class="w-3.5 h-3.5 text-kronos-lume"></i>
+          <span class="hidden sm:inline">LUME MODE</span>
+        </button>
+
+        <a href="client-demos.html" class="px-3.5 py-1.5 rounded-full bg-gradient-to-r from-kronos-gold to-amber-600 text-black text-xs font-bold font-syne tracking-wider uppercase hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all active:scale-95 flex items-center gap-1.5">
+          <span>All Demos</span>
+          <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section id="hero" class="relative min-h-[90vh] flex items-center justify-center pt-8 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
+      <div class="w-[340px] sm:w-[540px] md:w-[720px] aspect-square rounded-full border border-dashed border-kronos-gold animate-spin-slow"></div>
+      <div class="absolute w-[240px] sm:w-[420px] md:w-[560px] aspect-square rounded-full border border-white/10 animate-spin-reverse"></div>
+    </div>
+
+    <div class="max-w-6xl mx-auto w-full relative z-10 text-center">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.03] border border-white/10 mb-6 backdrop-blur-md">
+        <i data-lucide="award" class="w-3.5 h-3.5 text-kronos-gold"></i>
+        <span class="text-[11px] font-mono tracking-[0.2em] text-slate-300 uppercase">Swiss Poinçon de Genève Certified • Bespoke Edition</span>
+      </div>
+
+      <h1 class="font-syne text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[1.05] mb-6">
+        TIME REDEFINED <br />
+        <span class="text-gold-gradient">IN PURE GOLD & TITANIUM</span>
+      </h1>
+
+      <p class="max-w-2xl mx-auto text-slate-400 text-sm sm:text-base md:text-lg font-light leading-relaxed mb-10">
+        Crafted in Geneva by master horologists. Featuring our in-house 60-Second Flying Tourbillon, hand-beveled bridges, and meteorite dials sliced from deep celestial fragments.
+      </p>
+
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a href="#configurator" class="px-8 py-4 rounded-full bg-gradient-to-r from-kronos-gold via-amber-500 to-amber-600 text-black font-syne font-bold text-sm uppercase tracking-widest shadow-[0_0_30px_rgba(212,175,55,0.4)] hover:shadow-[0_0_45px_rgba(212,175,55,0.6)] hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-3">
+          <i data-lucide="sliders" class="w-4 h-4"></i>
+          <span>Launch 3D Configurator</span>
+        </a>
+
+        <a href="#calibre" class="px-8 py-4 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 font-syne text-sm uppercase tracking-widest text-slate-200 hover:text-kronos-gold hover:border-kronos-gold/40 transition-all flex items-center gap-2 active:scale-[0.98]">
+          <i data-lucide="activity" class="w-4 h-4 text-kronos-gold"></i>
+          <span>Inspect Calibre 9901</span>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto mt-16 pt-10 border-t border-white/10 text-left">
+        <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+          <span class="text-[10px] font-mono tracking-widest text-slate-500 uppercase block mb-1">Escapement Rate</span>
+          <span class="font-syne text-2xl font-bold text-slate-100">28,800 <span class="text-xs text-kronos-gold font-mono font-normal">vph (4Hz)</span></span>
+        </div>
+        <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+          <span class="text-[10px] font-mono tracking-widest text-slate-500 uppercase block mb-1">Power Reserve</span>
+          <span class="font-syne text-2xl font-bold text-slate-100">72 <span class="text-xs text-kronos-gold font-mono font-normal">Hours</span></span>
+        </div>
+        <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+          <span class="text-[10px] font-mono tracking-widest text-slate-500 uppercase block mb-1">Jewel Bearings</span>
+          <span class="font-syne text-2xl font-bold text-slate-100">47 <span class="text-xs text-kronos-gold font-mono font-normal">Rubies</span></span>
+        </div>
+        <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+          <span class="text-[10px] font-mono tracking-widest text-slate-500 uppercase block mb-1">Water Resistance</span>
+          <span class="font-syne text-2xl font-bold text-slate-100">100 <span class="text-xs text-kronos-gold font-mono font-normal">Meters / 10 ATM</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE SECTION 1: 3D BESPOKE CONFIGURATOR STUDIO -->
+  <section id="configurator" class="py-24 px-4 sm:px-6 lg:px-8 relative border-t border-white/10 bg-kronos-slate/60">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-kronos-gold/10 border border-kronos-gold/30 text-kronos-gold text-[11px] font-mono uppercase tracking-widest mb-3">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+          <span>Atelier Bespoke Configurator</span>
+        </div>
+        <h2 class="font-syne text-3xl sm:text-5xl font-extrabold tracking-tight">
+          BUILD YOUR <span class="text-gold-gradient">MASTERPIECE</span>
+        </h2>
+        <p class="text-slate-400 text-sm mt-3">
+          Select hand-finished materials, dial textures, openwork calibres, and strap combinations.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Interactive Watch Display Card -->
+        <div class="lg:col-span-7 bg-kronos-card rounded-3xl p-6 sm:p-10 border border-white/10 shadow-2xl relative overflow-hidden flex flex-col items-center justify-center min-h-[560px] border-glow">
+          
+          <div id="material-glow" class="absolute w-[360px] h-[360px] rounded-full bg-amber-500/15 blur-[90px] pointer-events-none transition-all duration-700"></div>
+
+          <div class="w-full flex items-center justify-between text-xs font-mono text-slate-400 mb-6">
+            <span class="flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span id="active-material-badge">GRADE 5 TITANIUM</span>
+            </span>
+            <span id="config-serial-code" class="text-kronos-gold">KRN-2026-9901-X</span>
+          </div>
+
+          <!-- THE LIVE INTERACTIVE MECHANICAL WATCH -->
+          <div class="relative w-64 sm:w-80 md:w-96 aspect-square flex items-center justify-center my-4 group cursor-crosshair">
+            
+            <div id="watch-case-bezel" class="w-full h-full rounded-full p-6 sm:p-8 flex items-center justify-center shadow-[0_20px_60px_rgba(0,0,0,0.9),inset_0_2px_4px_rgba(255,255,255,0.4)] transition-all duration-700 bg-gradient-to-br from-slate-600 via-slate-800 to-slate-950 border-4 border-slate-500/60">
+              
+              <div id="watch-dial-plate" class="w-full h-full rounded-full relative flex items-center justify-center overflow-hidden transition-all duration-700 bg-[#080B10] shadow-[inset_0_0_40px_rgba(0,0,0,0.95)] border border-white/10">
+                
+                <div id="dial-texture-layer" class="absolute inset-0 opacity-40 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:12px_12px] transition-all"></div>
+                
+                <!-- Hour Indices -->
+                <div class="absolute inset-2 sm:inset-3 pointer-events-none">
+                  <div class="absolute top-1 left-1/2 -translate-x-1/2 w-2 h-4 rounded bg-kronos-gold dial-lume-dot"></div>
+                  <div class="absolute top-1/2 right-1 -translate-y-1/2 w-3.5 h-1.5 rounded bg-kronos-gold dial-lume-dot"></div>
+                  <div class="absolute bottom-1 left-1/2 -translate-x-1/2 w-2 h-3 rounded bg-kronos-gold dial-lume-dot"></div>
+                  <div class="absolute top-1/2 left-1 -translate-y-1/2 w-3.5 h-1.5 rounded bg-kronos-gold dial-lume-dot"></div>
+                </div>
+
+                <!-- Tourbillon Cage at 6 O'clock -->
+                <div id="tourbillon-cage" class="absolute bottom-6 sm:bottom-8 w-14 sm:w-18 h-14 sm:h-18 rounded-full border border-kronos-gold/40 bg-black/80 flex items-center justify-center shadow-[0_0_15px_rgba(212,175,55,0.2)]">
+                  <div class="w-10 sm:w-12 h-10 sm:h-12 rounded-full border-2 border-dashed border-kronos-gold animate-spin-slow flex items-center justify-center">
+                    <div class="w-4 h-4 rounded-full bg-rose-600/80 border border-white/40 animate-ping opacity-60"></div>
+                  </div>
+                  <span class="absolute -bottom-4 text-[7px] font-mono text-kronos-gold uppercase tracking-tighter">60S TOURBILLON</span>
+                </div>
+
+                <div class="absolute top-12 text-center pointer-events-none">
+                  <span class="font-syne font-black text-[10px] tracking-[0.3em] uppercase text-white/90 block">KRONOS</span>
+                  <span class="text-[6px] font-mono tracking-widest text-kronos-gold">GENÈVE</span>
+                </div>
+
+                <!-- Live Rotating Hands -->
+                <div id="hour-hand" class="absolute w-1.5 h-16 sm:h-20 bg-slate-200 rounded-full origin-bottom bottom-1/2 left-1/2 -translate-x-1/2 shadow-lg transition-transform duration-75 watch-hand-lume" style="transform: rotate(110deg);"></div>
+                <div id="minute-hand" class="absolute w-1 h-22 sm:h-28 bg-slate-300 rounded-full origin-bottom bottom-1/2 left-1/2 -translate-x-1/2 shadow-lg transition-transform duration-75 watch-hand-lume" style="transform: rotate(235deg);"></div>
+                <div id="second-hand" class="absolute w-0.5 h-24 sm:h-32 bg-kronos-gold origin-bottom bottom-1/2 left-1/2 -translate-x-1/2 shadow-[0_0_8px_rgba(212,175,55,0.8)] transition-transform duration-75" style="transform: rotate(45deg);"></div>
+                <div class="absolute w-3 h-3 rounded-full bg-kronos-gold border border-black shadow-md z-10"></div>
+              </div>
+            </div>
+
+            <div class="absolute -right-3 top-1/2 -translate-y-1/2 w-4 h-7 bg-gradient-to-r from-slate-400 to-slate-700 rounded-r-md border border-white/20 shadow-md"></div>
+          </div>
+
+          <div class="w-full flex flex-wrap items-center justify-between gap-4 mt-6 pt-4 border-t border-white/10 text-xs">
+            <div>
+              <span class="text-slate-400 font-mono block text-[10px]">CURRENT SPECIFICATION</span>
+              <span id="summary-spec-text" class="font-syne font-bold text-slate-100">Titanium • Meteorite Dial • Tourbillon</span>
+            </div>
+            <div class="text-right">
+              <span class="text-slate-400 font-mono block text-[10px]">ESTIMATED VALUE</span>
+              <span id="live-price-tag" class="font-syne text-xl font-extrabold text-kronos-gold">$88,500 USD</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Customizer Configuration Panel -->
+        <div class="lg:col-span-5 flex flex-col gap-6">
+          
+          <div class="bg-kronos-card rounded-2xl p-5 border border-white/10">
+            <label class="text-xs font-mono tracking-widest text-slate-400 uppercase flex items-center justify-between mb-3">
+              <span>1. Case Alloy</span>
+              <span id="selected-case-name" class="text-kronos-gold font-bold">Grade 5 Titanium</span>
+            </label>
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="setMaterial('titanium', 'Grade 5 Titanium', 88500, 'from-slate-600 via-slate-800 to-slate-950', 'border-slate-500/60', 'rgba(148,163,184,0.2)')" class="material-btn active p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border-2 border-kronos-gold text-left transition-all">
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="w-3.5 h-3.5 rounded-full bg-slate-400"></span>
+                  <span class="font-syne font-bold text-xs">Titanium</span>
+                </div>
+                <span class="text-[10px] font-mono text-slate-400">Ultralight Aero Grade</span>
+              </button>
+
+              <button onclick="setMaterial('rosegold', '18K King Rose Gold', 112000, 'from-rose-800 via-amber-900 to-stone-950', 'border-rose-400/70', 'rgba(224,168,153,0.3)')" class="material-btn p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 text-left transition-all">
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="w-3.5 h-3.5 rounded-full bg-rose-400"></span>
+                  <span class="font-syne font-bold text-xs">18K Rose Gold</span>
+                </div>
+                <span class="text-[10px] font-mono text-slate-400">Swiss 5N Gold Alloy</span>
+              </button>
+
+              <button onclick="setMaterial('yellowgold', '18K Yellow Gold', 108000, 'from-amber-600 via-amber-800 to-yellow-950', 'border-yellow-400/70', 'rgba(212,175,55,0.3)')" class="material-btn p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 text-left transition-all">
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="w-3.5 h-3.5 rounded-full bg-amber-400"></span>
+                  <span class="font-syne font-bold text-xs">Yellow Gold</span>
+                </div>
+                <span class="text-[10px] font-mono text-slate-400">Classic Haute Luxury</span>
+              </button>
+
+              <button onclick="setMaterial('forgedcarbon', 'Forged Matrix Carbon', 96000, 'from-neutral-900 via-zinc-900 to-black', 'border-cyan-500/40', 'rgba(6,182,212,0.2)')" class="material-btn p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 text-left transition-all">
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="w-3.5 h-3.5 rounded-full bg-neutral-800 border border-neutral-600"></span>
+                  <span class="font-syne font-bold text-xs">Forged Carbon</span>
+                </div>
+                <span class="text-[10px] font-mono text-slate-400">Hyper-Resistant</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 2. Dial Selector -->
+          <div class="bg-kronos-card rounded-2xl p-5 border border-white/10">
+            <label class="text-xs font-mono tracking-widest text-slate-400 uppercase flex items-center justify-between mb-3">
+              <span>2. Dial Artistry</span>
+              <span id="selected-dial-name" class="text-kronos-gold font-bold">Meteorite Slice</span>
+            </label>
+            <div class="grid grid-cols-3 gap-2">
+              <button onclick="setDial('meteorite', 'Meteorite Slice', '#080B10', 'bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:12px_12px]')" class="dial-btn active p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border-2 border-kronos-gold text-center transition-all">
+                <span class="text-xs font-syne font-bold block">Meteorite</span>
+                <span class="text-[9px] font-mono text-slate-400">Muonionalusta</span>
+              </button>
+
+              <button onclick="setDial('midnight', 'Midnight Sunburst Blue', '#050D1A', 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/60 via-slate-950 to-black')" class="dial-btn p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 text-center transition-all">
+                <span class="text-xs font-syne font-bold block">Abyssal Blue</span>
+                <span class="text-[9px] font-mono text-slate-400">Sunburst Lacquer</span>
+              </button>
+
+              <button onclick="setDial('emerald', 'Imperial Emerald Green', '#04140D', 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-emerald-900/60 via-slate-950 to-black')" class="dial-btn p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 text-center transition-all">
+                <span class="text-xs font-syne font-bold block">Emerald</span>
+                <span class="text-[9px] font-mono text-slate-400">Grand Feu Enamel</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 3. Strap Selector -->
+          <div class="bg-kronos-card rounded-2xl p-5 border border-white/10">
+            <label class="text-xs font-mono tracking-widest text-slate-400 uppercase flex items-center justify-between mb-3">
+              <span>3. Strap & Clasp</span>
+              <span id="selected-strap-name" class="text-kronos-gold font-bold">Louisiana Alligator</span>
+            </label>
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="setStrap('Alligator', 'Matte Black Alligator with Gold Deployant')" class="strap-btn active p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border-2 border-kronos-gold text-left transition-all text-xs font-syne font-bold">
+                🐊 Matte Alligator
+              </button>
+              <button onclick="setStrap('Integrated Mesh', 'Hand-Polished Titanium Integrated Bracelet')" class="strap-btn p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 text-left transition-all text-xs font-syne font-bold">
+                ⛓️ Integrated Bracelet
+              </button>
+            </div>
+          </div>
+
+          <a href="#vault" onclick="transferConfigToForm()" class="w-full py-4 rounded-xl bg-gradient-to-r from-kronos-gold via-amber-500 to-amber-600 text-black font-syne font-bold text-sm uppercase tracking-widest text-center shadow-[0_0_25px_rgba(212,175,55,0.3)] hover:shadow-[0_0_40px_rgba(212,175,55,0.5)] transition-all flex items-center justify-center gap-2">
+            <i data-lucide="shield-check" class="w-4 h-4"></i>
+            <span>Reserve This Bespoke Build</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE SECTION 2: CALIBRE 9901 (BENTO GRID) -->
+  <section id="calibre" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/[0.03] border border-white/10 text-slate-300 text-[11px] font-mono uppercase tracking-widest mb-3">
+        <i data-lucide="cpu" class="w-3.5 h-3.5 text-kronos-gold"></i>
+        <span>Micro-Mechanical Purity</span>
+      </div>
+      <h2 class="font-syne text-3xl sm:text-5xl font-extrabold tracking-tight">
+        CALIBRE <span class="text-gold-gradient">9901 MANUFACTURE</span>
+      </h2>
+      <p class="text-slate-400 text-sm mt-3">
+        342 individually hand-finished components vibrating in harmonic resonance at 4Hz.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      
+      <!-- Bento 1: 60FPS Mechanical Escapement Live Canvas -->
+      <div class="md:col-span-2 lg:col-span-2 row-span-2 bg-kronos-card rounded-3xl p-6 sm:p-8 border border-white/10 flex flex-col justify-between border-glow relative overflow-hidden">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-mono text-kronos-gold uppercase tracking-widest">LIVE 60FPS SIMULATION</span>
+            <span class="px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 text-[10px] font-mono border border-emerald-500/30">ACTIVE FREQUENCY</span>
+          </div>
+          <h3 class="font-syne text-2xl font-bold text-slate-100 mb-2">Constant-Force Tourbillon Cage</h3>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Neutralizes the Earth's gravitational pull on the balance spring by rotating through 360 degrees every 60 seconds.
+          </p>
+        </div>
+
+        <div class="my-6 relative flex items-center justify-center h-64 bg-black/50 rounded-2xl border border-white/5 overflow-hidden">
+          <canvas id="escapementCanvas" width="400" height="260" class="w-full h-full"></canvas>
+          <div class="absolute bottom-2 right-3 text-[9px] font-mono text-slate-500">CANVAS RENDER • 60 FPS</div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-3 pt-4 border-t border-white/5 text-center">
+          <div>
+            <span class="text-[10px] font-mono text-slate-500 uppercase block">Weight</span>
+            <span class="font-syne font-bold text-slate-200 text-sm">0.28 Grams</span>
+          </div>
+          <div>
+            <span class="text-[10px] font-mono text-slate-500 uppercase block">Spring Alloy</span>
+            <span class="font-syne font-bold text-kronos-gold text-sm">Silicium</span>
+          </div>
+          <div>
+            <span class="text-[10px] font-mono text-slate-500 uppercase block">Inertia</span>
+            <span class="font-syne font-bold text-slate-200 text-sm">Variable</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bento 2 -->
+      <div class="bg-kronos-card rounded-3xl p-6 border border-white/10 flex flex-col justify-between hover:border-white/20 transition-all">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-kronos-gold mb-4">
+            <i data-lucide="gem" class="w-5 h-5"></i>
+          </div>
+          <h4 class="font-syne text-lg font-bold text-slate-100 mb-1">47 Ruby Bearings</h4>
+          <p class="text-slate-400 text-xs">Synthetic corundum sapphire jewels seated inside olive-cut chatons.</p>
+        </div>
+        <div class="pt-4 mt-4 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-slate-400">
+          <span>Tolerance:</span>
+          <span class="text-kronos-gold font-bold">±0.001mm</span>
+        </div>
+      </div>
+
+      <!-- Bento 3 -->
+      <div class="bg-kronos-card rounded-3xl p-6 border border-white/10 flex flex-col justify-between hover:border-white/20 transition-all">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-400 mb-4">
+            <i data-lucide="battery-charging" class="w-5 h-5"></i>
+          </div>
+          <h4 class="font-syne text-lg font-bold text-slate-100 mb-1">Twin-Barrel 72h</h4>
+          <p class="text-slate-400 text-xs">Series-coupled twin mainspring barrels delivering constant linear torque.</p>
+        </div>
+        <div class="pt-4 mt-4 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-slate-400">
+          <span>Torque Drift:</span>
+          <span class="text-emerald-400 font-bold">&lt; 1.2%</span>
+        </div>
+      </div>
+
+      <!-- Bento 4 -->
+      <div class="md:col-span-2 lg:col-span-2 bg-kronos-card rounded-3xl p-6 border border-white/10 flex flex-col sm:flex-row items-center gap-6 hover:border-white/20 transition-all">
+        <div class="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0">
+          <i data-lucide="zap" class="w-7 h-7"></i>
+        </div>
+        <div class="space-y-1">
+          <h4 class="font-syne text-lg font-bold text-slate-100">15,000 Gauss Anti-Magnetic Shield</h4>
+          <p class="text-slate-400 text-xs">Non-ferrous escapement and paramagnetic hairspring withstand intense magnetic fields without losing a second.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <section class="py-12 border-y border-white/5 bg-kronos-slate/40 overflow-hidden">
+    <div class="marquee-track flex items-center gap-12 text-slate-400 text-xs font-mono uppercase tracking-[0.3em]">
+      <span>✦ GRAND PRIX D'HORLOGERIE DE GENÈVE 2025</span>
+      <span class="text-kronos-gold">★ POINÇON DE GENÈVE HALLMARK</span>
+      <span>✦ COSC CHRONOMETER CERTIFIED</span>
+      <span class="text-kronos-gold">★ ONLY 25 BESPOKE TIMEPIECES ANNUALLY</span>
+      <span>✦ ROBB REPORT BEST TOURBILLON</span>
+      <span class="text-kronos-gold">★ 100% IN-HOUSE GENEVA MANUFACTURE</span>
+      <span>✦ GRAND PRIX D'HORLOGERIE DE GENÈVE 2025</span>
+      <span class="text-kronos-gold">★ POINÇON DE GENÈVE HALLMARK</span>
+    </div>
+  </section>
+
+  <!-- SECTION 3: VIP COMMISSION VAULT -->
+  <section id="vault" class="py-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+    <div class="bg-gradient-to-b from-kronos-card to-kronos-obsidian rounded-3xl p-8 sm:p-12 border border-kronos-gold/30 shadow-[0_20px_80px_rgba(0,0,0,0.8)] border-glow relative overflow-hidden">
+      
+      <div class="relative z-10">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-kronos-gold/10 border border-kronos-gold/30 text-kronos-gold text-[11px] font-mono uppercase tracking-widest mb-4">
+          <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+          <span>Private Salon Allocation</span>
+        </div>
+
+        <h2 class="font-syne text-3xl sm:text-4xl font-extrabold tracking-tight mb-3">
+          COMMISSION YOUR <span class="text-gold-gradient">BESPOKE TIMEPIECE</span>
+        </h2>
+        <p class="text-slate-400 text-sm max-w-2xl mb-8">
+          Due to artisanal finishing by hand, production is strictly limited to 25 allocations for the 2026 calendar year.
+        </p>
+
+        <!-- Form -->
+        <form id="commissionForm" onsubmit="handleCommissionSubmit(event)" class="space-y-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="text-xs font-mono text-slate-400 uppercase tracking-wider block mb-2">Patron Name *</label>
+              <input type="text" id="patronName" required placeholder="Lord / Dr. / Alexander Vance" class="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/10 focus:border-kronos-gold focus:outline-none text-sm text-slate-100 placeholder:text-slate-600 transition-all font-sans" />
+            </div>
+
+            <div>
+              <label class="text-xs font-mono text-slate-400 uppercase tracking-wider block mb-2">Confidential Email *</label>
+              <input type="email" id="patronEmail" required placeholder="patron@residence.ch" class="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/10 focus:border-kronos-gold focus:outline-none text-sm text-slate-100 placeholder:text-slate-600 transition-all font-sans" />
+            </div>
+
+            <div>
+              <label class="text-xs font-mono text-slate-400 uppercase tracking-wider block mb-2">Preferred Delivery City</label>
+              <select id="patronCity" class="w-full px-4 py-3 rounded-xl bg-kronos-card border border-white/10 focus:border-kronos-gold focus:outline-none text-sm text-slate-200 transition-all font-sans">
+                <option value="Geneva Private Salon (Place de la Fusterie)">Geneva Private Salon (Place de la Fusterie)</option>
+                <option value="Zurich Vault (Bahnhofstrasse)">Zurich Vault (Bahnhofstrasse)</option>
+                <option value="London (Mayfair Boutique)">London (Mayfair Boutique)</option>
+                <option value="New York (Madison Avenue Atelier)">New York (Madison Avenue Atelier)</option>
+                <option value="Dubai (DIFC Private Suite)">Dubai (DIFC Private Suite)</option>
+                <option value="Singapore (Marina Bay Sands VIP Lounge)">Singapore (Marina Bay Sands VIP Lounge)</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="text-xs font-mono text-slate-400 uppercase tracking-wider block mb-2">Engraving Monogram</label>
+              <input type="text" id="patronEngraving" maxlength="12" placeholder="e.g. A.V. • MMXXVI" class="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/10 focus:border-kronos-gold focus:outline-none text-sm text-slate-100 placeholder:text-slate-600 transition-all font-mono uppercase" />
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-white/[0.02] border border-white/5 flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
+            <div>
+              <span class="text-slate-500 block">CONFIGURED ALLOCATION:</span>
+              <span id="formConfigSpec" class="text-slate-200 font-bold font-syne">Grade 5 Titanium • Meteorite Dial • Flying Tourbillon</span>
+            </div>
+            <div>
+              <span class="text-slate-500 block">VALUATION DEPOSIT:</span>
+              <span id="formConfigDeposit" class="text-kronos-gold font-bold font-syne">$26,550 (30% Securing Deposit)</span>
+            </div>
+          </div>
+
+          <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-kronos-gold via-amber-500 to-amber-600 text-black font-syne font-bold text-sm uppercase tracking-widest shadow-[0_0_30px_rgba(212,175,55,0.4)] hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center gap-2">
+            <i data-lucide="file-check" class="w-4 h-4"></i>
+            <span>Generate Official Certificate of Allocation</span>
+          </button>
+        </form>
+
+        <!-- Dynamic Live Certificate Result -->
+        <div id="certificateResult" class="hidden mt-8 p-6 sm:p-8 rounded-2xl bg-black border-2 border-kronos-gold/60 shadow-[0_0_50px_rgba(212,175,55,0.25)] relative">
+          <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+            <div class="flex items-center gap-2">
+              <i data-lucide="badge-check" class="w-6 h-6 text-kronos-gold"></i>
+              <span class="font-syne font-extrabold text-sm tracking-widest uppercase text-kronos-gold">OFFICIAL SWISS ALLOCATION CERTIFICATE</span>
+            </div>
+            <span class="text-[10px] font-mono text-slate-500" id="certTimestamp">2026-09-17</span>
+          </div>
+
+          <div class="space-y-3 text-xs">
+            <div class="flex justify-between">
+              <span class="text-slate-400 font-mono">Patron:</span>
+              <span class="text-slate-100 font-bold" id="certPatronName">Alexander Vance</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400 font-mono">Timepiece Model:</span>
+              <span class="text-kronos-gold font-bold" id="certModelSpec">Calibre 9901 Titanium Tourbillon</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400 font-mono">Custom Engraving:</span>
+              <span class="text-slate-200 font-mono" id="certEngraving">A.V. • MMXXVI</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400 font-mono">Certificate Hash ID:</span>
+              <span class="text-emerald-400 font-mono" id="certHash">0x9F4C...88B1</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400 font-mono">Salon Delivery:</span>
+              <span class="text-slate-200" id="certSalon">Geneva Private Salon</span>
+            </div>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between">
+            <span class="text-[10px] text-slate-500 font-mono">STATUS: CONFIRMED & SAVED TO VAULT</span>
+            <button onclick="window.print()" class="px-3 py-1 rounded bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 text-[11px] font-mono text-slate-300 hover:text-kronos-gold transition-colors flex items-center gap-1.5">
+              <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+              <span>Print Certificate</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-white/5 bg-kronos-obsidian py-12 px-4 sm:px-6 lg:px-8 text-center text-xs text-slate-500 font-mono">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <i data-lucide="compass" class="w-4 h-4 text-kronos-gold"></i>
+        <span class="font-syne font-bold text-slate-300 tracking-widest uppercase">KRONOS & CO. GENÈVE</span>
+      </div>
+      <p>© 2026 KRONOS MANUFACTURE S.A. ALL RIGHTS RESERVED. CRAFTED FOR THE DISCERNING COLLECTOR.</p>
+      <div class="flex items-center gap-4 text-slate-400">
+        <a href="index.html" class="hover:text-kronos-gold transition-colors">Developer Portfolio</a>
+        <a href="client-demos.html" class="hover:text-kronos-gold transition-colors">Client Demos Hub</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    lucide.createIcons();
+
+    // 1. LIVE GENEVA UTC+1 ATOMIC CLOCK
+    function updateGenevaTime() {
+      const now = new Date();
+      const options = { timeZone: 'Europe/Zurich', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+      const timeStr = new Intl.DateTimeFormat('en-GB', options).format(now);
+      const clockEl = document.getElementById('geneva-clock');
+      if (clockEl) clockEl.textContent = `${timeStr} UTC+1`;
+
+      const hours = now.getHours() % 12;
+      const minutes = now.getMinutes();
+      const seconds = now.getSeconds() + now.getMilliseconds() / 1000;
+
+      const hourDeg = (hours * 30) + (minutes * 0.5);
+      const minDeg = (minutes * 6) + (seconds * 0.1);
+      const secDeg = seconds * 6;
+
+      const hourHand = document.getElementById('hour-hand');
+      const minHand = document.getElementById('minute-hand');
+      const secHand = document.getElementById('second-hand');
+
+      if (hourHand) hourHand.style.transform = `rotate(${hourDeg}deg)`;
+      if (minHand) minHand.style.transform = `rotate(${minDeg}deg)`;
+      if (secHand) secHand.style.transform = `rotate(${secDeg}deg)`;
+
+      requestAnimationFrame(updateGenevaTime);
+    }
+    requestAnimationFrame(updateGenevaTime);
+
+    // 2. SYNTHESIZED MECHANICAL ESCAPEMENT AUDIO
+    let audioCtx = null;
+    let isAudioPlaying = false;
+    let tickInterval = null;
+
+    function initWebAudioTick() {
+      const btn = document.getElementById('audio-tick-btn');
+      const icon = document.getElementById('audio-icon');
+
+      btn.addEventListener('click', () => {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+
+        if (isAudioPlaying) {
+          clearInterval(tickInterval);
+          isAudioPlaying = false;
+          icon.setAttribute('data-lucide', 'volume-x');
+          btn.classList.remove('text-kronos-gold', 'border-kronos-gold');
+          lucide.createIcons();
+        } else {
+          isAudioPlaying = true;
+          icon.setAttribute('data-lucide', 'volume-2');
+          btn.classList.add('text-kronos-gold', 'border-kronos-gold');
+          lucide.createIcons();
+
+          tickInterval = setInterval(() => {
+            if (!audioCtx) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(1200 + Math.random() * 200, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(80, audioCtx.currentTime + 0.015);
+
+            gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.015);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.02);
+          }, 125);
+        }
+      });
+    }
+    initWebAudioTick();
+
+    // 3. SUPER-LUMINOVA NIGHT VISION MODE
+    const lumeToggleBtn = document.getElementById('lume-toggle-btn');
+    lumeToggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('lume-mode');
+    });
+
+    // 4. CONFIGURATOR STATE MANAGEMENT
+    let currentConfig = {
+      material: 'Grade 5 Titanium',
+      materialKey: 'titanium',
+      price: 88500,
+      dial: 'Meteorite Slice',
+      dialKey: 'meteorite',
+      strap: 'Matte Black Alligator'
+    };
+
+    function setMaterial(key, name, price, gradientClass, borderClass, glowColor) {
+      currentConfig.materialKey = key;
+      currentConfig.material = name;
+      currentConfig.price = price;
+
+      document.querySelectorAll('.material-btn').forEach(btn => {
+        btn.classList.remove('active', 'border-2', 'border-kronos-gold');
+        btn.classList.add('border', 'border-white/10');
+      });
+      event.currentTarget.classList.add('active', 'border-2', 'border-kronos-gold');
+      event.currentTarget.classList.remove('border-white/10');
+
+      const bezel = document.getElementById('watch-case-bezel');
+      bezel.className = `w-full h-full rounded-full p-6 sm:p-8 flex items-center justify-center shadow-[0_20px_60px_rgba(0,0,0,0.9),inset_0_2px_4px_rgba(255,255,255,0.4)] transition-all duration-700 bg-gradient-to-br ${gradientClass} border-4 ${borderClass}`;
+
+      document.getElementById('material-glow').style.backgroundColor = glowColor;
+      document.getElementById('selected-case-name').textContent = name;
+      document.getElementById('active-material-badge').textContent = name.toUpperCase();
+
+      updateSummary();
+    }
+
+    function setDial(key, name, dialColor, textureClass) {
+      currentConfig.dialKey = key;
+      currentConfig.dial = name;
+
+      document.querySelectorAll('.dial-btn').forEach(btn => {
+        btn.classList.remove('active', 'border-2', 'border-kronos-gold');
+        btn.classList.add('border', 'border-white/10');
+      });
+      event.currentTarget.classList.add('active', 'border-2', 'border-kronos-gold');
+      event.currentTarget.classList.remove('border-white/10');
+
+      const dialPlate = document.getElementById('watch-dial-plate');
+      dialPlate.style.backgroundColor = dialColor;
+
+      const texture = document.getElementById('dial-texture-layer');
+      texture.className = `absolute inset-0 opacity-40 transition-all ${textureClass}`;
+
+      document.getElementById('selected-dial-name').textContent = name;
+      updateSummary();
+    }
+
+    function setStrap(key, name) {
+      currentConfig.strap = name;
+
+      document.querySelectorAll('.strap-btn').forEach(btn => {
+        btn.classList.remove('active', 'border-2', 'border-kronos-gold');
+        btn.classList.add('border', 'border-white/10');
+      });
+      event.currentTarget.classList.add('active', 'border-2', 'border-kronos-gold');
+      event.currentTarget.classList.remove('border-white/10');
+
+      document.getElementById('selected-strap-name').textContent = key;
+      updateSummary();
+    }
+
+    function updateSummary() {
+      const priceFormatted = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(currentConfig.price);
+      document.getElementById('live-price-tag').textContent = priceFormatted + ' USD';
+      document.getElementById('summary-spec-text').textContent = `${currentConfig.material} • ${currentConfig.dial} • Flying Tourbillon`;
+      
+      const depositFormatted = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(currentConfig.price * 0.3);
+      const formSpec = document.getElementById('formConfigSpec');
+      const formDeposit = document.getElementById('formConfigDeposit');
+      if (formSpec) formSpec.textContent = `${currentConfig.material} • ${currentConfig.dial} • ${currentConfig.strap}`;
+      if (formDeposit) formDeposit.textContent = `${depositFormatted} (30% Securing Deposit)`;
+    }
+
+    function transferConfigToForm() {
+      updateSummary();
+    }
+
+    // 5. 60FPS ESCAPEMENT CANVAS ANIMATION
+    const canvas = document.getElementById('escapementCanvas');
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      let angle = 0;
+
+      function renderTourbillonSimulation() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        const cx = canvas.width / 2;
+        const cy = canvas.height / 2;
+
+        ctx.beginPath();
+        ctx.arc(cx, cy, 90, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(212, 175, 55, 0.2)';
+        ctx.lineWidth = 4;
+        ctx.stroke();
+
+        angle += 0.02;
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.rotate(angle);
+
+        for (let i = 0; i < 3; i++) {
+          ctx.save();
+          ctx.rotate((i * Math.PI * 2) / 3);
+          ctx.beginPath();
+          ctx.moveTo(0, 0);
+          ctx.lineTo(0, -80);
+          ctx.strokeStyle = 'rgba(212, 175, 55, 0.8)';
+          ctx.lineWidth = 2.5;
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.arc(0, -70, 3, 0, Math.PI * 2);
+          ctx.fillStyle = '#E0A899';
+          ctx.fill();
+          ctx.restore();
+        }
+
+        const oscillation = Math.sin(Date.now() / 60) * 0.4;
+        ctx.beginPath();
+        ctx.arc(0, 0, 45, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(243, 229, 171, 0.9)';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+
+        ctx.beginPath();
+        for (let a = 0; a < Math.PI * 6; a += 0.1) {
+          const r = (a / (Math.PI * 6)) * 35;
+          const x = Math.cos(a + oscillation) * r;
+          const y = Math.sin(a + oscillation) * r;
+          if (a === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.strokeStyle = 'rgba(0, 240, 255, 0.7)';
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(0, 0, 6, 0, Math.PI * 2);
+        ctx.fillStyle = '#E11D48';
+        ctx.fill();
+        ctx.strokeStyle = '#FFFFFF';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        ctx.restore();
+
+        requestAnimationFrame(renderTourbillonSimulation);
+      }
+      renderTourbillonSimulation();
+    }
+
+    // 6. VIP COMMISSION FORM SUBMISSION & CERTIFICATE GENERATION
+    function handleCommissionSubmit(e) {
+      e.preventDefault();
+      const patronName = document.getElementById('patronName').value;
+      const patronEmail = document.getElementById('patronEmail').value;
+      const patronCity = document.getElementById('patronCity').value;
+      const patronEngraving = document.getElementById('patronEngraving').value || 'NO ENGRAVING REQUESTED';
+
+      const randomHash = '0x' + Array.from({length: 12}, () => Math.floor(Math.random()*16).toString(16)).join('').toUpperCase();
+
+      document.getElementById('certPatronName').textContent = patronName;
+      document.getElementById('certModelSpec').textContent = `${currentConfig.material} with ${currentConfig.dial}`;
+      document.getElementById('certEngraving').textContent = patronEngraving;
+      document.getElementById('certHash').textContent = randomHash;
+      document.getElementById('certSalon').textContent = patronCity;
+      document.getElementById('certTimestamp').textContent = new Date().toISOString().split('T')[0] + ' • GENEVA CERTIFIED';
+
+      const certBox = document.getElementById('certificateResult');
+      certBox.classList.remove('hidden');
+      certBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+      const allocationRecord = {
+        name: patronName,
+        email: patronEmail,
+        city: patronCity,
+        engraving: patronEngraving,
+        spec: currentConfig,
+        hash: randomHash,
+        created: new Date().toISOString()
+      };
+      localStorage.setItem('kronos_last_allocation', JSON.stringify(allocationRecord));
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem('kronos_last_allocation');
+      if (saved) {
+        try {
+          const rec = JSON.parse(saved);
+          if (rec && rec.name) {
+            document.getElementById('patronName').value = rec.name;
+            document.getElementById('patronEmail').value = rec.email;
+          }
+        } catch (err) {}
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,74 +1,54 @@
 # Web Design Excellence & Aesthetic Principles
 
-This workspace strictly adheres to modern, craft-driven frontend design. **Avoid generic, low-effort "AI-generated" templates** (such as plain purple-gradient hero sections, centered generic cards, and static bootstrap-like layouts).
+This workspace strictly adheres to modern, craft-driven, award-winning frontend design. **NEVER generate generic, low-effort "AI-generated" templates** (such as plain purple-gradient hero sections, centered generic bootstrap cards, or uninspired linear CSS animations).
 
-Whenever building websites or web components in this workspace, integrate the core design patterns and interactive aesthetics inspired by:
-
----
-
-## 1. Magic UI Pro Aesthetic (Modern SaaS / Kinetic / Bento / Dynamic Grids)
-- **Bento Grid Architecture**: Asymmetric card layouts (`col-span-1`, `col-span-2`, `row-span-2`) with distinct visual weight, internal micro-illustrations, live mini-previews, and high contrast badges.
-- **Animated Border Effects**:
-  - *Border Beam*: Animated glowing laser/gradient tracing card borders.
-  - *Shine Border*: Shimmering specular highlights on hover or continuous subtle sweeps.
-- **Interactive Kinetic Elements**:
-  - Infinite Marquee tickers (smooth CSS keyframe translations for logos and testimonials).
-  - Floating docks / macOS-style interactive docks with spring magnification.
-  - Animated number counters, kinetic headline morphs, and word rotators.
-- **Atmospheric Backgrounds**:
-  - Retro grid backgrounds with perspective fading.
-  - Interactive dot matrix, floating particles, or subtle meteor streaks.
+Whenever building websites or web components in this workspace, integrate the core design patterns and interactive aesthetics:
 
 ---
 
-## 2. Unlumen UI Aesthetic (Luxury Dark Tech / Fluid Glow / Minimalist Glass)
-- **Deep Palette & Lighting**:
-  - Rich obsidian surfaces (`#080808`, `#0B0C10`, `#121316`) instead of flat gray.
-  - Subdued radial spotlight gradients (`bg-radial from-violet-600/20 via-transparent to-transparent`).
-  - Specular micro-borders (`border border-white/10` or `border-white/5` with hover glow to `border-white/20`).
-- **Sophisticated Glassmorphism**:
-  - `backdrop-blur-xl bg-white/[0.03] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]`.
-  - Subtle noise/grain textures overlaid for an organic, tactile cinematic feel.
-- **Typography & Rhythm**:
-  - Ultra-clean geometric sans (Inter, Geist, Satoshi) paired with crisp tracking (`tracking-tight` for headings, `tracking-wide uppercase text-xs` for badges/metadata).
+## 1. Editorial & Luxury Typography Mastery (Awwwards / Editorial Standard)
+- **High-Contrast Typography Pairing:**
+  - **Display / Headings:** *Playfair Display* (Google Fonts) normal + italic accents (`.accent-serif`), or *Cormorant Garamond*, or *Syne*.
+  - **Body / Metadata:** *Satoshi* (Fontshare CDN) or *Manrope* / *Space Grotesk*.
+  - **Accents:** An intentional italic serif word in headlines (`<span class="accent-serif">`).
+  - **Line-Height & Rhythm:** Tight tracking (`line-height: 1.04 - 1.12`) on large headings, relaxed `1.625` on body copy.
 
 ---
 
-## 3. Smooth UI Aesthetic (Fluid Physics / Tactile Micro-Interactions)
-- **Spring-Based Animations**:
-  - Always use spring easing over linear/ease-in-out (`stiffness: 300, damping: 24, mass: 0.8`).
-  - Tactile press feedback: `active:scale-[0.97]` or `active:translate-y-0.5`.
-- **Layout Morphs**:
-  - Smooth sliding tab indicators (using Framer Motion `layoutId="activeTab"` or CSS transition bounding boxes).
-  - Expandable cards and accordions with smooth height transitions without layout snapping.
-- **Cursor & Hover Enhancements**:
-  - Magnetic buttons that pull toward the cursor.
-  - Card 3D tilt effects reacting to mouse coordinates (`perspective(1000px) rotateX(...) rotateY(...)`).
+## 2. Adaptive Rem-Based Viewport Grid Architecture
+Proportions must scale seamlessly across all devices by dynamically adjusting root `font-size`:
+```css
+html { font-size: 16px; }
+@media (max-width: 1920px) { html { font-size: 0.833333vw; } }
+@media (max-width: 1440px) { html { font-size: 1.111111vw; } }
+@media (max-width: 1024px) { html { font-size: 1.5625vw;  } }
+@media (max-width: 640px)  { html { font-size: 4.444444vw; } }
+```
 
 ---
 
-## 4. Neobrutalism Aesthetic (Bold / High-Contrast / Playful Editorial)
-- **Hard Geometry & Shadows**:
-  - Thick solid borders: `border-2 border-black` or `border-3 border-neutral-900`.
-  - Hard offset drop shadows without blur: `shadow-[4px_4px_0px_0px_#000]` or `shadow-[6px_6px_0px_0px_#171717]`.
-  - Tactile interactive button state:
-    ```css
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-    /* hover */
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0px 0px #000;
-    /* active */
-    transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0px 0px #000;
-    ```
-- **High-Energy Color Blocking**:
-  - Vibrant pastel & electric highlights: Acid Lime (`#E2F952`), Electric Lilac (`#D8B4F8`), Bubblegum (`#FF90E8`), Safety Orange (`#FF6B00`), Soft Cream (`#FFFDF6`).
-  - High contrast black-on-color typography, sticker badges, and rotated accent tags (`rotate-[-2deg]`, `rotate-[3deg]`).
+## 3. Kinetic Motion & Spring Reveal Engine
+- **Line-by-Line Heading Reveals:** `overflow: hidden` line wrappers animating from `translateY(110%); opacity: 0` to `translateY(0); opacity: 1` over 1000ms `cubic-bezier(0.16, 1, 0.3, 1)` with 90–140ms stagger.
+- **Word-by-Word Lead Reveals:** Splitting lead and narrative copy into word `<span>` elements animating from `translateY(0.8rem); opacity: 0` with 10–30ms stagger.
+- **Plate Scale-Settle:** Image containers transitioning from `opacity: 0; translateY(3.5rem) scale(1.04)` to `opacity: 1; translateY(0) scale(1)` over 700ms.
+- **Lenis Smooth Scroll & Viewport Parallax:** ESM Lenis smooth scroll with scroll-scrub translation mapped across viewport progress.
 
 ---
 
-## Quick Reference Implementation Rules
-1. **Never generate plain, flat, generic cards**: Every card must feature intentional borders, subtle elevation/shadow, hover micro-interactions, or ambient background lighting.
-2. **Include active states on all interactables**: Hover, focus-visible, and active/pressed states must always be defined.
-3. **Use intentional motion**: Staggered fade-ins, marquee loops, subtle ambient pulses, or spring-driven UI changes.
-4. **Choose a cohesive aesthetic direction**: When starting a project, select or blend these styles intentionally based on product identity (e.g. Luxury Tech for SaaS/AI, Neobrutalism for Creator/E-commerce/Web3, Magic UI for Modern Landing Pages).
+## 4. Unlumen UI & Magic UI Pro Elements
+- **Deep Obsidian Palette & Ambient Glow:** Obsidian surfaces (`#080808`, `#0a0b10`, `#191917`), radial spotlights, and animated Border Beams.
+- **Micro-Borders & Dashed Hairlines:** `border-top: 1px dashed var(--line)` (light: `rgba(25,25,23,0.2)`, dark: `rgba(255,255,255,0.2)`).
+- **Tactile Interactables:**
+  - CTA button arrow slide: `translateX(0.4rem)`.
+  - Image hover scale: `scale(1.06)`.
+  - Card lift: `translateY(-0.75rem)` on hover.
+  - Header: `mix-blend-mode: difference` fixed navigation bar.
+  - Accordion: Measured `scrollHeight` expansion with rotating `+` (45°).
+  - Modal Menu: Top-origin `scaleY(0) -> scaleY(1)` panel with staggered oversized italic links.
+
+---
+
+## Strict Prohibitions
+1. **Never generate flat, generic cards**: Every card must feature intentional borders, subtle elevation/shadow, hover micro-interactions, or ambient lighting.
+2. **Never use plain linear CSS transitions**: Always use spring curves (`cubic-bezier(0.16, 1, 0.3, 1)` or `cubic-bezier(0.165, 0.84, 0.44, 1)`).
+3. **No low-effort templates**: Maintain high craft, precise typography hierarchies, and intentional whitespace across every page.

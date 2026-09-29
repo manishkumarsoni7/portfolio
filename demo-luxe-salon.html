@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA & BLADE — Beverly Hills Flagship Hair &amp; Scalp Atelier</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=JetBrains+Mono:wght@400;500;700&family=Manrope:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg: #08080A;
+            --surface: #101015;
+            --surface-card: #15151C;
+            --surface-hover: #1A1A24;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-gold: rgba(212, 175, 55, 0.35);
+            --gold: #D4AF37;
+            --gold-light: #F3E5AB;
+            --gold-glow: rgba(212, 175, 55, 0.25);
+            --white: #F8F9FA;
+            --muted: #A1A1AA;
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: var(--bg);
+            color: var(--white);
+            font-family: 'Manrope', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Top Announcement Bar */
+        .top-announce-bar {
+            background: #040406; border-bottom: 1px solid var(--border);
+            padding: 8px 6%; font-family: 'Space Grotesk'; font-size: 0.76rem;
+            color: var(--muted); display: flex; justify-content: space-between; align-items: center;
+        }
+        .top-announce-bar span { color: var(--gold); font-weight: 600; }
+
+        /* Fixed Navigation */
+        header {
+            position: sticky; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(8, 8, 10, 0.94);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 6%;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .brand-logo {
+            font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 400;
+            color: var(--white); text-decoration: none; letter-spacing: 3px;
+        }
+        .brand-logo span { color: var(--gold); font-style: italic; }
+        nav { display: flex; gap: 28px; align-items: center; }
+        nav a {
+            color: var(--muted); text-decoration: none; font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.82rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px;
+            transition: color 0.3s;
+        }
+        nav a:hover { color: var(--gold); }
+
+        .btn-gold {
+            background: var(--gold);
+            color: #000; font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1.5px; padding: 12px 26px; border-radius: 50px;
+            border: none; cursor: pointer; transition: all 0.3s var(--ease); text-decoration: none;
+            display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn-gold:hover {
+            transform: translateY(-2px); box-shadow: 0 0 25px var(--gold-glow); background: var(--gold-light);
+        }
+
+        .btn-outline {
+            background: transparent; color: var(--white); border: 1px solid var(--border);
+            padding: 11px 22px; border-radius: 50px; font-family: 'Space Grotesk'; font-size: 0.82rem;
+            cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 88vh; padding: 70px 6% 70px 6%;
+            display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 60px; align-items: center;
+            background: radial-gradient(circle at top right, rgba(212, 175, 55, 0.08) 0%, transparent 60%);
+        }
+        .hero-tag {
+            font-family: 'Space Grotesk'; font-size: 0.78rem; color: var(--gold);
+            text-transform: uppercase; letter-spacing: 3px; margin-bottom: 14px; display: block;
+        }
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif; font-size: 4.5rem; font-weight: 300;
+            line-height: 1.05; margin-bottom: 20px; color: var(--white);
+        }
+        .hero-title span { font-style: italic; color: var(--gold); }
+        .hero-desc { color: var(--muted); font-size: 1.05rem; line-height: 1.8; margin-bottom: 35px; max-width: 530px; }
+
+        .hero-img-frame {
+            position: relative; width: 100%; aspect-ratio: 4/5; border-radius: 24px; overflow: hidden;
+            border: 1px solid var(--border); box-shadow: 0 30px 70px rgba(0,0,0,0.8);
+        }
+        .hero-img-frame img { width: 100%; height: 100%; object-fit: cover; }
+        .hero-badge-float {
+            position: absolute; bottom: 20px; left: 20px; right: 20px;
+            background: rgba(14, 16, 21, 0.92); backdrop-filter: blur(15px);
+            border: 1px solid var(--border); border-radius: 16px; padding: 18px 22px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        /* Trust Banner */
+        .trust-banner {
+            border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+            padding: 24px 6%; background: #040406;
+            display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; text-align: center;
+        }
+        .trust-item { font-family: 'Space Grotesk'; font-size: 0.85rem; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+        .trust-item i { color: var(--gold); }
+
+        /* Services Menu Section */
+        .section-wrap { padding: 90px 6%; }
+        .section-header { text-align: center; margin-bottom: 45px; }
+        .sub-tag { font-family: 'Space Grotesk'; font-size: 0.75rem; color: var(--gold); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 8px; display: block; }
+        .sec-title { font-family: 'Cormorant Garamond', serif; font-size: 3.2rem; font-weight: 300; color: var(--white); }
+        .sec-desc { color: var(--muted); font-size: 0.95rem; max-width: 580px; margin: 8px auto 0 auto; }
+
+        .service-tabs {
+            display: flex; justify-content: center; gap: 10px; margin-bottom: 35px; flex-wrap: wrap;
+        }
+        .srv-tab {
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: var(--muted);
+            padding: 9px 20px; border-radius: 50px; font-family: 'Space Grotesk'; font-size: 0.82rem;
+            cursor: pointer; transition: all 0.3s;
+        }
+        .srv-tab.active, .srv-tab:hover {
+            background: var(--gold); color: #000; font-weight: 700; border-color: var(--gold);
+        }
+
+        .service-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 26px;
+        }
+        .service-card {
+            background: var(--surface-card); border: 1px solid var(--border); border-radius: 18px;
+            padding: 26px; transition: all 0.3s var(--ease); display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .service-card:hover {
+            border-color: var(--border-gold); transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+        }
+        .srv-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+        .srv-name { font-family: 'Syne'; font-size: 1.15rem; color: var(--white); font-weight: 700; }
+        .srv-price { font-family: 'JetBrains Mono'; font-size: 1.25rem; color: var(--gold); font-weight: 700; }
+        .srv-desc { font-size: 0.88rem; color: var(--muted); margin-bottom: 18px; line-height: 1.6; }
+        .srv-meta { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--muted); border-top: 1px solid rgba(255,255,255,0.05); padding-top: 14px; }
+
+        /* INNOVATIVE FEATURE 1: Live Hair Color Formulator & Tone Matrix */
+        .color-lab-box {
+            background: var(--surface-card); border: 1px solid var(--border-gold); border-radius: 24px;
+            padding: 40px; max-width: 920px; margin: 0 auto; box-shadow: 0 25px 60px rgba(0,0,0,0.7);
+        }
+        .color-lab-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; }
+        @media (max-width: 750px) { .color-lab-grid { grid-template-columns: 1fr; } }
+        .level-selector-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+        .level-chip-btn {
+            background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: #fff;
+            width: 38px; height: 38px; border-radius: 50%; font-family: 'JetBrains Mono'; font-size: 0.85rem;
+            cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center;
+        }
+        .level-chip-btn.active {
+            background: var(--gold); color: #000; font-weight: 700; border-color: var(--gold);
+        }
+        .target-shade-select {
+            width: 100%; background: #08080A; border: 1px solid var(--border); color: #fff;
+            padding: 13px 16px; border-radius: 10px; font-family: 'Space Grotesk'; font-size: 0.9rem; margin-bottom: 20px; outline: none;
+        }
+        .swatch-display-card {
+            background: #08080A; border: 1px solid var(--border); border-radius: 18px; padding: 26px; text-align: center;
+        }
+        .swatch-circle {
+            width: 90px; height: 90px; border-radius: 50%; margin: 0 auto 16px auto;
+            border: 3px solid var(--border); transition: all 0.5s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        /* Interactive Before & After Slider */
+        .before-after-box {
+            max-width: 900px; margin: 0 auto; background: var(--surface-card);
+            border: 1px solid var(--border); border-radius: 24px; padding: 30px;
+        }
+        .slider-container {
+            position: relative; width: 100%; height: 440px; border-radius: 16px; overflow: hidden;
+            user-select: none; -webkit-user-select: none;
+        }
+        .slider-container img {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
+        }
+        .before-layer {
+            position: absolute; top: 0; left: 0; height: 100%; width: 50%; overflow: hidden;
+            border-right: 3px solid var(--gold);
+        }
+        .before-layer img {
+            position: absolute; top: 0; left: 0; height: 100%; width: 900px; max-width: none;
+        }
+        .drag-handle {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 44px; height: 44px; border-radius: 50%; background: var(--gold);
+            color: #000; display: flex; align-items: center; justify-content: center;
+            font-size: 1rem; box-shadow: 0 0 20px rgba(212,175,55,0.7); cursor: ew-resize; z-index: 10;
+        }
+        .slider-overlay-labels {
+            position: absolute; bottom: 16px; width: 100%; padding: 0 20px;
+            display: flex; justify-content: space-between; pointer-events: none; z-index: 5;
+        }
+        .label-chip {
+            background: rgba(8, 8, 10, 0.85); backdrop-filter: blur(10px); border: 1px solid var(--border);
+            color: #fff; font-family: 'JetBrains Mono'; font-size: 0.75rem; padding: 4px 12px; border-radius: 50px;
+        }
+
+        /* Master Stylists Team */
+        .stylist-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+        .stylist-card {
+            background: var(--surface-card); border: 1px solid var(--border); border-radius: 18px;
+            overflow: hidden; text-align: left; transition: all 0.3s;
+        }
+        .stylist-card:hover { border-color: var(--border-gold); transform: translateY(-4px); }
+        .stylist-img-wrap { width: 100%; height: 300px; overflow: hidden; }
+        .stylist-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+        .stylist-card:hover .stylist-img-wrap img { transform: scale(1.05); }
+        .stylist-info { padding: 22px; }
+        .stylist-name { font-family: 'Syne'; font-size: 1.25rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+        .stylist-title { color: var(--gold); font-size: 0.78rem; font-family: 'Space Grotesk'; font-weight: 600; text-transform: uppercase; margin-bottom: 10px; }
+        .stylist-bio { font-size: 0.84rem; color: var(--muted); line-height: 1.6; }
+
+        /* Booking & Pass Generator */
+        .booking-container {
+            background: var(--surface); border: 1px solid var(--border); border-radius: 24px;
+            padding: 40px; max-width: 800px; margin: 0 auto; box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+        }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
+        @media (max-width: 650px) { .form-row { grid-template-columns: 1fr; } }
+        .form-group label {
+            display: block; font-family: 'Space Grotesk'; font-size: 0.8rem; font-weight: 600;
+            color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .form-input {
+            width: 100%; background: #08080A; border: 1px solid var(--border); color: #fff;
+            padding: 14px 16px; border-radius: 10px; font-family: 'Manrope'; font-size: 0.9rem; outline: none;
+            transition: border-color 0.2s;
+        }
+        .form-input:focus { border-color: var(--gold); }
+
+        /* INNOVATIVE FEATURE 2: 3D VIP Wallet Pass Card Modal */
+        .vip-pass-card {
+            background: linear-gradient(135deg, #1C1824 0%, #0D0C11 100%);
+            border: 1px solid var(--gold); border-radius: 20px; padding: 26px;
+            margin-top: 24px; display: none; box-shadow: 0 20px 50px rgba(212,175,55,0.25);
+            animation: passSlideUp 0.5s ease forwards;
+        }
+        @keyframes passSlideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* WhatsApp Floating Action */
+        .whatsapp-float {
+            position: fixed; bottom: 25px; right: 25px; z-index: 999;
+            background: #25D366; color: #fff; width: 60px; height: 60px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 1.8rem;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4); text-decoration: none;
+            transition: all 0.3s var(--ease);
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1) rotate(10deg); box-shadow: 0 15px 35px rgba(37, 211, 102, 0.6);
+        }
+
+        /* Footer */
+        footer {
+            padding: 70px 6% 30px 6%; background: #040406; border-top: 1px solid var(--border);
+            font-size: 0.85rem; color: var(--muted);
+        }
+        .footer-grid {
+            display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 40px; margin-bottom: 40px;
+        }
+        @media (max-width: 850px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 500px) { .footer-grid { grid-template-columns: 1fr; } }
+        .footer-col h5 { font-family: 'Syne'; font-size: 1rem; color: #fff; margin-bottom: 16px; letter-spacing: 1px; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col ul li a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+        .footer-col ul li a:hover { color: var(--gold); }
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.06); padding-top: 25px;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;
+        }
+
+        @media (max-width: 900px) {
+            .hero-section { grid-template-columns: 1fr; padding-top: 40px; }
+            header nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Announcement Bar -->
+    <div class="top-announce-bar">
+        <div>
+            <span>STUDIO OPEN:</span> Tuesday – Sunday, 9:00 AM – 8:00 PM • Private Valet Available
+        </div>
+        <div>
+            Direct Inquiries: <a href="tel:+13105550198" style="color:var(--gold); text-decoration:none;">+1 (310) 555-0198</a>
+        </div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header>
+        <a href="#" class="brand-logo">AURA &amp; <span>BLADE</span></a>
+        <nav>
+            <a href="#services">Services</a>
+            <a href="#colorlab">Color Chemistry Lab</a>
+            <a href="#transformations">Transformations</a>
+            <a href="#stylists">Artists</a>
+            <a href="#book">Reservations</a>
+        </nav>
+        <a href="#book" class="btn-gold"><i class="fas fa-calendar-alt"></i> Reserve Suite</a>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div>
+            <span class="hero-tag"><i class="fas fa-gem"></i> Beverly Hills Atelier</span>
+            <h1 class="hero-title">Tailored hair artistry &amp; <span>scalp therapy.</span></h1>
+            <p class="hero-desc">
+                An intimate sanctuary dedicated to bespoke hair architecture, hand-painted balayage, and Japanese head spa rituals. Hosted in private salon suites with dedicated sommelier hospitality.
+            </p>
+            <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 30px;">
+                <a href="#book" class="btn-gold"><i class="fas fa-calendar-check"></i> Book Private Session</a>
+                <a href="#colorlab" class="btn-outline">Open Color Lab</a>
+            </div>
+        </div>
+
+        <div class="hero-img-frame">
+            <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1000&q=80" alt="Salon Interior">
+            <div class="hero-badge-float">
+                <div>
+                    <div style="font-family: 'Syne'; font-weight: 700;">Signature French Balayage</div>
+                    <div style="font-size: 0.78rem; color: var(--muted);">With Master Colorist Elena Vance</div>
+                </div>
+                <div style="font-family: 'JetBrains Mono'; color: var(--gold); font-weight: 700;">
+                    From $380
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Accolades -->
+    <div class="trust-banner">
+        <div class="trust-item"><i class="fas fa-trophy"></i> Vogue Beauty Award 2025: Best Luxury Hair Studio</div>
+        <div class="trust-item"><i class="fas fa-spa"></i> K18 Molecular Repair &amp; Olaplex Certified Atelier</div>
+        <div class="trust-item"><i class="fas fa-wine-glass"></i> Complimentary Ruinart Champagne &amp; Espresso</div>
+        <div class="trust-item"><i class="fas fa-door-closed"></i> 100% Private Acoustically Treated Suites</div>
+    </div>
+
+    <!-- INNOVATIVE FEATURE 1: Interactive Hair Color Chemistry Lab -->
+    <section class="section-wrap" id="colorlab" style="background: rgba(16, 16, 21, 0.4);">
+        <div class="section-header">
+            <span class="sub-tag">Bespoke Formulation</span>
+            <h2 class="sec-title">The Color Chemistry Lab</h2>
+            <p class="sec-desc">Simulate your target tone formulation based on natural hair base levels and undertone chemistry.</p>
+        </div>
+
+        <div class="color-lab-box">
+            <div class="color-lab-grid">
+                <div>
+                    <h4 style="font-family: 'Syne'; font-size: 1.15rem; margin-bottom: 8px;">1. Select Natural Base Level (1–10)</h4>
+                    <p style="font-size: 0.82rem; color: var(--muted); margin-bottom: 14px;">1 = Darkest Espresso • 5 = Medium Chestnut • 10 = Lightest Platinum</p>
+                    <div class="level-selector-row">
+                        <button class="level-chip-btn" onclick="setBaseLevel(2, this)">2</button>
+                        <button class="level-chip-btn" onclick="setBaseLevel(3, this)">3</button>
+                        <button class="level-chip-btn active" onclick="setBaseLevel(4, this)">4</button>
+                        <button class="level-chip-btn" onclick="setBaseLevel(5, this)">5</button>
+                        <button class="level-chip-btn" onclick="setBaseLevel(6, this)">6</button>
+                        <button class="level-chip-btn" onclick="setBaseLevel(7, this)">7</button>
+                        <button class="level-chip-btn" onclick="setBaseLevel(8, this)">8</button>
+                        <button class="level-chip-btn" onclick="setBaseLevel(9, this)">9</button>
+                    </div>
+
+                    <h4 style="font-family: 'Syne'; font-size: 1.15rem; margin-bottom: 8px;">2. Desired Target Palette</h4>
+                    <select class="target-shade-select" id="targetTone" onchange="calculateColorSwatch()">
+                        <option value="nordic">Nordic Platinum Beige (Cool Iridescent)</option>
+                        <option value="caramel">French Honey Caramel Balayage (Warm Radiance)</option>
+                        <option value="mocha">Espresso Mocha Melt (High-Gloss Dimension)</option>
+                        <option value="copper">Rose Gold Tuscan Copper (Vibrant Velvet)</option>
+                    </select>
+
+                    <div style="font-size: 0.85rem; color: var(--muted); line-height: 1.6;">
+                        <i class="fas fa-flask" style="color: var(--gold); margin-right: 6px;"></i> Includes K18 peptide bond shielding to preserve 98% tensile strength.
+                    </div>
+                </div>
+
+                <div class="swatch-display-card">
+                    <div class="swatch-circle" id="swatchCircle" style="background: #E8D8C8;"></div>
+                    <h4 style="font-family: 'Syne'; font-size: 1.25rem; color: #fff; margin-bottom: 4px;" id="swatchName">Nordic Platinum Beige</h4>
+                    <div style="font-family: 'JetBrains Mono'; font-size: 0.78rem; color: var(--gold); margin-bottom: 12px;" id="swatchCode">Formula: Level 10.12 + 20 Vol Gloss</div>
+                    <div style="font-size: 0.82rem; color: var(--muted); border-top: 1px solid rgba(255,255,255,0.06); padding-top: 12px;" id="swatchTime">
+                        Estimated Session: <strong>140 mins</strong> • 1 Session Lift
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section-wrap" id="services">
+        <div class="section-header">
+            <span class="sub-tag">The Treatment Menu</span>
+            <h2 class="sec-title">Artisanal Hair &amp; Spa Protocols</h2>
+            <p class="sec-desc">Every treatment begins with a microscopic scalp diagnostics consultation and botanical beverage pairing.</p>
+        </div>
+
+        <div class="service-tabs">
+            <button class="srv-tab active" onclick="filterServices('all', this)">Full Menu</button>
+            <button class="srv-tab" onclick="filterServices('color', this)">Color &amp; Balayage</button>
+            <button class="srv-tab" onclick="filterServices('cut', this)">Precision Styling</button>
+            <button class="srv-tab" onclick="filterServices('spa', this)">Head Spa &amp; Scalp</button>
+        </div>
+
+        <div class="service-grid">
+            <div class="service-card" data-cat="color">
+                <div class="srv-head">
+                    <div class="srv-name">Organic French Balayage</div>
+                    <div class="srv-price">$380</div>
+                </div>
+                <p class="srv-desc">Hand-painted dimension customized to your facial bone structure and natural undertones. Includes bond repair and gloss glaze.</p>
+                <div class="srv-meta">
+                    <span><i class="far fa-clock"></i> 150 mins</span>
+                    <span>Master Colorist</span>
+                </div>
+            </div>
+
+            <div class="service-card" data-cat="cut">
+                <div class="srv-head">
+                    <div class="srv-name">Bespoke Couture Cut &amp; Blowout</div>
+                    <div class="srv-price">$195</div>
+                </div>
+                <p class="srv-desc">Dry texture tailoring engineered for effortless natural movement. Completed with a blowout and botanical hair mist.</p>
+                <div class="srv-meta">
+                    <span><i class="far fa-clock"></i> 75 mins</span>
+                    <span>Creative Director</span>
+                </div>
+            </div>
+
+            <div class="service-card" data-cat="spa">
+                <div class="srv-head">
+                    <div class="srv-name">Japanese Waterfall Head Spa</div>
+                    <div class="srv-price">$260</div>
+                </div>
+                <p class="srv-desc">Deep ultrasonic pore cleansing, hot herbal water circulation loop, neck lymphatic drainage, and customized organic masks.</p>
+                <div class="srv-meta">
+                    <span><i class="far fa-clock"></i> 90 mins</span>
+                    <span>Scalp Therapist</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transformations Before & After Slider -->
+    <section class="section-wrap" id="transformations" style="background: rgba(16, 16, 21, 0.5);">
+        <div class="section-header">
+            <span class="sub-tag">Client Portfolios</span>
+            <h2 class="sec-title">Before &amp; After Studio Results</h2>
+            <p class="sec-desc">Slide to see real transformations achieved without heat damage or harsh ammonia.</p>
+        </div>
+
+        <div class="before-after-box">
+            <div class="slider-container" id="salonSlider">
+                <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1000&q=80" alt="After" id="salonAfterImg">
+                <div class="before-layer" id="salonBeforeLayer">
+                    <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?auto=format&fit=crop&w=1000&q=80" alt="Before" id="salonBeforeImg">
+                </div>
+                <div class="drag-handle" id="salonDragHandle">
+                    <i class="fas fa-arrows-alt-h"></i>
+                </div>
+                <div class="slider-overlay-labels">
+                    <span class="label-chip">BEFORE: Uneven Brass &amp; Dry Ends</span>
+                    <span class="label-chip">AFTER: Platinum Beige &amp; K18 Repair</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Master Stylists -->
+    <section class="section-wrap" id="stylists">
+        <div class="section-header">
+            <span class="sub-tag">The Artists</span>
+            <h2 class="sec-title">Master Stylists &amp; Colorists</h2>
+            <p class="sec-desc">Our artists bring years of editorial fashion week pedigree and bespoke client focus.</p>
+        </div>
+
+        <div class="stylist-grid">
+            <div class="stylist-card">
+                <div class="stylist-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="Elena Vance">
+                </div>
+                <div class="stylist-info">
+                    <h4 class="stylist-name">Elena Vance</h4>
+                    <div class="stylist-title">Head of Color Artistry</div>
+                    <p class="stylist-bio">Trained in Paris and Milan. Renowned for multi-dimensional French balayage and subtle micro-lights.</p>
+                </div>
+            </div>
+
+            <div class="stylist-card">
+                <div class="stylist-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80" alt="Marcus Ray">
+                </div>
+                <div class="stylist-info">
+                    <h4 class="stylist-name">Marcus Ray</h4>
+                    <div class="stylist-title">Creative Director of Cuts</div>
+                    <p class="stylist-bio">14 years in luxury editorial tailoring. Specialist in precision dry cutting and organic movement styling.</p>
+                </div>
+            </div>
+
+            <div class="stylist-card">
+                <div class="stylist-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80" alt="Chloe Monet">
+                </div>
+                <div class="stylist-info">
+                    <h4 class="stylist-name">Chloe Monet</h4>
+                    <div class="stylist-title">Lead Trichologist &amp; Head Spa</div>
+                    <p class="stylist-bio">Certified Japanese Head Spa practitioner dedicated to restorative follicular health and holistic scalp recovery.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Form & VIP Digital Wallet Pass Generator -->
+    <section class="section-wrap" id="book" style="background: rgba(16, 16, 21, 0.4);">
+        <div class="section-header">
+            <span class="sub-tag">Priority Reservation</span>
+            <h2 class="sec-title">Reserve Your Private Suite</h2>
+            <p class="sec-desc">Select your desired service, specialist, and preferred time. Our concierge will generate your instant VIP Studio Pass.</p>
+        </div>
+
+        <div class="booking-container">
+            <form id="salonForm" onsubmit="handleSalonBooking(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Client Full Name</label>
+                        <input type="text" id="clientNameInput" class="form-input" placeholder="e.g. Manish Soni" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone / WhatsApp</label>
+                        <input type="tel" class="form-input" placeholder="+1 (310) 555-0198" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Service Selection</label>
+                        <select class="form-input" id="serviceSelected" required>
+                            <option value="Organic French Balayage ($380)">Organic French Balayage ($380)</option>
+                            <option value="Bespoke Couture Cut & Blowout ($195)">Bespoke Couture Cut &amp; Blowout ($195)</option>
+                            <option value="Japanese Waterfall Head Spa ($260)">Japanese Waterfall Head Spa ($260)</option>
+                            <option value="Complete Hair & Scalp Transformation ($550)">Complete Hair &amp; Scalp Transformation ($550)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Preferred Artist</label>
+                        <select class="form-input" id="artistSelected">
+                            <option value="Elena Vance">Elena Vance (Master Colorist)</option>
+                            <option value="Marcus Ray">Marcus Ray (Creative Director)</option>
+                            <option value="Chloe Monet">Chloe Monet (Trichologist)</option>
+                            <option value="First Available Artist">First Available Senior Artist</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Preferred Date</label>
+                        <input type="date" id="dateSelected" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Time Slot</label>
+                        <select class="form-input" id="timeSelected">
+                            <option value="10:00 AM">Morning (10:00 AM)</option>
+                            <option value="02:00 PM">Afternoon (02:00 PM)</option>
+                            <option value="05:30 PM">Evening Twilight (05:30 PM)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 24px;">
+                    <label style="display: block; font-family: 'Space Grotesk'; font-size: 0.8rem; font-weight: 600; color: var(--muted); margin-bottom: 6px; text-transform: uppercase;">
+                        Notes / Beverage Preference (Optional)
+                    </label>
+                    <textarea class="form-input" style="height: 80px; resize: none;" placeholder="Special requests, prior color history, or beverage preference (Champagne / Organic Matcha / Espresso)..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-gold" style="width: 100%; justify-content: center; font-size: 0.95rem; padding: 15px;">
+                    <i class="fas fa-ticket-alt"></i> Generate VIP Studio Pass &amp; Book
+                </button>
+            </form>
+
+            <!-- INNOVATIVE FEATURE 2: 3D Apple Wallet Style VIP Pass -->
+            <div class="vip-pass-card" id="vipPassCard">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px;">
+                    <div>
+                        <div style="font-family: 'Cormorant Garamond'; font-size: 1.4rem; color: #fff; letter-spacing: 2px;">AURA &amp; <span style="color: var(--gold);">BLADE</span></div>
+                        <div style="font-family: 'JetBrains Mono'; font-size: 0.7rem; color: var(--gold);">BEVERLY HILLS VIP ATELIER PASS</div>
+                    </div>
+                    <i class="fas fa-crown" style="color: var(--gold); font-size: 1.5rem;"></i>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; border-top: 1px dashed rgba(255,255,255,0.15); padding-top: 14px;">
+                    <div>
+                        <div style="font-size: 0.72rem; color: var(--muted); text-transform: uppercase;">Guest Name</div>
+                        <div style="font-family: 'Syne'; font-weight: 700; color: #fff;" id="passName">Manish Soni</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.72rem; color: var(--muted); text-transform: uppercase;">Reserved Artist</div>
+                        <div style="font-family: 'Syne'; font-weight: 700; color: var(--gold);" id="passArtist">Elena Vance</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.72rem; color: var(--muted); text-transform: uppercase;">Date &amp; Time</div>
+                        <div style="font-family: 'JetBrains Mono'; font-size: 0.85rem; color: #fff;" id="passDateTime">Oct 24, 2026 • 02:00 PM</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.72rem; color: var(--muted); text-transform: uppercase;">Access Suite</div>
+                        <div style="font-family: 'JetBrains Mono'; font-size: 0.85rem; color: #10B981;">Private Suite #04</div>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 12px;">
+                    <span style="font-size: 0.75rem; color: var(--muted);"><i class="fas fa-check-circle" style="color: #10B981;"></i> Concierge Notified via SMS</span>
+                    <button class="btn-gold" style="padding: 6px 14px; font-size: 0.72rem;" onclick="alert('Digital pass saved to Apple Wallet!')">
+                        <i class="fab fa-apple"></i> Save to Wallet
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating WhatsApp Action -->
+    <a href="https://wa.me/13105550198?text=Hello%20Aura%20and%20Blade,%20I%20would%20like%20to%20reserve%20a%20private%20suite." target="_blank" class="whatsapp-float" title="Instant WhatsApp Concierge">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="brand-logo" style="margin-bottom: 14px;">
+                    AURA &amp; <span>BLADE</span>
+                </div>
+                <p style="line-height: 1.7; margin-bottom: 18px;">
+                    Flagship Beverly Hills salon atelier providing bespoke hair design, private suites, and Japanese scalp therapy rituals.
+                </p>
+                <div style="color: var(--gold); font-family: 'JetBrains Mono'; font-size: 0.75rem;">
+                    <i class="fas fa-map-marker-alt"></i> 442 North Rodeo Drive, Beverly Hills, CA 90210
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h5>Services</h5>
+                <ul>
+                    <li><a href="#services">French Balayage</a></li>
+                    <li><a href="#services">Precision Couture Cuts</a></li>
+                    <li><a href="#services">Japanese Head Spa</a></li>
+                    <li><a href="#services">K18 Molecular Repair</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h5>Studio Hours</h5>
+                <p style="margin-bottom: 8px;"><strong>Tue – Fri:</strong> 9:00 AM – 8:00 PM</p>
+                <p style="margin-bottom: 8px;"><strong>Sat:</strong> 9:00 AM – 7:00 PM</p>
+                <p style="margin-bottom: 8px;"><strong>Sun:</strong> 10:00 AM – 5:00 PM</p>
+                <p style="margin-bottom: 14px;"><strong>Mon:</strong> Closed for Private Shoots</p>
+            </div>
+
+            <div class="footer-col">
+                <h5>Concierge</h5>
+                <p style="margin-bottom: 8px;"><strong>Valet:</strong> Complimentary at Entrance</p>
+                <p style="margin-bottom: 8px;"><strong>Phone:</strong> +1 (310) 555-0198</p>
+                <p style="color: var(--gold); font-family: 'JetBrains Mono'; font-weight: 700;">concierge@aurablade.com</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div>© 2026 AURA &amp; BLADE Luxury Hair Studio LLC. All Rights Reserved.</div>
+            <div style="display: flex; gap: 20px;">
+                <a href="#" style="color: var(--muted); text-decoration: none;">Privacy Policy</a>
+                <a href="#" style="color: var(--muted); text-decoration: none;">Cancellation Terms</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        let currentBaseLevel = 4;
+
+        function setBaseLevel(lvl, btn) {
+            currentBaseLevel = lvl;
+            document.querySelectorAll('.level-chip-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            calculateColorSwatch();
+        }
+
+        const palettes = {
+            nordic: {
+                name: 'Nordic Platinum Beige',
+                code: 'Formula: Level 10.12 + 20 Vol Gloss',
+                color: '#E8D8C8',
+                timeBase: 140
+            },
+            caramel: {
+                name: 'French Honey Caramel Balayage',
+                code: 'Formula: Level 8.34 + Amber Glaze',
+                color: '#C68B59',
+                timeBase: 120
+            },
+            mocha: {
+                name: 'Espresso Mocha Melt',
+                code: 'Formula: Level 5.18 + Cocoa Reflect',
+                color: '#4A3728',
+                timeBase: 90
+            },
+            copper: {
+                name: 'Rose Gold Tuscan Copper',
+                code: 'Formula: Level 7.43 + Rose Toner',
+                color: '#B85D3B',
+                timeBase: 110
+            }
+        };
+
+        function calculateColorSwatch() {
+            const toneKey = document.getElementById('targetTone').value;
+            const p = palettes[toneKey];
+            const circle = document.getElementById('swatchCircle');
+            circle.style.backgroundColor = p.color;
+            document.getElementById('swatchName').innerText = p.name;
+            document.getElementById('swatchCode').innerText = p.code;
+
+            const liftLevels = Math.abs(10 - currentBaseLevel);
+            const totalTime = p.timeBase + (liftLevels * 10);
+            document.getElementById('swatchTime').innerHTML = `Estimated Session: <strong>${totalTime} mins</strong> • Base Level ${currentBaseLevel} Custom Lift`;
+        }
+
+        function filterServices(cat, btn) {
+            document.querySelectorAll('.srv-tab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            document.querySelectorAll('.service-card').forEach(card => {
+                if (cat === 'all' || card.getAttribute('data-cat') === cat) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        const sContainer = document.getElementById('salonSlider');
+        const sBefore = document.getElementById('salonBeforeLayer');
+        const sHandle = document.getElementById('salonDragHandle');
+        let sDragging = false;
+
+        function setSalonPos(x) {
+            const rect = sContainer.getBoundingClientRect();
+            let pos = ((x - rect.left) / rect.width) * 100;
+            if (pos < 5) pos = 5;
+            if (pos > 95) pos = 95;
+            sBefore.style.width = pos + '%';
+            sHandle.style.left = pos + '%';
+        }
+
+        sContainer.addEventListener('mousedown', () => sDragging = true);
+        window.addEventListener('mouseup', () => sDragging = false);
+        window.addEventListener('mousemove', (e) => {
+            if (!sDragging) return;
+            setSalonPos(e.clientX);
+        });
+
+        sContainer.addEventListener('touchstart', () => sDragging = true);
+        window.addEventListener('touchend', () => sDragging = false);
+        window.addEventListener('touchmove', (e) => {
+            if (!sDragging) return;
+            setSalonPos(e.touches[0].clientX);
+        });
+
+        function handleSalonBooking(e) {
+            e.preventDefault();
+            const name = document.getElementById('clientNameInput').value;
+            const artist = document.getElementById('artistSelected').value;
+            const date = document.getElementById('dateSelected').value || 'Tomorrow';
+            const time = document.getElementById('timeSelected').value;
+
+            document.getElementById('passName').innerText = name;
+            document.getElementById('passArtist').innerText = artist;
+            document.getElementById('passDateTime').innerText = `${date} • ${time}`;
+
+            const pass = document.getElementById('vipPassCard');
+            pass.style.display = 'block';
+            pass.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

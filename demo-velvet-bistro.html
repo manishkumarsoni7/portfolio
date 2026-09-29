@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L’ÉTOILE ROYALE — Two Michelin Star Modern French Gastronomy &amp; Wine Vault</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=JetBrains+Mono:wght@400;500;700&family=Manrope:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg: #070608;
+            --surface: #100E14;
+            --surface-card: #15131A;
+            --border: rgba(255, 255, 255, 0.08);
+            --gold: #D4AF37;
+            --gold-light: #F3E5AB;
+            --wine: #800020;
+            --crimson: #E63946;
+            --white: #FFFFFF;
+            --muted: #A8A29E;
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: var(--bg);
+            color: var(--white);
+            font-family: 'Manrope', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Top Announcement Bar */
+        .michelin-topbar {
+            background: #030204; border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 8px 6%; display: flex; justify-content: space-between; align-items: center;
+            font-size: 0.76rem; color: var(--gold); font-family: 'Space Grotesk';
+        }
+        .topbar-badge { display: flex; align-items: center; gap: 8px; font-weight: 600; letter-spacing: 1px; }
+
+        /* Header Navigation */
+        header {
+            position: sticky; top: 0; z-index: 1000;
+            background: rgba(7, 6, 8, 0.94);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 18px 6%;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .brand-logo {
+            font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 400;
+            color: var(--white); text-decoration: none; letter-spacing: 3px; display: flex; align-items: center; gap: 8px;
+        }
+        .brand-logo span { color: var(--gold); font-style: italic; }
+
+        nav { display: flex; gap: 28px; align-items: center; }
+        nav a {
+            color: var(--muted); text-decoration: none; font-family: 'Space Grotesk'; font-size: 0.8rem;
+            font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; transition: color 0.3s;
+        }
+        nav a:hover { color: var(--gold); }
+
+        .btn-gold {
+            background: var(--gold); color: #000; font-family: 'Syne', sans-serif; font-size: 0.8rem;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 12px 26px;
+            border-radius: 50px; border: none; cursor: pointer; transition: all 0.3s var(--ease);
+            text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn-gold:hover {
+            transform: translateY(-2px); box-shadow: 0 0 25px rgba(212, 175, 55, 0.4); background: var(--gold-light);
+        }
+        .btn-outline {
+            background: transparent; color: var(--white); border: 1px solid var(--border);
+            font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1.5px; padding: 12px 26px; border-radius: 50px; cursor: pointer;
+            transition: all 0.3s; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 90vh; padding: 60px 6% 80px 6%;
+            display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 50px; align-items: center;
+            background: radial-gradient(circle at top right, rgba(212, 175, 55, 0.08) 0%, transparent 60%);
+        }
+        .hero-stars { color: #E63946; font-size: 1.1rem; margin-bottom: 12px; display: flex; gap: 6px; }
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif; font-size: 4.6rem; font-weight: 300;
+            line-height: 1.05; margin-bottom: 20px;
+        }
+        .hero-title span { font-style: italic; color: var(--gold); }
+        .hero-desc { color: var(--muted); font-size: 1.05rem; line-height: 1.8; margin-bottom: 35px; max-width: 540px; }
+
+        .hero-img-box {
+            position: relative; width: 100%; aspect-ratio: 16/12; border-radius: 24px; overflow: hidden;
+            border: 1px solid var(--border); box-shadow: 0 30px 70px rgba(0,0,0,0.85);
+        }
+        .hero-img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .hero-floating-tag {
+            position: absolute; bottom: 20px; left: 20px; right: 20px;
+            background: rgba(16, 14, 20, 0.9); backdrop-filter: blur(15px);
+            border: 1px solid var(--border); border-radius: 14px; padding: 16px 20px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        /* Section Global */
+        .section-wrap { padding: 90px 6%; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .sub-tag { font-family: 'Space Grotesk'; font-size: 0.78rem; color: var(--gold); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 8px; display: block; }
+        .sec-title { font-family: 'Cormorant Garamond', serif; font-size: 3.4rem; font-weight: 300; color: var(--white); }
+        .sec-desc { color: var(--muted); font-size: 0.95rem; max-width: 600px; margin: 10px auto 0 auto; }
+
+        /* INNOVATIVE FEATURE 1: Interactive Dish Plating Canvas */
+        .plating-canvas-box {
+            background: var(--surface-card); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 24px;
+            padding: 40px; max-width: 950px; margin: 0 auto; box-shadow: 0 30px 80px rgba(0,0,0,0.8);
+        }
+        .plating-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 40px; align-items: center; }
+        @media (max-width: 780px) { .plating-grid { grid-template-columns: 1fr; } }
+        .plate-viewport {
+            position: relative; width: 100%; aspect-ratio: 1/1; max-width: 400px; margin: 0 auto;
+            border-radius: 50%; overflow: hidden; border: 2px solid rgba(212,175,55,0.4);
+            box-shadow: 0 0 50px rgba(0,0,0,0.9);
+        }
+        .plate-viewport img { width: 100%; height: 100%; object-fit: cover; }
+        .hotspot-pin {
+            position: absolute; width: 28px; height: 28px; border-radius: 50%;
+            background: var(--gold); color: #000; display: flex; align-items: center; justify-content: center;
+            font-size: 0.75rem; font-weight: 700; cursor: pointer; box-shadow: 0 0 15px var(--gold);
+            animation: pulsePin 2s infinite; transition: transform 0.2s;
+        }
+        @keyframes pulsePin {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.18); }
+        }
+
+        /* INNOVATIVE FEATURE 2: Subterranean Wine Rack Vault */
+        .wine-rack-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin: 20px 0;
+        }
+        .wine-slot-cell {
+            background: #0B080E; border: 1px solid var(--border); border-radius: 12px; padding: 14px;
+            text-align: center; cursor: pointer; transition: all 0.25s;
+        }
+        .wine-slot-cell.active, .wine-slot-cell:hover {
+            background: rgba(212,175,55,0.15); border-color: var(--gold); transform: translateY(-3px);
+        }
+
+        /* Tasting Menu Interactive Tabs */
+        .menu-filter-nav {
+            display: flex; justify-content: center; gap: 12px; margin-bottom: 40px; flex-wrap: wrap;
+        }
+        .menu-tab-btn {
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: var(--muted);
+            padding: 9px 20px; border-radius: 50px; font-family: 'Space Grotesk'; font-size: 0.8rem;
+            cursor: pointer; transition: all 0.25s; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .menu-tab-btn.active, .menu-tab-btn:hover {
+            background: rgba(212, 175, 55, 0.15); border-color: var(--gold); color: var(--gold);
+        }
+
+        .menu-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 26px;
+        }
+        .dish-card {
+            background: var(--surface-card); border: 1px solid var(--border); border-radius: 18px;
+            padding: 24px; transition: all 0.3s var(--ease); display: flex; flex-direction: column;
+        }
+        .dish-card:hover {
+            border-color: rgba(212, 175, 55, 0.4); transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+        .dish-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+        .dish-name { font-family: 'Syne'; font-size: 1.25rem; font-weight: 700; color: #fff; }
+        .dish-price { font-family: 'JetBrains Mono'; font-size: 1.25rem; font-weight: 700; color: var(--gold); }
+        .dish-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.6; margin-bottom: 14px; }
+        .dish-pairing {
+            background: rgba(212,175,55,0.06); border-left: 2px solid var(--gold); padding: 8px 12px;
+            font-size: 0.78rem; color: var(--gold-light); font-family: 'Space Grotesk'; margin-top: auto;
+        }
+
+        /* Table Reservation Engine */
+        .reserve-box {
+            background: var(--surface); border: 1px solid var(--border); border-radius: 24px;
+            padding: 40px; max-width: 800px; margin: 0 auto;
+        }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
+        @media (max-width: 650px) { .form-row { grid-template-columns: 1fr; } }
+        .form-group label {
+            display: block; font-family: 'Space Grotesk'; font-size: 0.8rem; font-weight: 600;
+            color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .form-input {
+            width: 100%; background: #070608; border: 1px solid var(--border); color: #fff;
+            padding: 14px 16px; border-radius: 10px; font-family: 'Manrope'; font-size: 0.9rem; outline: none;
+            transition: border-color 0.2s;
+        }
+        .form-input:focus { border-color: var(--gold); }
+
+        /* WhatsApp Floating Action */
+        .whatsapp-float {
+            position: fixed; bottom: 25px; right: 25px; z-index: 999;
+            background: #25D366; color: #fff; width: 60px; height: 60px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 1.8rem;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4); text-decoration: none;
+            transition: all 0.3s var(--ease);
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1) rotate(10deg); box-shadow: 0 15px 35px rgba(37, 211, 102, 0.6);
+        }
+
+        /* Footer */
+        footer {
+            padding: 70px 6% 30px 6%; background: #030204; border-top: 1px solid var(--border);
+            font-size: 0.85rem; color: var(--muted);
+        }
+        .footer-grid {
+            display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 40px; margin-bottom: 50px;
+        }
+        @media (max-width: 850px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 500px) { .footer-grid { grid-template-columns: 1fr; } }
+        .footer-col h5 { font-family: 'Syne'; font-size: 1rem; color: #fff; margin-bottom: 16px; letter-spacing: 1px; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col ul li a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+        .footer-col ul li a:hover { color: var(--gold); }
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.06); padding-top: 25px;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;
+        }
+
+        @media (max-width: 900px) {
+            .hero-section { grid-template-columns: 1fr; padding-top: 40px; }
+            header nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Michelin Bar -->
+    <div class="michelin-topbar">
+        <div class="topbar-badge">
+            <i class="fas fa-star" style="color: #E63946;"></i>
+            <span>TWO MICHELIN STARS 2026</span>
+            <span>•</span>
+            <span>LES GRANDES TABLES DU MONDE</span>
+        </div>
+        <div>
+            <span>Dinner Service: Wednesday – Sunday (6:00 PM – 11:30 PM)</span>
+        </div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header>
+        <a href="#" class="brand-logo">
+            L’ÉTOILE <span>ROYALE</span>
+        </a>
+        <nav>
+            <a href="#canvas">Plating Canvas</a>
+            <a href="#menu">Tasting Menus</a>
+            <a href="#vault">Subterranean Vault</a>
+            <a href="#reserve">Reservations</a>
+        </nav>
+        <a href="#reserve" class="btn-gold"><i class="fas fa-utensils"></i> Reserve Table</a>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div>
+            <div class="hero-stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </div>
+            <h1 class="hero-title">Contemporary French haute <span>gastronomy.</span></h1>
+            <p class="hero-desc">
+                Classical French culinary heritage refined through wild botanical foraging, pristine seafood provenance, and rare vintage wine cellar pairings.
+            </p>
+            <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 30px;">
+                <a href="#reserve" class="btn-gold"><i class="fas fa-calendar-check"></i> Book Dining Experience</a>
+                <a href="#canvas" class="btn-outline">Explore Plating Canvas</a>
+            </div>
+        </div>
+
+        <div class="hero-img-box">
+            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=80" alt="Gourmet Dish">
+            <div class="hero-floating-tag">
+                <div>
+                    <div style="font-family: 'Syne'; font-weight: 700;">Chef’s 9-Course Autumn Degustation</div>
+                    <div style="font-size: 0.78rem; color: var(--muted);">Périgord Black Truffle &amp; A5 Miyazaki Wagyu</div>
+                </div>
+                <div style="font-family: 'JetBrains Mono'; font-weight: 700; color: var(--gold); font-size: 1.2rem;">
+                    $285 / guest
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INNOVATIVE FEATURE 1: Interactive Dish Plating Canvas & Micro-Provenance -->
+    <section class="section-wrap" id="canvas" style="background: rgba(16, 14, 20, 0.4);">
+        <div class="section-header">
+            <span class="sub-tag">Micro-Provenance Explorer</span>
+            <h2 class="sec-title">Interactive Plating Canvas</h2>
+            <p class="sec-desc">Click the gilded pins on the culinary canvas to reveal the artisan harvest origins, foraging terroir, and culinary technique.</p>
+        </div>
+
+        <div class="plating-canvas-box">
+            <div class="plating-grid">
+                <div class="plate-viewport">
+                    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80" alt="Dish Canvas">
+                    <div class="hotspot-pin" style="top: 35%; left: 45%;" onclick="showPinInfo('wagyu')">1</div>
+                    <div class="hotspot-pin" style="top: 55%; left: 30%;" onclick="showPinInfo('truffle')">2</div>
+                    <div class="hotspot-pin" style="top: 60%; left: 65%;" onclick="showPinInfo('jus')">3</div>
+                </div>
+
+                <div id="pinDetailCard" style="background: #09080C; border: 1px solid var(--border); border-radius: 18px; padding: 26px;">
+                    <span class="sub-tag" id="pinCategory">TERROIR: MIYAZAKI PREFECTURE, JAPAN</span>
+                    <h3 style="font-family: 'Cormorant Garamond'; font-size: 1.6rem; color: var(--gold); margin: 6px 0 12px 0;" id="pinTitle">A5 Kuroge Washu Tenderloin</h3>
+                    <p style="font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-bottom: 14px;" id="pinDesc">
+                        Raised in the Kirishima mountain range with pure spring water. Seared over Japanese white binchotan charcoal for an internal temperature of 54°C.
+                    </p>
+                    <div style="font-family: 'JetBrains Mono'; font-size: 0.75rem; color: var(--gold-light);" id="pinPair">
+                        <i class="fas fa-wine-bottle"></i> Pair with: 2016 Château Margaux Premier Grand Cru
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tasting Menu Section -->
+    <section class="section-wrap" id="menu">
+        <div class="section-header">
+            <span class="sub-tag">Seasonal Creations</span>
+            <h2 class="sec-title">The Autumn Degustation Menu</h2>
+            <p class="sec-desc">Crafted nightly using sustainably harvested produce from our private biodynamic garden and Breton coastal divers.</p>
+        </div>
+
+        <div class="menu-filter-nav">
+            <button class="menu-tab-btn active" onclick="filterMenu('all', this)">Full Degustation</button>
+            <button class="menu-tab-btn" onclick="filterMenu('signature', this)">Chef Signatures</button>
+            <button class="menu-tab-btn" onclick="filterMenu('coastal', this)">Oceanic &amp; Caviar</button>
+            <button class="menu-tab-btn" onclick="filterMenu('plant', this)">Botanical Flora</button>
+        </div>
+
+        <div class="menu-grid">
+            <div class="dish-card" data-cat="signature">
+                <div class="dish-header">
+                    <h3 class="dish-name">A5 Miyazaki Wagyu Tenderloin</h3>
+                    <span class="dish-price">$95</span>
+                </div>
+                <p class="dish-desc">Charcoal-seared over binchotan, aged black garlic reduction, and freshly shaved Périgord winter truffles.</p>
+                <div class="dish-pairing">
+                    <i class="fas fa-wine-glass"></i> Cellar Pairing: 2016 Château Margaux Premier Grand Cru
+                </div>
+            </div>
+
+            <div class="dish-card" data-cat="coastal">
+                <div class="dish-header">
+                    <h3 class="dish-name">Hokkaido Scallop &amp; Imperial Caviar</h3>
+                    <span class="dish-price">$68</span>
+                </div>
+                <p class="dish-desc">Hand-dived scallop carpaccio with Oscietra caviar pearl emulsion, yuzu dashi vinaigrette, and sea fennel oil.</p>
+                <div class="dish-pairing">
+                    <i class="fas fa-wine-glass"></i> Cellar Pairing: 2012 Dom Pérignon Vintage Champagne
+                </div>
+            </div>
+
+            <div class="dish-card" data-cat="plant">
+                <div class="dish-header">
+                    <h3 class="dish-name">Smoked Morels &amp; Jerusalem Artichoke</h3>
+                    <span class="dish-price">$52</span>
+                </div>
+                <p class="dish-desc">Wild foraged morel mushrooms braised in elderflower broth with crispy sunchoke velvet and hazelnut praline.</p>
+                <div class="dish-pairing">
+                    <i class="fas fa-wine-glass"></i> Cellar Pairing: 2018 Domaine Leflaive Puligny-Montrachet
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INNOVATIVE FEATURE 2: Subterranean Wine Vault Interactive Map -->
+    <section class="section-wrap" id="vault" style="background: rgba(16, 14, 20, 0.6);">
+        <div class="section-header">
+            <span class="sub-tag">Subterranean Cellar Archive</span>
+            <h2 class="sec-title">The Grand Wine Vault</h2>
+            <p class="sec-desc">Click any vintage slot below to inspect bottle cellar humidity, cork condition, and Parker score rating.</p>
+        </div>
+
+        <div style="max-width: 950px; margin: 0 auto; background: var(--surface-card); border: 1px solid var(--border); border-radius: 24px; padding: 35px;">
+            <div class="wine-rack-grid">
+                <div class="wine-slot-cell active" onclick="inspectWine('1996 Château Latour (Pauillac)', '99 Pts Robert Parker • 13°C Cellar Temp • Perfect Wax Seal', 'Dense cedar, blackcurrant cassis, crushed violets, and graphite finish.', this)">
+                    <div style="font-family: 'JetBrains Mono'; font-size: 0.85rem; color: var(--gold);">BIN #04</div>
+                    <div style="font-size: 0.75rem; color: #fff;">1996 Latour</div>
+                </div>
+
+                <div class="wine-slot-cell" onclick="inspectWine('2005 Romanée-Conti Grand Cru', '100 Pts Allen Meadows • 13°C Cellar Temp • Pristine Level', 'Ethereal red rose petals, dried morels, wild strawberries, and silken tannins.', this)">
+                    <div style="font-family: 'JetBrains Mono'; font-size: 0.85rem; color: var(--gold);">BIN #12</div>
+                    <div style="font-size: 0.75rem; color: #fff;">2005 DRC</div>
+                </div>
+
+                <div class="wine-slot-cell" onclick="inspectWine('2012 Dom Pérignon P2 Plénitude', '98 Pts Antonio Galloni • 11°C Cellar Temp • Extra Brut', 'Smoky toasted brioche, candied citrus peel, iodized minerality, and electric acidity.', this)">
+                    <div style="font-family: 'JetBrains Mono'; font-size: 0.85rem; color: var(--gold);">BIN #28</div>
+                    <div style="font-size: 0.75rem; color: #fff;">2012 Dom P2</div>
+                </div>
+
+                <div class="wine-slot-cell" onclick="inspectWine('2015 Château d’Yquem Sauternes', '99 Pts Wine Spectator • 12°C Cellar Temp • Honeyed Botrytis', 'Dried apricots, saffron blossom, crystallised ginger, and endless honeycomb finish.', this)">
+                    <div style="font-family: 'JetBrains Mono'; font-size: 0.85rem; color: var(--gold);">BIN #42</div>
+                    <div style="font-size: 0.75rem; color: #fff;">2015 d’Yquem</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px; padding: 20px; background: #08060A; border: 1px solid var(--border); border-radius: 14px;" id="wineInspectBox">
+                <h4 style="font-family: 'Cormorant Garamond'; font-size: 1.5rem; color: var(--gold);" id="wName">1996 Château Latour (Pauillac)</h4>
+                <div style="font-family: 'JetBrains Mono'; font-size: 0.78rem; color: #10B981; margin: 4px 0 10px 0;" id="wMeta">99 Pts Robert Parker • 13°C Cellar Temp • Perfect Wax Seal</div>
+                <p style="font-size: 0.85rem; color: var(--muted);" id="wTasting">Dense cedar, blackcurrant cassis, crushed violets, and graphite finish.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Table Reservation Form -->
+    <section class="section-wrap" id="reserve">
+        <div class="section-header">
+            <span class="sub-tag">Dining Reservations</span>
+            <h2 class="sec-title">Reserve Your Table</h2>
+            <p class="sec-desc">Limited to 35 covers per seating to ensure attentive culinary service.</p>
+        </div>
+
+        <div class="reserve-box">
+            <form id="reserveForm" onsubmit="handleReservation(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Guest Full Name</label>
+                        <input type="text" class="form-input" placeholder="e.g. Manish Soni" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone / WhatsApp</label>
+                        <input type="tel" class="form-input" placeholder="+1 (555) 019-3829" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Party Size</label>
+                        <select class="form-input">
+                            <option>2 Guests (Intimate Dining)</option>
+                            <option>4 Guests (Standard Banquette)</option>
+                            <option>6-8 Guests (Private Chef's Salon)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Seating Zone</label>
+                        <select class="form-input">
+                            <option>Chef's Counter (Kitchen View)</option>
+                            <option>The Glass Atrium Garden</option>
+                            <option>Subterranean Wine Vault</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Reservation Date</label>
+                        <input type="date" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Seating Time</label>
+                        <select class="form-input">
+                            <option>First Seating (06:00 PM)</option>
+                            <option>Prime Seating (08:15 PM)</option>
+                            <option>Late Seating (09:45 PM)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 24px;">
+                    <label style="display: block; font-family: 'Space Grotesk'; font-size: 0.8rem; font-weight: 600; color: var(--muted); margin-bottom: 6px; text-transform: uppercase;">
+                        Dietary Preferences / Celebrations (Optional)
+                    </label>
+                    <textarea class="form-input" style="height: 80px; resize: none;" placeholder="Allergies, anniversary, or special cellar requests..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-gold" style="width: 100%; justify-content: center; font-size: 0.95rem; padding: 15px;">
+                    <i class="fas fa-receipt"></i> Request Table Reservation
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Floating WhatsApp Action -->
+    <a href="https://wa.me/18004926682?text=Hello%20L'Etoile%20Royale,%20I%20would%20like%20to%20inquire%20about%20a%20private%20dining%20reservation." target="_blank" class="whatsapp-float" title="Sommelier & Table WhatsApp Concierge">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="brand-logo" style="margin-bottom: 14px;">
+                    L’ÉTOILE <span>ROYALE</span>
+                </div>
+                <p style="line-height: 1.7; margin-bottom: 18px;">
+                    Two Michelin Star contemporary French gastronomic destination located in the historic heritage district.
+                </p>
+                <div style="font-family: 'JetBrains Mono'; font-size: 0.72rem; color: var(--gold);">
+                    <i class="fas fa-map-marker-alt"></i> 18 Rue de l'Opéra, Paris / Mayfair, London
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h5>Experience</h5>
+                <ul>
+                    <li><a href="#canvas">Plating Canvas</a></li>
+                    <li><a href="#menu">Autumn Degustation</a></li>
+                    <li><a href="#vault">Grand Cellar Vault</a></li>
+                    <li><a href="#reserve">Private Dining Salons</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h5>Service Hours</h5>
+                <p style="margin-bottom: 8px;"><strong>Wednesday – Sunday</strong></p>
+                <p style="margin-bottom: 8px;">Dinner: 6:00 PM – 11:30 PM</p>
+                <p style="margin-bottom: 14px;">Lunch: Sat &amp; Sun 12:00 PM – 3:00 PM</p>
+                <p style="color: var(--gold); font-family: 'JetBrains Mono'; font-weight: 700;">concierge@letoileroyale.com</p>
+            </div>
+
+            <div class="footer-col">
+                <h5>Dress Code</h5>
+                <p style="font-size: 0.82rem; line-height: 1.6; color: var(--muted);">
+                    Smart Elegant attire requested. Jackets recommended for gentlemen. Children over 10 years welcomed.
+                </p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div>© 2026 L’ÉTOILE ROYALE Gastronomie LLC. All Rights Reserved.</div>
+            <div style="display: flex; gap: 20px;">
+                <a href="#" style="color: var(--muted); text-decoration: none;">Booking Policy</a>
+                <a href="#" style="color: var(--muted); text-decoration: none;">Press Inquiries</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        const pinData = {
+            wagyu: {
+                cat: 'TERROIR: MIYAZAKI PREFECTURE, JAPAN',
+                title: 'A5 Kuroge Washu Tenderloin',
+                desc: 'Raised in the Kirishima mountain range with pure spring water. Seared over Japanese white binchotan charcoal for an internal temperature of 54°C.',
+                pair: 'Pair with: 2016 Château Margaux Premier Grand Cru'
+            },
+            truffle: {
+                cat: 'PROVENANCE: PÉRIGORD NOIR, FRANCE',
+                title: 'Tuber Melanosporum Winter Truffle',
+                desc: 'Uncovered 48 hours prior by truffle hounds in limestone oak groves. Shaved tableside at 0.8mm thickness to release volatile aromatics.',
+                pair: 'Pair with: 2017 Domaine Dujac Clos de la Roche'
+            },
+            jus: {
+                cat: 'REDUCTION: 72-HOUR VEAL & ROASTED BONES',
+                title: 'Aged Black Garlic & Glace de Viande',
+                desc: 'Simmered with shallots, thyme, Madeira wine, and organic bone marrow to achieve natural umami gloss without starch thickeners.',
+                pair: 'Pair with: 2015 Syrah Côte-Rôtie Guigal'
+            }
+        };
+
+        function showPinInfo(key) {
+            const d = pinData[key];
+            document.getElementById('pinCategory').innerText = d.cat;
+            document.getElementById('pinTitle').innerText = d.title;
+            document.getElementById('pinDesc').innerText = d.desc;
+            document.getElementById('pinPair').innerHTML = `<i class="fas fa-wine-bottle"></i> ${d.pair}`;
+        }
+
+        function inspectWine(name, meta, tasting, cell) {
+            document.querySelectorAll('.wine-slot-cell').forEach(c => c.classList.remove('active'));
+            cell.classList.add('active');
+            document.getElementById('wName').innerText = name;
+            document.getElementById('wMeta').innerText = meta;
+            document.getElementById('wTasting').innerText = tasting;
+        }
+
+        function filterMenu(cat, btn) {
+            document.querySelectorAll('.menu-tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            document.querySelectorAll('.dish-card').forEach(card => {
+                if (cat === 'all' || card.getAttribute('data-cat') === cat) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function handleReservation(e) {
+            e.preventDefault();
+            alert('Your table request has been received. Our Maître d’ will contact you to confirm seating and dietary intake.');
+            e.target.reset();
+        }
+    </script>
+</body>
+</html>

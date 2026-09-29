@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Capabilities — 8 Luxury Variations | Manish Kumar Soni</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@300;400;500;700&family=Manrope:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg: #07080A;
+            --surface: #0E1015;
+            --surface-hover: #141720;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-glow: rgba(0, 242, 254, 0.35);
+            --accent: #00f2fe;
+            --accent2: #4facfe;
+            --purple: #8a2be2;
+            --emerald: #10b981;
+            --gold: #FBBF24;
+            --red: #EF4444;
+            --white: #FFFFFF;
+            --muted: #8E9AA8;
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--bg);
+            color: var(--white);
+            font-family: 'Manrope', sans-serif;
+            overflow-x: hidden;
+            padding-top: 130px;
+            padding-bottom: 90px;
+            min-height: 100vh;
+        }
+
+        /* Top Sticky Switcher Bar */
+        .preview-topbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(11, 13, 18, 0.94);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 4%;
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .topbar-header {
+            display: flex; justify-content: space-between; align-items: center; width: 100%;
+        }
+        .topbar-brand {
+            font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; font-weight: 700;
+            display: flex; align-items: center; gap: 8px; color: var(--white);
+        }
+        .topbar-brand span { color: var(--accent); }
+        .topbar-badge {
+            background: rgba(0,242,254,0.12); border: 1px solid var(--accent);
+            color: var(--accent); font-size: 0.7rem; padding: 2px 8px; border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .var-tabs {
+            display: flex; background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+            padding: 4px; border-radius: 12px; gap: 4px; overflow-x: auto; max-width: 100%;
+        }
+        .var-tab-btn {
+            background: transparent; border: none; color: var(--muted);
+            padding: 6px 14px; border-radius: 8px; font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: all 0.25s var(--ease);
+            white-space: nowrap; flex-shrink: 0;
+        }
+        .var-tab-btn:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+        .var-tab-btn.active {
+            background: var(--accent); color: #050505; font-weight: 700;
+            box-shadow: 0 0 15px rgba(0,242,254,0.4);
+        }
+
+        .container {
+            max-width: 1240px; margin: 0 auto; padding: 0 24px;
+        }
+
+        /* Section Intro Header */
+        .section-header {
+            text-align: center; margin-bottom: 45px;
+        }
+        .sub-tag {
+            font-family: 'Space Grotesk', sans-serif; font-size: 0.8rem; color: var(--accent);
+            text-transform: uppercase; letter-spacing: 3px; margin-bottom: 8px; display: block;
+        }
+        .main-heading {
+            font-family: 'Cormorant Garamond', serif; font-size: 3.2rem; font-weight: 300;
+            letter-spacing: -1px; color: var(--white); margin-bottom: 10px;
+        }
+        .desc-text {
+            color: var(--muted); font-size: 0.95rem; max-width: 650px; margin: 0 auto; line-height: 1.6;
+        }
+
+        .variation-wrapper {
+            display: none; animation: fadeIn 0.4s var(--ease) forwards;
+        }
+        .variation-wrapper.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ══════════════════════════════════════════════════════════════
+           VARIATION 1: MAGIC UI BENTO TECH MATRIX
+           ══════════════════════════════════════════════════════════════ */
+        .bento-grid {
+            display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px;
+        }
+        .bento-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.005) 100%), #0D0F14;
+            border: 1px solid var(--border); border-radius: 20px; padding: 28px;
+            position: relative; overflow: hidden; transition: all 0.4s var(--ease);
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .bento-card:hover {
+            border-color: rgba(0, 242, 254, 0.35); transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 30px rgba(0,242,254,0.08);
+        }
+        .bento-col-8 { grid-column: span 8; }
+        .bento-col-4 { grid-column: span 4; }
+        .bento-col-6 { grid-column: span 6; }
+        @media (max-width: 900px) { .bento-col-8, .bento-col-4, .bento-col-6 { grid-column: span 12; } }
+
+        .bento-tag { font-family: 'Space Grotesk', sans-serif; font-size: 0.72rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; display: block; }
+        .bento-title { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+        .bento-desc { color: var(--muted); font-size: 0.88rem; line-height: 1.5; margin-bottom: 20px; }
+
+        .skill-meter-row { display: flex; flex-direction: column; gap: 14px; }
+        .meter-item { display: flex; flex-direction: column; gap: 6px; }
+        .meter-header { display: flex; justify-content: space-between; font-size: 0.85rem; font-family: 'Space Grotesk', sans-serif; }
+        .meter-name { color: var(--white); font-weight: 500; display: flex; align-items: center; gap: 8px; }
+        .meter-pct { color: var(--accent); font-family: 'JetBrains Mono', monospace; font-weight: 700; }
+        .meter-track { width: 100%; height: 6px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; }
+        .meter-fill { height: 100%; border-radius: 10px; background: linear-gradient(90deg, var(--accent2), var(--accent)); box-shadow: 0 0 10px rgba(0,242,254,0.5); }
+
+        .chip-cloud { display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; }
+        .tech-pill {
+            background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+            color: var(--white); padding: 6px 14px; border-radius: 8px; font-size: 0.78rem;
+            font-family: 'JetBrains Mono', monospace; display: flex; align-items: center; gap: 6px;
+        }
+
+        /* ══════════════════════════════════════════════════════════════
+           VARIATION 2: 3D ORBITAL CONSTELLATION
+           ══════════════════════════════════════════════════════════════ */
+        .radar-layout { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; }
+        @media (max-width: 960px) { .radar-layout { grid-template-columns: 1fr; } }
+        .radar-viewport { position: relative; width: 100%; aspect-ratio: 1/1; max-width: 500px; margin: 0 auto; display: flex; justify-content: center; align-items: center; }
+        .radar-ring { position: absolute; border-radius: 50%; border: 1px dashed rgba(255, 255, 255, 0.1); }
+        .ring-1 { width: 92%; height: 92%; animation: spinSlow 50s linear infinite; }
+        .ring-2 { width: 68%; height: 68%; animation: spinSlowReverse 35s linear infinite; }
+        .ring-3 { width: 44%; height: 44%; border-style: solid; border-color: rgba(0,242,254,0.2); }
+        @keyframes spinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes spinSlowReverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
+
+        .radar-center-core {
+            position: absolute; z-index: 10; width: 96px; height: 96px; border-radius: 50%;
+            background: radial-gradient(circle, #0F172A 0%, #030712 100%); border: 2px solid var(--accent);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            box-shadow: 0 0 40px rgba(0,242,254,0.4); text-align: center; cursor: pointer;
+        }
+        .orbit-node {
+            position: absolute; width: 54px; height: 54px; border-radius: 50%; background: #0B0D13;
+            border: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center;
+            align-items: center; cursor: pointer; transition: all 0.3s var(--ease); z-index: 5;
+        }
+        .orbit-node:hover, .orbit-node.active-node {
+            border-color: var(--accent); transform: scale(1.22); box-shadow: 0 0 25px rgba(0,242,254,0.5); z-index: 20; background: #111827;
+        }
+        .node-react    { top: 6%; left: 50%; transform: translate(-50%, -50%); }
+        .node-nextjs   { top: 22%; right: 10%; }
+        .node-python   { bottom: 22%; right: 10%; }
+        .node-ai       { bottom: 6%; left: 50%; transform: translate(-50%, 50%); }
+        .node-supabase { bottom: 22%; left: 10%; }
+        .node-git      { top: 22%; left: 10%; }
+        .node-js       { top: 26%; left: 50%; transform: translate(-50%, -50%); }
+        .node-html     { bottom: 26%; left: 50%; transform: translate(-50%, 50%); }
+
+        .radar-inspect-card {
+            background: #0B0E14; border: 1px solid var(--border-glow); border-radius: 20px; padding: 32px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 30px rgba(0,242,254,0.1); text-align: left;
+        }
+
+        /* ══════════════════════════════════════════════════════════════
+           VARIATION 3: TACTILE CYBER DECK & LEDS
+           ══════════════════════════════════════════════════════════════ */
+        .marquee-banner { overflow: hidden; white-space: nowrap; width: 100%; margin-bottom: 30px; }
+        .marquee-content { display: inline-flex; gap: 24px; animation: marqueeScroll 25s linear infinite; }
+        @keyframes marqueeScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        .marquee-item { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 8px 20px; border-radius: 50px; font-size: 0.85rem; }
+        .tactile-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        .tactile-card {
+            background: #0B0C10; border: 2px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 22px;
+            transition: all 0.2s var(--ease); cursor: pointer;
+        }
+        .tactile-card:hover { border-color: var(--accent); transform: translate(-3px, -3px); box-shadow: 6px 6px 0px 0px var(--accent); }
+        .led-bar { display: flex; gap: 4px; height: 8px; margin: 12px 0 14px 0; }
+        .led-segment { flex: 1; height: 100%; border-radius: 2px; background: rgba(255, 255, 255, 0.08); }
+        .led-segment.on { background: var(--accent); box-shadow: 0 0 6px var(--accent); }
+
+        /* ══════════════════════════════════════════════════════════════
+           VARIATION 4: OBSIDIAN PYRAMID (UNLUMEN LUXURY)
+           ══════════════════════════════════════════════════════════════ */
+        .pyramid-wrap { display: flex; flex-direction: column; gap: 24px; text-align: left; }
+        .tier-card {
+            background: #090A0D; border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 26px;
+            position: relative; overflow: hidden; transition: all 0.3s var(--ease);
+        }
+        .tier-card:hover { border-color: var(--accent); box-shadow: 0 10px 30px rgba(0,242,254,0.08); }
+        .tier-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
+        .tier-level-badge { font-family: 'JetBrains Mono'; font-size: 0.72rem; color: var(--accent); background: rgba(0,242,254,0.1); border: 1px solid rgba(0,242,254,0.3); padding: 3px 10px; border-radius: 4px; }
+        .tier-title { font-family: 'Syne'; font-size: 1.25rem; color: var(--white); }
+        .tier-skills-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+        .tier-skill-box {
+            background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; padding: 14px;
+        }
+        .tier-skill-box:hover { border-color: rgba(255,255,255,0.15); background: rgba(255,255,255,0.04); }
+
+        /* ══════════════════════════════════════════════════════════════
+           VARIATION 5: SCI-FI HEXAGONAL HUD MATRIX
+           ══════════════════════════════════════════════════════════════ */
+        .hex-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;
+        }
+        .hex-card {
+            background: radial-gradient(circle at 50% 50%, rgba(0,242,254,0.04), transparent 70%), #0A0C12;
+            border: 1px solid rgba(0, 242, 254, 0.2); border-radius: 16px; padding: 24px; text-align: center;
+            position: relative; transition: all 0.3s;
+        }
+        .hex-card:hover {
+            border-color: var(--accent); transform: scale(1.03); box-shadow: 0 0 30px rgba(0,242,254,0.25);
+        }
+        .hex-icon-box {
+            width: 60px; height: 60px; margin: 0 auto 16px auto; border-radius: 12px;
+            background: rgba(0,242,254,0.1); border: 1px solid var(--accent);
+            display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--accent);
+        }
+        .hex-title { font-family: 'Space Grotesk'; font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+        .hex-gauge { font-family: 'JetBrains Mono'; font-size: 1.4rem; font-weight: 700; color: var(--accent); margin-bottom: 8px; }
+
+        /* ══════════════════════════════════════════════════════════════
+           VARIATION 6: APPLE CUPERTINO GLASS & DYNAMIC ISLANDS
+           ══════════════════════════════════════════════════════════════ */
+        .apple-glass-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 24px;
+        }
+        .apple-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; padding: 28px;
+            display: flex; flex-direction: column; justify-content: space-between;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 1px 0 0 rgba(255,255,255,0.1);
+            transition: all 0.35s var(--ease);
+        }
+        .apple-card:hover {
+            transform: translateY(-4px); background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.2); box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+        .apple-island-badge {
+            align-self: flex-start; background: #000; border: 1px solid rgba(255,255,255,0.15);
+            color: var(--white); font-family: 'Space Grotesk'; font-size: 0.75rem; font-weight: 600;
+            padding: 4px 14px; border-radius: 50px; margin-bottom: 18px; display: flex; align-items: center; gap: 6px;
+        }
+        .apple-island-badge span { width: 6px; height: 6px; border-radius: 50%; background: var(--emerald); }
+
+        /* ══════════════════════════════════════════════════════════════
+           VARIATION 7: INTERACTIVE VS CODE / CLI TERMINAL
+           ══════════════════════════════════════════════════════════════ */
+        .terminal-window {
+            background: #0D1117; border: 1px solid #30363D; border-radius: 16px; overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.8); text-align: left;
+        }
+        .term-titlebar {
+            background: #161B22; padding: 12px 18px; display: flex; align-items: center; gap: 8px;
+            border-bottom: 1px solid #30363D;
+        }
+        .term-btn-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+        .term-body {
+            padding: 24px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; line-height: 1.7; color: #C9D1D9;
+        }
+        .term-cmd-row { display: flex; gap: 10px; margin-bottom: 14px; align-items: center; flex-wrap: wrap; }
+        .term-btn-action {
+            background: #21262D; border: 1px solid #30363D; color: var(--accent); padding: 4px 12px;
+            border-radius: 6px; font-size: 0.78rem; cursor: pointer; font-family: inherit;
+        }
+        .term-btn-action:hover { background: #30363D; }
+
+        /* ══════════════════════════════════════════════════════════════
+           VARIATION 8: 3D PERSPECTIVE FLIP CARDS
+           ══════════════════════════════════════════════════════════════ */
+        .flip-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px;
+            perspective: 1000px;
+        }
+        .flip-card-outer {
+            background-color: transparent; height: 260px; perspective: 1000px; cursor: pointer;
+        }
+        .flip-card-inner {
+            position: relative; width: 100%; height: 100%; text-align: left;
+            transition: transform 0.6s var(--ease); transform-style: preserve-3d;
+        }
+        .flip-card-outer:hover .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back {
+            position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
+            border-radius: 18px; padding: 26px; display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .flip-card-front {
+            background: #0B0E14; border: 1px solid var(--border);
+        }
+        .flip-card-back {
+            background: linear-gradient(135deg, #0F172A 0%, #080D1A 100%);
+            border: 1px solid var(--accent); transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═══ TOP FLOATING SWITCHER BAR (8 VARIATIONS) ═══ -->
+    <header class="preview-topbar">
+        <div class="topbar-header">
+            <div class="topbar-brand">
+                <span>M.</span> Manish Kumar Soni <span class="topbar-badge">8 LUXURY VARIATIONS LAB</span>
+            </div>
+            <a href="index.html" style="color:var(--muted); text-decoration:none; font-family:'Space Grotesk'; font-size:0.82rem; display:flex; align-items:center; gap:6px;">
+                <i class="fas fa-arrow-left"></i> Main Site
+            </a>
+        </div>
+        
+        <div class="var-tabs">
+            <button class="var-tab-btn active" onclick="switchVariation('var1')">1. Bento Matrix</button>
+            <button class="var-tab-btn" onclick="switchVariation('var2')">2. Orbital 3D Radar</button>
+            <button class="var-tab-btn" onclick="switchVariation('var3')">3. Tactile LEDs</button>
+            <button class="var-tab-btn" onclick="switchVariation('var4')">4. Obsidian Pyramid</button>
+            <button class="var-tab-btn" onclick="switchVariation('var5')">5. Hex HUD Matrix</button>
+            <button class="var-tab-btn" onclick="switchVariation('var6')">6. Apple Glass</button>
+            <button class="var-tab-btn" onclick="switchVariation('var7')">7. Terminal CLI</button>
+            <button class="var-tab-btn" onclick="switchVariation('var8')">8. 3D Flip Cards</button>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <!-- Header -->
+        <div class="section-header">
+            <span class="sub-tag">Design Exploration Lab</span>
+            <h1 class="main-heading">Skills &amp; Technical Capabilities</h1>
+            <p class="desc-text">Select any of the 8 variations below to test each aesthetic before selecting your favorite!</p>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════════════════
+             VARIATION 1: BENTO TECH MATRIX (MAGIC UI PRO)
+             ══════════════════════════════════════════════════════════════ -->
+        <div id="var1" class="variation-wrapper active">
+            <div class="bento-grid">
+                <div class="bento-card bento-col-8">
+                    <div>
+                        <span class="bento-tag">01 // Web Architecture</span>
+                        <h3 class="bento-title">Frontend Engineering &amp; Next.js Ecosystem</h3>
+                        <p class="bento-desc">Building responsive, accessible, 60fps web applications with server components, fluid animations, and strict type safety.</p>
+                        
+                        <div class="skill-meter-row">
+                            <div class="meter-item">
+                                <div class="meter-header"><span class="meter-name"><i class="fab fa-react" style="color:#00f2fe;"></i> React &amp; Next.js 15</span><span class="meter-pct">85%</span></div>
+                                <div class="meter-track"><div class="meter-fill" style="width:85%;"></div></div>
+                            </div>
+                            <div class="meter-item">
+                                <div class="meter-header"><span class="meter-name"><i class="fab fa-js" style="color:#FBBF24;"></i> JavaScript (ES6+, Async, Three.js)</span><span class="meter-pct">88%</span></div>
+                                <div class="meter-track"><div class="meter-fill" style="width:88%;"></div></div>
+                            </div>
+                            <div class="meter-item">
+                                <div class="meter-header"><span class="meter-name"><i class="fab fa-html5" style="color:#EF4444;"></i> HTML5 &amp; CSS3 (Grid, Flex, WCAG AA)</span><span class="meter-pct">95%</span></div>
+                                <div class="meter-track"><div class="meter-fill" style="width:95%;"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chip-cloud" style="margin-top:24px;">
+                        <span class="tech-pill"><i class="fas fa-check"></i> Tailwind CSS</span>
+                        <span class="tech-pill"><i class="fas fa-check"></i> Three.js / WebGL</span>
+                        <span class="tech-pill"><i class="fas fa-check"></i> Responsive Viewports</span>
+                    </div>
+                </div>
+
+                <div class="bento-card bento-col-4">
+                    <div>
+                        <span class="bento-tag">02 // Intelligent Systems</span>
+                        <h3 class="bento-title">AI APIs &amp; Agents</h3>
+                        <p class="bento-desc">Integrating LLMs, prompt pipelines, and automated retrieval systems.</p>
+                        <div class="skill-meter-row">
+                            <div class="meter-item">
+                                <div class="meter-header"><span class="meter-name"><i class="fas fa-brain" style="color:var(--accent);"></i> AI Integration</span><span class="meter-pct">84%</span></div>
+                                <div class="meter-track"><div class="meter-fill" style="width:84%;"></div></div>
+                            </div>
+                            <div class="meter-item">
+                                <div class="meter-header"><span class="meter-name"><i class="fab fa-python" style="color:#3B82F6;"></i> Python</span><span class="meter-pct">80%</span></div>
+                                <div class="meter-track"><div class="meter-fill" style="width:80%;"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chip-cloud" style="margin-top:20px;">
+                        <span class="tech-pill">OpenAI API</span><span class="tech-pill">RAG Embeddings</span><span class="tech-pill">n8n Flows</span>
+                    </div>
+                </div>
+
+                <div class="bento-card bento-col-6">
+                    <div>
+                        <span class="bento-tag">03 // Backend &amp; Persistence</span>
+                        <h3 class="bento-title">Supabase &amp; SQL Database</h3>
+                        <p class="bento-desc">Relational schemas, Row-Level Security policies, and pgvector embeddings.</p>
+                        <div class="meter-item" style="margin-bottom:18px;">
+                            <div class="meter-header"><span class="meter-name"><i class="fas fa-database" style="color:#10B981;"></i> Supabase &amp; PostgreSQL</span><span class="meter-pct">78%</span></div>
+                            <div class="meter-track"><div class="meter-fill" style="width:78%;"></div></div>
+                        </div>
+                    </div>
+                    <div class="chip-cloud"><span class="tech-pill">PostgreSQL</span><span class="tech-pill">RLS</span><span class="tech-pill">pgvector</span></div>
+                </div>
+
+                <div class="bento-card bento-col-6">
+                    <div>
+                        <span class="bento-tag">04 // DevOps &amp; Shipping</span>
+                        <h3 class="bento-title">Git, GitHub &amp; Vercel CI/CD</h3>
+                        <p class="bento-desc">Continuous deployment pipelines, automated production builds, and branching.</p>
+                        <div class="meter-item" style="margin-bottom:18px;">
+                            <div class="meter-header"><span class="meter-name"><i class="fab fa-git-alt" style="color:#F97316;"></i> Git &amp; GitHub</span><span class="meter-pct">88%</span></div>
+                            <div class="meter-track"><div class="meter-fill" style="width:88%;"></div></div>
+                        </div>
+                    </div>
+                    <div class="chip-cloud"><span class="tech-pill">Vercel Auto-Deploy</span><span class="tech-pill">Git CLI</span><span class="tech-pill">VS Code</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════════════════
+             VARIATION 2: 3D ORBITAL CONSTELLATION
+             ══════════════════════════════════════════════════════════════ -->
+        <div id="var2" class="variation-wrapper">
+            <div class="radar-layout">
+                <div class="radar-viewport">
+                    <div class="radar-ring ring-1"></div>
+                    <div class="radar-ring ring-2"></div>
+                    <div class="radar-ring ring-3"></div>
+
+                    <div class="radar-center-core" onclick="selectSkillNode('core')">
+                        <span style="font-family:'Syne'; font-size:0.9rem; font-weight:800;">MANISH</span>
+                        <span style="font-family:'JetBrains Mono'; font-size:0.62rem; color:var(--accent);">TECH STACK</span>
+                    </div>
+
+                    <div class="orbit-node node-react active-node" onclick="selectSkillNode('react')"><i class="fab fa-react" style="color:#00f2fe;"></i><span style="font-size:0.58rem; font-weight:600;">React</span></div>
+                    <div class="orbit-node node-nextjs" onclick="selectSkillNode('nextjs')"><i class="fas fa-cube" style="color:#FFF;"></i><span style="font-size:0.58rem; font-weight:600;">Next.js</span></div>
+                    <div class="orbit-node node-python" onclick="selectSkillNode('python')"><i class="fab fa-python" style="color:#3B82F6;"></i><span style="font-size:0.58rem; font-weight:600;">Python</span></div>
+                    <div class="orbit-node node-ai" onclick="selectSkillNode('ai')"><i class="fas fa-brain" style="color:#A855F7;"></i><span style="font-size:0.58rem; font-weight:600;">AI APIs</span></div>
+                    <div class="orbit-node node-supabase" onclick="selectSkillNode('supabase')"><i class="fas fa-database" style="color:#10B981;"></i><span style="font-size:0.58rem; font-weight:600;">Supabase</span></div>
+                    <div class="orbit-node node-git" onclick="selectSkillNode('git')"><i class="fab fa-github" style="color:#F97316;"></i><span style="font-size:0.58rem; font-weight:600;">GitHub</span></div>
+                    <div class="orbit-node node-js" onclick="selectSkillNode('js')"><i class="fab fa-js" style="color:#FBBF24;"></i><span style="font-size:0.58rem; font-weight:600;">JS</span></div>
+                    <div class="orbit-node node-html" onclick="selectSkillNode('html')"><i class="fab fa-html5" style="color:#EF4444;"></i><span style="font-size:0.58rem; font-weight:600;">HTML5</span></div>
+                </div>
+
+                <div class="radar-inspect-card" id="radar-details-card">
+                    <span class="inspect-badge" id="radar-category" style="color:var(--accent); font-family:'JetBrains Mono'; font-size:0.75rem;">FRONTEND ARCHITECTURE</span>
+                    <h2 class="inspect-title" id="radar-title" style="font-family:'Cormorant Garamond'; font-size:2.4rem; margin:6px 0;">React &amp; Next.js 15</h2>
+                    <div class="inspect-score" id="radar-score" style="font-family:'JetBrains Mono'; font-size:1.6rem; color:var(--accent); margin-bottom:14px;">85% Proficiency</div>
+                    <p class="inspect-desc" id="radar-desc" style="color:var(--muted); font-size:0.92rem; line-height:1.6; margin-bottom:20px;">Developing production web interfaces with server-side rendering, client hydration, component modularity, and smooth Framer Motion / CSS physics.</p>
+                    
+                    <h4 style="font-family:'Space Grotesk'; font-size:0.8rem; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:10px;">Capabilities</h4>
+                    <ul id="radar-list" style="list-style:none; display:flex; flex-direction:column; gap:8px; font-size:0.88rem; color:var(--muted);">
+                        <li><i class="fas fa-circle-check" style="color:var(--accent); margin-right:6px;"></i> Next.js 15 App Router &amp; Server Actions</li>
+                        <li><i class="fas fa-circle-check" style="color:var(--accent); margin-right:6px;"></i> Tailwind CSS &amp; Modern Responsive Layouts</li>
+                        <li><i class="fas fa-circle-check" style="color:var(--accent); margin-right:6px;"></i> State Management &amp; Custom Hooks</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════════════════
+             VARIATION 3: TACTILE CYBER DECK & SEGMENTED LEDS
+             ══════════════════════════════════════════════════════════════ -->
+        <div id="var3" class="variation-wrapper">
+            <div class="marquee-banner">
+                <div class="marquee-content">
+                    <div class="marquee-item"><i class="fab fa-react"></i> React 19 &bull; Next.js 15 <span style="color:var(--accent)">[85%]</span></div>
+                    <div class="marquee-item"><i class="fas fa-brain"></i> OpenAI &amp; Claude APIs <span style="color:var(--accent)">[84%]</span></div>
+                    <div class="marquee-item"><i class="fab fa-python"></i> Python Backend <span style="color:var(--accent)">[80%]</span></div>
+                    <div class="marquee-item"><i class="fas fa-database"></i> Supabase &amp; SQL <span style="color:var(--accent)">[78%]</span></div>
+                    <div class="marquee-item"><i class="fab fa-js"></i> JavaScript ES6+ <span style="color:var(--accent)">[88%]</span></div>
+                    <div class="marquee-item"><i class="fab fa-html5"></i> Semantic HTML5 &amp; CSS3 <span style="color:var(--accent)">[95%]</span></div>
+                </div>
+            </div>
+
+            <div class="tactile-grid">
+                <div class="tactile-card">
+                    <div style="display:flex; justify-content:space-between;"><span style="font-family:'Syne'; font-size:1.1rem; font-weight:700;"><i class="fab fa-html5" style="color:#EF4444;"></i> HTML5</span><span style="color:var(--accent); font-family:'JetBrains Mono'; font-weight:700;">95%</span></div>
+                    <div class="led-bar"><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment"></span></div>
+                    <p style="font-size:0.8rem; color:var(--muted);">Semantic markup, accessibility (WCAG AA), clean DOM layout.</p>
+                </div>
+                <div class="tactile-card">
+                    <div style="display:flex; justify-content:space-between;"><span style="font-family:'Syne'; font-size:1.1rem; font-weight:700;"><i class="fab fa-css3-alt" style="color:#3B82F6;"></i> CSS3</span><span style="color:var(--accent); font-family:'JetBrains Mono'; font-weight:700;">92%</span></div>
+                    <div class="led-bar"><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment"></span></div>
+                    <p style="font-size:0.8rem; color:var(--muted);">Tailwind CSS, animations, grid, flexbox, cursor physics.</p>
+                </div>
+                <div class="tactile-card">
+                    <div style="display:flex; justify-content:space-between;"><span style="font-family:'Syne'; font-size:1.1rem; font-weight:700;"><i class="fab fa-js" style="color:#FBBF24;"></i> JavaScript</span><span style="color:var(--accent); font-family:'JetBrains Mono'; font-weight:700;">88%</span></div>
+                    <div class="led-bar"><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment"></span><span class="led-segment"></span></div>
+                    <p style="font-size:0.8rem; color:var(--muted);">Modern ES6+, async promises, DOM engine, Three.js 3D.</p>
+                </div>
+                <div class="tactile-card">
+                    <div style="display:flex; justify-content:space-between;"><span style="font-family:'Syne'; font-size:1.1rem; font-weight:700;"><i class="fab fa-react" style="color:#00f2fe;"></i> React &amp; Next.js</span><span style="color:var(--accent); font-family:'JetBrains Mono'; font-weight:700;">85%</span></div>
+                    <div class="led-bar"><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment"></span><span class="led-segment"></span></div>
+                    <p style="font-size:0.8rem; color:var(--muted);">Next.js 15 App Router, Server Components, SSR hydration.</p>
+                </div>
+                <div class="tactile-card">
+                    <div style="display:flex; justify-content:space-between;"><span style="font-family:'Syne'; font-size:1.1rem; font-weight:700;"><i class="fab fa-python" style="color:#3B82F6;"></i> Python</span><span style="color:var(--accent); font-family:'JetBrains Mono'; font-weight:700;">80%</span></div>
+                    <div class="led-bar"><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment"></span><span class="led-segment"></span></div>
+                    <p style="font-size:0.8rem; color:var(--muted);">Backend scripts, data transformations, and AI workflows.</p>
+                </div>
+                <div class="tactile-card">
+                    <div style="display:flex; justify-content:space-between;"><span style="font-family:'Syne'; font-size:1.1rem; font-weight:700;"><i class="fas fa-brain" style="color:#A855F7;"></i> AI APIs &amp; Agents</span><span style="color:var(--accent); font-family:'JetBrains Mono'; font-weight:700;">84%</span></div>
+                    <div class="led-bar"><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment"></span><span class="led-segment"></span></div>
+                    <p style="font-size:0.8rem; color:var(--muted);">OpenAI API, RAG chunking, embeddings, prompt optimization.</p>
+                </div>
+                <div class="tactile-card">
+                    <div style="display:flex; justify-content:space-between;"><span style="font-family:'Syne'; font-size:1.1rem; font-weight:700;"><i class="fas fa-database" style="color:#10B981;"></i> Supabase &amp; SQL</span><span style="color:var(--accent); font-family:'JetBrains Mono'; font-weight:700;">78%</span></div>
+                    <div class="led-bar"><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment"></span><span class="led-segment"></span><span class="led-segment"></span></div>
+                    <p style="font-size:0.8rem; color:var(--muted);">PostgreSQL modeling, Row Level Security, and pgvector.</p>
+                </div>
+                <div class="tactile-card">
+                    <div style="display:flex; justify-content:space-between;"><span style="font-family:'Syne'; font-size:1.1rem; font-weight:700;"><i class="fab fa-git-alt" style="color:#F97316;"></i> Git &amp; GitHub</span><span style="color:var(--accent); font-family:'JetBrains Mono'; font-weight:700;">88%</span></div>
+                    <div class="led-bar"><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment on"></span><span class="led-segment"></span><span class="led-segment"></span></div>
+                    <p style="font-size:0.8rem; color:var(--muted);">Branching, commit cleanliness, and Vercel CI/CD auto-deploy.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════════════════
+             VARIATION 4: OBSIDIAN PYRAMID (UNLUMEN LUXURY)
+             ══════════════════════════════════════════════════════════════ -->
+        <div id="var4" class="variation-wrapper">
+            <div class="pyramid-wrap">
+                <!-- Tier 1 -->
+                <div class="tier-card">
+                    <div class="tier-header">
+                        <span class="tier-level-badge">TIER 01 // CORE WEB ENGINE</span>
+                        <h3 class="tier-title">Foundations &amp; Semantic UI</h3>
+                        <span style="color:var(--accent); font-family:'JetBrains Mono'; font-size:0.85rem;">92% - 95% Competency</span>
+                    </div>
+                    <div class="tier-skills-row">
+                        <div class="tier-skill-box">
+                            <h4 style="font-size:1rem; color:var(--white); margin-bottom:4px;"><i class="fab fa-html5" style="color:#EF4444;"></i> HTML5 (95%)</h4>
+                            <p style="font-size:0.8rem; color:var(--muted);">Accessible semantics, SEO structure, and clean DOM markup.</p>
+                        </div>
+                        <div class="tier-skill-box">
+                            <h4 style="font-size:1rem; color:var(--white); margin-bottom:4px;"><i class="fab fa-css3-alt" style="color:#3B82F6;"></i> CSS3 &amp; Tailwind (92%)</h4>
+                            <p style="font-size:0.8rem; color:var(--muted);">Fluid layouts, keyframe animation physics, responsive tokens.</p>
+                        </div>
+                        <div class="tier-skill-box">
+                            <h4 style="font-size:1rem; color:var(--white); margin-bottom:4px;"><i class="fab fa-js" style="color:#FBBF24;"></i> JavaScript ES6+ (88%)</h4>
+                            <p style="font-size:0.8rem; color:var(--muted);">Async/await, DOM engine, Three.js 3D canvas rendering.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tier 2 -->
+                <div class="tier-card">
+                    <div class="tier-header">
+                        <span class="tier-level-badge">TIER 02 // FRAMEWORKS &amp; AI APIS</span>
+                        <h3 class="tier-title">Modern Full-Stack &amp; Intelligence</h3>
+                        <span style="color:var(--accent); font-family:'JetBrains Mono'; font-size:0.85rem;">80% - 85% Competency</span>
+                    </div>
+                    <div class="tier-skills-row">
+                        <div class="tier-skill-box">
+                            <h4 style="font-size:1rem; color:var(--white); margin-bottom:4px;"><i class="fab fa-react" style="color:#00f2fe;"></i> React &amp; Next.js 15 (85%)</h4>
+                            <p style="font-size:0.8rem; color:var(--muted);">App Router, SSR, Server Components, sub-second LCP.</p>
+                        </div>
+                        <div class="tier-skill-box">
+                            <h4 style="font-size:1rem; color:var(--white); margin-bottom:4px;"><i class="fas fa-brain" style="color:#A855F7;"></i> AI APIs &amp; Agents (84%)</h4>
+                            <p style="font-size:0.8rem; color:var(--muted);">OpenAI API, RAG embeddings, prompt context optimization.</p>
+                        </div>
+                        <div class="tier-skill-box">
+                            <h4 style="font-size:1rem; color:var(--white); margin-bottom:4px;"><i class="fab fa-python" style="color:#3B82F6;"></i> Python 3 (80%)</h4>
+                            <p style="font-size:0.8rem; color:var(--muted);">Backend scripts, data transformation, REST APIs.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tier 3 -->
+                <div class="tier-card">
+                    <div class="tier-header">
+                        <span class="tier-level-badge">TIER 03 // PERSISTENCE &amp; DEVOPS</span>
+                        <h3 class="tier-title">Data Storage &amp; Deployment</h3>
+                        <span style="color:var(--accent); font-family:'JetBrains Mono'; font-size:0.85rem;">78% - 88% Competency</span>
+                    </div>
+                    <div class="tier-skills-row">
+                        <div class="tier-skill-box">
+                            <h4 style="font-size:1rem; color:var(--white); margin-bottom:4px;"><i class="fas fa-database" style="color:#10B981;"></i> Supabase &amp; SQL (78%)</h4>
+                            <p style="font-size:0.8rem; color:var(--muted);">PostgreSQL schema, Row Level Security, pgvector.</p>
+                        </div>
+                        <div class="tier-skill-box">
+                            <h4 style="font-size:1rem; color:var(--white); margin-bottom:4px;"><i class="fab fa-git-alt" style="color:#F97316;"></i> Git, GitHub &amp; Vercel (88%)</h4>
+                            <p style="font-size:0.8rem; color:var(--muted);">Branching workflows, automated CI/CD deployment pipelines.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════════════════
+             VARIATION 5: SCI-FI HEX HUD MATRIX
+             ══════════════════════════════════════════════════════════════ -->
+        <div id="var5" class="variation-wrapper">
+            <div class="hex-grid">
+                <div class="hex-card">
+                    <div class="hex-icon-box"><i class="fab fa-html5"></i></div>
+                    <h3 class="hex-title">HTML5</h3>
+                    <div class="hex-gauge">95%</div>
+                    <p style="font-size:0.8rem; color:var(--muted);">Semantic structure &amp; accessibility.</p>
+                </div>
+                <div class="hex-card">
+                    <div class="hex-icon-box"><i class="fab fa-css3-alt"></i></div>
+                    <h3 class="hex-title">CSS3</h3>
+                    <div class="hex-gauge">92%</div>
+                    <p style="font-size:0.8rem; color:var(--muted);">Tailwind CSS, Grid, animations.</p>
+                </div>
+                <div class="hex-card">
+                    <div class="hex-icon-box"><i class="fab fa-js"></i></div>
+                    <h3 class="hex-title">JavaScript</h3>
+                    <div class="hex-gauge">88%</div>
+                    <p style="font-size:0.8rem; color:var(--muted);">ES6+, async APIs, Three.js 3D.</p>
+                </div>
+                <div class="hex-card">
+                    <div class="hex-icon-box"><i class="fab fa-react"></i></div>
+                    <h3 class="hex-title">React / Next.js</h3>
+                    <div class="hex-gauge">85%</div>
+                    <p style="font-size:0.8rem; color:var(--muted);">App Router, SSR, components.</p>
+                </div>
+                <div class="hex-card">
+                    <div class="hex-icon-box"><i class="fab fa-python"></i></div>
+                    <h3 class="hex-title">Python</h3>
+                    <div class="hex-gauge">80%</div>
+                    <p style="font-size:0.8rem; color:var(--muted);">Automation, REST, data scripts.</p>
+                </div>
+                <div class="hex-card">
+                    <div class="hex-icon-box"><i class="fas fa-brain"></i></div>
+                    <h3 class="hex-title">AI APIs</h3>
+                    <div class="hex-gauge">84%</div>
+                    <p style="font-size:0.8rem; color:var(--muted);">OpenAI API, RAG, prompt tuning.</p>
+                </div>
+                <div class="hex-card">
+                    <div class="hex-icon-box"><i class="fas fa-database"></i></div>
+                    <h3 class="hex-title">Supabase</h3>
+                    <div class="hex-gauge">78%</div>
+                    <p style="font-size:0.8rem; color:var(--muted);">PostgreSQL, RLS, pgvector.</p>
+                </div>
+                <div class="hex-card">
+                    <div class="hex-icon-box"><i class="fab fa-github"></i></div>
+                    <h3 class="hex-title">Git &amp; GitHub</h3>
+                    <div class="hex-gauge">88%</div>
+                    <p style="font-size:0.8rem; color:var(--muted);">Version control &amp; Vercel CI/CD.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════════════════
+             VARIATION 6: APPLE CUPERTINO GLASS & DYNAMIC ISLANDS
+             ══════════════════════════════════════════════════════════════ -->
+        <div id="var6" class="variation-wrapper">
+            <div class="apple-glass-grid">
+                <div class="apple-card">
+                    <div class="apple-island-badge"><span></span> MASTERED &bull; 95%</div>
+                    <h3 style="font-family:'Syne'; font-size:1.4rem; color:var(--white); margin-bottom:6px;"><i class="fab fa-html5" style="color:#EF4444; margin-right:6px;"></i> HTML5</h3>
+                    <p style="font-size:0.88rem; color:var(--muted); line-height:1.6; margin-bottom:20px;">Semantic web markup, accessibility standards (WCAG AA), and modern clean document tree.</p>
+                    <div style="font-family:'JetBrains Mono'; font-size:0.75rem; color:var(--accent);">Semantic Architecture</div>
+                </div>
+
+                <div class="apple-card">
+                    <div class="apple-island-badge"><span></span> PRODUCTION &bull; 92%</div>
+                    <h3 style="font-family:'Syne'; font-size:1.4rem; color:var(--white); margin-bottom:6px;"><i class="fab fa-css3-alt" style="color:#3B82F6; margin-right:6px;"></i> CSS3 &amp; Tailwind</h3>
+                    <p style="font-size:0.88rem; color:var(--muted); line-height:1.6; margin-bottom:20px;">Hardware-accelerated CSS keyframe animations, dark glassmorphism, and responsive design.</p>
+                    <div style="font-family:'JetBrains Mono'; font-size:0.75rem; color:var(--accent);">Fluid Micro-Interactions</div>
+                </div>
+
+                <div class="apple-card">
+                    <div class="apple-island-badge"><span></span> ADVANCED &bull; 85%</div>
+                    <h3 style="font-family:'Syne'; font-size:1.4rem; color:var(--white); margin-bottom:6px;"><i class="fab fa-react" style="color:#00f2fe; margin-right:6px;"></i> React &amp; Next.js 15</h3>
+                    <p style="font-size:0.88rem; color:var(--muted); line-height:1.6; margin-bottom:20px;">App Router, Server Components, dynamic hydration, custom hooks, and fast sub-second LCP.</p>
+                    <div style="font-family:'JetBrains Mono'; font-size:0.75rem; color:var(--accent);">SSR &amp; Server Actions</div>
+                </div>
+
+                <div class="apple-card">
+                    <div class="apple-island-badge"><span></span> SPECIALIZED &bull; 84%</div>
+                    <h3 style="font-family:'Syne'; font-size:1.4rem; color:var(--white); margin-bottom:6px;"><i class="fas fa-brain" style="color:#A855F7; margin-right:6px;"></i> AI APIs &amp; Agents</h3>
+                    <p style="font-size:0.88rem; color:var(--muted); line-height:1.6; margin-bottom:20px;">OpenAI API integrations, RAG vector retrieval, structured outputs, and workflow automation.</p>
+                    <div style="font-family:'JetBrains Mono'; font-size:0.75rem; color:var(--accent);">LLM Engineering</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════════════════
+             VARIATION 7: INTERACTIVE VS CODE / CLI TERMINAL
+             ══════════════════════════════════════════════════════════════ -->
+        <div id="var7" class="variation-wrapper">
+            <div class="terminal-window">
+                <div class="term-titlebar">
+                    <span class="term-btn-dot" style="background:#FF5F56;"></span>
+                    <span class="term-btn-dot" style="background:#FFBD2E;"></span>
+                    <span class="term-btn-dot" style="background:#27C93F;"></span>
+                    <span style="font-family:'JetBrains Mono'; font-size:0.75rem; color:#8B949E; margin-left:12px;">manish@macbook: ~/developer/capabilities</span>
+                </div>
+                <div class="term-body">
+                    <div class="term-cmd-row">
+                        <span style="color:#7EE787;">$</span>
+                        <span>manish --diagnostics --skills</span>
+                        <div style="margin-left:auto; display:flex; gap:6px;">
+                            <button class="term-btn-action" onclick="runTermDiag('frontend')">cat frontend.json</button>
+                            <button class="term-btn-action" onclick="runTermDiag('ai')">cat ai-stack.json</button>
+                            <button class="term-btn-action" onclick="runTermDiag('backend')">cat backend.json</button>
+                        </div>
+                    </div>
+                    
+                    <div id="term-output-area" style="background:#090D13; border:1px solid #21262D; border-radius:8px; padding:16px; margin-top:10px; color:#A5D6FF; min-height:180px;">
+{
+  "developer": "Manish Kumar Soni",
+  "status": "Ready for Production Deployments",
+  "stack_overview": {
+    "frontend": ["HTML5 (95%)", "CSS3 (92%)", "JavaScript (88%)", "React & Next.js 15 (85%)"],
+    "ai_intelligence": ["OpenAI API", "RAG Embeddings (84%)", "Prompt Optimizer", "n8n"],
+    "backend_persistence": ["Supabase", "PostgreSQL (78%)", "pgvector", "Python 3 (80%)"],
+    "devops_shipping": ["Git (88%)", "GitHub Remote", "Vercel Auto CI/CD"]
+  }
+}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════════════════
+             VARIATION 8: 3D PERSPECTIVE FLIP CARDS
+             ══════════════════════════════════════════════════════════════ -->
+        <div id="var8" class="variation-wrapper">
+            <div class="flip-grid">
+                
+                <!-- Flip Card 1 -->
+                <div class="flip-card-outer">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div><i class="fab fa-react" style="font-size:2.2rem; color:#00f2fe; margin-bottom:12px;"></i><h3 style="font-family:'Syne'; font-size:1.3rem;">React &amp; Next.js</h3></div>
+                            <div style="font-family:'JetBrains Mono'; font-size:1.5rem; color:var(--accent); font-weight:700;">85%<span style="font-size:0.75rem; color:var(--muted); display:block; font-weight:400; margin-top:4px;">Hover to flip &rarr;</span></div>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4 style="font-family:'Syne'; font-size:1.1rem; color:var(--white); margin-bottom:8px;">Production Skills</h4>
+                            <p style="font-size:0.8rem; color:rgba(255,255,255,0.8); line-height:1.5;">Next.js 15 App Router, Server Components, SSR hydration, Tailwind CSS.</p>
+                            <span style="font-family:'JetBrains Mono'; font-size:0.72rem; color:var(--accent); margin-top:auto;">Used in AutoDoc &amp; DevFlow</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flip Card 2 -->
+                <div class="flip-card-outer">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div><i class="fas fa-brain" style="font-size:2.2rem; color:#A855F7; margin-bottom:12px;"></i><h3 style="font-family:'Syne'; font-size:1.3rem;">AI APIs &amp; Agents</h3></div>
+                            <div style="font-family:'JetBrains Mono'; font-size:1.5rem; color:var(--accent); font-weight:700;">84%<span style="font-size:0.75rem; color:var(--muted); display:block; font-weight:400; margin-top:4px;">Hover to flip &rarr;</span></div>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4 style="font-family:'Syne'; font-size:1.1rem; color:var(--white); margin-bottom:8px;">Production Skills</h4>
+                            <p style="font-size:0.8rem; color:rgba(255,255,255,0.8); line-height:1.5;">OpenAI GPT-4o API, vector search RAG chunking, context compression.</p>
+                            <span style="font-family:'JetBrains Mono'; font-size:0.72rem; color:var(--accent); margin-top:auto;">Used in AutoDoc AI</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flip Card 3 -->
+                <div class="flip-card-outer">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div><i class="fab fa-js" style="font-size:2.2rem; color:#FBBF24; margin-bottom:12px;"></i><h3 style="font-family:'Syne'; font-size:1.3rem;">JavaScript (ES6+)</h3></div>
+                            <div style="font-family:'JetBrains Mono'; font-size:1.5rem; color:var(--accent); font-weight:700;">88%<span style="font-size:0.75rem; color:var(--muted); display:block; font-weight:400; margin-top:4px;">Hover to flip &rarr;</span></div>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4 style="font-family:'Syne'; font-size:1.1rem; color:var(--white); margin-bottom:8px;">Production Skills</h4>
+                            <p style="font-size:0.8rem; color:rgba(255,255,255,0.8); line-height:1.5;">Async/await, DOM engine, Three.js WebGL particle clouds, event loops.</p>
+                            <span style="font-family:'JetBrains Mono'; font-size:0.72rem; color:var(--accent); margin-top:auto;">Used in 3D Canvas Engine</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flip Card 4 -->
+                <div class="flip-card-outer">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div><i class="fas fa-database" style="font-size:2.2rem; color:#10B981; margin-bottom:12px;"></i><h3 style="font-family:'Syne'; font-size:1.3rem;">Supabase &amp; SQL</h3></div>
+                            <div style="font-family:'JetBrains Mono'; font-size:1.5rem; color:var(--accent); font-weight:700;">78%<span style="font-size:0.75rem; color:var(--muted); display:block; font-weight:400; margin-top:4px;">Hover to flip &rarr;</span></div>
+                        </div>
+                        <div class="flip-card-back">
+                            <h4 style="font-family:'Syne'; font-size:1.1rem; color:var(--white); margin-bottom:8px;">Production Skills</h4>
+                            <p style="font-size:0.8rem; color:rgba(255,255,255,0.8); line-height:1.5;">PostgreSQL schema design, Row-Level Security (RLS), pgvector.</p>
+                            <span style="font-family:'JetBrains Mono'; font-size:0.72rem; color:var(--accent); margin-top:auto;">Used in Vector Storage</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function switchVariation(varId) {
+            document.querySelectorAll('.variation-wrapper').forEach(v => v.classList.remove('active'));
+            document.querySelectorAll('.var-tab-btn').forEach(b => b.classList.remove('active'));
+            
+            const targetVar = document.getElementById(varId);
+            if (targetVar) targetVar.classList.add('active');
+            
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
+        }
+
+        const skillNodeData = {
+            core: {
+                category: "FULL-STACK ECOSYSTEM",
+                title: "Manish Kumar Soni Core",
+                score: "8+ Technologies",
+                desc: "Integrated developer stack focusing on high-speed web apps, AI systems, and robust database persistence.",
+                list: [
+                    "Frontend: HTML5, CSS3, JavaScript, React, Next.js",
+                    "AI & Backend: Python, OpenAI API, Automation Agents",
+                    "Database: Supabase, PostgreSQL, pgvector",
+                    "DevOps: Git, GitHub, Vercel"
+                ]
+            },
+            react: {
+                category: "FRONTEND ARCHITECTURE",
+                title: "React & Next.js 15",
+                score: "85% Proficiency",
+                desc: "Developing production web interfaces with server-side rendering, client hydration, component modularity, and smooth Framer Motion / CSS physics.",
+                list: [
+                    "Next.js 15 App Router & Server Actions",
+                    "Tailwind CSS & Modern Responsive Layouts",
+                    "State Management & Custom Hooks"
+                ]
+            },
+            nextjs: {
+                category: "PRODUCTION FRAMEWORK",
+                title: "Next.js 15 (App Router)",
+                score: "85% Proficiency",
+                desc: "Full-stack Next.js applications with hybrid rendering (SSR/SSG), optimized image loading, and serverless API endpoints.",
+                list: [
+                    "App Directory Structure & Nested Layouts",
+                    "Server Components vs Client Components",
+                    "API Route Handlers & Edge Functions"
+                ]
+            },
+            python: {
+                category: "BACKEND & AUTOMATION",
+                title: "Python 3",
+                score: "80% Proficiency",
+                desc: "Writing clean, efficient Python scripts for data processing, REST API integrations, webhook handlers, and AI agent workflows.",
+                list: [
+                    "REST API clients and request automation",
+                    "JSON / Markdown parsing and text processing",
+                    "Integration with OpenAI and Anthropic SDKs"
+                ]
+            },
+            ai: {
+                category: "INTELLIGENT SYSTEMS",
+                title: "AI APIs & Agents",
+                score: "84% Proficiency",
+                desc: "Building real-world AI applications with Retrieval-Augmented Generation (RAG), embeddings, and prompt optimization.",
+                list: [
+                    "OpenAI API (GPT-4o, Embeddings)",
+                    "Vector similarity search and document chunking",
+                    "System prompt engineering & structured outputs"
+                ]
+            },
+            supabase: {
+                category: "DATABASE PERSISTENCE",
+                title: "Supabase & PostgreSQL",
+                score: "78% Proficiency",
+                desc: "Architecting relational database schemas, writing SQL queries, managing Row-Level Security (RLS), and vector indexing.",
+                list: [
+                    "PostgreSQL relational modeling and indexes",
+                    "Row-Level Security (RLS) policies",
+                    "pgvector cosine similarity embeddings"
+                ]
+            },
+            git: {
+                category: "DEV OPS & CI/CD",
+                title: "Git & GitHub",
+                score: "88% Proficiency",
+                desc: "Professional version control workflows, commit etiquette, branch management, and automated continuous deployment.",
+                list: [
+                    "Git CLI workflow (init, add, commit, push, rebase)",
+                    "GitHub repository management & releases",
+                    "Vercel automated deployment integration"
+                ]
+            },
+            js: {
+                category: "CORE LANGUAGE",
+                title: "JavaScript (ES6+)",
+                score: "88% Proficiency",
+                desc: "Deep knowledge of core JavaScript: closures, asynchronous event loop, promises, DOM manipulation, and Three.js 3D rendering.",
+                list: [
+                    "Async/Await, Promises & Fetch API",
+                    "DOM Event Listeners & Custom Cursor Tracking",
+                    "Three.js 3D Canvas integration"
+                ]
+            },
+            html: {
+                category: "WEB FOUNDATIONS",
+                title: "HTML5 & CSS3",
+                score: "95% Proficiency",
+                desc: "Mastery over semantic HTML5 structure, modern CSS Grid/Flexbox layouts, fluid typography, and 60fps hardware-accelerated animations.",
+                list: [
+                    "Semantic markup & SEO best practices",
+                    "Modern CSS variables and dark theme palettes",
+                    "Keyframe transitions & smooth micro-interactions"
+                ]
+            }
+        };
+
+        function selectSkillNode(key) {
+            const data = skillNodeData[key];
+            if (!data) return;
+
+            document.querySelectorAll('.orbit-node').forEach(n => n.classList.remove('active-node'));
+            if (event && event.currentTarget && event.currentTarget.classList.contains('orbit-node')) {
+                event.currentTarget.classList.add('active-node');
+            }
+
+            document.getElementById('radar-category').textContent = data.category;
+            document.getElementById('radar-title').textContent = data.title;
+            document.getElementById('radar-score').textContent = data.score;
+            document.getElementById('radar-desc').textContent = data.desc;
+            document.getElementById('radar-list').innerHTML = data.list.map(item => `<li><i class="fas fa-circle-check" style="color:var(--accent); margin-right:6px;"></i> ${item}</li>`).join('');
+        }
+
+        function runTermDiag(type) {
+            const out = document.getElementById('term-output-area');
+            if (type === 'frontend') {
+                out.innerHTML = `{\n  "module": "Frontend Core",\n  "frameworks": ["Next.js 15 (85%)", "React 19", "Tailwind CSS"],\n  "languages": ["HTML5 (95%)", "CSS3 (92%)", "JavaScript (88%)"],\n  "rendering": "SSR + Client Hydration + Three.js 3D"\n}`;
+            } else if (type === 'ai') {
+                out.innerHTML = `{\n  "module": "AI Intelligence & Automation",\n  "models": ["OpenAI GPT-4o", "text-embedding-3-small"],\n  "pipelines": ["RAG Vector Retrieval (84%)", "Context Compression", "n8n Webhooks"],\n  "language": "Python 3 (80%)"\n}`;
+            } else {
+                out.innerHTML = `{\n  "module": "Backend & Cloud Infrastructure",\n  "database": "Supabase PostgreSQL (78%)",\n  "vector_extension": "pgvector cosine similarity",\n  "security": "Row Level Security (RLS)",\n  "ci_cd": "Git (88%) -> GitHub -> Vercel Edge"\n}`;
+            }
+        }
+    </script>
+</body>
+</html>

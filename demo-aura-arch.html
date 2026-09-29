@@ -1,0 +1,2087 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AURA Architecture &amp; Spatial Atelier — Milan • Zurich • London • Tokyo</title>
+  <meta name="description" content="AURA is a bespoke architectural atelier engineering monolithic private residences, high-alpine sanctuaries, and spatial interiors shaped by light, silence, and raw stone." />
+
+  <!-- Google Fonts: Cormorant Garamond (Editorial Luxury Serif), Manrope, Syne, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=JetBrains+Mono:wght@300;400;500;600&family=Manrope:wght@300;400;500;600;700&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'serif'],
+            sans: ['Manrope', 'sans-serif'],
+            display: ['Syne', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            stone: {
+              50: '#fbfaf8',
+              100: '#f5f2eb',
+              200: '#e8e3d8',
+              300: '#d5cdc0',
+              400: '#b8ac9a',
+              500: '#9b8d7a',
+              700: '#5c5244',
+              800: '#3d362d',
+              900: '#231f1a',
+              950: '#141210',
+            },
+            brass: {
+              300: '#e4cfb3',
+              400: '#d0b38c',
+              500: '#c5a880',
+              600: '#aa8c64',
+            },
+            terracotta: '#b66348',
+          },
+          animation: {
+            'spin-slow': 'spin 24s linear infinite',
+            'kenburns': 'kenburns 20s ease-in-out infinite alternate',
+          },
+          keyframes: {
+            kenburns: {
+              '0%': { transform: 'scale(1.0) translate(0, 0)' },
+              '100%': { transform: 'scale(1.08) translate(-1%, -1%)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Lighting Condition Themes */
+    :root {
+      --bg-canvas: #f7f4ee;
+      --bg-surface: #ffffff;
+      --bg-card: rgba(255, 255, 255, 0.9);
+      --text-main: #191816;
+      --text-muted: #6b645b;
+      --border-stone: rgba(25, 24, 22, 0.09);
+      --border-accent: #c5a880;
+      --cursor-color: #c5a880;
+    }
+
+    body[data-lighting="golden"] {
+      --bg-canvas: #f4eae0;
+      --bg-surface: #fcf6ef;
+      --bg-card: rgba(252, 246, 239, 0.92);
+      --text-main: #2b1f14;
+      --text-muted: #7d6550;
+      --border-stone: rgba(182, 99, 72, 0.16);
+      --border-accent: #d08c64;
+      --cursor-color: #d08c64;
+    }
+
+    body[data-lighting="night"] {
+      --bg-canvas: #100f0e;
+      --bg-surface: #181615;
+      --bg-card: rgba(26, 24, 22, 0.9);
+      --text-main: #f5f2eb;
+      --text-muted: #a39b90;
+      --border-stone: rgba(255, 255, 255, 0.1);
+      --border-accent: #c5a880;
+      --cursor-color: #c5a880;
+    }
+
+    body {
+      background-color: var(--bg-canvas);
+      color: var(--text-main);
+      font-family: 'Manrope', sans-serif;
+      transition: background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1), color 0.6s ease;
+      overflow-x: hidden;
+    }
+
+    /* Subtle Architectural Paper/Stone Texture */
+    .stone-grain {
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+    }
+
+    /* Top Scroll Progress Line */
+    #scroll-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #c5a880, #b66348);
+      z-index: 9999;
+      width: 0%;
+      transition: width 0.1s ease-out;
+    }
+
+    /* Precision Architectural Viewfinder Cursor */
+    #arch-cursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--cursor-color);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: width 0.25s ease, height 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #arch-cursor-dot {
+      width: 4px;
+      height: 4px;
+      background-color: var(--cursor-color);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    #arch-cursor-label {
+      position: absolute;
+      top: 38px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+      color: #ffffff;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    body:hover #arch-cursor-label {
+      opacity: 1;
+    }
+
+    @media (pointer: coarse), (max-width: 768px) {
+      #arch-cursor {
+        display: none !important;
+      }
+    }
+
+    /* Scroll-Driven Reveal Physics */
+    .reveal-item {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-item.is-revealed {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+
+    .delay-1 { transition-delay: 0.15s; }
+    .delay-2 { transition-delay: 0.3s; }
+    .delay-3 { transition-delay: 0.45s; }
+
+    /* Interactive Floorplan Room Nodes */
+    .plan-room {
+      transition: fill 0.3s ease, stroke 0.3s ease, filter 0.3s ease;
+      cursor: pointer;
+    }
+    .plan-room:hover, .plan-room.active {
+      fill: rgba(197, 168, 128, 0.28) !important;
+      stroke: #c5a880 !important;
+      stroke-width: 2px !important;
+      filter: drop-shadow(0 0 8px rgba(197, 168, 128, 0.45));
+    }
+
+    /* Tactile Architectural Button */
+    .btn-arch {
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn-arch:hover {
+      transform: translateY(-2px);
+    }
+    .btn-arch:active {
+      transform: scale(0.97) translateY(1px);
+    }
+
+    /* Architectural Serif Numbers */
+    .numeral-serif {
+      font-family: 'Cormorant Garamond', serif;
+      font-feature-settings: "onum" 1;
+    }
+
+    /* Fullscreen Hero Background Transitions */
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 20s linear;
+      transform: scale(1.0);
+    }
+    .hero-slide.active {
+      opacity: 1;
+      transform: scale(1.08);
+    }
+
+    /* Scroll Indicator Line */
+    .scroll-line-anim {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.8), transparent);
+      animation: scrollLine 2.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+    }
+    @keyframes scrollLine {
+      0% { transform: translateY(-100%); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(100%); opacity: 0; }
+    }
+  </style>
+</head>
+<body class="stone-grain relative antialiased" data-lighting="day">
+
+  <!-- Top Scroll Progress Bar -->
+  <div id="scroll-bar"></div>
+
+  <!-- Precision Custom Viewfinder Cursor -->
+  <div id="arch-cursor">
+    <div id="arch-cursor-dot"></div>
+    <div id="arch-cursor-label">45°59'N 9°15'E</div>
+  </div>
+
+  <!-- ==================== TOP NAVIGATION ==================== -->
+  <header class="fixed top-0 inset-x-0 z-50 backdrop-blur-md border-b border-white/10 transition-colors duration-500 bg-black/40">
+    <div class="max-w-7xl mx-auto px-3 sm:px-8 h-16 sm:h-20 flex items-center justify-between gap-2">
+      
+      <!-- Studio Monogram & Title -->
+      <a href="#hero" class="flex items-center gap-2.5 sm:gap-3.5 group text-white shrink-0" onclick="playAcoustic('tap')">
+        <div class="w-8 h-8 sm:w-10 sm:h-10 border border-white/25 flex items-center justify-center font-serif text-base sm:text-xl font-semibold tracking-tighter group-hover:border-brass-400 transition-all group-hover:scale-105 bg-black/40 backdrop-blur-md">
+          A
+        </div>
+        <div>
+          <span class="font-serif text-base sm:text-lg tracking-widest uppercase font-semibold block leading-none">A U R A</span>
+          <span class="text-[8px] sm:text-[10px] tracking-[0.2em] sm:tracking-[0.25em] text-white/70 uppercase font-mono mt-0.5 sm:mt-1 block">Spatial Atelier</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden xl:flex items-center gap-7 text-xs tracking-[0.2em] uppercase font-medium text-white/80">
+        <a href="#monographs" class="hover:text-white transition-colors" onclick="playAcoustic('tap')">01. Monographs</a>
+        <a href="#floorplan" class="hover:text-white transition-colors" onclick="playAcoustic('tap')">02. CAD Ruler</a>
+        <a href="#model-viewer" class="hover:text-white transition-colors" onclick="playAcoustic('tap')">03. 3D Raycaster</a>
+        <a href="#acoustics" class="hover:text-white transition-colors" onclick="playAcoustic('tap')">04. Acoustics</a>
+        <a href="#materials" class="hover:text-white transition-colors" onclick="playAcoustic('tap')">05. Materials</a>
+        <a href="#renovation" class="hover:text-white transition-colors" onclick="playAcoustic('tap')">06. Transformation</a>
+      </nav>
+
+      <!-- Right Controls: Always Visible on Mobile & Desktop -->
+      <div class="flex items-center gap-1.5 sm:gap-3">
+        
+        <!-- Sunlight Day/Night Mode Switch (Mobile + Desktop) -->
+        <div class="flex items-center bg-black/60 backdrop-blur-md p-0.5 sm:p-1 border border-white/20 rounded-full text-[10px] sm:text-[11px] font-mono text-white shadow-lg">
+          <button onclick="setLighting('day')" class="lighting-btn px-2 sm:px-2.5 py-1 rounded-full bg-white text-black font-semibold transition-all flex items-center gap-1" data-mode="day" title="10:00 AM Crisp Sunlight">
+            <span>☀️</span><span class="hidden xs:inline sm:inline">Day</span>
+          </button>
+          <button onclick="setLighting('golden')" class="lighting-btn px-2 sm:px-2.5 py-1 rounded-full text-white/70 hover:text-white transition-all flex items-center gap-1" data-mode="golden" title="06:30 PM Golden Hour Dusk">
+            <span>🌅</span><span class="hidden xs:inline sm:inline">Dusk</span>
+          </button>
+          <button onclick="setLighting('night')" class="lighting-btn px-2 sm:px-2.5 py-1 rounded-full text-white/70 hover:text-white transition-all flex items-center gap-1" data-mode="night" title="11:00 PM Cove Lighting">
+            <span>🌙</span><span class="hidden xs:inline sm:inline">Night</span>
+          </button>
+        </div>
+
+        <!-- Ambient Sound Generator Toggle -->
+        <button id="ambient-audio-btn" onclick="toggleAmbientSound()" class="w-8 h-8 sm:w-9 sm:h-9 border border-white/20 bg-black/40 backdrop-blur-md hover:border-brass-400 rounded-full flex items-center justify-center text-white/80 hover:text-white transition-colors shrink-0" title="Toggle Nature Ambient Soundscape">
+          <i data-lucide="waves" id="audio-icon" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brass-400"></i>
+        </button>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button onclick="toggleMobileNav()" class="xl:hidden w-8 h-8 sm:w-9 sm:h-9 border border-white/20 bg-black/40 backdrop-blur-md hover:border-brass-400 rounded-full flex items-center justify-center text-white/90 hover:text-white transition-colors shrink-0" aria-label="Toggle Navigation Menu">
+          <i data-lucide="menu" id="mobile-menu-icon" class="w-4 h-4 text-white"></i>
+        </button>
+
+        <!-- Commission CTA (Hidden on tiny screens, shown in mobile drawer) -->
+        <a href="#contact" class="hidden sm:inline-flex btn-arch px-4 sm:px-5 py-2 sm:py-2.5 border border-white/30 bg-white/10 backdrop-blur-md text-white text-[11px] sm:text-xs tracking-[0.15em] uppercase font-semibold hover:bg-white hover:text-black transition-all" onclick="playAcoustic('tap')">
+          Commission
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Mobile Slide-Down Navigation Drawer -->
+    <div id="mobile-nav-drawer" class="hidden xl:hidden bg-stone-950/95 backdrop-blur-2xl border-b border-white/15 px-6 py-6 transition-all duration-300">
+      <nav class="flex flex-col gap-4 font-mono text-xs tracking-[0.15em] uppercase text-white/80">
+        <a href="#monographs" class="py-2 border-b border-white/5 hover:text-brass-400 flex items-center justify-between" onclick="closeMobileNav(); playAcoustic('tap')">
+          <span>01. Built Monographs</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-brass-400"></i>
+        </a>
+        <a href="#floorplan" class="py-2 border-b border-white/5 hover:text-brass-400 flex items-center justify-between" onclick="closeMobileNav(); playAcoustic('tap')">
+          <span>02. CAD Blueprint Ruler</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-brass-400"></i>
+        </a>
+        <a href="#model-viewer" class="py-2 border-b border-white/5 hover:text-brass-400 flex items-center justify-between" onclick="closeMobileNav(); playAcoustic('tap')">
+          <span>03. 3D Solar Raycaster</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-brass-400"></i>
+        </a>
+        <a href="#acoustics" class="py-2 border-b border-white/5 hover:text-brass-400 flex items-center justify-between" onclick="closeMobileNav(); playAcoustic('tap')">
+          <span>04. Acoustic Reverb Lab</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-brass-400"></i>
+        </a>
+        <a href="#materials" class="py-2 border-b border-white/5 hover:text-brass-400 flex items-center justify-between" onclick="closeMobileNav(); playAcoustic('tap')">
+          <span>05. Material Quarry Atelier</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-brass-400"></i>
+        </a>
+        <a href="#renovation" class="py-2 border-b border-white/5 hover:text-brass-400 flex items-center justify-between" onclick="closeMobileNav(); playAcoustic('tap')">
+          <span>06. Structural Renovation</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-brass-400"></i>
+        </a>
+        <a href="#estimator" class="py-2 border-b border-white/5 hover:text-brass-400 flex items-center justify-between" onclick="closeMobileNav(); playAcoustic('tap')">
+          <span>07. Fee &amp; Timeline Estimator</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-brass-400"></i>
+        </a>
+        <a href="#contact" class="mt-2 py-3 bg-white text-black font-semibold text-center uppercase tracking-[0.2em]" onclick="closeMobileNav(); playAcoustic('tap')">
+          Initiate Commission ↗
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ==================== 100VH FULLSCREEN CINEMATIC HERO SECTION ==================== -->
+  <section id="hero" class="relative w-full min-h-[100dvh] flex flex-col justify-between overflow-hidden select-none bg-stone-950 text-white">
+    
+    <!-- 4 Full-Bleed Background Slides with Ken Burns Crossfade -->
+    <div class="absolute inset-0 z-0 overflow-hidden">
+      
+      <!-- Slide 01: Lake Como Villa Solarium -->
+      <div class="hero-slide active" id="hero-slide-0">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2400&q=90" alt="Villa Solarium Lake Como" class="w-full h-full object-cover filter brightness-[0.78] contrast-[1.05]" />
+      </div>
+
+      <!-- Slide 02: Kyoto Atrium Courtyard -->
+      <div class="hero-slide" id="hero-slide-1">
+        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=2400&q=90" alt="The Kyoto Atrium Residence" class="w-full h-full object-cover filter brightness-[0.75] contrast-[1.05]" />
+      </div>
+
+      <!-- Slide 03: Engadin Alpine Stone Sanctuary -->
+      <div class="hero-slide" id="hero-slide-2">
+        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2400&q=90" alt="Engadin Stone Sanctuary St. Moritz" class="w-full h-full object-cover filter brightness-[0.75] contrast-[1.05]" />
+      </div>
+
+      <!-- Slide 04: Cap d'Antibes Cliff Monolith -->
+      <div class="hero-slide" id="hero-slide-3">
+        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2400&q=90" alt="Cap d'Antibes Coastal Villa" class="w-full h-full object-cover filter brightness-[0.75] contrast-[1.05]" />
+      </div>
+
+      <!-- Cinematic Vignette & Ambient Gradient Curtain -->
+      <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/65 pointer-events-none"></div>
+      <div id="hero-lighting-overlay" class="absolute inset-0 pointer-events-none transition-colors duration-700"></div>
+    </div>
+
+    <!-- Center Hero Editorial Typography -->
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 pt-24 sm:pt-40 pb-8 sm:pb-16 w-full my-auto">
+      <div class="max-w-4xl space-y-4 sm:space-y-6">
+        
+        <!-- Live Cadastral Pill -->
+        <div class="inline-flex flex-wrap items-center gap-2 sm:gap-3 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-black/50 backdrop-blur-md border border-white/20 text-[10px] sm:text-xs font-mono text-white/90">
+          <span class="w-2 h-2 rounded-full bg-brass-400 animate-pulse"></span>
+          <span id="hero-project-tag">MONOGRAPH 01 / LAKE COMO</span>
+          <span class="text-white/30 hidden xs:inline">|</span>
+          <span class="text-brass-300 font-semibold" id="hero-elevation-tag">ELEVATION 240M</span>
+        </div>
+
+        <!-- Master Fullscreen Headline -->
+        <h1 class="font-serif text-3xl sm:text-6xl md:text-7xl xl:text-8xl font-light tracking-tight leading-[1.05] sm:leading-[1.02] text-white drop-shadow-2xl" id="hero-main-title">
+          Monolithic spaces shaped by <em class="italic font-normal text-brass-300">silence</em> &amp; raw stone.
+        </h1>
+
+        <!-- Editorial Subtext -->
+        <p class="text-sm sm:text-lg md:text-xl text-white/80 max-w-2xl font-light leading-relaxed drop-shadow" id="hero-main-desc">
+          We engineer private residential sanctuaries, high-alpine monolithic retreats, and sovereign waterfront estates that blur the threshold between geological landscape and refined contemporary dwelling.
+        </p>
+
+        <!-- CTA Buttons (Full width on mobile, inline on desktop) -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-5 pt-2 sm:pt-4">
+          <a href="#monographs" class="btn-arch px-6 sm:px-8 py-3.5 sm:py-4 bg-white text-black font-semibold text-xs tracking-[0.2em] uppercase shadow-2xl flex items-center justify-center gap-3 hover:bg-brass-300 text-center" onclick="playAcoustic('tap')">
+            <span>Explore 4 Built Monoliths</span>
+            <i data-lucide="arrow-down-right" class="w-4 h-4"></i>
+          </a>
+          <a href="#model-viewer" class="btn-arch px-6 sm:px-8 py-3.5 sm:py-4 bg-black/50 backdrop-blur-md border border-white/25 text-white font-semibold text-xs tracking-[0.2em] uppercase flex items-center justify-center gap-3 hover:bg-white/20 text-center" onclick="playAcoustic('tap')">
+            <i data-lucide="sun" class="w-4 h-4 text-brass-400"></i>
+            <span>Inspect 3D Solar Raycast</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Bottom Fullscreen HUD Bar & Slide Carousel Controller -->
+    <div class="relative z-10 border-t border-white/15 bg-black/60 backdrop-blur-xl py-3 sm:py-6 px-3 sm:px-8">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-6">
+        
+        <!-- Slide Selectors (01 - 04) with Touch Scrolling -->
+        <div class="flex items-center gap-2 sm:gap-3 font-mono text-xs text-white/80 overflow-x-auto max-w-full pb-1 sm:pb-0 scrollbar-none w-full md:w-auto justify-start sm:justify-center">
+          <button onclick="setHeroSlide(0)" class="hero-tab-btn px-3 sm:px-4 py-1.5 sm:py-2 border border-brass-400 bg-brass-500/20 text-white font-bold transition-all flex items-center gap-1.5 sm:gap-2 whitespace-nowrap shrink-0 text-[11px] sm:text-xs" data-slide="0">
+            <span>01</span>
+            <span class="inline">Villa Solarium</span>
+          </button>
+          <button onclick="setHeroSlide(1)" class="hero-tab-btn px-3 sm:px-4 py-1.5 sm:py-2 border border-white/10 hover:border-white/30 text-white/60 hover:text-white transition-all flex items-center gap-1.5 sm:gap-2 whitespace-nowrap shrink-0 text-[11px] sm:text-xs" data-slide="1">
+            <span>02</span>
+            <span class="inline">Kyoto Atrium</span>
+          </button>
+          <button onclick="setHeroSlide(2)" class="hero-tab-btn px-3 sm:px-4 py-1.5 sm:py-2 border border-white/10 hover:border-white/30 text-white/60 hover:text-white transition-all flex items-center gap-1.5 sm:gap-2 whitespace-nowrap shrink-0 text-[11px] sm:text-xs" data-slide="2">
+            <span>03</span>
+            <span class="inline">Engadin</span>
+          </button>
+          <button onclick="setHeroSlide(3)" class="hero-tab-btn px-3 sm:px-4 py-1.5 sm:py-2 border border-white/10 hover:border-white/30 text-white/60 hover:text-white transition-all flex items-center gap-1.5 sm:gap-2 whitespace-nowrap shrink-0 text-[11px] sm:text-xs" data-slide="3">
+            <span>04</span>
+            <span class="inline">Cap d'Antibes</span>
+          </button>
+        </div>
+
+        <!-- Center Scroll Indicator -->
+        <div class="hidden md:flex flex-col items-center gap-1 text-white/60 font-mono text-[10px] tracking-widest uppercase">
+          <span>SCROLL TO EXPLORE</span>
+          <div class="overflow-hidden h-8 w-px">
+            <div class="scroll-line-anim"></div>
+          </div>
+        </div>
+
+        <!-- Right Quick Telemetry Readout -->
+        <div class="flex items-center gap-6 font-mono text-xs text-white/80">
+          <div>
+            <div class="text-[10px] text-brass-400 uppercase">SOLAR AZIMUTH</div>
+            <div id="hero-sun-stat" class="font-semibold text-white">142° SE (10:00 AM)</div>
+          </div>
+          <div class="w-px h-8 bg-white/20"></div>
+          <div>
+            <div class="text-[10px] text-brass-400 uppercase">LOCATION</div>
+            <div id="hero-loc-stat" class="font-semibold text-white">MILANO • ZURICH</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ==================== SECTION 1: CURATED ARCHITECTURAL MONOGRAPHS ==================== -->
+  <section id="monographs" class="py-28 px-4 sm:px-8 max-w-7xl mx-auto border-t border-[var(--border-stone)]">
+    
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+      <div class="space-y-3">
+        <div class="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.25em] text-brass-500 uppercase">
+          <span>01 / RECENT MONOGRAPHS</span>
+        </div>
+        <h2 class="font-serif text-3xl sm:text-5xl font-light text-[var(--text-main)] tracking-tight">
+          Selected Built Works &amp; Sanctuaries
+        </h2>
+      </div>
+      <p class="text-sm text-[var(--text-muted)] max-w-md font-light leading-relaxed">
+        Each project is an unrepeatable dialogue with landscape contours, local quarries, and diurnal sun geometry.
+      </p>
+    </div>
+
+    <!-- 3-Column Monograph Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      
+      <!-- Monograph 1 -->
+      <article class="reveal-item monograph-card bg-[var(--bg-surface)] border border-[var(--border-stone)] p-4 space-y-4 group cursor-pointer" onclick="openLightbox('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1600&q=80', 'Villa Solarium Lakehouse', 'Como, Italy • 840 m² • Cantilevered Roman Travertine')">
+        <div class="relative h-80 overflow-hidden bg-stone-900">
+          <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=900&q=80" alt="Lake Como Villa" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+          <span class="absolute top-3 left-3 bg-black/70 backdrop-blur-md text-white font-mono text-[10px] tracking-widest px-2.5 py-1 uppercase">Como, Italy</span>
+          <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-mono text-xs tracking-widest uppercase">
+            <span class="px-3 py-1.5 bg-black/70 backdrop-blur-md border border-white/20">Inspect Full Dossier ↗</span>
+          </div>
+        </div>
+        <div class="space-y-2 px-1">
+          <div class="flex items-center justify-between text-[11px] font-mono text-brass-500 tracking-wider">
+            <span>RESIDENTIAL MONOLITH</span>
+            <span>2025</span>
+          </div>
+          <h3 class="font-serif text-2xl font-normal text-[var(--text-main)] group-hover:text-brass-500 transition-colors">
+            Villa Solarium Lakehouse
+          </h3>
+          <p class="text-xs text-[var(--text-muted)] font-light leading-relaxed">
+            Cantilevered Roman travertine terraces extended over the water, framing unobstructed Alpine reflections.
+          </p>
+        </div>
+        <div class="pt-2 border-t border-[var(--border-stone)] flex items-center justify-between text-xs font-mono text-[var(--text-muted)] px-1">
+          <span>840 m² / 9,040 sq ft</span>
+          <span class="group-hover:translate-x-1 transition-transform text-brass-500">View Blueprint ↗</span>
+        </div>
+      </article>
+
+      <!-- Monograph 2 -->
+      <article class="reveal-item delay-1 monograph-card bg-[var(--bg-surface)] border border-[var(--border-stone)] p-4 space-y-4 group cursor-pointer" onclick="openLightbox('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1600&q=80', 'The Kyoto Atrium Residence', 'Kyoto, Japan • 520 m² • Charred Yakisugi Cedar & Zen Garden')">
+        <div class="relative h-80 overflow-hidden bg-stone-900">
+          <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=900&q=80" alt="Kyoto Courtyard" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+          <span class="absolute top-3 left-3 bg-black/70 backdrop-blur-md text-white font-mono text-[10px] tracking-widest px-2.5 py-1 uppercase">Kyoto, Japan</span>
+          <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-mono text-xs tracking-widest uppercase">
+            <span class="px-3 py-1.5 bg-black/70 backdrop-blur-md border border-white/20">Inspect Full Dossier ↗</span>
+          </div>
+        </div>
+        <div class="space-y-2 px-1">
+          <div class="flex items-center justify-between text-[11px] font-mono text-brass-500 tracking-wider">
+            <span>TIMBER COURTYARD</span>
+            <span>2024</span>
+          </div>
+          <h3 class="font-serif text-2xl font-normal text-[var(--text-main)] group-hover:text-brass-500 transition-colors">
+            The Kyoto Atrium Residence
+          </h3>
+          <p class="text-xs text-[var(--text-muted)] font-light leading-relaxed">
+            Charred Yakisugi cedar frame surrounding an enclosed moss rain garden with integrated cedar ofuro baths.
+          </p>
+        </div>
+        <div class="pt-2 border-t border-[var(--border-stone)] flex items-center justify-between text-xs font-mono text-[var(--text-muted)] px-1">
+          <span>520 m² / 5,600 sq ft</span>
+          <span class="group-hover:translate-x-1 transition-transform text-brass-500">View Blueprint ↗</span>
+        </div>
+      </article>
+
+      <!-- Monograph 3 -->
+      <article class="reveal-item delay-2 monograph-card bg-[var(--bg-surface)] border border-[var(--border-stone)] p-4 space-y-4 group cursor-pointer" onclick="openLightbox('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=80', 'Engadin Stone Sanctuary', 'St. Moritz, Switzerland • 710 m² • Valser Quartzite & Glacier Panorama')">
+        <div class="relative h-80 overflow-hidden bg-stone-900">
+          <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80" alt="Alpine Chalet" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+          <span class="absolute top-3 left-3 bg-black/70 backdrop-blur-md text-white font-mono text-[10px] tracking-widest px-2.5 py-1 uppercase">St. Moritz, Swiss</span>
+          <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-mono text-xs tracking-widest uppercase">
+            <span class="px-3 py-1.5 bg-black/70 backdrop-blur-md border border-white/20">Inspect Full Dossier ↗</span>
+          </div>
+        </div>
+        <div class="space-y-2 px-1">
+          <div class="flex items-center justify-between text-[11px] font-mono text-brass-500 tracking-wider">
+            <span>HIGH ALPINE REFUGE</span>
+            <span>2025</span>
+          </div>
+          <h3 class="font-serif text-2xl font-normal text-[var(--text-main)] group-hover:text-brass-500 transition-colors">
+            Engadin Stone Sanctuary
+          </h3>
+          <p class="text-xs text-[var(--text-muted)] font-light leading-relaxed">
+            Rough-hewn Valser quartzite walls with floor-to-ceiling triple glazed apertures overlooking the glacier.
+          </p>
+        </div>
+        <div class="pt-2 border-t border-[var(--border-stone)] flex items-center justify-between text-xs font-mono text-[var(--text-muted)] px-1">
+          <span>710 m² / 7,640 sq ft</span>
+          <span class="group-hover:translate-x-1 transition-transform text-brass-500">View Blueprint ↗</span>
+        </div>
+      </article>
+
+    </div>
+
+  </section>
+
+  <!-- ==================== SECTION 2: CAD BLUEPRINT & REAL-TIME DIMENSION RULER ==================== -->
+  <section id="floorplan" class="py-28 px-4 sm:px-8 max-w-7xl mx-auto border-t border-[var(--border-stone)]">
+    
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+      <div class="space-y-3">
+        <div class="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.25em] text-brass-500 uppercase">
+          <span>02 / CADASTRAL BLUEPRINT &amp; CAD RULER</span>
+        </div>
+        <h2 class="font-serif text-3xl sm:text-5xl font-light text-[var(--text-main)] tracking-tight">
+          Interactive Floorplan &amp; Calibrated Measurement
+        </h2>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button id="ruler-tool-btn" onclick="toggleCadRuler()" class="btn-arch px-4 py-2.5 bg-[var(--bg-surface)] border border-brass-500 text-brass-500 font-mono text-xs flex items-center gap-2">
+          <i data-lucide="ruler" class="w-4 h-4"></i>
+          <span id="ruler-btn-text">Activate CAD Measurement Tool</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Blueprint Interactive Workbench -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Left: SVG Architectural Blueprint Canvas with Measurement Overlay -->
+      <div class="lg:col-span-8 bg-[var(--bg-surface)] border border-[var(--border-stone)] p-6 shadow-xl relative">
+        
+        <div class="flex items-center justify-between border-b border-[var(--border-stone)] pb-3 mb-4 font-mono text-xs text-[var(--text-muted)]">
+          <div class="flex items-center gap-3">
+            <span class="w-2 h-2 rounded-full bg-brass-500 animate-pulse"></span>
+            <span>SCHEMATIC ELEVATION: GROUND PLAN (SCALE 1:50)</span>
+          </div>
+          <span id="ruler-live-readout" class="text-brass-500 font-bold">CLICK ROOMS OR DRAG RULER</span>
+        </div>
+
+        <!-- Interactive SVG Floorplan Container -->
+        <div id="blueprint-container" class="relative w-full aspect-[16/10] bg-[#fcfbfa] border border-[var(--border-stone)] flex items-center justify-center p-4 overflow-hidden select-none">
+          <svg id="cad-svg" viewBox="0 0 800 500" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+            
+            <defs>
+              <pattern id="archGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(28,26,23,0.05)" stroke-width="0.5"/>
+              </pattern>
+            </defs>
+            <rect width="800" height="500" fill="url(#archGrid)" />
+
+            <rect x="50" y="40" width="700" height="420" fill="none" stroke="#231f1a" stroke-width="3" />
+
+            <!-- Room 1 -->
+            <rect id="room-living" x="60" y="50" width="340" height="200" fill="rgba(197,168,128,0.08)" stroke="#5c5244" stroke-width="1.5" class="plan-room active" onclick="selectRoom('living')" />
+            <text x="230" y="145" font-family="Manrope" font-size="12" font-weight="600" text-anchor="middle" fill="#231f1a" pointer-events="none">01. GRAND SALON &amp; HEARTH</text>
+            <text x="230" y="165" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle" fill="#7d6550" pointer-events="none">120 m² • South-Facing Glazing</text>
+
+            <!-- Room 2 -->
+            <rect id="room-atrium" x="420" y="50" width="160" height="200" fill="rgba(182,99,72,0.08)" stroke="#b66348" stroke-width="1.5" stroke-dasharray="4 2" class="plan-room" onclick="selectRoom('atrium')" />
+            <text x="500" y="145" font-family="Manrope" font-size="11" font-weight="600" text-anchor="middle" fill="#b66348" pointer-events="none">02. RAIN ATRIUM</text>
+            <text x="500" y="165" font-family="JetBrains Mono, monospace" font-size="9" text-anchor="middle" fill="#7d6550" pointer-events="none">Open Sky • Moss Garden</text>
+
+            <!-- Room 3 -->
+            <rect id="room-tea" x="600" y="50" width="140" height="200" fill="rgba(197,168,128,0.08)" stroke="#5c5244" stroke-width="1.5" class="plan-room" onclick="selectRoom('tea')" />
+            <text x="670" y="145" font-family="Manrope" font-size="11" font-weight="600" text-anchor="middle" fill="#231f1a" pointer-events="none">03. CHASHITSU</text>
+            <text x="670" y="165" font-family="JetBrains Mono, monospace" font-size="9" text-anchor="middle" fill="#7d6550" pointer-events="none">Tatami Suite</text>
+
+            <!-- Room 4 -->
+            <rect id="room-kitchen" x="60" y="270" width="280" height="180" fill="rgba(197,168,128,0.08)" stroke="#5c5244" stroke-width="1.5" class="plan-room" onclick="selectRoom('kitchen')" />
+            <text x="200" y="355" font-family="Manrope" font-size="11" font-weight="600" text-anchor="middle" fill="#231f1a" pointer-events="none">04. CULINARY GALLERY</text>
+            <text x="200" y="375" font-family="JetBrains Mono, monospace" font-size="9" text-anchor="middle" fill="#7d6550" pointer-events="none">Monolithic Marble Island</text>
+
+            <!-- Room 5 -->
+            <rect id="room-onsen" x="360" y="270" width="380" height="180" fill="rgba(197,168,128,0.08)" stroke="#5c5244" stroke-width="1.5" class="plan-room" onclick="selectRoom('onsen')" />
+            <text x="550" y="355" font-family="Manrope" font-size="12" font-weight="600" text-anchor="middle" fill="#231f1a" pointer-events="none">05. MASTER SUITE &amp; STONE ONSEN</text>
+            <text x="550" y="375" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle" fill="#7d6550" pointer-events="none">145 m² • Hinoki Wood &amp; Basalt</text>
+
+            <!-- Compass -->
+            <g transform="translate(710, 80)">
+              <circle cx="0" cy="0" r="18" fill="none" stroke="#5c5244" stroke-width="0.8" />
+              <path d="M 0 -14 L 4 0 L 0 14 L -4 0 Z" fill="#231f1a" />
+              <text x="0" y="-18" font-family="Manrope" font-size="8" font-weight="700" text-anchor="middle" fill="#231f1a">N</text>
+            </g>
+
+            <!-- Measurement Overlay -->
+            <g id="dimension-group" opacity="0">
+              <line id="dim-line" x1="0" y1="0" x2="0" y2="0" stroke="#b66348" stroke-width="2" stroke-dasharray="4 2" />
+              <circle id="dim-start" cx="0" cy="0" r="4" fill="#b66348" />
+              <circle id="dim-end" cx="0" cy="0" r="4" fill="#b66348" />
+              <rect id="dim-bg" x="0" y="0" width="80" height="20" fill="#231f1a" rx="3" />
+              <text id="dim-text" x="0" y="0" font-family="JetBrains Mono, monospace" font-size="10" fill="#ffffff" text-anchor="middle" alignment-baseline="central">0 mm</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="flex items-center justify-between text-[11px] font-mono text-[var(--text-muted)] mt-3">
+          <span>* Click rooms to view specs or use measurement ruler</span>
+          <span>AURA CAD ENGINE V5.0</span>
+        </div>
+
+      </div>
+
+      <!-- Right: Live Room Diagnostic Card -->
+      <div class="lg:col-span-4 bg-[var(--bg-surface)] border border-[var(--border-stone)] p-6 shadow-xl space-y-5">
+        
+        <div class="border-b border-[var(--border-stone)] pb-3 flex items-center justify-between">
+          <span class="text-xs font-mono text-brass-500 uppercase tracking-wider" id="room-code">NODE 01 / SPEC</span>
+          <span class="text-[10px] font-mono px-2 py-0.5 bg-stone-200/50 text-[var(--text-main)] rounded">VERIFIED</span>
+        </div>
+
+        <div>
+          <h3 class="font-serif text-2xl font-normal text-[var(--text-main)]" id="room-name">
+            Grand Salon &amp; Hearth
+          </h3>
+          <p class="text-xs text-[var(--text-muted)] font-light mt-1.5 leading-relaxed" id="room-desc">
+            A double-height living pavilion featuring unbroken 9-meter floor-to-ceiling pocket sliding glass and a suspended blackened bronze fireplace.
+          </p>
+        </div>
+
+        <div class="space-y-3 font-mono text-xs border-t border-b border-[var(--border-stone)] py-4">
+          <div class="flex items-center justify-between">
+            <span class="text-[var(--text-muted)]">Surface Area:</span>
+            <span class="font-semibold text-[var(--text-main)]" id="room-area">120 m² (1,290 sq ft)</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-[var(--text-muted)]">Daylight Exposure:</span>
+            <span class="font-semibold text-brass-500" id="room-light">9.4 hrs / South-West</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-[var(--text-muted)]">Primary Material:</span>
+            <span class="font-semibold text-[var(--text-main)]" id="room-mat">Roman Travertine &amp; Smoked Oak</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-[var(--text-muted)]">Ceiling Elevation:</span>
+            <span class="font-semibold text-[var(--text-main)]" id="room-height">4.80 m (Clear Span)</span>
+          </div>
+        </div>
+
+        <div class="relative h-44 overflow-hidden bg-stone-900 border border-[var(--border-stone)] cursor-pointer" onclick="openLightbox('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80', 'Grand Salon & Hearth', '120 m² • South-Facing Travertine Pavilion')">
+          <img id="room-img" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80" alt="Room Render Preview" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+          <div class="absolute bottom-2 left-2 bg-black/60 text-white px-2 py-0.5 font-mono text-[9px]">PHOTOGRAMMETRIC PREVIEW ↗</div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ==================== SECTION 3: 3D VOLUMETRIC RAYCAST ENGINE ==================== -->
+  <section id="model-viewer" class="py-28 px-4 sm:px-8 max-w-7xl mx-auto border-t border-[var(--border-stone)]">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <div class="lg:col-span-5 space-y-6">
+        <div class="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.25em] text-brass-500 uppercase">
+          <span>03 / 3D VOLUMETRIC SOLAR RAYCAST</span>
+        </div>
+
+        <h2 class="font-serif text-3xl sm:text-5xl font-light text-[var(--text-main)] tracking-tight">
+          Real-Time Diurnal Shadow &amp; Raycast Tracing
+        </h2>
+
+        <p class="text-sm text-[var(--text-muted)] font-light leading-relaxed">
+          Drag the solar declination scrubber to project animated light rays and calculate ground-plane thermal exposure across the cantilevered monolith.
+        </p>
+
+        <div class="bg-[var(--bg-surface)] p-5 border border-[var(--border-stone)] space-y-3 shadow-lg">
+          <div class="flex items-center justify-between font-mono text-xs">
+            <span class="text-[var(--text-muted)] uppercase">SOLAR AZIMUTH TIME:</span>
+            <span class="font-bold text-brass-500 text-sm" id="sun-time-label">14:00 (Sun Angle: 45°)</span>
+          </div>
+
+          <input id="sun-angle-slider" type="range" min="6" max="20" step="0.5" value="14" oninput="updateSunAngle(this.value)" class="w-full h-1.5 bg-stone-300 rounded-lg appearance-none cursor-pointer accent-brass-500" />
+          
+          <div class="flex justify-between font-mono text-[10px] text-[var(--text-muted)]">
+            <span>06:00 Sunrise</span>
+            <span>12:00 Zenith</span>
+            <span>20:00 Sunset</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-2 font-mono text-xs">
+          <button onclick="setWireframeMode('timber')" class="wireframe-btn p-2.5 bg-[var(--bg-surface)] border border-brass-500 text-[var(--text-main)] text-center font-semibold" data-mode="timber">Mass Timber</button>
+          <button onclick="setWireframeMode('stone')" class="wireframe-btn p-2.5 bg-[var(--bg-surface)] border border-[var(--border-stone)] text-[var(--text-muted)] text-center" data-mode="stone">Valser Stone</button>
+          <button onclick="setWireframeMode('glass')" class="wireframe-btn p-2.5 bg-[var(--bg-surface)] border border-[var(--border-stone)] text-[var(--text-muted)] text-center" data-mode="glass">Low-E Glass</button>
+        </div>
+
+        <div class="text-[11px] font-mono text-[var(--text-muted)] flex items-center gap-2">
+          <i data-lucide="info" class="w-3.5 h-3.5 text-brass-500"></i>
+          <span>Click &amp; drag directly on canvas to orbit in 360° isometric perspective.</span>
+        </div>
+      </div>
+
+      <div class="lg:col-span-7 bg-[var(--bg-surface)] border border-[var(--border-stone)] p-4 shadow-2xl relative overflow-hidden">
+        <div class="flex items-center justify-between border-b border-[var(--border-stone)] pb-3 px-2 font-mono text-xs text-[var(--text-muted)]">
+          <span class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-brass-500 animate-ping"></span>
+            <span>3D ISOMETRIC RAYCAST ENGINE (V5.0)</span>
+          </span>
+          <span id="canvas-fps">60 FPS • INTERACTIVE ORBIT</span>
+        </div>
+
+        <div class="relative w-full aspect-[16/11] bg-[#fbfaf8] border border-[var(--border-stone)] mt-3">
+          <canvas id="wireframe-canvas" class="w-full h-full cursor-grab active:cursor-grabbing select-none"></canvas>
+          
+          <div class="absolute bottom-3 left-3 bg-black/70 backdrop-blur-md text-white px-3 py-1 font-mono text-[10px] tracking-wider uppercase">
+            VILLA SOLARIUM • 3D CANTILEVER ELEVATION
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 4: ACOUSTIC REVERB SPATIALIZER ==================== -->
+  <section id="acoustics" class="py-28 px-4 sm:px-8 max-w-7xl mx-auto border-t border-[var(--border-stone)]">
+    <div class="bg-[var(--bg-surface)] border border-[var(--border-stone)] p-8 sm:p-12 shadow-2xl space-y-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div class="space-y-3">
+          <div class="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.25em] text-brass-500 uppercase">
+            <span>04 / ACOUSTIC MATERIAL SIMULATOR</span>
+          </div>
+          <h2 class="font-serif text-3xl sm:text-5xl font-light text-[var(--text-main)] tracking-tight">
+            How Natural Materials Shape Acoustic Silence
+          </h2>
+        </div>
+        <p class="text-sm text-[var(--text-muted)] max-w-md font-light leading-relaxed">
+          Test real-time architectural sound decay. Solid travertine produces monumental reverberation, while porous Hinoki cedar absorbs harmonic resonance.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 font-mono text-xs">
+        
+        <!-- Space 1 -->
+        <div onclick="testAcousticSpace('travertine', 2.8, 480)" class="acoustic-card cursor-pointer p-6 border border-brass-500 bg-stone-100/50 space-y-4" id="acoustic-travertine">
+          <div class="flex items-center justify-between">
+            <span class="text-brass-500 font-bold uppercase">SPACE 01 / CATHEDRAL</span>
+            <span class="text-[10px] px-2 py-0.5 bg-brass-500/20 text-brass-600 rounded">2.8s DECAY</span>
+          </div>
+          <h4 class="font-serif text-2xl text-[var(--text-main)]">Travertine Grand Salon</h4>
+          <p class="text-xs text-[var(--text-muted)] font-light">High specular echo reflection across solid 4.8m Roman limestone slabs.</p>
+          <button class="w-full py-2.5 bg-[var(--text-main)] text-[var(--bg-canvas)] uppercase tracking-wider text-[10px] font-semibold btn-arch">
+            🔊 Pulse Acoustic Echo
+          </button>
+        </div>
+
+        <!-- Space 2 -->
+        <div onclick="testAcousticSpace('cedar', 0.4, 220)" class="acoustic-card cursor-pointer p-6 border border-[var(--border-stone)] hover:border-brass-500 bg-[var(--bg-surface)] space-y-4" id="acoustic-cedar">
+          <div class="flex items-center justify-between">
+            <span class="text-[var(--text-muted)] font-bold uppercase">SPACE 02 / DAMPED</span>
+            <span class="text-[10px] px-2 py-0.5 bg-stone-200 text-[var(--text-muted)] rounded">0.4s DECAY</span>
+          </div>
+          <h4 class="font-serif text-2xl text-[var(--text-main)]">Kyoto Hinoki Pavilion</h4>
+          <p class="text-xs text-[var(--text-muted)] font-light">Intimate silent absorption via rush tatami mats and acoustic cedar ribs.</p>
+          <button class="w-full py-2.5 border border-[var(--border-stone)] text-[var(--text-main)] uppercase tracking-wider text-[10px] font-semibold btn-arch">
+            🔊 Pulse Acoustic Echo
+          </button>
+        </div>
+
+        <!-- Space 3 -->
+        <div onclick="testAcousticSpace('alpine', 1.2, 350)" class="acoustic-card cursor-pointer p-6 border border-[var(--border-stone)] hover:border-brass-500 bg-[var(--bg-surface)] space-y-4" id="acoustic-alpine">
+          <div class="flex items-center justify-between">
+            <span class="text-[var(--text-muted)] font-bold uppercase">SPACE 03 / BALANCED</span>
+            <span class="text-[10px] px-2 py-0.5 bg-stone-200 text-[var(--text-muted)] rounded">1.2s DECAY</span>
+          </div>
+          <h4 class="font-serif text-2xl text-[var(--text-main)]">Valser Quartzite Chamber</h4>
+          <p class="text-xs text-[var(--text-muted)] font-light">Natural diffuse scatter over split-face mountain stone and triple glazing.</p>
+          <button class="w-full py-2.5 border border-[var(--border-stone)] text-[var(--text-main)] uppercase tracking-wider text-[10px] font-semibold btn-arch">
+            🔊 Pulse Acoustic Echo
+          </button>
+        </div>
+
+      </div>
+
+      <div class="p-4 bg-[#141210] text-white font-mono text-xs flex items-center justify-between border border-white/10">
+        <div class="flex items-center gap-3">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span id="acoustic-telemetry-text">ACTIVE ACOUSTIC SPACE: ROMAN TRAVERTINE (REVERB: 2.8s)</span>
+        </div>
+        <span class="text-zinc-500">WEB AUDIO CONVOLVER DSP</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 5: MATERIAL ATELIER ==================== -->
+  <section id="materials" class="py-28 px-4 sm:px-8 max-w-7xl mx-auto border-t border-[var(--border-stone)]">
+    
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+      <div class="space-y-3">
+        <div class="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.25em] text-brass-500 uppercase">
+          <span>05 / MATERIAL ATELIER &amp; MACRO LOUPE</span>
+        </div>
+        <h2 class="font-serif text-3xl sm:text-5xl font-light text-[var(--text-main)] tracking-tight">
+          Physical Samples from Historic European Quarries
+        </h2>
+      </div>
+      <p class="text-sm text-[var(--text-muted)] max-w-md font-light leading-relaxed">
+        Hover over any swatch below to examine natural geological grain, extraction coordinates, and structural density.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <!-- Swatch 1 -->
+      <div onclick="selectMaterial('calacatta')" class="material-swatch active cursor-pointer bg-[var(--bg-surface)] border border-[var(--border-stone)] p-5 space-y-4 relative group" id="mat-calacatta">
+        <div class="h-44 rounded-none overflow-hidden border border-[var(--border-stone)] bg-zinc-100 relative">
+          <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=600&q=80" alt="Calacatta Marble" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+          <span class="absolute bottom-2 right-2 bg-black/70 text-white font-mono text-[9px] px-2 py-0.5 uppercase">CARRARA, ITALY</span>
+        </div>
+        <div>
+          <span class="text-[10px] font-mono text-brass-500 uppercase tracking-widest block">01 / MARBLE</span>
+          <h4 class="font-serif text-xl font-normal text-[var(--text-main)] mt-0.5">Calacatta Vagli Oro</h4>
+          <p class="text-xs text-[var(--text-muted)] font-light mt-1">Honest breccia marble with gold &amp; charcoal veins, honed matte finish.</p>
+        </div>
+      </div>
+
+      <!-- Swatch 2 -->
+      <div onclick="selectMaterial('cedar')" class="material-swatch cursor-pointer bg-[var(--bg-surface)] border border-[var(--border-stone)] p-5 space-y-4 relative group" id="mat-cedar">
+        <div class="h-44 rounded-none overflow-hidden border border-[var(--border-stone)] bg-zinc-900 relative">
+          <img src="https://images.unsplash.com/photo-1546484396-fb3fc6f95f98?auto=format&fit=crop&w=600&q=80" alt="Yakisugi Cedar" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+          <span class="absolute bottom-2 right-2 bg-black/70 text-white font-mono text-[9px] px-2 py-0.5 uppercase">KYOTO, JAPAN</span>
+        </div>
+        <div>
+          <span class="text-[10px] font-mono text-brass-500 uppercase tracking-widest block">02 / MASS TIMBER</span>
+          <h4 class="font-serif text-xl font-normal text-[var(--text-main)] mt-0.5">Yakisugi Charred Cedar</h4>
+          <p class="text-xs text-[var(--text-muted)] font-light mt-1">Fire-treated cryptographic timber offering 80-year rot &amp; insect resistance.</p>
+        </div>
+      </div>
+
+      <!-- Swatch 3 -->
+      <div onclick="selectMaterial('travertine')" class="material-swatch cursor-pointer bg-[var(--bg-surface)] border border-[var(--border-stone)] p-5 space-y-4 relative group" id="mat-travertine">
+        <div class="h-44 rounded-none overflow-hidden border border-[var(--border-stone)] bg-stone-200 relative">
+          <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=600&q=80" alt="Roman Travertine" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+          <span class="absolute bottom-2 right-2 bg-black/70 text-white font-mono text-[9px] px-2 py-0.5 uppercase">TIVOLI, ITALY</span>
+        </div>
+        <div>
+          <span class="text-[10px] font-mono text-brass-500 uppercase tracking-widest block">03 / LIMESTONE</span>
+          <h4 class="font-serif text-xl font-normal text-[var(--text-main)] mt-0.5">Roman Classic Travertine</h4>
+          <p class="text-xs text-[var(--text-muted)] font-light mt-1">Cross-cut sedimentary stone with open pores, quarried in historical Tivoli.</p>
+        </div>
+      </div>
+
+      <!-- Swatch 4 -->
+      <div onclick="selectMaterial('brass')" class="material-swatch cursor-pointer bg-[var(--bg-surface)] border border-[var(--border-stone)] p-5 space-y-4 relative group" id="mat-brass">
+        <div class="h-44 rounded-none overflow-hidden border border-[var(--border-stone)] bg-amber-100 relative">
+          <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=600&q=80" alt="Brushed Brass" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+          <span class="absolute bottom-2 right-2 bg-black/70 text-white font-mono text-[9px] px-2 py-0.5 uppercase">BIRMINGHAM, UK</span>
+        </div>
+        <div>
+          <span class="text-[10px] font-mono text-brass-500 uppercase tracking-widest block">04 / ARCHITECTURAL ALLOY</span>
+          <h4 class="font-serif text-xl font-normal text-[var(--text-main)] mt-0.5">Living Unlacquered Brass</h4>
+          <p class="text-xs text-[var(--text-muted)] font-light mt-1">Ages naturally over decades, forming a deep golden-brown tactile patina.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Live Material Texture Preview Banner -->
+    <div class="mt-8 bg-[var(--bg-surface)] border border-[var(--border-stone)] p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 border border-brass-500 flex items-center justify-center font-serif text-xl text-brass-500">
+          🏛️
+        </div>
+        <div>
+          <div class="text-xs font-mono text-brass-500" id="mat-banner-title">ACTIVE TEXTURE: CALACATTA VAGLI ORO</div>
+          <div class="text-xs text-[var(--text-muted)] font-light" id="mat-banner-desc">Compression Strength: 142 MPa • Density: 2,710 kg/m³ • Water Absorption: 0.12%</div>
+        </div>
+      </div>
+      <button onclick="requestPhysicalSwatchBox()" class="btn-arch px-5 py-2.5 bg-[var(--text-main)] text-[var(--bg-canvas)] font-mono text-xs uppercase tracking-wider whitespace-nowrap">
+        Request Physical Sample Box ↗
+      </button>
+    </div>
+
+  </section>
+
+  <!-- ==================== SECTION 6: SPATIAL TRANSFORMATION SLIDER ==================== -->
+  <section id="renovation" class="py-28 px-4 sm:px-8 max-w-7xl mx-auto border-t border-[var(--border-stone)]">
+    
+    <div class="space-y-4 mb-12">
+      <div class="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.25em] text-brass-500 uppercase">
+        <span>06 / SPATIAL TRANSFORMATION</span>
+      </div>
+      <h2 class="font-serif text-3xl sm:text-5xl font-light text-[var(--text-main)] tracking-tight">
+        Raw Concrete Core vs. Finished Living Monolith
+      </h2>
+      <p class="text-sm text-[var(--text-muted)] max-w-2xl font-light leading-relaxed">
+        Drag the divider horizontally to witness how brutalist concrete structure evolves into a quiet, warm timber and limestone sanctuary.
+      </p>
+    </div>
+
+    <div class="relative bg-[var(--bg-surface)] border border-[var(--border-stone)] p-4 shadow-2xl">
+      <div id="arch-slider-container" class="comparison-slider-container relative h-[450px] sm:h-[600px] overflow-hidden bg-stone-900">
+        
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=85" alt="Finished Warm Penthouse" class="absolute inset-0 w-full h-full object-cover" />
+        <span class="absolute top-4 right-4 bg-black/70 backdrop-blur-md text-white font-mono text-xs tracking-widest px-3 py-1 uppercase z-10">COMPLETED RESIDENCE (2025)</span>
+
+        <div id="arch-before-layer" class="absolute inset-0 w-full h-full" style="clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);">
+          <img src="https://images.unsplash.com/photo-1541888946425-d0fbb180c5f5?auto=format&fit=crop&w=1800&q=85" alt="Raw Concrete Construction" class="absolute inset-0 w-full h-full object-cover filter grayscale contrast-125" />
+          <span class="absolute top-4 left-4 bg-black/70 backdrop-blur-md text-white font-mono text-xs tracking-widest px-3 py-1 uppercase z-10">RAW REINFORCED SHELL (2023)</span>
+        </div>
+
+        <div id="arch-slider-handle" class="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize z-20" style="left: 50%;">
+          <div class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-white text-black shadow-2xl flex items-center justify-center border border-stone-300">
+            <i data-lucide="chevrons-left-right" class="w-4 h-4 text-stone-800"></i>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="flex items-center justify-between text-[11px] font-mono text-[var(--text-muted)] mt-3 px-2">
+        <span>* Drag slider to compare structural shell with finished spatial envelope</span>
+        <span>PROJECT: ENGADIN REFUGE #402</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ==================== SECTION 7: ARCHITECTURAL SCOPE ESTIMATOR ==================== -->
+  <section id="estimator" class="py-28 px-4 sm:px-8 max-w-7xl mx-auto border-t border-[var(--border-stone)]">
+    
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <div class="lg:col-span-7 space-y-8">
+        
+        <div class="space-y-3">
+          <div class="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.25em] text-brass-500 uppercase">
+            <span>07 / ARCHITECTURAL SCOPE ESTIMATOR</span>
+          </div>
+          <h2 class="font-serif text-3xl sm:text-5xl font-light text-[var(--text-main)] tracking-tight">
+            Calculate Architectural Commission
+          </h2>
+          <p class="text-sm text-[var(--text-muted)] font-light leading-relaxed">
+            Configure your spatial parameters to obtain preliminary architectural fee schedules, construction timelines, and engineering milestones.
+          </p>
+        </div>
+
+        <div class="space-y-2">
+          <div class="flex items-center justify-between font-mono text-xs">
+            <span class="text-[var(--text-muted)] uppercase tracking-wider">Gross Floor Area (m²):</span>
+            <span class="font-bold text-[var(--text-main)] text-sm" id="calc-area-label">650 m² (7,000 sq ft)</span>
+          </div>
+          <input id="calc-area-slider" type="range" min="300" max="2500" step="50" value="650" oninput="updateArchEstimate()" class="w-full h-1.5 bg-stone-300 rounded-lg appearance-none cursor-pointer accent-brass-500" />
+          <div class="flex justify-between font-mono text-[10px] text-[var(--text-muted)]">
+            <span>300 m² (Private Atelier)</span>
+            <span>2,500 m² (Grand Estate)</span>
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <span class="font-mono text-xs text-[var(--text-muted)] uppercase tracking-wider block">Typology &amp; Landscape:</span>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
+            <button onclick="setTypology('coastal', 1.25, 'Coastal Villa / Lakefront Monolith')" class="typology-btn p-3 bg-[var(--bg-surface)] border border-brass-500 text-[var(--text-main)] font-mono text-xs text-left" data-type="coastal">
+              <div class="font-bold">Lake &amp; Coastal</div>
+              <div class="text-[10px] text-[var(--text-muted)] mt-0.5">Waterfront Engineering</div>
+            </button>
+            <button onclick="setTypology('alpine', 1.35, 'Alpine Chalet / High-Elevation Refuge')" class="typology-btn p-3 bg-[var(--bg-surface)] border border-[var(--border-stone)] text-[var(--text-muted)] font-mono text-xs text-left" data-type="alpine">
+              <div class="font-bold">Alpine &amp; Mountain</div>
+              <div class="text-[10px] text-[var(--text-muted)] mt-0.5">Glacier Stone &amp; Thermal</div>
+            </button>
+            <button onclick="setTypology('urban', 1.10, 'Urban Penthouse / Sovereign Residence')" class="typology-btn p-3 bg-[var(--bg-surface)] border border-[var(--border-stone)] text-[var(--text-muted)] font-mono text-xs text-left" data-type="urban">
+              <div class="font-bold">Urban Sanctuary</div>
+              <div class="text-[10px] text-[var(--text-muted)] mt-0.5">Historic Core Heritage</div>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="lg:col-span-5 bg-[var(--bg-surface)] border border-[var(--border-stone)] p-8 shadow-2xl space-y-6">
+        
+        <div class="border-b border-[var(--border-stone)] pb-4 flex items-center justify-between">
+          <span class="text-xs font-mono text-[var(--text-muted)] uppercase">ESTIMATED ARCHITECTURAL BUDGET</span>
+          <span class="text-[10px] font-mono px-2 py-0.5 bg-brass-500/20 text-brass-500 font-bold">RIBA STAGES 1-7</span>
+        </div>
+
+        <div>
+          <div class="font-serif text-4xl sm:text-5xl font-light text-[var(--text-main)] numeral-serif" id="calc-fee-display">
+            €162,500 <span class="text-sm font-mono text-[var(--text-muted)]">EUR</span>
+          </div>
+          <div class="text-xs font-mono text-brass-500 mt-1" id="calc-timeline-display">
+            Estimated Construction Timeline: 14-18 Months
+          </div>
+        </div>
+
+        <div class="space-y-2.5 font-mono text-xs text-[var(--text-muted)] border-t border-b border-[var(--border-stone)] py-4">
+          <div class="flex items-center gap-2 text-[var(--text-main)]">
+            <i data-lucide="check" class="w-4 h-4 text-brass-500"></i>
+            <span>Full Conceptual Cadastral &amp; Sunlight Physics Dossier</span>
+          </div>
+          <div class="flex items-center gap-2 text-[var(--text-main)]">
+            <i data-lucide="check" class="w-4 h-4 text-brass-500"></i>
+            <span>Local Quarry Material Sourcing &amp; Structural Monolith Plans</span>
+          </div>
+          <div class="flex items-center gap-2 text-[var(--text-main)]">
+            <i data-lucide="check" class="w-4 h-4 text-brass-500"></i>
+            <span>Bespoke On-Site Construction Direction &amp; Milestone Sign-off</span>
+          </div>
+        </div>
+
+        <a href="#contact" class="btn-arch w-full py-3.5 bg-[var(--text-main)] text-[var(--bg-canvas)] text-xs tracking-[0.2em] uppercase font-semibold text-center block" onclick="playAcoustic('tap')">
+          Schedule Private Design Review ↗
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ==================== SECTION 8: STUDIO CONTACT & PRIVATE COMMISSIONS ==================== -->
+  <section id="contact" class="py-28 px-4 sm:px-8 max-w-7xl mx-auto border-t border-[var(--border-stone)]">
+    
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+      
+      <div class="lg:col-span-5 space-y-8">
+        
+        <div class="space-y-3">
+          <div class="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.25em] text-brass-500 uppercase">
+            <span>08 / COMMISSION COMMENCEMENT</span>
+          </div>
+          <h2 class="font-serif text-3xl sm:text-5xl font-light text-[var(--text-main)] tracking-tight">
+            Initiate a Private Dialogue
+          </h2>
+          <p class="text-sm text-[var(--text-muted)] font-light leading-relaxed">
+            AURA accepts a maximum of 6 private architectural commissions annually to ensure meticulous spatial craftsmanship.
+          </p>
+        </div>
+
+        <div class="space-y-4 font-mono text-xs text-[var(--text-muted)] border-t border-[var(--border-stone)] pt-6">
+          <div>
+            <div class="text-[var(--text-main)] font-semibold uppercase tracking-wider">MILANO ATELIER</div>
+            <div>Via Montenapoleone 8, 20121 Milano, Italy</div>
+          </div>
+          <div>
+            <div class="text-[var(--text-main)] font-semibold uppercase tracking-wider">ZURICH OFFICE</div>
+            <div>Bahnhofstrasse 45, 8001 Zürich, Switzerland</div>
+          </div>
+          <div>
+            <div class="text-[var(--text-main)] font-semibold uppercase tracking-wider">DIRECT EMAIL</div>
+            <div class="text-brass-500 font-bold select-all">commissions@aura-atelier.com</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="lg:col-span-7 bg-[var(--bg-surface)] border border-[var(--border-stone)] p-8 shadow-2xl space-y-6">
+        
+        <div class="border-b border-[var(--border-stone)] pb-3 flex items-center justify-between">
+          <span class="text-xs font-mono text-[var(--text-muted)]">COMMISSION DOSSIER DISPATCH</span>
+          <span class="text-[10px] font-mono text-brass-500">CONFIDENTIAL</span>
+        </div>
+
+        <form id="arch-form" onsubmit="handleArchSubmit(event)" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="text-[11px] font-mono text-[var(--text-muted)] uppercase block mb-1">Patron / Client Name</label>
+              <input type="text" id="patron-name" required placeholder="Elena Rostova" class="w-full bg-transparent border border-[var(--border-stone)] px-4 py-2.5 text-xs font-mono text-[var(--text-main)] focus:outline-none focus:border-brass-500" />
+            </div>
+            <div>
+              <label class="text-[11px] font-mono text-[var(--text-muted)] uppercase block mb-1">Private Email</label>
+              <input type="email" id="patron-email" required placeholder="elena@rostova-holdings.ch" class="w-full bg-transparent border border-[var(--border-stone)] px-4 py-2.5 text-xs font-mono text-[var(--text-main)] focus:outline-none focus:border-brass-500" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="text-[11px] font-mono text-[var(--text-muted)] uppercase block mb-1">Site Location / Country</label>
+              <input type="text" id="patron-site" required placeholder="Lake Lucerne, Switzerland" class="w-full bg-transparent border border-[var(--border-stone)] px-4 py-2.5 text-xs font-mono text-[var(--text-main)] focus:outline-none focus:border-brass-500" />
+            </div>
+            <div>
+              <label class="text-[11px] font-mono text-[var(--text-muted)] uppercase block mb-1">Estimated Spatial Scale</label>
+              <input type="text" id="patron-scale" placeholder="approx. 850 m²" class="w-full bg-transparent border border-[var(--border-stone)] px-4 py-2.5 text-xs font-mono text-[var(--text-main)] focus:outline-none focus:border-brass-500" />
+            </div>
+          </div>
+
+          <div>
+            <label class="text-[11px] font-mono text-[var(--text-muted)] uppercase block mb-1">Architectural Vision &amp; Terrain Details</label>
+            <textarea id="patron-notes" rows="4" required placeholder="Describe the topography, relationship with natural light, and desired natural stone materials..." class="w-full bg-transparent border border-[var(--border-stone)] px-4 py-2.5 text-xs font-mono text-[var(--text-main)] focus:outline-none focus:border-brass-500"></textarea>
+          </div>
+
+          <button type="submit" class="btn-arch w-full py-4 bg-[var(--text-main)] text-[var(--bg-canvas)] text-xs tracking-[0.2em] uppercase font-semibold flex items-center justify-center gap-2">
+            <span>Transmit Commission Request to Milan Studio</span>
+            <i data-lucide="send" class="w-3.5 h-3.5"></i>
+          </button>
+        </form>
+
+        <div id="arch-success-msg" class="hidden p-4 bg-stone-200/50 border border-[var(--border-stone)] text-xs font-mono text-[var(--text-main)] text-center">
+          ✓ Commission dossier successfully recorded. Senior Partner will reply within 24 hours.
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ==================== CINEMATIC FULLSCREEN LIGHTBOX MODAL ==================== -->
+  <div id="arch-lightbox" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl hidden items-center justify-center p-4 sm:p-8" onclick="closeLightbox()">
+    <div class="relative max-w-5xl w-full bg-[#141210] border border-white/20 p-4 sm:p-6 shadow-2xl space-y-4" onclick="event.stopPropagation()">
+      <div class="flex items-center justify-between border-b border-white/10 pb-3 text-white font-mono text-xs">
+        <span id="lightbox-title" class="text-brass-400 font-serif text-lg font-light">Villa Solarium Lakehouse</span>
+        <button onclick="closeLightbox()" class="px-3 py-1 bg-white/10 hover:bg-white/20 text-white text-xs font-mono">ESC ✕</button>
+      </div>
+
+      <div class="relative h-[500px] bg-black overflow-hidden flex items-center justify-center">
+        <img id="lightbox-img" src="" alt="Architectural Monograph High-Res" class="w-full h-full object-contain" />
+      </div>
+
+      <div class="flex items-center justify-between text-zinc-400 font-mono text-xs pt-1">
+        <span id="lightbox-desc">Como, Italy • 840 m² • Cantilevered Roman Travertine</span>
+        <span class="text-brass-400">HIGH-RESOLUTION DOSSIER</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="border-t border-[var(--border-stone)] py-12 px-4 sm:px-8 max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-[var(--text-muted)]">
+    <div>
+      © 2026 AURA SPATIAL ATELIER. ALL RIGHTS RESERVED.
+    </div>
+    <div class="flex items-center gap-6">
+      <a href="#hero" class="hover:text-[var(--text-main)]" onclick="playAcoustic('tap')">Back to Summit ↑</a>
+      <a href="index.html" class="hover:text-[var(--text-main)]">Creator Portfolio (Manish Soni) ↗</a>
+    </div>
+  </footer>
+
+  <!-- Toast Container -->
+  <div id="arch-toast" class="fixed bottom-6 right-6 z-50 bg-[var(--text-main)] text-[var(--bg-canvas)] px-5 py-3 font-mono text-xs shadow-2xl hidden items-center gap-2">
+    <i data-lucide="check" class="w-4 h-4 text-brass-500"></i>
+    <span id="arch-toast-text">Material Sample Box Dispatched</span>
+  </div>
+
+  <!-- ==================== JAVASCRIPT ANIMATION, HERO CAROUSEL & 3D ENGINE ==================== -->
+  <script>
+    lucide.createIcons();
+
+    // 1. Scroll Progress Bar
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById('scroll-bar').style.width = scrolled + '%';
+    });
+
+    // 2. IntersectionObserver for Reveal Animations
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal-item').forEach(el => revealObserver.observe(el));
+
+    // 3. Custom Precision Viewfinder Cursor
+    const cursor = document.getElementById('arch-cursor');
+    const cursorLabel = document.getElementById('arch-cursor-label');
+    let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+    let cursorX = mouseX, cursorY = mouseY;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      const lat = (45.98 + (mouseY / window.innerHeight) * 0.05).toFixed(3);
+      const lng = (9.26 + (mouseX / window.innerWidth) * 0.05).toFixed(3);
+      if (cursorLabel) cursorLabel.textContent = `${lat}°N ${lng}°E`;
+    });
+
+    function renderCursor() {
+      cursorX += (mouseX - cursorX) * 0.18;
+      cursorY += (mouseY - cursorY) * 0.18;
+      if (cursor) {
+        cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
+      }
+      requestAnimationFrame(renderCursor);
+    }
+    renderCursor();
+
+    document.querySelectorAll('a, button, input, .plan-room, .material-swatch, .monograph-card, .hero-tab-btn').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        if (cursor) {
+          cursor.style.width = '52px';
+          cursor.style.height = '52px';
+          cursor.style.borderColor = '#c5a880';
+          cursor.style.backgroundColor = 'rgba(197, 168, 128, 0.15)';
+        }
+      });
+      el.addEventListener('mouseleave', () => {
+        if (cursor) {
+          cursor.style.width = '34px';
+          cursor.style.height = '34px';
+          cursor.style.borderColor = 'var(--cursor-color)';
+          cursor.style.backgroundColor = 'transparent';
+        }
+      });
+    });
+
+    // 4. Hero 100vh Fullscreen Carousel Controller
+    const heroSlidesData = [
+      {
+        tag: "MONOGRAPH 01 / LAKE COMO, ITALY",
+        elev: "ELEVATION 240M",
+        title: "Monolithic spaces shaped by <em class='italic font-normal text-brass-300'>silence</em> &amp; raw stone.",
+        desc: "We engineer private residential sanctuaries, high-alpine monolithic retreats, and sovereign waterfront estates that blur the threshold between geological landscape and refined contemporary dwelling.",
+        loc: "MILANO • ZURICH",
+        sun: "142° SE (10:00 AM)"
+      },
+      {
+        tag: "MONOGRAPH 02 / KYOTO, JAPAN",
+        elev: "ELEVATION 110M",
+        title: "Charred cedar pavilions embracing <em class='italic font-normal text-brass-300'>moss</em> rain courtyards.",
+        desc: "Low-profile Japanese mass timber structures surrounding open-sky contemplation gardens, integrating century-old Hinoki wood craftsmanship with subtle modern acoustics.",
+        loc: "KYOTO • TOKYO",
+        sun: "118° E (08:30 AM)"
+      },
+      {
+        tag: "MONOGRAPH 03 / ST. MORITZ, SWITZERLAND",
+        elev: "ELEVATION 1,820M",
+        title: "Valser quartzite monoliths facing <em class='italic font-normal text-brass-300'>glacier</em> horizons.",
+        desc: "High-altitude sovereign shelters engineered with rough-hewn Swiss mountain stone and triple-glazed panoramic portals framing unobstructed Alpine summits.",
+        loc: "ST. MORITZ • ZURICH",
+        sun: "195° S (13:00 PM)"
+      },
+      {
+        tag: "MONOGRAPH 04 / CAP D'ANTIBES, FRANCE",
+        elev: "ELEVATION 65M",
+        title: "Limestone cantilevers poised above <em class='italic font-normal text-brass-300'>Mediterranean</em> waters.",
+        desc: "A pure horizontal monolithic villa carved into maritime limestone cliffs, filtering golden hour sun through unlacquered bronze brise-soleil screens.",
+        loc: "CÔTE D'AZUR • PARIS",
+        sun: "245° SW (18:15 PM)"
+      }
+    ];
+
+    let currentHeroSlide = 0;
+    let heroAutoInterval = null;
+
+    function setHeroSlide(idx) {
+      playAcoustic('tap');
+      currentHeroSlide = idx;
+
+      // Update slide active classes
+      for (let i = 0; i < 4; i++) {
+        const slide = document.getElementById(`hero-slide-${i}`);
+        if (i === idx) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      }
+
+      // Update button styles
+      document.querySelectorAll('.hero-tab-btn').forEach(btn => {
+        if (parseInt(btn.dataset.slide) === idx) {
+          btn.className = 'hero-tab-btn px-4 py-2 border border-brass-400 bg-brass-500/20 text-white font-bold transition-all flex items-center gap-2 whitespace-nowrap';
+        } else {
+          btn.className = 'hero-tab-btn px-4 py-2 border border-white/10 hover:border-white/30 text-white/60 hover:text-white transition-all flex items-center gap-2 whitespace-nowrap';
+        }
+      });
+
+      // Update text
+      const data = heroSlidesData[idx];
+      document.getElementById('hero-project-tag').textContent = data.tag;
+      document.getElementById('hero-elevation-tag').textContent = data.elev;
+      document.getElementById('hero-main-title').innerHTML = data.title;
+      document.getElementById('hero-main-desc').textContent = data.desc;
+      document.getElementById('hero-loc-stat').textContent = data.loc;
+      document.getElementById('hero-sun-stat').textContent = data.sun;
+    }
+
+    // Auto rotate every 7 seconds
+    function startHeroTimer() {
+      heroAutoInterval = setInterval(() => {
+        const next = (currentHeroSlide + 1) % 4;
+        setHeroSlide(next);
+      }, 7000);
+    }
+    startHeroTimer();
+
+    // Mobile Navigation Controls
+    function toggleMobileNav() {
+      playAcoustic('tap');
+      const drawer = document.getElementById('mobile-nav-drawer');
+      const icon = document.getElementById('mobile-menu-icon');
+      if (drawer.classList.contains('hidden')) {
+        drawer.classList.remove('hidden');
+        if (icon) icon.setAttribute('data-lucide', 'x');
+      } else {
+        drawer.classList.add('hidden');
+        if (icon) icon.setAttribute('data-lucide', 'menu');
+      }
+      lucide.createIcons();
+    }
+
+    function closeMobileNav() {
+      const drawer = document.getElementById('mobile-nav-drawer');
+      const icon = document.getElementById('mobile-menu-icon');
+      if (drawer) drawer.classList.add('hidden');
+      if (icon) icon.setAttribute('data-lucide', 'menu');
+      lucide.createIcons();
+    }
+
+    // 5. Interactive CAD Dimension Ruler Tool (Mouse + Touch)
+    let isRulerActive = false;
+    let isDrawingDim = false;
+    let dimStartX = 0, dimStartY = 0;
+    const cadSvg = document.getElementById('cad-svg');
+    const dimGroup = document.getElementById('dimension-group');
+    const dimLine = document.getElementById('dim-line');
+    const dimStart = document.getElementById('dim-start');
+    const dimEnd = document.getElementById('dim-end');
+    const dimBg = document.getElementById('dim-bg');
+    const dimText = document.getElementById('dim-text');
+
+    function toggleCadRuler() {
+      isRulerActive = !isRulerActive;
+      const btn = document.getElementById('ruler-tool-btn');
+      const label = document.getElementById('ruler-btn-text');
+      const readout = document.getElementById('ruler-live-readout');
+
+      if (isRulerActive) {
+        btn.className = 'btn-arch px-4 py-2.5 bg-brass-500 text-stone-950 font-mono text-xs font-bold flex items-center gap-2';
+        label.textContent = 'CAD Ruler Active (Drag to Measure)';
+        readout.textContent = 'DRAG ANYWHERE ON BLUEPRINT TO MEASURE';
+        showToast('CAD Measurement Ruler Activated (Drag / Touch)');
+      } else {
+        btn.className = 'btn-arch px-4 py-2.5 bg-[var(--bg-surface)] border border-brass-500 text-brass-500 font-mono text-xs flex items-center gap-2';
+        label.textContent = 'Activate CAD Measurement Tool';
+        readout.textContent = 'CLICK ROOMS OR DRAG RULER';
+        if (dimGroup) dimGroup.setAttribute('opacity', '0');
+      }
+    }
+
+    function getSvgCoordinates(e) {
+      const rect = cadSvg.getBoundingClientRect();
+      const clientX = (e.touches && e.touches.length > 0) ? e.touches[0].clientX : e.clientX;
+      const clientY = (e.touches && e.touches.length > 0) ? e.touches[0].clientY : e.clientY;
+      const x = ((clientX - rect.left) / rect.width) * 800;
+      const y = ((clientY - rect.top) / rect.height) * 500;
+      return { x, y };
+    }
+
+    // Mouse handlers for CAD
+    cadSvg.addEventListener('mousedown', (e) => {
+      if (!isRulerActive) return;
+      isDrawingDim = true;
+      const coords = getSvgCoordinates(e);
+      dimStartX = coords.x;
+      dimStartY = coords.y;
+      if (dimGroup) dimGroup.setAttribute('opacity', '1');
+      updateDimensionDisplay(dimStartX, dimStartY, coords.x, coords.y);
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isRulerActive || !isDrawingDim) return;
+      const coords = getSvgCoordinates(e);
+      updateDimensionDisplay(dimStartX, dimStartY, coords.x, coords.y);
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (isDrawingDim) isDrawingDim = false;
+    });
+
+    // Touch handlers for CAD
+    cadSvg.addEventListener('touchstart', (e) => {
+      if (!isRulerActive) return;
+      isDrawingDim = true;
+      const coords = getSvgCoordinates(e);
+      dimStartX = coords.x;
+      dimStartY = coords.y;
+      if (dimGroup) dimGroup.setAttribute('opacity', '1');
+      updateDimensionDisplay(dimStartX, dimStartY, coords.x, coords.y);
+      if (e.cancelable) e.preventDefault();
+    }, { passive: false });
+
+    window.addEventListener('touchmove', (e) => {
+      if (!isRulerActive || !isDrawingDim) return;
+      const coords = getSvgCoordinates(e);
+      updateDimensionDisplay(dimStartX, dimStartY, coords.x, coords.y);
+      if (e.cancelable) e.preventDefault();
+    }, { passive: false });
+
+    window.addEventListener('touchend', () => {
+      if (isDrawingDim) isDrawingDim = false;
+    });
+
+    function updateDimensionDisplay(x1, y1, x2, y2) {
+      if (!dimLine || !dimStart || !dimEnd || !dimBg || !dimText) return;
+      dimLine.setAttribute('x1', x1);
+      dimLine.setAttribute('y1', y1);
+      dimLine.setAttribute('x2', x2);
+      dimLine.setAttribute('y2', y2);
+
+      dimStart.setAttribute('cx', x1);
+      dimStart.setAttribute('cy', y1);
+      dimEnd.setAttribute('cx', x2);
+      dimEnd.setAttribute('cy', y2);
+
+      const dx = x2 - x1;
+      const dy = y2 - y1;
+      const distPx = Math.sqrt(dx * dx + dy * dy);
+      
+      const mm = Math.round(distPx * 30);
+      const meters = (mm / 1000).toFixed(2);
+
+      const midX = (x1 + x2) / 2;
+      const midY = (y1 + y2) / 2 - 12;
+
+      dimBg.setAttribute('x', midX - 45);
+      dimBg.setAttribute('y', midY - 10);
+      dimText.setAttribute('x', midX);
+      dimText.setAttribute('y', midY);
+      dimText.textContent = `${mm.toLocaleString()} mm (${meters}m)`;
+
+      const liveReadout = document.getElementById('ruler-live-readout');
+      if (liveReadout) liveReadout.textContent = `SPAN: ${mm.toLocaleString()} mm (${meters}m)`;
+    }
+
+    // 6. Interactive 3D Isometric Canvas & Raycaster (Mouse + Touch)
+    const canvas3d = document.getElementById('wireframe-canvas');
+    const ctx3d = canvas3d.getContext('2d');
+    let angleY = 0.6;
+    let angleX = 0.45;
+    let isDraggingCanvas = false;
+    let lastMouseX = 0, lastMouseY = 0;
+    let sunHour = 14;
+    let wireframeMaterial = 'timber';
+
+    function resizeCanvas3d() {
+      if (!canvas3d || !canvas3d.parentElement) return;
+      const rect = canvas3d.parentElement.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas3d.width = rect.width * dpr;
+      canvas3d.height = rect.height * dpr;
+      ctx3d.scale(dpr, dpr);
+    }
+    window.addEventListener('resize', resizeCanvas3d);
+    setTimeout(resizeCanvas3d, 100);
+
+    // Mouse orbit
+    canvas3d.addEventListener('mousedown', (e) => {
+      isDraggingCanvas = true;
+      lastMouseX = e.clientX;
+      lastMouseY = e.clientY;
+    });
+    window.addEventListener('mouseup', () => isDraggingCanvas = false);
+    window.addEventListener('mousemove', (e) => {
+      if (!isDraggingCanvas) return;
+      const dx = e.clientX - lastMouseX;
+      const dy = e.clientY - lastMouseY;
+      angleY += dx * 0.008;
+      angleX = Math.max(0.1, Math.min(1.2, angleX + dy * 0.008));
+      lastMouseX = e.clientX;
+      lastMouseY = e.clientY;
+    });
+
+    // Mobile touch orbit for 3D Canvas
+    canvas3d.addEventListener('touchstart', (e) => {
+      isDraggingCanvas = true;
+      if (e.touches && e.touches.length > 0) {
+        lastMouseX = e.touches[0].clientX;
+        lastMouseY = e.touches[0].clientY;
+      }
+      if (e.cancelable) e.preventDefault();
+    }, { passive: false });
+
+    window.addEventListener('touchend', () => isDraggingCanvas = false);
+    
+    window.addEventListener('touchmove', (e) => {
+      if (!isDraggingCanvas || !e.touches || e.touches.length === 0) return;
+      const touchX = e.touches[0].clientX;
+      const touchY = e.touches[0].clientY;
+      const dx = touchX - lastMouseX;
+      const dy = touchY - lastMouseY;
+      angleY += dx * 0.01;
+      angleX = Math.max(0.1, Math.min(1.2, angleX + dy * 0.01));
+      lastMouseX = touchX;
+      lastMouseY = touchY;
+      if (e.cancelable) e.preventDefault();
+    }, { passive: false });
+
+    function project3D(x, y, z, cx, cy, scale) {
+      const cosY = Math.cos(angleY), sinY = Math.sin(angleY);
+      const x1 = x * cosY - z * sinY;
+      const z1 = z * cosY + x * sinY;
+
+      const cosX = Math.cos(angleX), sinX = Math.sin(angleX);
+      const y2 = y * cosX - z1 * sinX;
+      const z2 = z1 * cosX + y * sinX;
+
+      return {
+        x: cx + x1 * scale,
+        y: cy + y2 * scale,
+        depth: z2
+      };
+    }
+
+    function draw3DBox(p1, p2, color, strokeColor) {
+      const cx = canvas3d.parentElement.clientWidth / 2;
+      const cy = canvas3d.parentElement.clientHeight / 2 + 30;
+      const scale = 1.3;
+
+      const v = [
+        project3D(p1.x, p1.y, p1.z, cx, cy, scale),
+        project3D(p2.x, p1.y, p1.z, cx, cy, scale),
+        project3D(p2.x, p2.y, p1.z, cx, cy, scale),
+        project3D(p1.x, p2.y, p1.z, cx, cy, scale),
+        project3D(p1.x, p1.y, p2.z, cx, cy, scale),
+        project3D(p2.x, p1.y, p2.z, cx, cy, scale),
+        project3D(p2.x, p2.y, p2.z, cx, cy, scale),
+        project3D(p1.x, p2.y, p2.z, cx, cy, scale),
+      ];
+
+      const faces = [
+        [0, 1, 2, 3],
+        [4, 5, 6, 7],
+        [0, 1, 5, 4],
+        [2, 3, 7, 6],
+        [0, 3, 7, 4],
+        [1, 2, 6, 5],
+      ];
+
+      faces.forEach(f => {
+        ctx3d.beginPath();
+        ctx3d.moveTo(v[f[0]].x, v[f[0]].y);
+        ctx3d.lineTo(v[f[1]].x, v[f[1]].y);
+        ctx3d.lineTo(v[f[2]].x, v[f[2]].y);
+        ctx3d.lineTo(v[f[3]].x, v[f[3]].y);
+        ctx3d.closePath();
+        if (color) {
+          ctx3d.fillStyle = color;
+          ctx3d.fill();
+        }
+        if (strokeColor) {
+          ctx3d.strokeStyle = strokeColor;
+          ctx3d.lineWidth = 1.2;
+          ctx3d.stroke();
+        }
+      });
+    }
+
+    function render3DScene() {
+      const w = canvas3d.parentElement.clientWidth;
+      const h = canvas3d.parentElement.clientHeight;
+      ctx3d.clearRect(0, 0, w, h);
+
+      if (!isDraggingCanvas) {
+        angleY += 0.0018;
+      }
+
+      const cx = w / 2, cy = h / 2 + 30, scale = 1.3;
+
+      // 1. Ground Plane Grid
+      ctx3d.strokeStyle = 'rgba(25, 24, 22, 0.08)';
+      ctx3d.lineWidth = 0.5;
+
+      for (let i = -140; i <= 140; i += 28) {
+        const pA = project3D(i, 40, -140, cx, cy, scale);
+        const pB = project3D(i, 40, 140, cx, cy, scale);
+        ctx3d.beginPath();
+        ctx3d.moveTo(pA.x, pA.y);
+        ctx3d.lineTo(pB.x, pB.y);
+        ctx3d.stroke();
+
+        const pC = project3D(-140, 40, i, cx, cy, scale);
+        const pD = project3D(140, 40, i, cx, cy, scale);
+        ctx3d.beginPath();
+        ctx3d.moveTo(pC.x, pC.y);
+        ctx3d.lineTo(pD.x, pD.y);
+        ctx3d.stroke();
+      }
+
+      // 2. Solar Raycast Beams
+      const sunAngleDeg = (sunHour - 6) * 12.8;
+      const sunX = Math.cos((sunAngleDeg * Math.PI) / 180) * 180;
+      const sunY = -120 - Math.sin((sunAngleDeg * Math.PI) / 180) * 80;
+      const sunZ = -100;
+      const sunProjected = project3D(sunX, sunY, sunZ, cx, cy, scale);
+
+      ctx3d.fillStyle = 'rgba(245, 158, 11, 0.85)';
+      ctx3d.beginPath();
+      ctx3d.arc(sunProjected.x, sunProjected.y, 8, 0, Math.PI * 2);
+      ctx3d.fill();
+
+      ctx3d.strokeStyle = 'rgba(245, 158, 11, 0.25)';
+      ctx3d.lineWidth = 1.0;
+      ctx3d.setLineDash([4, 4]);
+      
+      const beamTarget1 = project3D(-40, -20, 0, cx, cy, scale);
+      const beamTarget2 = project3D(60, -20, 0, cx, cy, scale);
+      ctx3d.beginPath();
+      ctx3d.moveTo(sunProjected.x, sunProjected.y);
+      ctx3d.lineTo(beamTarget1.x, beamTarget1.y);
+      ctx3d.moveTo(sunProjected.x, sunProjected.y);
+      ctx3d.lineTo(beamTarget2.x, beamTarget2.y);
+      ctx3d.stroke();
+      ctx3d.setLineDash([]);
+
+      // 3. Cast Shadow on Ground Plane
+      const shadowLength = (sunHour - 12) * 6;
+      ctx3d.fillStyle = 'rgba(28, 26, 23, 0.14)';
+      ctx3d.beginPath();
+      const s1 = project3D(-80 + shadowLength, 40, -60, cx, cy, scale);
+      const s2 = project3D(90 + shadowLength, 40, -60, cx, cy, scale);
+      const s3 = project3D(110 + shadowLength, 40, 80, cx, cy, scale);
+      const s4 = project3D(-90 + shadowLength, 40, 80, cx, cy, scale);
+      ctx3d.moveTo(s1.x, s1.y);
+      ctx3d.lineTo(s2.x, s2.y);
+      ctx3d.lineTo(s3.x, s3.y);
+      ctx3d.lineTo(s4.x, s4.y);
+      ctx3d.closePath();
+      ctx3d.fill();
+
+      // 4. Volumetric Monolith Boxes
+      let mainColor = 'rgba(197, 168, 128, 0.18)';
+      let mainStroke = '#aa8c64';
+      if (wireframeMaterial === 'stone') {
+        mainColor = 'rgba(92, 82, 68, 0.25)';
+        mainStroke = '#3d362d';
+      } else if (wireframeMaterial === 'glass') {
+        mainColor = 'rgba(180, 210, 230, 0.25)';
+        mainStroke = '#7ea5c2';
+      }
+
+      draw3DBox({x: -80, y: 30, z: -50}, {x: 80, y: 40, z: 50}, 'rgba(220, 215, 205, 0.4)', '#9b8d7a');
+      draw3DBox({x: -60, y: -20, z: -40}, {x: 60, y: 30, z: 40}, mainColor, mainStroke);
+      draw3DBox({x: -40, y: -60, z: -20}, {x: 75, y: -20, z: 35}, 'rgba(182, 99, 72, 0.15)', '#b66348');
+
+      draw3DBox({x: -75, y: -20, z: -45}, {x: -70, y: 30, z: -40}, 'rgba(50,40,30,0.4)', '#231f1a');
+      draw3DBox({x: 70, y: -60, z: 30}, {x: 75, y: 30, z: 35}, 'rgba(50,40,30,0.4)', '#231f1a');
+
+      requestAnimationFrame(render3DScene);
+    }
+    render3DScene();
+
+    function updateSunAngle(val) {
+      sunHour = parseFloat(val);
+      const angleDeg = Math.round((sunHour - 6) * 12.8);
+      const timeStr = `${Math.floor(sunHour)}:${(sunHour % 1 * 60).toString().padStart(2, '0')}`;
+      document.getElementById('sun-time-label').textContent = `${timeStr} (Sun Angle: ${angleDeg}°)`;
+      playAcoustic('haptic');
+    }
+
+    function setWireframeMode(mode) {
+      wireframeMaterial = mode;
+      document.querySelectorAll('.wireframe-btn').forEach(b => {
+        if (b.dataset.mode === mode) {
+          b.className = 'wireframe-btn p-2.5 bg-[var(--bg-surface)] border border-brass-500 text-[var(--text-main)] text-center font-semibold';
+        } else {
+          b.className = 'wireframe-btn p-2.5 bg-[var(--bg-surface)] border border-[var(--border-stone)] text-[var(--text-muted)] text-center';
+        }
+      });
+      playAcoustic('tap');
+      showToast(`3D Structural Material: ${mode.toUpperCase()}`);
+    }
+
+    // 7. Web Audio Spatial Acoustic Engine
+    let audioContext = null;
+    let ambientGain = null;
+    let isAmbientPlaying = false;
+
+    function initAudio() {
+      if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      }
+    }
+
+    function playAcoustic(type) {
+      try {
+        initAudio();
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        osc.connect(gain);
+        gain.connect(audioContext.destination);
+
+        const now = audioContext.currentTime;
+        if (type === 'tap') {
+          osc.frequency.setValueAtTime(320, now);
+          osc.frequency.exponentialRampToValueAtTime(160, now + 0.04);
+          gain.gain.setValueAtTime(0.04, now);
+          gain.gain.linearRampToValueAtTime(0.001, now + 0.04);
+          osc.start(now);
+          osc.stop(now + 0.04);
+        } else if (type === 'haptic') {
+          osc.frequency.setValueAtTime(440, now);
+          osc.frequency.exponentialRampToValueAtTime(880, now + 0.02);
+          gain.gain.setValueAtTime(0.015, now);
+          gain.gain.linearRampToValueAtTime(0.001, now + 0.02);
+          osc.start(now);
+          osc.stop(now + 0.02);
+        }
+      } catch (e) {}
+    }
+
+    function testAcousticSpace(space, decaySec, freq) {
+      initAudio();
+      document.querySelectorAll('.acoustic-card').forEach(c => {
+        c.className = 'acoustic-card cursor-pointer p-6 border border-[var(--border-stone)] hover:border-brass-500 bg-[var(--bg-surface)] space-y-4';
+      });
+      document.getElementById(`acoustic-${space}`).className = 'acoustic-card cursor-pointer p-6 border border-brass-500 bg-stone-100/50 space-y-4';
+
+      const osc = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, audioContext.currentTime);
+
+      gain.gain.setValueAtTime(0.08, audioContext.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + decaySec);
+
+      osc.connect(gain);
+      gain.connect(audioContext.destination);
+      osc.start();
+      osc.stop(audioContext.currentTime + decaySec);
+
+      document.getElementById('acoustic-telemetry-text').textContent = `ACTIVE ACOUSTIC SPACE: ${space.toUpperCase()} (REVERB DECAY: ${decaySec}s)`;
+      showToast(`Acoustic Impulse Fired in ${space.toUpperCase()}`);
+    }
+
+    function toggleAmbientSound() {
+      initAudio();
+      isAmbientPlaying = !isAmbientPlaying;
+      const icon = document.getElementById('audio-icon');
+
+      if (isAmbientPlaying) {
+        const bufferSize = audioContext.sampleRate * 2;
+        const noiseBuffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+        const output = noiseBuffer.getChannelData(0);
+        let lastOut = 0.0;
+        for (let i = 0; i < bufferSize; i++) {
+          const white = Math.random() * 2 - 1;
+          output[i] = (lastOut + (0.02 * white)) / 1.02;
+          lastOut = output[i];
+          output[i] *= 3.5;
+        }
+
+        const whiteNoise = audioContext.createBufferSource();
+        whiteNoise.buffer = noiseBuffer;
+        whiteNoise.loop = true;
+
+        const filter = audioContext.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.value = 420;
+
+        ambientGain = audioContext.createGain();
+        ambientGain.gain.setValueAtTime(0.035, audioContext.currentTime);
+
+        whiteNoise.connect(filter);
+        filter.connect(ambientGain);
+        ambientGain.connect(audioContext.destination);
+        whiteNoise.start();
+
+        icon.setAttribute('data-lucide', 'volume-2');
+        showToast('Ambient Kyoto Rain & Wind Soundscape Active');
+      } else {
+        if (ambientGain) ambientGain.gain.setValueAtTime(0, audioContext.currentTime);
+        icon.setAttribute('data-lucide', 'volume-x');
+        showToast('Ambient Soundscape Muted');
+      }
+      lucide.createIcons();
+    }
+
+    // 8. Fullscreen Monograph Lightbox
+    function openLightbox(imgUrl, title, desc) {
+      playAcoustic('tap');
+      const modal = document.getElementById('arch-lightbox');
+      document.getElementById('lightbox-img').src = imgUrl;
+      document.getElementById('lightbox-title').textContent = title;
+      document.getElementById('lightbox-desc').textContent = desc;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeLightbox() {
+      const modal = document.getElementById('arch-lightbox');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    // 9. Lighting Mode Simulation
+    function setLighting(mode) {
+      playAcoustic('tap');
+      document.body.setAttribute('data-lighting', mode);
+      
+      document.querySelectorAll('.lighting-btn').forEach(btn => {
+        if (btn.dataset.mode === mode) {
+          btn.className = 'lighting-btn px-2.5 py-1 rounded-full bg-white text-black font-semibold transition-all flex items-center gap-1';
+        } else {
+          btn.className = 'lighting-btn px-2.5 py-1 rounded-full text-white/70 hover:text-white transition-all flex items-center gap-1';
+        }
+      });
+
+      const heroOverlay = document.getElementById('hero-lighting-overlay');
+
+      if (mode === 'day') {
+        heroOverlay.style.backgroundColor = 'rgba(255, 255, 255, 0.02)';
+        showToast('Lighting: Crisp Natural Daylight');
+      } else if (mode === 'golden') {
+        heroOverlay.style.backgroundColor = 'rgba(245, 158, 11, 0.22)';
+        showToast('Lighting: Golden Hour Amber Sun Angle');
+      } else if (mode === 'night') {
+        heroOverlay.style.backgroundColor = 'rgba(15, 23, 42, 0.65)';
+        showToast('Lighting: Midnight Recessed Cove Luminescence');
+      }
+    }
+
+    // 10. Room Selector Specs
+    const roomData = {
+      living: {
+        code: "NODE 01 / SPEC",
+        name: "Grand Salon & Hearth",
+        desc: "A double-height living pavilion featuring unbroken 9-meter floor-to-ceiling pocket sliding glass and a suspended blackened bronze fireplace.",
+        area: "120 m² (1,290 sq ft)",
+        light: "9.4 hrs / South-West",
+        mat: "Roman Travertine & Smoked Oak",
+        height: "4.80 m (Clear Span)",
+        img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80"
+      },
+      atrium: {
+        code: "NODE 02 / SPEC",
+        name: "Zen Rain Garden Atrium",
+        desc: "Open-sky central contemplative courtyard planted with Japanese black pine and aged moss, filtering diffused natural light into all surrounding galleries.",
+        area: "48 m² (516 sq ft)",
+        light: "11.2 hrs / Zenith Aperture",
+        mat: "Kyoto Basalt & Raked Sand",
+        height: "Open Sky Column",
+        img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80"
+      },
+      tea: {
+        code: "NODE 03 / SPEC",
+        name: "Chashitsu (Tea Pavillion)",
+        desc: "Minimalist Japanese tatami salon with cedar sliding Shoji screens and recessed floor alcove for ceremonial tea preparation.",
+        area: "32 m² (344 sq ft)",
+        light: "6.0 hrs / East-Facing Morning",
+        mat: "Woven Rush Tatami & Cedar",
+        height: "2.40 m (Intimate)",
+        img: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=600&q=80"
+      },
+      kitchen: {
+        code: "NODE 04 / SPEC",
+        name: "Culinary Gallery",
+        desc: "Monolithic 5-meter solid Calacatta marble island with flush induction integration and hidden pocket millwork for seamless visual silence.",
+        area: "65 m² (700 sq ft)",
+        light: "7.8 hrs / North-West",
+        mat: "Calacatta Vagli & Blackened Steel",
+        height: "3.40 m",
+        img: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=600&q=80"
+      },
+      onsen: {
+        code: "NODE 05 / SPEC",
+        name: "Master Suite & Stone Onsen",
+        desc: "Private master wing featuring a sunken Roman travertine soaking tub, private terrace access, and fragrant Hinoki wood accents.",
+        area: "145 m² (1,560 sq ft)",
+        light: "8.5 hrs / South-Facing",
+        mat: "Roman Travertine & Hinoki Wood",
+        height: "3.60 m",
+        img: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=600&q=80"
+      }
+    };
+
+    function selectRoom(key) {
+      playAcoustic('tap');
+      document.querySelectorAll('.plan-room').forEach(r => r.classList.remove('active'));
+      const activeEl = document.getElementById(`room-${key}`);
+      if (activeEl) activeEl.classList.add('active');
+
+      const data = roomData[key];
+      document.getElementById('room-code').textContent = data.code;
+      document.getElementById('room-name').textContent = data.name;
+      document.getElementById('room-desc').textContent = data.desc;
+      document.getElementById('room-area').textContent = data.area;
+      document.getElementById('room-light').textContent = data.light;
+      document.getElementById('room-mat').textContent = data.mat;
+      document.getElementById('room-height').textContent = data.height;
+      document.getElementById('room-img').src = data.img;
+      showToast(`Selected CAD Node: ${data.name}`);
+    }
+
+    // 11. Material Atelier Selector
+    const materialData = {
+      calacatta: {
+        title: "ACTIVE TEXTURE: CALACATTA VAGLI ORO",
+        desc: "Compression Strength: 142 MPa • Density: 2,710 kg/m³ • Water Absorption: 0.12%"
+      },
+      cedar: {
+        title: "ACTIVE TEXTURE: YAKISUGI CHARRED CEDAR",
+        desc: "Fire Classification: Class A • Durability: 80+ Years • Finish: Natural Natural Oil"
+      },
+      travertine: {
+        title: "ACTIVE TEXTURE: ROMAN CLASSIC TRAVERTINE",
+        desc: "Quarry: Tivoli (Lazio) • Slip Resistance: R11 • Thermal Mass: High Density"
+      },
+      brass: {
+        title: "ACTIVE TEXTURE: LIVING UNLACQUERED BRASS",
+        desc: "Composition: Cu63/Zn37 • Surface Patina: Dynamic Oxidation • Hand-Brushed"
+      }
+    };
+
+    function selectMaterial(id) {
+      playAcoustic('tap');
+      document.querySelectorAll('.material-swatch').forEach(s => s.classList.remove('active'));
+      document.getElementById(`mat-${id}`).classList.add('active');
+      const data = materialData[id];
+      document.getElementById('mat-banner-title').textContent = data.title;
+      document.getElementById('mat-banner-desc').textContent = data.desc;
+      showToast(`Material Sample: ${id.toUpperCase()}`);
+    }
+
+    function requestPhysicalSwatchBox() {
+      playAcoustic('tap');
+      showToast('Physical 4-Piece Material Box Added to Commission Request');
+    }
+
+    // 12. Touch Slider
+    const sliderContainer = document.getElementById('arch-slider-container');
+    const beforeLayer = document.getElementById('arch-before-layer');
+    const sliderHandle = document.getElementById('arch-slider-handle');
+    let isDragging = false;
+
+    function updateSliderPos(clientX) {
+      const rect = sliderContainer.getBoundingClientRect();
+      let offsetX = clientX - rect.left;
+      if (offsetX < 0) offsetX = 0;
+      if (offsetX > rect.width) offsetX = rect.width;
+      const pct = (offsetX / rect.width) * 100;
+      beforeLayer.style.clipPath = `polygon(0 0, ${pct}% 0, ${pct}% 100%, 0 100%)`;
+      sliderHandle.style.left = `${pct}%`;
+    }
+
+    sliderContainer.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      updateSliderPos(e.clientX);
+    });
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      updateSliderPos(e.clientX);
+    });
+    window.addEventListener('mouseup', () => isDragging = false);
+
+    sliderContainer.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      if (e.touches.length > 0) updateSliderPos(e.touches[0].clientX);
+    }, { passive: true });
+    window.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      if (e.touches.length > 0) updateSliderPos(e.touches[0].clientX);
+    }, { passive: true });
+    window.addEventListener('touchend', () => isDragging = false);
+
+    // 13. Fee Estimator
+    let currentMultiplier = 1.25;
+
+    function setTypology(type, mult, title) {
+      playAcoustic('tap');
+      currentMultiplier = mult;
+      document.querySelectorAll('.typology-btn').forEach(btn => {
+        if (btn.dataset.type === type) {
+          btn.className = 'typology-btn p-3 bg-[var(--bg-surface)] border border-brass-500 text-[var(--text-main)] font-mono text-xs text-left';
+        } else {
+          btn.className = 'typology-btn p-3 bg-[var(--bg-surface)] border border-[var(--border-stone)] text-[var(--text-muted)] font-mono text-xs text-left';
+        }
+      });
+      updateArchEstimate();
+    }
+
+    function updateArchEstimate() {
+      const area = parseInt(document.getElementById('calc-area-slider').value);
+      document.getElementById('calc-area-label').textContent = `${area} m² (${Math.round(area * 10.764).toLocaleString()} sq ft)`;
+      
+      const baseRatePerM2 = 200;
+      const fee = Math.round(area * baseRatePerM2 * currentMultiplier);
+      document.getElementById('calc-fee-display').innerHTML = `€${fee.toLocaleString()} <span class="text-sm font-mono text-[var(--text-muted)]">EUR</span>`;
+      
+      let months = "12-16 Months";
+      if (area > 1200) months = "18-24 Months";
+      else if (area < 500) months = "10-12 Months";
+      document.getElementById('calc-timeline-display').textContent = `Estimated Construction Timeline: ${months}`;
+    }
+
+    // 14. Contact Form
+    function handleArchSubmit(e) {
+      e.preventDefault();
+      playAcoustic('tap');
+      const name = document.getElementById('patron-name').value;
+      const email = document.getElementById('patron-email').value;
+      const site = document.getElementById('patron-site').value;
+      const scale = document.getElementById('patron-scale').value;
+      const notes = document.getElementById('patron-notes').value;
+
+      document.getElementById('arch-success-msg').classList.remove('hidden');
+      showToast('Commission Dossier Transmitted to Milan Partners');
+
+      const subject = encodeURIComponent(`Private Architectural Commission Request - ${name}`);
+      const body = encodeURIComponent(`Patron Name: ${name}\nEmail: ${email}\nSite Location: ${site}\nEstimated Scale: ${scale}\n\nVision:\n${notes}`);
+      window.location.href = `mailto:commissions@aura-atelier.com?subject=${subject}&body=${body}`;
+    }
+
+    // 15. Toast Notification
+    function showToast(msg) {
+      const toast = document.getElementById('arch-toast');
+      document.getElementById('arch-toast-text').textContent = msg;
+      toast.classList.remove('hidden');
+      toast.classList.add('flex');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+        toast.classList.remove('flex');
+      }, 3200);
+    }
+  </script>
+</body>
+</html>

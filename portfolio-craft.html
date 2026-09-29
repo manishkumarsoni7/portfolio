@@ -1,0 +1,1859 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manish Kumar Soni — Senior Web Architect & AI Systems Engineer</title>
+  <meta name="description" content="Portfolio of Manish Kumar Soni — Crafting hyper-performant web interfaces, production AI agents, and autonomous SaaS platforms." />
+
+  <!-- Google Fonts: Syne, Plus Jakarta Sans, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Syne:wght@600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+            },
+            obsidian: {
+              950: '#050507',
+              900: '#08080c',
+              850: '#0c0d12',
+              800: '#11121a',
+              700: '#1a1b26',
+            },
+            neon: {
+              cyan: '#00f2fe',
+              purple: '#9d4edd',
+              emerald: '#10b981',
+              amber: '#f59e0b',
+              lime: '#d9f99d',
+            }
+          },
+          animation: {
+            'border-beam': 'borderBeam 4s linear infinite',
+            'pulse-glow': 'pulseGlow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float-slow': 'float 6s ease-in-out infinite',
+            'float-delayed': 'float 6s ease-in-out 3s infinite',
+            'marquee-left': 'marqueeLeft 30s linear infinite',
+            'marquee-right': 'marqueeRight 30s linear infinite',
+            'scanline': 'scanline 8s linear infinite',
+          },
+          keyframes: {
+            borderBeam: {
+              '0%': { offsetDistance: '0%' },
+              '100%': { offsetDistance: '100%' },
+            },
+            pulseGlow: {
+              '0%, 100%': { opacity: '0.3', transform: 'scale(1)' },
+              '50%': { opacity: '0.7', transform: 'scale(1.05)' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            marqueeLeft: {
+              '0%': { transform: 'translateX(0%)' },
+              '100%': { transform: 'translateX(-50%)' },
+            },
+            marqueeRight: {
+              '0%': { transform: 'translateX(-50%)' },
+              '100%': { transform: 'translateX(0%)' },
+            },
+            scanline: {
+              '0%': { transform: 'translateY(-100%)' },
+              '100%': { transform: 'translateY(1000%)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Theme definitions */
+    :root {
+      --bg-base: #07070a;
+      --bg-surface: #0e0f16;
+      --bg-card: rgba(18, 19, 28, 0.7);
+      --border-subtle: rgba(255, 255, 255, 0.07);
+      --border-hover: rgba(99, 102, 241, 0.4);
+      --accent-primary: #6366f1;
+      --accent-glow: rgba(99, 102, 241, 0.25);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    body[data-theme="aurora"] {
+      --bg-base: #040d12;
+      --bg-surface: #091a21;
+      --bg-card: rgba(14, 38, 46, 0.7);
+      --border-subtle: rgba(20, 184, 166, 0.15);
+      --border-hover: rgba(45, 212, 191, 0.5);
+      --accent-primary: #14b8a6;
+      --accent-glow: rgba(20, 184, 166, 0.3);
+      --text-main: #f0fdfa;
+      --text-muted: #99f6e4;
+    }
+
+    body[data-theme="cyber"] {
+      --bg-base: #090914;
+      --bg-surface: #121226;
+      --bg-card: rgba(24, 24, 48, 0.7);
+      --border-subtle: rgba(244, 63, 94, 0.2);
+      --border-hover: rgba(6, 182, 212, 0.6);
+      --accent-primary: #f43f5e;
+      --accent-glow: rgba(244, 63, 94, 0.3);
+      --text-main: #fff1f2;
+      --text-muted: #fda4af;
+    }
+
+    body[data-theme="editorial"] {
+      --bg-base: #f7f6f2;
+      --bg-surface: #edebe4;
+      --bg-card: rgba(255, 255, 255, 0.85);
+      --border-subtle: rgba(0, 0, 0, 0.1);
+      --border-hover: rgba(0, 0, 0, 0.4);
+      --accent-primary: #18181b;
+      --accent-glow: rgba(0, 0, 0, 0.1);
+      --text-main: #18181b;
+      --text-muted: #52525b;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    /* Custom Glassmorphism */
+    .glass-panel {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-subtle);
+      transition: border-color 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    }
+    .glass-panel:hover {
+      border-color: var(--border-hover);
+      box-shadow: 0 10px 30px -10px var(--accent-glow);
+    }
+
+    /* Laser Border Beam Effect */
+    .border-beam-box {
+      position: relative;
+      border-radius: 1rem;
+      overflow: hidden;
+    }
+    .border-beam-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1.5px;
+      background: linear-gradient(90deg, transparent 0%, var(--accent-primary) 50%, transparent 100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      animation: borderBeamRotate 5s linear infinite;
+      pointer-events: none;
+    }
+    @keyframes borderBeamRotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Retro Grid Background */
+    .retro-grid {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+    body[data-theme="editorial"] .retro-grid {
+      background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    }
+
+    /* Noise Texture Overlay */
+    .noise-bg {
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-base);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-primary);
+    }
+
+    /* Magnetic & Tactile Button */
+    .btn-tactile {
+      transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s ease;
+    }
+    .btn-tactile:active {
+      transform: scale(0.96) translateY(2px);
+    }
+
+    /* 3D Tilt Card Container */
+    .tilt-card {
+      transform-style: preserve-3d;
+      transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1);
+    }
+
+    /* Dock Spring Magnification */
+    .dock-icon {
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .dock-icon:hover {
+      transform: scale(1.3) translateY(-8px);
+    }
+
+    /* Animated Gradient Text */
+    .text-gradient-shimmer {
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 40%, #818cf8 70%, #c084fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    body[data-theme="editorial"] .text-gradient-shimmer {
+      background: linear-gradient(135deg, #09090b 0%, #27272a 50%, #4f46e5 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Spotlight Glow */
+    .spotlight-radial {
+      background: radial-gradient(circle 600px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(99, 102, 241, 0.12), transparent 80%);
+    }
+
+    /* Hide scrollbar for tabs */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="noise-bg relative selection:bg-brand-500 selection:text-white" data-theme="obsidian">
+
+  <!-- Interactive Background Canvas (Hero Particle Starfield) -->
+  <canvas id="hero-canvas" class="fixed inset-0 pointer-events-none z-0 opacity-40"></canvas>
+
+  <!-- Ambient Light Orbs -->
+  <div class="fixed top-[-10vw] left-[-10vw] w-[45vw] h-[45vw] rounded-full bg-indigo-600/10 blur-[130px] pointer-events-none -z-10 animate-pulse-glow"></div>
+  <div class="fixed bottom-[-10vw] right-[-10vw] w-[45vw] h-[45vw] rounded-full bg-violet-600/10 blur-[130px] pointer-events-none -z-10 animate-pulse-glow" style="animation-delay: 2s;"></div>
+
+  <!-- ==================== TOP NAVIGATION ==================== -->
+  <header class="sticky top-4 z-50 max-w-7xl mx-auto px-4 sm:px-6">
+    <nav class="glass-panel rounded-2xl px-4 py-3 flex items-center justify-between shadow-2xl backdrop-blur-2xl">
+      
+      <!-- Brand & Live Pulse -->
+      <a href="#hero" class="flex items-center gap-3 group" onclick="playSfx('click')">
+        <div class="relative w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-violet-500 p-[1px] flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+          <div class="w-full h-full bg-obsidian-950 rounded-[11px] flex items-center justify-center">
+            <span class="font-display font-extrabold text-lg text-white">M</span>
+          </div>
+          <span class="absolute -top-1 -right-1 flex h-3 w-3">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+          </span>
+        </div>
+        <div>
+          <div class="font-display font-bold text-sm tracking-tight text-white flex items-center gap-1.5">
+            Manish Kumar Soni
+            <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-brand-500/20 text-brand-400 font-mono border border-brand-500/30">PRO</span>
+          </div>
+          <p class="text-[11px] text-zinc-400 font-mono flex items-center gap-1">
+            <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Available for Q3/Q4 Projects
+          </p>
+        </div>
+      </a>
+
+      <!-- Desktop Links -->
+      <div class="hidden lg:flex items-center gap-1 bg-obsidian-900/60 p-1.5 rounded-xl border border-white/5 font-mono text-xs">
+        <a href="#projects" class="px-3.5 py-1.5 rounded-lg text-zinc-300 hover:text-white hover:bg-white/5 transition-colors" onclick="playSfx('hover')">01. Architecture</a>
+        <a href="#ai-pipeline" class="px-3.5 py-1.5 rounded-lg text-zinc-300 hover:text-white hover:bg-white/5 transition-colors" onclick="playSfx('hover')">02. AI Radar</a>
+        <a href="#calculator" class="px-3.5 py-1.5 rounded-lg text-zinc-300 hover:text-white hover:bg-white/5 transition-colors" onclick="playSfx('hover')">03. Estimator</a>
+        <a href="#terminal" class="px-3.5 py-1.5 rounded-lg text-zinc-300 hover:text-white hover:bg-white/5 transition-colors" onclick="playSfx('hover')">04. Terminal</a>
+        <a href="#contact" class="px-3.5 py-1.5 rounded-lg text-zinc-300 hover:text-white hover:bg-white/5 transition-colors" onclick="playSfx('hover')">05. Connect</a>
+      </div>
+
+      <!-- Quick Action Controls -->
+      <div class="flex items-center gap-2">
+        <!-- Cmd+K Button -->
+        <button id="cmd-k-trigger" class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono text-zinc-400 hover:text-white transition-all btn-tactile" onclick="openCmdPalette(); playSfx('modal')">
+          <i data-lucide="search" class="w-3.5 h-3.5 text-brand-400"></i>
+          <span>Cmd + K</span>
+        </button>
+
+        <!-- Sound Toggle -->
+        <button id="sfx-toggle" class="w-9 h-9 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-zinc-400 hover:text-white transition-colors btn-tactile" title="Toggle SFX Sound" onclick="toggleSfx()">
+          <i data-lucide="volume-2" id="sfx-icon" class="w-4 h-4 text-brand-400"></i>
+        </button>
+
+        <!-- Theme Switcher Dropdown -->
+        <div class="relative">
+          <button id="theme-btn" class="w-9 h-9 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-zinc-400 hover:text-white transition-colors btn-tactile" onclick="cycleTheme(); playSfx('click')" title="Switch Aesthetic Theme">
+            <i data-lucide="palette" class="w-4 h-4 text-violet-400"></i>
+          </button>
+        </div>
+
+        <!-- Primary CTA -->
+        <a href="#contact" class="px-4 py-2 rounded-xl bg-gradient-to-r from-brand-600 via-indigo-600 to-violet-600 text-white font-medium text-xs shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 hover:scale-[1.02] active:scale-[0.97] transition-all flex items-center gap-2 btn-tactile" onclick="playSfx('click')">
+          <span>Book Build</span>
+          <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section id="hero" class="relative pt-20 pb-20 sm:pt-28 sm:pb-32 px-4 sm:px-6 max-w-7xl mx-auto z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <!-- Left Column: Kinetic Typography & Value Proposition -->
+      <div class="lg:col-span-7 space-y-8">
+        
+        <!-- Live System Metric Badge -->
+        <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md text-xs font-mono text-zinc-300">
+          <span class="w-2 h-2 rounded-full bg-brand-400 animate-pulse"></span>
+          <span>SYSTEM ARCHITECTURE &amp; FULL-STACK AI</span>
+          <span class="text-white/20">|</span>
+          <span class="text-brand-400 font-semibold" id="hero-clock">12:00:00 IST</span>
+        </div>
+
+        <!-- Master Kinetic Headline -->
+        <div class="space-y-2">
+          <h1 class="font-display font-extrabold text-4xl sm:text-6xl xl:text-7xl tracking-tight leading-[1.08]">
+            Engineering <br/>
+            <span class="text-gradient-shimmer" id="kinetic-word">Autonomous AI</span><br/>
+            Into Production.
+          </h1>
+          <p class="text-base sm:text-lg text-zinc-400 max-w-xl font-normal leading-relaxed pt-2">
+            I’m <span class="text-white font-semibold">Manish Kumar Soni</span>. I engineer zero-latency web applications, multi-agent vector search systems, and high-conversion client platforms designed for exponential scale.
+          </p>
+        </div>
+
+        <!-- Interactive Metric Pills -->
+        <div class="grid grid-cols-3 gap-3 max-w-lg pt-2">
+          <div class="glass-panel p-3.5 rounded-xl border border-white/5">
+            <div class="text-2xl font-bold font-display text-white tracking-tight">100<span class="text-brand-400 text-sm">/100</span></div>
+            <div class="text-[11px] text-zinc-400 font-mono mt-0.5">Lighthouse Perf</div>
+          </div>
+          <div class="glass-panel p-3.5 rounded-xl border border-white/5">
+            <div class="text-2xl font-bold font-display text-emerald-400 tracking-tight">&lt;85<span class="text-xs">ms</span></div>
+            <div class="text-[11px] text-zinc-400 font-mono mt-0.5">RAG Query Latency</div>
+          </div>
+          <div class="glass-panel p-3.5 rounded-xl border border-white/5">
+            <div class="text-2xl font-bold font-display text-violet-400 tracking-tight">99.9%</div>
+            <div class="text-[11px] text-zinc-400 font-mono mt-0.5">Zero Hallucination</div>
+          </div>
+        </div>
+
+        <!-- Action CTAs -->
+        <div class="flex flex-wrap items-center gap-4 pt-2">
+          <a href="#projects" class="px-6 py-3.5 rounded-xl bg-white text-black font-semibold text-sm hover:bg-zinc-200 transition-all shadow-xl shadow-white/10 flex items-center gap-2 btn-tactile" onclick="playSfx('click')">
+            <i data-lucide="sparkles" class="w-4 h-4 text-brand-600"></i>
+            <span>Explore 5 Live Architectures</span>
+          </a>
+          <a href="#calculator" class="px-6 py-3.5 rounded-xl bg-obsidian-900/80 hover:bg-obsidian-850 text-zinc-200 hover:text-white border border-white/10 font-medium text-sm transition-all flex items-center gap-2 btn-tactile" onclick="playSfx('click')">
+            <i data-lucide="calculator" class="w-4 h-4 text-emerald-400"></i>
+            <span>Calculate Project Scope</span>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Live Interactive Architecture HUD -->
+      <div class="lg:col-span-5">
+        <div class="relative">
+          
+          <!-- Outer Glow Box -->
+          <div class="absolute -inset-1 rounded-2xl bg-gradient-to-r from-brand-500/30 via-violet-500/30 to-emerald-500/30 blur-xl opacity-70"></div>
+          
+          <!-- HUD Terminal Card -->
+          <div class="relative glass-panel rounded-2xl p-5 border border-white/10 shadow-2xl space-y-4">
+            
+            <!-- Terminal Header -->
+            <div class="flex items-center justify-between border-b border-white/10 pb-3">
+              <div class="flex items-center gap-2">
+                <div class="w-3 h-3 rounded-full bg-rose-500/80"></div>
+                <div class="w-3 h-3 rounded-full bg-amber-500/80"></div>
+                <div class="w-3 h-3 rounded-full bg-emerald-500/80"></div>
+                <span class="text-xs font-mono text-zinc-400 ml-2">manish-ai-agent-v4.2.sh</span>
+              </div>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">LIVE ENGINE</span>
+            </div>
+
+            <!-- Terminal Live Logs -->
+            <div class="font-mono text-xs space-y-2 text-zinc-300 py-1">
+              <p class="text-zinc-500">// Real-time autonomous workflow telemetry</p>
+              <div class="flex items-center justify-between text-zinc-400">
+                <span>[1] Vector DB Ping:</span>
+                <span class="text-emerald-400 font-semibold">12ms (Supabase pgvector)</span>
+              </div>
+              <div class="flex items-center justify-between text-zinc-400">
+                <span>[2] LLM Router:</span>
+                <span class="text-indigo-300">Claude 3.5 Sonnet + GPT-4o</span>
+              </div>
+              <div class="flex items-center justify-between text-zinc-400">
+                <span>[3] Scraping Pipeline:</span>
+                <span class="text-brand-400">Multi-Hop Headless Mesh</span>
+              </div>
+              <div class="flex items-center justify-between text-zinc-400">
+                <span>[4] Verification Check:</span>
+                <span class="text-emerald-400">3-Source Corroborated</span>
+              </div>
+            </div>
+
+            <!-- Live Interactive Test Trigger inside Hero Card -->
+            <div class="pt-2 border-t border-white/10">
+              <div class="text-[11px] font-mono text-zinc-400 mb-2 flex items-center justify-between">
+                <span>TEST PIPELINE EXECUTION:</span>
+                <span id="hero-telemetry-status" class="text-brand-400">IDLE</span>
+              </div>
+              <div class="flex gap-2">
+                <input id="hero-prompt-input" type="text" value="Analyze Q4 SaaS retention metrics" class="w-full bg-obsidian-950/80 border border-white/10 rounded-lg px-3 py-2 text-xs font-mono text-white focus:outline-none focus:border-brand-500" />
+                <button onclick="runHeroTelemetry()" class="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-mono text-xs font-semibold whitespace-nowrap btn-tactile">
+                  Run <i data-lucide="play" class="inline w-3 h-3 ml-1"></i>
+                </button>
+              </div>
+              
+              <!-- Progress Bar -->
+              <div class="w-full bg-white/5 h-1.5 rounded-full overflow-hidden mt-3">
+                <div id="hero-telemetry-bar" class="h-full bg-gradient-to-r from-brand-500 via-indigo-400 to-emerald-400 w-0 transition-all duration-700"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Infinite Tech Marquee -->
+    <div class="mt-16 pt-8 border-t border-white/5 overflow-hidden relative">
+      <div class="absolute left-0 inset-y-0 w-24 bg-gradient-to-r from-[var(--bg-base)] to-transparent z-10 pointer-events-none"></div>
+      <div class="absolute right-0 inset-y-0 w-24 bg-gradient-to-l from-[var(--bg-base)] to-transparent z-10 pointer-events-none"></div>
+      
+      <div class="flex whitespace-nowrap gap-8 animate-marquee-left font-mono text-xs text-zinc-400 uppercase tracking-widest">
+        <span class="flex items-center gap-2"><i data-lucide="cpu" class="w-4 h-4 text-brand-400"></i> Next.js 15 App Router</span>
+        <span class="text-white/20">◆</span>
+        <span class="flex items-center gap-2"><i data-lucide="bot" class="w-4 h-4 text-emerald-400"></i> LangChain &amp; Multi-Agent Swarms</span>
+        <span class="text-white/20">◆</span>
+        <span class="flex items-center gap-2"><i data-lucide="database" class="w-4 h-4 text-indigo-400"></i> Supabase pgvector RAG</span>
+        <span class="text-white/20">◆</span>
+        <span class="flex items-center gap-2"><i data-lucide="zap" class="w-4 h-4 text-amber-400"></i> Cloudflare Workers Edge Compute</span>
+        <span class="text-white/20">◆</span>
+        <span class="flex items-center gap-2"><i data-lucide="code-2" class="w-4 h-4 text-violet-400"></i> TypeScript Strict Architecture</span>
+        <span class="text-white/20">◆</span>
+        <span class="flex items-center gap-2"><i data-lucide="layers" class="w-4 h-4 text-rose-400"></i> Tailwind CSS &amp; Framer Physics</span>
+        <span class="text-white/20">◆</span>
+        <span class="flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i> Zero-Hallucination Guardrails</span>
+        <span class="text-white/20">◆</span>
+        <span class="flex items-center gap-2"><i data-lucide="cpu" class="w-4 h-4 text-brand-400"></i> Next.js 15 App Router</span>
+        <span class="text-white/20">◆</span>
+        <span class="flex items-center gap-2"><i data-lucide="bot" class="w-4 h-4 text-emerald-400"></i> LangChain &amp; Multi-Agent Swarms</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 1: MASTER PROJECTS ARCHITECTURE ==================== -->
+  <section id="projects" class="py-24 px-4 sm:px-6 max-w-7xl mx-auto relative z-10">
+    
+    <!-- Section Header -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+      <div class="space-y-3">
+        <div class="inline-flex items-center gap-2 font-mono text-xs text-brand-400 tracking-wider uppercase">
+          <i data-lucide="layers" class="w-3.5 h-3.5"></i>
+          <span>01 / FLAGSHIP PRODUCTION ARCHITECTURES</span>
+        </div>
+        <h2 class="font-display font-extrabold text-3xl sm:text-5xl tracking-tight text-white">
+          Engineered for Impact.<br/>
+          <span class="text-zinc-500 font-normal">Real Pipelines, Zero AI Generic Templates.</span>
+        </h2>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="text-xs font-mono text-zinc-400">Filter by Stack:</span>
+        <button onclick="filterProjects('all')" class="proj-filter-btn px-3 py-1 rounded-lg bg-brand-600 text-white font-mono text-xs transition-colors" data-filter="all">All (5)</button>
+        <button onclick="filterProjects('ai')" class="proj-filter-btn px-3 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-400 font-mono text-xs transition-colors" data-filter="ai">AI Systems (4)</button>
+        <button onclick="filterProjects('web')" class="proj-filter-btn px-3 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-400 font-mono text-xs transition-colors" data-filter="web">Client Web (1)</button>
+      </div>
+    </div>
+
+    <!-- Bento Grid Container -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+      <!-- ==================== PROJECT 1: APEX NOVA DENTAL CLINIC ==================== -->
+      <div class="project-card lg:col-span-12 glass-panel rounded-3xl p-6 sm:p-8 border border-white/10 hover:border-emerald-500/40 transition-all duration-300 relative overflow-hidden" data-category="web">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <!-- Left Specs -->
+          <div class="lg:col-span-6 space-y-6">
+            <div class="flex items-center gap-3">
+              <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono text-xs font-semibold">LIVE PRODUCTION CLIENT</span>
+              <span class="text-xs font-mono text-zinc-400">Healthcare / Medical UI</span>
+            </div>
+            
+            <h3 class="font-display font-extrabold text-2xl sm:text-4xl text-white tracking-tight">
+              Apex Nova Dental Studio
+            </h3>
+            
+            <p class="text-sm text-zinc-300 leading-relaxed font-normal">
+              Ultra-clean, high-conversion clinical platform featuring an interactive 3D teeth whitening shade simulator, interactive odontogram tooth selector, and touch-optimized responsive appointment booking.
+            </p>
+
+            <!-- Metrics Pills -->
+            <div class="grid grid-cols-3 gap-3">
+              <div class="bg-obsidian-950/70 p-3 rounded-xl border border-white/5">
+                <div class="text-emerald-400 font-bold font-mono text-base">+310%</div>
+                <div class="text-[10px] text-zinc-400 font-mono">Patient Bookings</div>
+              </div>
+              <div class="bg-obsidian-950/70 p-3 rounded-xl border border-white/5">
+                <div class="text-white font-bold font-mono text-base">0.4s</div>
+                <div class="text-[10px] text-zinc-400 font-mono">Page Load Time</div>
+              </div>
+              <div class="bg-obsidian-950/70 p-3 rounded-xl border border-white/5">
+                <div class="text-brand-400 font-bold font-mono text-base">100%</div>
+                <div class="text-[10px] text-zinc-400 font-mono">Mobile Touch Safe</div>
+              </div>
+            </div>
+
+            <!-- Tech Badges -->
+            <div class="flex flex-wrap gap-2 pt-2">
+              <span class="px-2.5 py-1 rounded-md bg-white/5 text-zinc-300 font-mono text-xs border border-white/5">Tailwind CSS</span>
+              <span class="px-2.5 py-1 rounded-md bg-white/5 text-zinc-300 font-mono text-xs border border-white/5">Interactive Odontogram</span>
+              <span class="px-2.5 py-1 rounded-md bg-white/5 text-zinc-300 font-mono text-xs border border-white/5">VITA Shade Logic</span>
+              <span class="px-2.5 py-1 rounded-md bg-white/5 text-zinc-300 font-mono text-xs border border-white/5">Surge Edge CDN</span>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center gap-4 pt-2">
+              <a href="https://apex-novadental.surge.sh" target="_blank" class="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-xs transition-all flex items-center gap-2 btn-tactile">
+                <span>Open Live Clinic Website</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </a>
+              <button onclick="toggleNovaDemo()" class="px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-white font-mono text-xs border border-white/10 transition-all btn-tactile">
+                <span id="nova-toggle-text">Test Interactive Whitening Simulator</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Right Interactive Live Preview Frame -->
+          <div class="lg:col-span-6 bg-obsidian-950 rounded-2xl border border-white/10 p-5 shadow-2xl space-y-4">
+            <div class="flex items-center justify-between border-b border-white/10 pb-3">
+              <span class="text-xs font-mono text-zinc-400 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-400"></span> INTERACTIVE SHADE SIMULATOR
+              </span>
+              <span class="text-[11px] font-mono text-emerald-400 font-semibold" id="nova-shade-label">Shade: VITA B1 (Hollywood White)</span>
+            </div>
+
+            <!-- Interactive Before/After Visualizer Canvas -->
+            <div class="relative h-48 rounded-xl overflow-hidden bg-zinc-900 flex items-center justify-center border border-white/5 select-none" id="whitening-visualizer">
+              <div class="absolute inset-0 flex items-center justify-center text-center p-6" id="teeth-stage">
+                <div class="space-y-2">
+                  <div class="text-5xl" id="teeth-emoji">✨ 🦷 🦷 🦷 ✨</div>
+                  <div class="text-xs font-mono text-zinc-300" id="teeth-desc">Enamel Luminosity: 99.4% Reflectance</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Interactive Shade Buttons -->
+            <div class="space-y-2">
+              <div class="text-[11px] font-mono text-zinc-400">Select Clinical Bleach Shade:</div>
+              <div class="grid grid-cols-4 gap-2">
+                <button onclick="setNovaShade('B1', '#ffffff', '99.4%', '✨ 🦷 🦷 🦷 ✨')" class="p-2 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 text-center font-mono text-xs text-white btn-tactile">B1 (Pure)</button>
+                <button onclick="setNovaShade('A1', '#f8fafc', '92.0%', '🦷 🦷 🦷 🦷')" class="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-center font-mono text-xs text-zinc-300 btn-tactile">A1 (Natural)</button>
+                <button onclick="setNovaShade('A2', '#f1f5f9', '84.5%', '🦷 🦷 🦷')" class="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-center font-mono text-xs text-zinc-300 btn-tactile">A2 (Warm)</button>
+                <button onclick="setNovaShade('A3', '#e2e8f0', '71.0%', '🟨 🦷 🦷 🟨')" class="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-center font-mono text-xs text-zinc-300 btn-tactile">A3 (Stained)</button>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ==================== PROJECT 2: AI DEEP RESEARCH AGENT ==================== -->
+      <div class="project-card lg:col-span-7 glass-panel rounded-3xl p-6 sm:p-8 border border-white/10 hover:border-brand-500/40 transition-all duration-300 relative space-y-6" data-category="ai">
+        <div class="flex items-center justify-between">
+          <span class="px-3 py-1 rounded-full bg-brand-500/10 text-brand-400 border border-brand-500/20 font-mono text-xs font-semibold">MULTI-AGENT RAG</span>
+          <span class="text-xs font-mono text-zinc-400">Latency: &lt;1.8s Deep Graph</span>
+        </div>
+
+        <div>
+          <h3 class="font-display font-extrabold text-2xl sm:text-3xl text-white tracking-tight">
+            AI Deep Research Agent
+          </h3>
+          <p class="text-sm text-zinc-300 mt-2 leading-relaxed">
+            Autonomous web research engine: Ingests complex queries → executes parallel multi-source vector search → synthesizes 3-point corroborated markdown reports with verifiable citations.
+          </p>
+        </div>
+
+        <!-- Embedded Interactive Mini Simulator -->
+        <div class="bg-obsidian-950 rounded-2xl border border-white/10 p-4 space-y-3">
+          <div class="flex items-center justify-between text-xs font-mono text-zinc-400">
+            <span>RESEARCH QUERY PIPELINE:</span>
+            <span id="agent1-status" class="text-brand-400">READY</span>
+          </div>
+          <div class="flex gap-2">
+            <input id="agent1-input" type="text" value="Quantum Computing Breakthroughs in Cryptography 2026" class="w-full bg-obsidian-900 border border-white/10 rounded-lg px-3 py-2 text-xs font-mono text-white focus:outline-none focus:border-brand-500" />
+            <button onclick="runAgent1Simulator()" class="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-mono text-xs font-semibold whitespace-nowrap btn-tactile">
+              Research <i data-lucide="search" class="inline w-3 h-3 ml-1"></i>
+            </button>
+          </div>
+          
+          <!-- Terminal Output Box -->
+          <div id="agent1-output" class="h-32 bg-black/60 rounded-xl p-3 font-mono text-[11px] text-zinc-300 overflow-y-auto border border-white/5 space-y-1">
+            <p class="text-zinc-500">// Enter any topic or click Research to watch multi-agent synthesis...</p>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-2 pt-2">
+          <span class="px-2.5 py-1 rounded-md bg-white/5 text-zinc-300 font-mono text-xs border border-white/5">LangGraph</span>
+          <span class="px-2.5 py-1 rounded-md bg-white/5 text-zinc-300 font-mono text-xs border border-white/5">Supabase pgvector</span>
+          <span class="px-2.5 py-1 rounded-md bg-white/5 text-zinc-300 font-mono text-xs border border-white/5">Tavily Search API</span>
+          <span class="px-2.5 py-1 rounded-md bg-white/5 text-zinc-300 font-mono text-xs border border-white/5">FastAPI</span>
+        </div>
+      </div>
+
+      <!-- ==================== PROJECT 3: ENTERPRISE AI SUPPORT SAAS ==================== -->
+      <div class="project-card lg:col-span-5 glass-panel rounded-3xl p-6 sm:p-8 border border-white/10 hover:border-violet-500/40 transition-all duration-300 relative space-y-6" data-category="ai">
+        <div class="flex items-center justify-between">
+          <span class="px-3 py-1 rounded-full bg-violet-500/10 text-violet-400 border border-violet-500/20 font-mono text-xs font-semibold">ZERO HALLUCINATION</span>
+          <span class="text-xs font-mono text-zinc-400">Precision: 99.8%</span>
+        </div>
+
+        <div>
+          <h3 class="font-display font-extrabold text-2xl sm:text-3xl text-white tracking-tight">
+            Enterprise Support SaaS
+          </h3>
+          <p class="text-sm text-zinc-300 mt-2 leading-relaxed">
+            Company documentation RAG engine with strict sentence-level bounding box citations, token throttling, and automated human handoff logic.
+          </p>
+        </div>
+
+        <!-- Embedded Interactive Grounded Chat -->
+        <div class="bg-obsidian-950 rounded-2xl border border-white/10 p-4 space-y-3">
+          <div class="flex items-center justify-between text-xs font-mono text-zinc-400">
+            <span>DOC SOURCE: <span class="text-white">Refund_Policy_2026.pdf</span></span>
+            <span class="text-emerald-400 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Grounded</span>
+          </div>
+
+          <div id="support-chat-box" class="h-32 bg-black/60 rounded-xl p-3 font-mono text-[11px] text-zinc-300 overflow-y-auto border border-white/5 space-y-2">
+            <div class="p-2 rounded bg-white/5 text-zinc-300">
+              <span class="text-brand-400 font-bold">User:</span> How do I claim a refund after 14 days?
+            </div>
+            <div class="p-2 rounded bg-brand-500/10 border border-brand-500/20 text-zinc-200">
+              <span class="text-emerald-400 font-bold">Grounded AI:</span> Per Section 4.2 of Policy, requests past 14 days require Level-2 approval. <span class="px-1 py-0.5 rounded bg-brand-500/30 text-brand-300 text-[10px] cursor-pointer" onclick="showCitationTooltip()">[Doc Citation: P.14 §4.2]</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2">
+            <input id="support-chat-input" type="text" placeholder="Ask policy question..." class="w-full bg-obsidian-900 border border-white/10 rounded-lg px-3 py-2 text-xs font-mono text-white focus:outline-none focus:border-violet-500" />
+            <button onclick="runSupportChat()" class="px-3 py-2 rounded-lg bg-violet-600 hover:bg-violet-500 text-white font-mono text-xs font-semibold btn-tactile">
+              Ask
+            </button>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-2 pt-2">
+          <span class="px-2.5 py-1 rounded-md bg-white/5 text-zinc-300 font-mono text-xs border border-white/5">OpenAI Embeddings</span>
+          <span class="px-2.5 py-1 rounded-md bg-white/5 text-zinc-300 font-mono text-xs border border-white/5">Qdrant Vector DB</span>
+          <span class="px-2.5 py-1 rounded-md bg-white/5 text-zinc-300 font-mono text-xs border border-white/5">Next.js 15</span>
+        </div>
+      </div>
+
+      <!-- ==================== PROJECT 4: CREATOR INTELLIGENCE PLATFORM ==================== -->
+      <div class="project-card lg:col-span-6 glass-panel rounded-3xl p-6 sm:p-8 border border-white/10 hover:border-amber-500/40 transition-all duration-300 relative space-y-6" data-category="ai">
+        <div class="flex items-center justify-between">
+          <span class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 font-mono text-xs font-semibold">AUDIENCE ANALYTICS</span>
+          <span class="text-xs font-mono text-zinc-400">Viral Hook Detection</span>
+        </div>
+
+        <div>
+          <h3 class="font-display font-extrabold text-2xl sm:text-3xl text-white tracking-tight">
+            Creator Intelligence AI
+          </h3>
+          <p class="text-sm text-zinc-300 mt-2 leading-relaxed">
+            Ingests video watch time &amp; retention graphs → isolates second-by-second viewer drop-off → auto-generates 5 high-converting hook variants for next uploads.
+          </p>
+        </div>
+
+        <!-- Embedded Interactive Hook Generator -->
+        <div class="bg-obsidian-950 rounded-2xl border border-white/10 p-4 space-y-3">
+          <div class="flex items-center justify-between text-xs font-mono text-zinc-400">
+            <span>DROP-OFF DIAGNOSIS AT: <span class="text-amber-400 font-bold">00:14s (-34% drop)</span></span>
+            <button onclick="generateCreatorHooks()" class="text-xs text-brand-400 hover:underline font-mono">Regenerate Hooks</button>
+          </div>
+
+          <div class="h-2 rounded-full bg-zinc-800 overflow-hidden relative">
+            <div class="h-full bg-emerald-500 w-[65%]"></div>
+            <div class="h-full bg-rose-500 w-[35%] absolute right-0 top-0"></div>
+          </div>
+
+          <div id="creator-hooks-list" class="space-y-2 pt-1 font-mono text-xs text-zinc-200">
+            <div class="p-2.5 rounded-lg bg-white/5 border border-white/5 flex items-center justify-between">
+              <span>🔥 "Most engineers configure RAG completely wrong..."</span>
+              <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400">94% Retention Hook</span>
+            </div>
+            <div class="p-2.5 rounded-lg bg-white/5 border border-white/5 flex items-center justify-between">
+              <span>⚡ "I spent $12,000 on AI APIs so you don't have to..."</span>
+              <span class="text-[10px] px-1.5 py-0.5 rounded bg-brand-500/20 text-brand-400">89% Retention Hook</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-2 pt-2">
+          <span class="px-2.5 py-1 rounded-md bg-white/5 text-zinc-300 font-mono text-xs border border-white/5">YouTube API</span>
+          <span class="px-2.5 py-1 rounded-md bg-white/5 text-zinc-300 font-mono text-xs border border-white/5">Claude 3.5 Sonnet</span>
+          <span class="px-2.5 py-1 rounded-md bg-white/5 text-zinc-300 font-mono text-xs border border-white/5">FastAPI</span>
+        </div>
+      </div>
+
+      <!-- ==================== PROJECT 5: COMMENT-TO-LEAD AUTOMATION SAAS ==================== -->
+      <div class="project-card lg:col-span-6 glass-panel rounded-3xl p-6 sm:p-8 border border-white/10 hover:border-neon-cyan/40 transition-all duration-300 relative space-y-6" data-category="ai">
+        <div class="flex items-center justify-between">
+          <span class="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-mono text-xs font-semibold">GROWTH AUTOMATION</span>
+          <span class="text-xs font-mono text-zinc-400">Response Speed: 0.8s DM</span>
+        </div>
+
+        <div>
+          <h3 class="font-display font-extrabold text-2xl sm:text-3xl text-white tracking-tight">
+            Comment-to-Lead SaaS
+          </h3>
+          <p class="text-sm text-zinc-300 mt-2 leading-relaxed">
+            Detects trigger keywords in social comments (e.g. "SCALE") → triggers sub-second personalized DM with gated asset → captures verified email into live CRM.
+          </p>
+        </div>
+
+        <!-- Embedded Interactive Lead Dispatcher -->
+        <div class="bg-obsidian-950 rounded-2xl border border-white/10 p-4 space-y-3">
+          <div class="flex items-center justify-between text-xs font-mono text-zinc-400">
+            <span>TRIGGER SIMULATOR:</span>
+            <span id="lead-status" class="text-cyan-400">STANDBY</span>
+          </div>
+
+          <div class="flex gap-2">
+            <input id="lead-keyword-input" type="text" value="SCALE" class="w-28 bg-obsidian-900 border border-white/10 rounded-lg px-3 py-2 text-xs font-mono text-center text-cyan-400 font-bold focus:outline-none" />
+            <input id="lead-user-input" type="text" value="@growth_founder" class="w-full bg-obsidian-900 border border-white/10 rounded-lg px-3 py-2 text-xs font-mono text-white focus:outline-none" />
+            <button onclick="testLeadDispatch()" class="px-4 py-2 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-black font-mono text-xs font-bold whitespace-nowrap btn-tactile">
+              Post Comment
+            </button>
+          </div>
+
+          <div id="lead-crm-log" class="p-2.5 rounded-lg bg-black/60 border border-white/5 font-mono text-[11px] text-zinc-300 space-y-1">
+            <p class="text-zinc-500">// Click Post Comment to watch instant DM trigger + CRM ingestion...</p>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-2 pt-2">
+          <span class="px-2.5 py-1 rounded-md bg-white/5 text-zinc-300 font-mono text-xs border border-white/5">Meta Graph Webhooks</span>
+          <span class="px-2.5 py-1 rounded-md bg-white/5 text-zinc-300 font-mono text-xs border border-white/5">PostgreSQL</span>
+          <span class="px-2.5 py-1 rounded-md bg-white/5 text-zinc-300 font-mono text-xs border border-white/5">Redis BullMQ</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Master Studio Banner Link -->
+    <div class="mt-12 glass-panel rounded-2xl p-6 border border-brand-500/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-brand-500/20 flex items-center justify-center text-brand-400 font-bold text-xl">
+          🎨
+        </div>
+        <div>
+          <h4 class="font-display font-bold text-lg text-white">Want to test 12 layout variations of these AI projects?</h4>
+          <p class="text-xs text-zinc-400">Open the dedicated AI Projects Architecture Studio with live layout switchers.</p>
+        </div>
+      </div>
+      <a href="projects-studio.html" target="_blank" class="px-5 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-mono text-xs font-bold transition-all whitespace-nowrap btn-tactile">
+        Open Projects Studio ↗
+      </a>
+    </div>
+
+  </section>
+
+  <!-- ==================== SECTION 2: INTERACTIVE AI RADAR & PIPELINE PLAYGROUND ==================== -->
+  <section id="ai-pipeline" class="py-24 px-4 sm:px-6 max-w-7xl mx-auto relative z-10">
+    <div class="glass-panel rounded-3xl p-8 sm:p-12 border border-white/10 relative overflow-hidden">
+      
+      <!-- Glow background -->
+      <div class="absolute top-0 right-0 w-96 h-96 bg-brand-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+      <div class="max-w-3xl space-y-4 mb-10">
+        <div class="inline-flex items-center gap-2 font-mono text-xs text-emerald-400 tracking-wider uppercase">
+          <i data-lucide="network" class="w-3.5 h-3.5"></i>
+          <span>02 / LIVE SYSTEM PIPELINE PLAYGROUND</span>
+        </div>
+        <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
+          How I Architect Autonomous AI Systems
+        </h2>
+        <p class="text-sm text-zinc-300 leading-relaxed font-normal">
+          Click any architecture node below to simulate real-time packet routing, token telemetry, and fallback logic across my production stack.
+        </p>
+      </div>
+
+      <!-- Pipeline Node Visualizer -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative">
+        
+        <!-- Node 1 -->
+        <div onclick="selectPipelineNode(1)" class="pipeline-node cursor-pointer glass-panel rounded-2xl p-5 border border-brand-500/40 bg-brand-500/5 hover:border-brand-400 transition-all space-y-3" id="pnode-1">
+          <div class="flex items-center justify-between">
+            <span class="w-7 h-7 rounded-lg bg-brand-500/20 text-brand-400 flex items-center justify-center font-mono text-xs font-bold">01</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-brand-500/20 text-brand-300">INGESTION</span>
+          </div>
+          <h4 class="font-display font-bold text-white text-base">Unstructured Parser</h4>
+          <p class="text-xs text-zinc-400 font-mono">Semantic chunking with Markdown table preservation &amp; AST parsing.</p>
+        </div>
+
+        <!-- Node 2 -->
+        <div onclick="selectPipelineNode(2)" class="pipeline-node cursor-pointer glass-panel rounded-2xl p-5 border border-white/10 hover:border-emerald-500/40 transition-all space-y-3" id="pnode-2">
+          <div class="flex items-center justify-between">
+            <span class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-mono text-xs font-bold">02</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">EMBEDDING</span>
+          </div>
+          <h4 class="font-display font-bold text-white text-base">Hybrid Vector Search</h4>
+          <p class="text-xs text-zinc-400 font-mono">Dense (text-embedding-3-large) + Sparse BM25 reciprocal rank fusion.</p>
+        </div>
+
+        <!-- Node 3 -->
+        <div onclick="selectPipelineNode(3)" class="pipeline-node cursor-pointer glass-panel rounded-2xl p-5 border border-white/10 hover:border-violet-500/40 transition-all space-y-3" id="pnode-3">
+          <div class="flex items-center justify-between">
+            <span class="w-7 h-7 rounded-lg bg-violet-500/20 text-violet-400 flex items-center justify-center font-mono text-xs font-bold">03</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-violet-500/20 text-violet-300">ORCHESTRATION</span>
+          </div>
+          <h4 class="font-display font-bold text-white text-base">Multi-Agent Arbiter</h4>
+          <p class="text-xs text-zinc-400 font-mono">LangGraph state machines with cyclic verification &amp; self-correction loops.</p>
+        </div>
+
+        <!-- Node 4 -->
+        <div onclick="selectPipelineNode(4)" class="pipeline-node cursor-pointer glass-panel rounded-2xl p-5 border border-amber-500/40 hover:border-amber-500/40 transition-all space-y-3" id="pnode-4">
+          <div class="flex items-center justify-between">
+            <span class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center font-mono text-xs font-bold">04</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300">STREAMING</span>
+          </div>
+          <h4 class="font-display font-bold text-white text-base">Zero-Jitter Edge Stream</h4>
+          <p class="text-xs text-zinc-400 font-mono">HTTP/2 Server-Sent Events with incremental markdown AST rendering.</p>
+        </div>
+
+      </div>
+
+      <!-- Live Interactive Diagnostic Screen for Selected Node -->
+      <div class="mt-8 bg-obsidian-950 rounded-2xl border border-white/10 p-6 space-y-4">
+        <div class="flex items-center justify-between border-b border-white/10 pb-3">
+          <div class="flex items-center gap-3">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="font-mono text-xs text-white font-bold" id="diagnostic-title">DIAGNOSTIC TELEMETRY: NODE 01 (Semantic Chunking)</span>
+          </div>
+          <span class="text-[11px] font-mono text-zinc-400">Runtime: Cloudflare V8 Worker</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 font-mono text-xs text-zinc-300">
+          <div class="bg-white/5 p-3 rounded-xl border border-white/5 space-y-1">
+            <div class="text-zinc-400 text-[11px]">Chunk Overlap Strategy</div>
+            <div class="text-white font-bold" id="diag-param-1">Recursive Token (512 tokens / 64 overlap)</div>
+          </div>
+          <div class="bg-white/5 p-3 rounded-xl border border-white/5 space-y-1">
+            <div class="text-zinc-400 text-[11px]">Benchmark Latency</div>
+            <div class="text-emerald-400 font-bold" id="diag-param-2">14.2ms / 10k words</div>
+          </div>
+          <div class="bg-white/5 p-3 rounded-xl border border-white/5 space-y-1">
+            <div class="text-zinc-400 text-[11px]">Memory Footprint</div>
+            <div class="text-brand-400 font-bold" id="diag-param-3">&lt; 38MB RSS Peak</div>
+          </div>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-black/60 font-mono text-[11px] text-zinc-300 border border-white/5" id="diag-code">
+          <span class="text-indigo-400">const</span> chunks = <span class="text-emerald-300">await</span> semanticSplitter.createDocuments([rawText], { chunkSize: 512, chunkOverlap: 64 });
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 3: DYNAMIC SCOPE & PRICING ESTIMATOR ==================== -->
+  <section id="calculator" class="py-24 px-4 sm:px-6 max-w-7xl mx-auto relative z-10">
+    <div class="glass-panel rounded-3xl p-8 sm:p-12 border border-white/10">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Options Form -->
+        <div class="lg:col-span-7 space-y-8">
+          
+          <div class="space-y-3">
+            <div class="inline-flex items-center gap-2 font-mono text-xs text-brand-400 tracking-wider uppercase">
+              <i data-lucide="sliders" class="w-3.5 h-3.5"></i>
+              <span>03 / INTERACTIVE PROJECT ESTIMATOR</span>
+            </div>
+            <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
+              Scope Your Custom Build
+            </h2>
+            <p class="text-sm text-zinc-300 font-normal">
+              Select your system parameters to instantly calculate investment scope, delivery timeline, and architecture deliverables.
+            </p>
+          </div>
+
+          <!-- Step 1: Project Type -->
+          <div class="space-y-3">
+            <label class="font-mono text-xs text-zinc-400 uppercase tracking-wider">1. Project Architecture Type</label>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <button onclick="setCalcType('saas', 1800, 'Full-Stack AI SaaS Platform', '3-4 Weeks')" class="calc-type-btn p-3 rounded-xl border border-brand-500 bg-brand-500/10 text-white font-mono text-xs text-left transition-all" data-type="saas">
+                <div class="font-bold">AI SaaS Platform</div>
+                <div class="text-[10px] text-zinc-400 mt-1">Multi-Tenant + RAG</div>
+              </button>
+              <button onclick="setCalcType('agent', 1200, 'Autonomous AI Agent Swarm', '2-3 Weeks')" class="calc-type-btn p-3 rounded-xl border border-white/10 hover:border-white/20 bg-white/5 text-zinc-300 font-mono text-xs text-left transition-all" data-type="agent">
+                <div class="font-bold">AI Agent / RAG</div>
+                <div class="text-[10px] text-zinc-400 mt-1">Grounded Assistant</div>
+              </button>
+              <button onclick="setCalcType('web', 850, 'High-Conversion Craft Web UI', '1-2 Weeks')" class="calc-type-btn p-3 rounded-xl border border-white/10 hover:border-white/20 bg-white/5 text-zinc-300 font-mono text-xs text-left transition-all" data-type="web">
+                <div class="font-bold">Craft Web Platform</div>
+                <div class="text-[10px] text-zinc-400 mt-1">Medical/Finance/Tech</div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 2: System Add-Ons -->
+          <div class="space-y-3">
+            <label class="font-mono text-xs text-zinc-400 uppercase tracking-wider">2. Production Modules (Select All That Apply)</label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <label class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 cursor-pointer">
+                <input type="checkbox" onchange="toggleCalcAddon(this, 350, 'Supabase Vector Database + Hybrid Search')" class="w-4 h-4 rounded text-brand-500 focus:ring-0 bg-obsidian-950 border-white/20" />
+                <div>
+                  <div class="text-xs font-mono font-bold text-white">+ Vector DB RAG Pipeline</div>
+                  <div class="text-[10px] text-zinc-400">pgvector + BM25 search</div>
+                </div>
+              </label>
+
+              <label class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 cursor-pointer">
+                <input type="checkbox" onchange="toggleCalcAddon(this, 400, 'Stripe Billing + Tiered Subscriptions')" class="w-4 h-4 rounded text-brand-500 focus:ring-0 bg-obsidian-950 border-white/20" />
+                <div>
+                  <div class="text-xs font-mono font-bold text-white">+ Stripe Billing &amp; Webhooks</div>
+                  <div class="text-[10px] text-zinc-400">Checkout + Customer Portal</div>
+                </div>
+              </label>
+
+              <label class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 cursor-pointer">
+                <input type="checkbox" onchange="toggleCalcAddon(this, 300, 'Social Lead Ingestion Webhooks')" class="w-4 h-4 rounded text-brand-500 focus:ring-0 bg-obsidian-950 border-white/20" />
+                <div>
+                  <div class="text-xs font-mono font-bold text-white">+ Automated Lead Webhooks</div>
+                  <div class="text-[10px] text-zinc-400">Instagram/X to CRM dispatch</div>
+                </div>
+              </label>
+
+              <label class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 cursor-pointer">
+                <input type="checkbox" onchange="toggleCalcAddon(this, 250, 'Custom 3D / Shader Interactive Widgets')" class="w-4 h-4 rounded text-brand-500 focus:ring-0 bg-obsidian-950 border-white/20" />
+                <div>
+                  <div class="text-xs font-mono font-bold text-white">+ Custom 3D / WebGL Widgets</div>
+                  <div class="text-[10px] text-zinc-400">Interactive Canvas &amp; Shaders</div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Summary Card -->
+        <div class="lg:col-span-5">
+          <div class="relative">
+            <div class="absolute -inset-1 rounded-2xl bg-gradient-to-r from-brand-500/20 to-emerald-500/20 blur-lg"></div>
+            <div class="relative bg-obsidian-950 rounded-2xl p-6 sm:p-8 border border-white/10 shadow-2xl space-y-6">
+              
+              <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                <span class="text-xs font-mono text-zinc-400">ESTIMATED INVESTMENT</span>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">FIXED-PRICE SCOPE</span>
+              </div>
+
+              <!-- Price Display -->
+              <div>
+                <div class="font-display font-extrabold text-4xl sm:text-5xl text-white tracking-tight" id="calc-price-display">
+                  $1,800 <span class="text-sm font-mono text-zinc-400 font-normal">USD</span>
+                </div>
+                <div class="text-xs font-mono text-emerald-400 mt-1 flex items-center gap-1.5" id="calc-timeline-display">
+                  <i data-lucide="clock" class="w-3.5 h-3.5"></i> Estimated Timeline: 3-4 Weeks
+                </div>
+              </div>
+
+              <!-- Deliverable List -->
+              <div class="space-y-2 pt-2 border-t border-white/10 font-mono text-xs text-zinc-300" id="calc-deliverables">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
+                  <span>Full-Stack AI SaaS Platform</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
+                  <span>100% Codebase Ownership &amp; GitHub Repo</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
+                  <span>Production Surge / Vercel Edge Deployment</span>
+                </div>
+              </div>
+
+              <!-- Instant Copy / Email Proposal Button -->
+              <div class="pt-4 space-y-2">
+                <a id="calc-email-btn" href="mailto:issac78neo@gmail.com?subject=Project%20Scope%20Inquiry%20-%20Manish%20Kumar%20Soni&body=Hi%20Manish%2C%0A%0AI%20configured%20a%20project%20scope%20on%20your%20portfolio%3A%0A-%20Type%3A%20Full-Stack%20AI%20SaaS%0A-%20Estimated%20Budget%3A%20%241%2C800%0A%0ALet%27s%20discuss%20the%20details!" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white font-mono text-xs font-bold text-center block transition-all shadow-lg btn-tactile">
+                  Lock In Scope with Manish ↗
+                </a>
+                <button onclick="copyScopeSummary()" class="w-full py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-300 font-mono text-xs text-center block transition-all border border-white/5 btn-tactile">
+                  <span id="scope-copy-label">Copy Scope Specs to Clipboard</span>
+                </button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 4: INTERACTIVE MACOS TERMINAL ==================== -->
+  <section id="terminal" class="py-24 px-4 sm:px-6 max-w-7xl mx-auto relative z-10">
+    <div class="glass-panel rounded-3xl p-6 sm:p-10 border border-white/10 space-y-6">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <div class="inline-flex items-center gap-2 font-mono text-xs text-brand-400 tracking-wider uppercase">
+            <i data-lucide="terminal" class="w-3.5 h-3.5"></i>
+            <span>04 / INTERACTIVE DEVELOPER CLI</span>
+          </div>
+          <h2 class="font-display font-extrabold text-2xl sm:text-3xl text-white tracking-tight">
+            Developer Terminal Interface
+          </h2>
+        </div>
+        <div class="text-xs font-mono text-zinc-400">
+          Type <span class="text-brand-400 font-bold bg-white/5 px-2 py-1 rounded">help</span> for all available system commands
+        </div>
+      </div>
+
+      <!-- Terminal Window Box -->
+      <div class="bg-obsidian-950 rounded-2xl border border-white/10 shadow-2xl overflow-hidden">
+        
+        <!-- Bar -->
+        <div class="bg-obsidian-900 px-4 py-3 flex items-center justify-between border-b border-white/10">
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-rose-500/80"></span>
+            <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
+            <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
+            <span class="font-mono text-xs text-zinc-400 ml-2">manish@craft-terminal:~ (zsh)</span>
+          </div>
+          <div class="font-mono text-[10px] text-zinc-400">UTF-8 / Node v22.14.0</div>
+        </div>
+
+        <!-- Terminal Body -->
+        <div id="cli-history" class="p-5 font-mono text-xs space-y-2 h-72 overflow-y-auto text-zinc-300">
+          <p class="text-zinc-500">// Welcome to Manish Kumar Soni's Interactive CLI v2.4</p>
+          <p class="text-zinc-500">// Type <span class="text-brand-400 font-bold">help</span>, <span class="text-emerald-400 font-bold">skills</span>, <span class="text-violet-400 font-bold">projects</span>, <span class="text-amber-400 font-bold">hire</span>, or <span class="text-cyan-400 font-bold">matrix</span></p>
+        </div>
+
+        <!-- Input Row -->
+        <div class="px-5 py-3 bg-obsidian-900/60 border-t border-white/10 flex items-center gap-2">
+          <span class="text-emerald-400 font-mono font-bold text-xs">manish@sys:~$</span>
+          <input id="cli-input" type="text" placeholder="Type a command..." class="w-full bg-transparent border-none text-xs font-mono text-white focus:outline-none placeholder-zinc-600" autocomplete="off" />
+          <button onclick="handleCliSubmit()" class="px-3 py-1 rounded bg-brand-600 text-white font-mono text-xs font-bold btn-tactile">Enter</button>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 5: CONTACT & PROPOSAL GENERATOR ==================== -->
+  <section id="contact" class="py-24 px-4 sm:px-6 max-w-7xl mx-auto relative z-10">
+    <div class="glass-panel rounded-3xl p-8 sm:p-12 border border-white/10 relative overflow-hidden">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        
+        <!-- Left Contact Info -->
+        <div class="lg:col-span-5 space-y-8">
+          
+          <div class="space-y-3">
+            <div class="inline-flex items-center gap-2 font-mono text-xs text-brand-400 tracking-wider uppercase">
+              <i data-lucide="mail" class="w-3.5 h-3.5"></i>
+              <span>05 / INITIATE COLLABORATION</span>
+            </div>
+            <h2 class="font-display font-extrabold text-3xl sm:text-5xl text-white tracking-tight">
+              Let's Build Something Extraordinary.
+            </h2>
+            <p class="text-sm text-zinc-300 leading-relaxed font-normal">
+              Whether you need a full-scale AI SaaS system, custom multi-agent RAG pipeline, or a surgical UI rebuild, I’m ready to engineer it.
+            </p>
+          </div>
+
+          <!-- Direct Contact Card -->
+          <div class="space-y-4 font-mono text-xs">
+            <div class="glass-panel p-4 rounded-2xl border border-white/5 flex items-center justify-between">
+              <div>
+                <div class="text-zinc-500 text-[10px]">DIRECT EMAIL</div>
+                <div class="text-white font-bold text-sm select-all">issac78neo@gmail.com</div>
+              </div>
+              <button onclick="copyEmail()" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-zinc-300 font-mono text-xs btn-tactile">
+                <span id="copy-email-btn">Copy</span>
+              </button>
+            </div>
+
+            <div class="glass-panel p-4 rounded-2xl border border-white/5 flex items-center justify-between">
+              <div>
+                <div class="text-zinc-500 text-[10px]">AVG RESPONSE TIME</div>
+                <div class="text-emerald-400 font-bold">&lt; 2 Hours</div>
+              </div>
+              <div class="text-right">
+                <div class="text-zinc-500 text-[10px]">TIMEZONE</div>
+                <div class="text-white font-bold">IST (UTC +5:30)</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social Links -->
+          <div class="flex items-center gap-3 pt-2">
+            <a href="https://github.com/manishkumarsoni7" target="_blank" class="w-10 h-10 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-zinc-300 hover:text-white transition-all btn-tactile" title="GitHub">
+              <i data-lucide="github" class="w-4 h-4"></i>
+            </a>
+            <a href="mailto:issac78neo@gmail.com" class="w-10 h-10 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-zinc-300 hover:text-white transition-all btn-tactile" title="Direct Email">
+              <i data-lucide="mail" class="w-4 h-4"></i>
+            </a>
+            <a href="https://manishkumarsoni.surge.sh" target="_blank" class="w-10 h-10 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-zinc-300 hover:text-white transition-all btn-tactile" title="Live Main Hub">
+              <i data-lucide="globe" class="w-4 h-4"></i>
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Right Interactive Proposal Composer Form -->
+        <div class="lg:col-span-7 bg-obsidian-950 rounded-2xl border border-white/10 p-6 sm:p-8 shadow-2xl space-y-5">
+          <div class="flex items-center justify-between border-b border-white/10 pb-3">
+            <span class="text-xs font-mono text-zinc-400">DISPATCH DIRECT PROPOSAL</span>
+            <span class="text-[10px] font-mono text-brand-400">END-TO-END ENCRYPTED</span>
+          </div>
+
+          <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="text-[11px] font-mono text-zinc-400 block mb-1">Your Name</label>
+                <input type="text" id="form-name" required placeholder="Alex Vance" class="w-full bg-obsidian-900 border border-white/10 rounded-xl px-4 py-2.5 text-xs font-mono text-white focus:outline-none focus:border-brand-500" />
+              </div>
+              <div>
+                <label class="text-[11px] font-mono text-zinc-400 block mb-1">Your Email</label>
+                <input type="email" id="form-email" required placeholder="alex@company.com" class="w-full bg-obsidian-900 border border-white/10 rounded-xl px-4 py-2.5 text-xs font-mono text-white focus:outline-none focus:border-brand-500" />
+              </div>
+            </div>
+
+            <div>
+              <label class="text-[11px] font-mono text-zinc-400 block mb-1">Project Objective &amp; Requirements</label>
+              <textarea id="form-msg" rows="4" required placeholder="Tell me about your product vision, timeline, and required AI/Web features..." class="w-full bg-obsidian-900 border border-white/10 rounded-xl px-4 py-2.5 text-xs font-mono text-white focus:outline-none focus:border-brand-500"></textarea>
+            </div>
+
+            <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-600 via-indigo-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 text-white font-mono text-xs font-bold transition-all shadow-xl shadow-brand-500/25 flex items-center justify-center gap-2 btn-tactile">
+              <span>Send Message Directly to Manish</span>
+              <i data-lucide="send" class="w-3.5 h-3.5"></i>
+            </button>
+          </form>
+
+          <div id="form-success-banner" class="hidden p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 font-mono text-xs text-center">
+            ✓ Inquiry dispatched! Your default mail app opened with pre-filled specs.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== MACOS SPRING DOCK (BOTTOM) ==================== -->
+  <aside class="fixed bottom-6 inset-x-0 z-50 flex justify-center pointer-events-none px-4">
+    <div class="pointer-events-auto glass-panel px-4 py-2.5 rounded-2xl flex items-center gap-3 shadow-2xl backdrop-blur-2xl border border-white/15 bg-obsidian-900/80">
+      
+      <a href="#hero" class="dock-icon p-2 rounded-xl text-zinc-400 hover:text-white hover:bg-white/10 transition-colors" title="Home Hero" onclick="playSfx('click')">
+        <i data-lucide="home" class="w-5 h-5"></i>
+      </a>
+
+      <a href="#projects" class="dock-icon p-2 rounded-xl text-zinc-400 hover:text-white hover:bg-white/10 transition-colors" title="Flagship Projects" onclick="playSfx('click')">
+        <i data-lucide="layout-grid" class="w-5 h-5"></i>
+      </a>
+
+      <a href="#ai-pipeline" class="dock-icon p-2 rounded-xl text-zinc-400 hover:text-white hover:bg-white/10 transition-colors" title="AI Pipeline Radar" onclick="playSfx('click')">
+        <i data-lucide="cpu" class="w-5 h-5"></i>
+      </a>
+
+      <a href="#calculator" class="dock-icon p-2 rounded-xl text-zinc-400 hover:text-white hover:bg-white/10 transition-colors" title="Scope Estimator" onclick="playSfx('click')">
+        <i data-lucide="calculator" class="w-5 h-5"></i>
+      </a>
+
+      <a href="#terminal" class="dock-icon p-2 rounded-xl text-zinc-400 hover:text-white hover:bg-white/10 transition-colors" title="Interactive Terminal" onclick="playSfx('click')">
+        <i data-lucide="terminal" class="w-5 h-5"></i>
+      </a>
+
+      <div class="w-px h-6 bg-white/15 mx-1"></div>
+
+      <button onclick="openCmdPalette(); playSfx('modal')" class="dock-icon p-2 rounded-xl text-brand-400 hover:text-white hover:bg-brand-500/20 transition-colors" title="Search (Cmd+K)">
+        <i data-lucide="search" class="w-5 h-5"></i>
+      </button>
+
+      <a href="#contact" class="dock-icon p-2 rounded-xl text-emerald-400 hover:text-white hover:bg-emerald-500/20 transition-colors" title="Contact &amp; Book" onclick="playSfx('click')">
+        <i data-lucide="send" class="w-5 h-5"></i>
+      </a>
+
+    </div>
+  </aside>
+
+  <!-- ==================== CMD+K SPOTLIGHT SEARCH MODAL ==================== -->
+  <div id="cmd-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-start justify-center pt-24 px-4">
+    <div class="glass-panel w-full max-w-xl rounded-2xl border border-white/20 shadow-2xl overflow-hidden" onclick="event.stopPropagation()">
+      
+      <!-- Search Input -->
+      <div class="p-4 border-b border-white/10 flex items-center gap-3">
+        <i data-lucide="search" class="w-5 h-5 text-brand-400"></i>
+        <input id="cmd-search-input" type="text" placeholder="Search projects, skills, themes, or actions..." class="w-full bg-transparent border-none font-mono text-sm text-white focus:outline-none placeholder-zinc-500" onkeyup="filterCmdItems()" />
+        <button onclick="closeCmdPalette()" class="text-xs font-mono text-zinc-500 hover:text-white px-2 py-1 rounded bg-white/5">ESC</button>
+      </div>
+
+      <!-- Search Results List -->
+      <div id="cmd-items" class="p-2 max-h-80 overflow-y-auto space-y-1 font-mono text-xs">
+        <a href="#projects" onclick="closeCmdPalette()" class="cmd-row flex items-center justify-between p-3 rounded-xl hover:bg-white/10 text-zinc-200">
+          <span class="flex items-center gap-2"><i data-lucide="sparkles" class="w-4 h-4 text-brand-400"></i> View 5 Flagship Architectures</span>
+          <span class="text-zinc-500">Jump ↗</span>
+        </a>
+        <a href="https://apex-novadental.surge.sh" target="_blank" onclick="closeCmdPalette()" class="cmd-row flex items-center justify-between p-3 rounded-xl hover:bg-white/10 text-zinc-200">
+          <span class="flex items-center gap-2"><i data-lucide="external-link" class="w-4 h-4 text-emerald-400"></i> Apex Nova Dental Live Website</span>
+          <span class="text-zinc-500">External ↗</span>
+        </a>
+        <a href="projects-studio.html" target="_blank" onclick="closeCmdPalette()" class="cmd-row flex items-center justify-between p-3 rounded-xl hover:bg-white/10 text-zinc-200">
+          <span class="flex items-center gap-2"><i data-lucide="layers" class="w-4 h-4 text-violet-400"></i> Open AI Projects Studio Lab</span>
+          <span class="text-zinc-500">Studio ↗</span>
+        </a>
+        <button onclick="cycleTheme(); closeCmdPalette()" class="cmd-row w-full flex items-center justify-between p-3 rounded-xl hover:bg-white/10 text-zinc-200 text-left">
+          <span class="flex items-center gap-2"><i data-lucide="palette" class="w-4 h-4 text-amber-400"></i> Cycle Aesthetic Theme (Obsidian / Aurora / Cyber / Editorial)</span>
+          <span class="text-zinc-500">Theme</span>
+        </button>
+        <button onclick="copyEmail(); closeCmdPalette()" class="cmd-row w-full flex items-center justify-between p-3 rounded-xl hover:bg-white/10 text-zinc-200 text-left">
+          <span class="flex items-center gap-2"><i data-lucide="copy" class="w-4 h-4 text-cyan-400"></i> Copy Email: issac78neo@gmail.com</span>
+          <span class="text-zinc-500">Clipboard</span>
+        </button>
+        <a href="#calculator" onclick="closeCmdPalette()" class="cmd-row flex items-center justify-between p-3 rounded-xl hover:bg-white/10 text-zinc-200">
+          <span class="flex items-center gap-2"><i data-lucide="calculator" class="w-4 h-4 text-emerald-400"></i> Project Scope &amp; Pricing Calculator</span>
+          <span class="text-zinc-500">Scope ↗</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast" class="fixed bottom-24 right-6 z-50 glass-panel px-4 py-3 rounded-xl border border-emerald-500/40 text-emerald-300 font-mono text-xs shadow-2xl hidden items-center gap-2">
+    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+    <span id="toast-msg">Copied to clipboard!</span>
+  </div>
+
+  <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // 1. Web Audio API Synthesized Sound Effects (No external files needed)
+    let sfxEnabled = true;
+    let audioCtx = null;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+    }
+
+    function playSfx(type) {
+      if (!sfxEnabled) return;
+      try {
+        initAudio();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        const now = audioCtx.currentTime;
+        if (type === 'click') {
+          osc.frequency.setValueAtTime(800, now);
+          osc.frequency.exponentialRampToValueAtTime(400, now + 0.05);
+          gain.gain.setValueAtTime(0.08, now);
+          gain.gain.linearRampToValueAtTime(0.001, now + 0.05);
+          osc.start(now);
+          osc.stop(now + 0.05);
+        } else if (type === 'hover') {
+          osc.frequency.setValueAtTime(400, now);
+          osc.frequency.exponentialRampToValueAtTime(600, now + 0.03);
+          gain.gain.setValueAtTime(0.02, now);
+          gain.gain.linearRampToValueAtTime(0.001, now + 0.03);
+          osc.start(now);
+          osc.stop(now + 0.03);
+        } else if (type === 'modal') {
+          osc.frequency.setValueAtTime(520, now);
+          osc.frequency.exponentialRampToValueAtTime(880, now + 0.1);
+          gain.gain.setValueAtTime(0.06, now);
+          gain.gain.linearRampToValueAtTime(0.001, now + 0.1);
+          osc.start(now);
+          osc.stop(now + 0.1);
+        } else if (type === 'success') {
+          osc.frequency.setValueAtTime(587.33, now);
+          osc.frequency.setValueAtTime(880, now + 0.08);
+          gain.gain.setValueAtTime(0.07, now);
+          gain.gain.linearRampToValueAtTime(0.001, now + 0.2);
+          osc.start(now);
+          osc.stop(now + 0.2);
+        }
+      } catch (e) {}
+    }
+
+    function toggleSfx() {
+      sfxEnabled = !sfxEnabled;
+      const icon = document.getElementById('sfx-icon');
+      if (sfxEnabled) {
+        icon.setAttribute('data-lucide', 'volume-2');
+        showToast('Sound Effects Enabled');
+        playSfx('click');
+      } else {
+        icon.setAttribute('data-lucide', 'volume-x');
+        showToast('Sound Effects Muted');
+      }
+      lucide.createIcons();
+    }
+
+    // 2. Dynamic Theme Cycling System
+    const themes = ['obsidian', 'aurora', 'cyber', 'editorial'];
+    let currentThemeIdx = 0;
+
+    function cycleTheme() {
+      currentThemeIdx = (currentThemeIdx + 1) % themes.length;
+      const chosen = themes[currentThemeIdx];
+      document.body.setAttribute('data-theme', chosen);
+      showToast(`Theme switched to: ${chosen.toUpperCase()}`);
+    }
+
+    // 3. Live Canvas Particles
+    const canvas = document.getElementById('hero-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let mouse = { x: null, y: null };
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
+      document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
+    });
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 0.5;
+        this.speedX = (Math.random() - 0.5) * 0.4;
+        this.speedY = (Math.random() - 0.5) * 0.4;
+        this.alpha = Math.random() * 0.5 + 0.2;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+
+        if (mouse.x && mouse.y) {
+          const dx = mouse.x - this.x;
+          const dy = mouse.y - this.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 120) {
+            this.x += dx * 0.01;
+            this.y += dy * 0.01;
+          }
+        }
+      }
+      draw() {
+        ctx.fillStyle = `rgba(129, 140, 248, ${this.alpha})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < 45; i++) {
+      particles.push(new Particle());
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 100) {
+            ctx.strokeStyle = `rgba(99, 102, 241, ${0.15 * (1 - dist / 100)})`;
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    // 4. Kinetic Word Cycler
+    const words = ["Autonomous AI", "Vector RAG Engines", "High-Craft SaaS", "Zero-Latency Web"];
+    let wordIdx = 0;
+    setInterval(() => {
+      wordIdx = (wordIdx + 1) % words.length;
+      const el = document.getElementById('kinetic-word');
+      if (el) el.textContent = words[wordIdx];
+    }, 2800);
+
+    // 5. Hero Clock (IST)
+    function updateClock() {
+      const now = new Date();
+      const options = { timeZone: 'Asia/Kolkata', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+      const istTime = now.toLocaleTimeString('en-US', options);
+      const clockEl = document.getElementById('hero-clock');
+      if (clockEl) clockEl.textContent = `${istTime} IST`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // 6. Hero Diagnostic Simulation
+    function runHeroTelemetry() {
+      playSfx('click');
+      const bar = document.getElementById('hero-telemetry-bar');
+      const status = document.getElementById('hero-telemetry-status');
+      status.textContent = 'EXECUTING RAG...';
+      status.className = 'text-amber-400 animate-pulse';
+      bar.style.width = '35%';
+
+      setTimeout(() => {
+        bar.style.width = '75%';
+        status.textContent = 'SYNTHESIZING VECTORS...';
+      }, 400);
+
+      setTimeout(() => {
+        bar.style.width = '100%';
+        status.textContent = 'COMPLETE (64ms)';
+        status.className = 'text-emerald-400 font-bold';
+        playSfx('success');
+      }, 800);
+    }
+
+    // 7. Project Category Filtering
+    function filterProjects(cat) {
+      playSfx('click');
+      document.querySelectorAll('.proj-filter-btn').forEach(b => {
+        if (b.dataset.filter === cat) {
+          b.className = 'proj-filter-btn px-3 py-1 rounded-lg bg-brand-600 text-white font-mono text-xs transition-colors';
+        } else {
+          b.className = 'proj-filter-btn px-3 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-400 font-mono text-xs transition-colors';
+        }
+      });
+      document.querySelectorAll('.project-card').forEach(card => {
+        if (cat === 'all' || card.dataset.category === cat) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // 8. Apex Nova Dental Interactive Shade Simulator
+    function setNovaShade(shade, bg, lum, emoji) {
+      playSfx('click');
+      document.getElementById('nova-shade-label').textContent = `Shade: VITA ${shade}`;
+      document.getElementById('teeth-emoji').textContent = emoji;
+      document.getElementById('teeth-desc').textContent = `Enamel Luminosity: ${lum} Reflectance`;
+      document.getElementById('whitening-visualizer').style.backgroundColor = bg === '#ffffff' ? '#18181b' : '#09090b';
+    }
+
+    function toggleNovaDemo() {
+      setNovaShade('B1', '#ffffff', '99.4%', '✨ 🦷 🦷 🦷 ✨');
+      showToast('Bleach Shade B1 Applied');
+    }
+
+    // 9. AI Agent 1 Simulator
+    function runAgent1Simulator() {
+      playSfx('click');
+      const topic = document.getElementById('agent1-input').value;
+      const out = document.getElementById('agent1-output');
+      const status = document.getElementById('agent1-status');
+      status.textContent = 'SEARCHING VECTORS...';
+      status.className = 'text-amber-400 font-bold';
+      out.innerHTML = `<p class="text-brand-400">[1/3] Dispatched 12 parallel Tavily queries for "${topic}"...</p>`;
+
+      setTimeout(() => {
+        out.innerHTML += `<p class="text-indigo-300">[2/3] Corroborated 3 sources: MIT Tech Review, ArXiv:2602.11, Nature Physics.</p>`;
+      }, 600);
+
+      setTimeout(() => {
+        out.innerHTML += `<p class="text-emerald-400 font-bold">[3/3] Report synthesized (412 words, zero hallucinations detected).</p>`;
+        status.textContent = 'DONE (1.4s)';
+        status.className = 'text-emerald-400 font-bold';
+        playSfx('success');
+      }, 1200);
+    }
+
+    // 10. Support Chat Simulator
+    function runSupportChat() {
+      playSfx('click');
+      const input = document.getElementById('support-chat-input');
+      const q = input.value || "Can I get enterprise SLA guarantee?";
+      input.value = '';
+      const box = document.getElementById('support-chat-box');
+      box.innerHTML += `<div class="p-2 rounded bg-white/5 text-zinc-300"><span class="text-brand-400 font-bold">User:</span> ${q}</div>`;
+      
+      setTimeout(() => {
+        box.innerHTML += `<div class="p-2 rounded bg-violet-500/10 border border-violet-500/20 text-zinc-200"><span class="text-violet-400 font-bold">Grounded AI:</span> Yes, Enterprise Tier includes 99.99% uptime SLA with <15min human escalation. <span class="px-1 py-0.5 rounded bg-violet-500/30 text-violet-300 text-[10px]">[Doc: SLA_Addendum.pdf §2]</span></div>`;
+        box.scrollTop = box.scrollHeight;
+        playSfx('success');
+      }, 500);
+    }
+
+    function showCitationTooltip() {
+      showToast('Citation Verified in Document Source: Page 14 §4.2');
+      playSfx('hover');
+    }
+
+    // 11. Creator Intelligence Hook Generator
+    const hookBank = [
+      ["🔥 \"Stop building basic chat bots in 2026...\"", "97% Retention"],
+      ["⚡ \"The 1 mistake causing 40% user churn...\"", "93% Retention"],
+      ["💡 \"How this 3-line RAG optimization cut latency by 80%...\"", "95% Retention"],
+    ];
+    function generateCreatorHooks() {
+      playSfx('click');
+      const list = document.getElementById('creator-hooks-list');
+      const picked = hookBank[Math.floor(Math.random() * hookBank.length)];
+      list.innerHTML = `
+        <div class="p-2.5 rounded-lg bg-white/5 border border-white/5 flex items-center justify-between">
+          <span>${picked[0]}</span>
+          <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400">${picked[1]}</span>
+        </div>
+        <div class="p-2.5 rounded-lg bg-white/5 border border-white/5 flex items-center justify-between">
+          <span>🎯 "Here's the exact tech stack used by top AI SaaS founders..."</span>
+          <span class="text-[10px] px-1.5 py-0.5 rounded bg-brand-500/20 text-brand-400">91% Retention</span>
+        </div>
+      `;
+      showToast('Viral Hooks Refreshed');
+    }
+
+    // 12. Comment to Lead Dispatcher
+    function testLeadDispatch() {
+      playSfx('click');
+      const handle = document.getElementById('lead-user-input').value;
+      const kw = document.getElementById('lead-keyword-input').value;
+      const log = document.getElementById('lead-crm-log');
+      const status = document.getElementById('lead-status');
+      
+      status.textContent = 'DISPATCHING DM...';
+      status.className = 'text-amber-400 font-bold';
+      
+      setTimeout(() => {
+        log.innerHTML = `
+          <div class="text-emerald-400">✓ 0.8s: DM sent to ${handle} with access link: "scale-masterclass-2026.pdf"</div>
+          <div class="text-zinc-400">✓ Ingested lead into CRM pipeline with tag [Trigger: ${kw}]</div>
+        `;
+        status.textContent = 'LEAD CAPTURED';
+        status.className = 'text-cyan-400 font-bold';
+        playSfx('success');
+      }, 700);
+    }
+
+    // 13. Pipeline Node Selection
+    const nodeDetails = {
+      1: {
+        title: "DIAGNOSTIC TELEMETRY: NODE 01 (Semantic Chunking & Ingestion)",
+        p1: "Recursive Token (512 tokens / 64 overlap)",
+        p2: "14.2ms / 10k words",
+        p3: "< 38MB RSS Peak",
+        code: "const chunks = await semanticSplitter.createDocuments([rawText], { chunkSize: 512, chunkOverlap: 64 });"
+      },
+      2: {
+        title: "DIAGNOSTIC TELEMETRY: NODE 02 (pgvector + BM25 Hybrid Rerank)",
+        p1: "Cosine Similarity + RRF Index",
+        p2: "18.4ms Top-K Search",
+        p3: "1536-dim Embedding Space",
+        code: "const results = await supabase.rpc('hybrid_search_docs', { query_embedding, match_count: 5 });"
+      },
+      3: {
+        title: "DIAGNOSTIC TELEMETRY: NODE 03 (LangGraph Cyclic State Machine)",
+        p1: "Self-Correction & Fallback Routing",
+        p2: "3-Hop Verification Graph",
+        p3: "Strict JSON Schema Validator",
+        code: "const state = await workflow.invoke({ messages, hallucinationScore: 0 });"
+      },
+      4: {
+        title: "DIAGNOSTIC TELEMETRY: NODE 04 (Zero-Jitter Edge Stream)",
+        p1: "HTTP/2 Server-Sent Events (SSE)",
+        p2: "Sub-10ms First Token",
+        p3: "Backpressure-Safe Worker",
+        code: "return new Response(stream, { headers: { 'Content-Type': 'text/event-stream' } });"
+      }
+    };
+
+    function selectPipelineNode(id) {
+      playSfx('click');
+      for (let i = 1; i <= 4; i++) {
+        const el = document.getElementById(`pnode-${i}`);
+        if (i === id) {
+          el.className = 'pipeline-node cursor-pointer glass-panel rounded-2xl p-5 border border-brand-500/60 bg-brand-500/10 space-y-3';
+        } else {
+          el.className = 'pipeline-node cursor-pointer glass-panel rounded-2xl p-5 border border-white/10 hover:border-white/20 space-y-3';
+        }
+      }
+      const data = nodeDetails[id];
+      document.getElementById('diagnostic-title').textContent = data.title;
+      document.getElementById('diag-param-1').textContent = data.p1;
+      document.getElementById('diag-param-2').textContent = data.p2;
+      document.getElementById('diag-param-3').textContent = data.p3;
+      document.getElementById('diag-code').textContent = data.code;
+    }
+
+    // 14. Project Cost & Scope Estimator
+    let basePrice = 1800;
+    let baseType = 'Full-Stack AI SaaS Platform';
+    let baseTimeline = '3-4 Weeks';
+    let addons = [];
+
+    function setCalcType(type, price, title, timeline) {
+      playSfx('click');
+      basePrice = price;
+      baseType = title;
+      baseTimeline = timeline;
+      document.querySelectorAll('.calc-type-btn').forEach(btn => {
+        if (btn.dataset.type === type) {
+          btn.className = 'calc-type-btn p-3 rounded-xl border border-brand-500 bg-brand-500/10 text-white font-mono text-xs text-left transition-all';
+        } else {
+          btn.className = 'calc-type-btn p-3 rounded-xl border border-white/10 hover:border-white/20 bg-white/5 text-zinc-300 font-mono text-xs text-left transition-all';
+        }
+      });
+      renderCalculator();
+    }
+
+    function toggleCalcAddon(checkbox, price, name) {
+      playSfx('click');
+      if (checkbox.checked) {
+        addons.push({ price, name });
+      } else {
+        addons = addons.filter(a => a.name !== name);
+      }
+      renderCalculator();
+    }
+
+    function renderCalculator() {
+      const addonSum = addons.reduce((acc, curr) => acc + curr.price, 0);
+      const total = basePrice + addonSum;
+      document.getElementById('calc-price-display').innerHTML = `$${total.toLocaleString()} <span class="text-sm font-mono text-zinc-400 font-normal">USD</span>`;
+      document.getElementById('calc-timeline-display').innerHTML = `<i data-lucide="clock" class="w-3.5 h-3.5"></i> Estimated Timeline: ${baseTimeline}`;
+      
+      const listEl = document.getElementById('calc-deliverables');
+      let html = `
+        <div class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i><span>${baseType}</span></div>
+        <div class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i><span>100% Codebase Ownership &amp; GitHub Repo</span></div>
+      `;
+      addons.forEach(a => {
+        html += `<div class="flex items-center gap-2"><i data-lucide="plus" class="w-3.5 h-3.5 text-brand-400"></i><span>${a.name}</span></div>`;
+      });
+      listEl.innerHTML = html;
+      lucide.createIcons();
+
+      // Update mailto link
+      const emailBtn = document.getElementById('calc-email-btn');
+      const subject = encodeURIComponent(`Project Scope Inquiry ($${total}) - Manish Kumar Soni`);
+      const body = encodeURIComponent(`Hi Manish,\n\nI configured a project scope on your portfolio:\n- Type: ${baseType}\n- Addons: ${addons.map(a => a.name).join(', ') || 'None'}\n- Estimated Scope: $${total}\n\nLet's connect and begin!`);
+      emailBtn.href = `mailto:issac78neo@gmail.com?subject=${subject}&body=${body}`;
+    }
+
+    function copyScopeSummary() {
+      const addonSum = addons.reduce((acc, curr) => acc + curr.price, 0);
+      const total = basePrice + addonSum;
+      const text = `Project Scope for Manish Kumar Soni:\n- Architecture: ${baseType}\n- Timeline: ${baseTimeline}\n- Investment: $${total} USD\n- Addons: ${addons.map(a => a.name).join(', ') || 'None'}`;
+      navigator.clipboard.writeText(text);
+      document.getElementById('scope-copy-label').textContent = '✓ Scope Copied to Clipboard!';
+      showToast('Scope copied to clipboard');
+      setTimeout(() => {
+        document.getElementById('scope-copy-label').textContent = 'Copy Scope Specs to Clipboard';
+      }, 2500);
+    }
+
+    // 15. Interactive Terminal / CLI Logic
+    const cliHistory = document.getElementById('cli-history');
+    const cliInput = document.getElementById('cli-input');
+
+    if (cliInput) {
+      cliInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          handleCliSubmit();
+        }
+      });
+    }
+
+    function handleCliSubmit() {
+      const raw = cliInput.value.trim();
+      if (!raw) return;
+      playSfx('click');
+      const cmd = raw.toLowerCase();
+      cliInput.value = '';
+
+      cliHistory.innerHTML += `<div class="text-white"><span class="text-emerald-400">manish@sys:~$</span> ${raw}</div>`;
+
+      let resp = '';
+      if (cmd === 'help') {
+        resp = `
+          <div class="text-zinc-300">Available commands:</div>
+          <div>  <span class="text-brand-400 font-bold">about</span>     - Summary of Manish's engineering background</div>
+          <div>  <span class="text-emerald-400 font-bold">skills</span>    - Core technical capabilities &amp; framework stack</div>
+          <div>  <span class="text-violet-400 font-bold">projects</span>  - Flagship AI &amp; Web architectures</div>
+          <div>  <span class="text-amber-400 font-bold">hire</span>      - Contact &amp; direct email link</div>
+          <div>  <span class="text-cyan-400 font-bold">matrix</span>    - Trigger retro matrix screen effect</div>
+          <div>  <span class="text-rose-400 font-bold">clear</span>     - Clear terminal buffer</div>
+        `;
+      } else if (cmd === 'about') {
+        resp = `<div class="text-zinc-200">Manish Kumar Soni is a Senior Web Architect &amp; AI Systems Engineer specializing in Next.js 15, LangGraph RAG architectures, and zero-latency client platforms. Contact: issac78neo@gmail.com</div>`;
+      } else if (cmd === 'skills') {
+        resp = `<div class="text-zinc-200">Frontend: Next.js 15, TypeScript, Tailwind, WebGL/Canvas.<br/>AI: LangChain, LangGraph, Supabase pgvector, OpenAI, Claude 3.5 Sonnet.<br/>Backend: Node.js, FastAPI, PostgreSQL, Redis, Cloudflare Workers.</div>`;
+      } else if (cmd === 'projects') {
+        resp = `<div class="text-zinc-200">1. Apex Nova Dental Studio (https://apex-novadental.surge.sh)<br/>2. AI Deep Research Agent<br/>3. Enterprise AI Support SaaS<br/>4. Creator Intelligence Platform<br/>5. Comment-to-Lead Automation</div>`;
+      } else if (cmd === 'hire') {
+        resp = `<div class="text-emerald-400 font-bold">Ready to build! Email: issac78neo@gmail.com or use the Contact section below.</div>`;
+      } else if (cmd === 'matrix') {
+        cycleTheme();
+        resp = `<div class="text-emerald-400">Cyber matrix visual mode initialized.</div>`;
+      } else if (cmd === 'clear') {
+        cliHistory.innerHTML = '';
+        return;
+      } else {
+        resp = `<div class="text-rose-400">Command not found: "${raw}". Type <span class="text-white font-bold">help</span> for available commands.</div>`;
+      }
+
+      cliHistory.innerHTML += `<div class="text-zinc-400 pl-2">${resp}</div>`;
+      cliHistory.scrollTop = cliHistory.scrollHeight;
+    }
+
+    // 16. Command Palette (Cmd+K)
+    const cmdModal = document.getElementById('cmd-modal');
+    const cmdSearch = document.getElementById('cmd-search-input');
+
+    function openCmdPalette() {
+      cmdModal.classList.remove('hidden');
+      cmdModal.classList.add('flex');
+      cmdSearch.value = '';
+      cmdSearch.focus();
+      filterCmdItems();
+    }
+
+    function closeCmdPalette() {
+      cmdModal.classList.add('hidden');
+      cmdModal.classList.remove('flex');
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        openCmdPalette();
+      }
+      if (e.key === 'Escape' && !cmdModal.classList.contains('hidden')) {
+        closeCmdPalette();
+      }
+    });
+
+    cmdModal.addEventListener('click', closeCmdPalette);
+
+    function filterCmdItems() {
+      const q = cmdSearch.value.toLowerCase();
+      document.querySelectorAll('.cmd-row').forEach(row => {
+        if (row.textContent.toLowerCase().includes(q)) {
+          row.style.display = 'flex';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+
+    // 17. Clipboard Utilities & Toast
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-msg').textContent = msg;
+      toast.classList.remove('hidden');
+      toast.classList.add('flex');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+        toast.classList.remove('flex');
+      }, 3000);
+    }
+
+    function copyEmail() {
+      navigator.clipboard.writeText('issac78neo@gmail.com');
+      playSfx('success');
+      showToast('Copied: issac78neo@gmail.com');
+      const btn = document.getElementById('copy-email-btn');
+      if (btn) btn.textContent = 'Copied!';
+      setTimeout(() => {
+        if (btn) btn.textContent = 'Copy';
+      }, 2500);
+    }
+
+    // 18. Contact Form Handler
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      playSfx('success');
+      const name = document.getElementById('form-name').value;
+      const email = document.getElementById('form-email').value;
+      const msg = document.getElementById('form-msg').value;
+
+      const subject = encodeURIComponent(`Project Proposal from ${name} via Portfolio V2`);
+      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nProject Requirements:\n${msg}`);
+
+      window.location.href = `mailto:issac78neo@gmail.com?subject=${subject}&body=${body}`;
+      document.getElementById('form-success-banner').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>

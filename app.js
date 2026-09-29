@@ -314,10 +314,12 @@ function initScrollAnimations() {
 
     function runSkillsProgressAnimation() {
         const skillCards = document.querySelectorAll('.skill-card');
+        if (!skillCards.length) return;
         skillCards.forEach(card => {
             const pct = card.getAttribute('data-pct');
             const circle = card.querySelector('.progress-ring-circle');
             const text = card.querySelector('.skill-pct');
+            if (!circle || !text) return;
             
             const radius = circle.r.baseVal.value;
             const circumference = radius * 2 * Math.PI;
@@ -1340,5 +1342,23 @@ document.addEventListener('keydown', e => {
         closeCaseStudy();
         closeResumeModal();
         closeLiveDemo();
+        const d = document.getElementById('portfolioMobileDrawer');
+        if (d && d.classList.contains('active')) togglePortfolioNav();
     }
 });
+
+// Portfolio Mobile Navigation Drawer Handlers
+window.togglePortfolioNav = function() {
+    const drawer = document.getElementById('portfolioMobileDrawer');
+    if (drawer) {
+        drawer.classList.toggle('active');
+        document.body.style.overflow = drawer.classList.contains('active') ? 'hidden' : '';
+    }
+};
+
+window.handlePortfolioDrawerBackdrop = function(e) {
+    if (e.target === document.getElementById('portfolioMobileDrawer')) {
+        window.togglePortfolioNav();
+    }
+};
+

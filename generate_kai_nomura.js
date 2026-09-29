@@ -1,0 +1,2525 @@
+const fs = require('fs');
+
+const indexHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kai Nomura — Digital &amp; Generative Artist (Kyoto · Berlin)</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://api.fontshare.com">
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+
+    <!-- Lenis Smooth Scroll via ESM CDN -->
+    <script type="module">
+        import Lenis from "https://cdn.jsdelivr.net/npm/lenis@1.3.19/+esm";
+
+        const lenis = new Lenis({
+            smoothWheel: true,
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+        });
+
+        window.lenis = lenis;
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Featured works parallax scroll scrub
+        const parallaxPlates = document.querySelectorAll('[data-parallax-plate]');
+        lenis.on('scroll', () => {
+            if (window.innerWidth < 1024) return;
+            const vh = window.innerHeight;
+            parallaxPlates.forEach((plate) => {
+                const rect = plate.getBoundingClientRect();
+                const progress = (vh - rect.top) / (vh + rect.height);
+                if (progress >= -0.2 && progress <= 1.2) {
+                    const clamped = Math.max(0, Math.min(1, progress));
+                    const translateY = 2.5 - clamped * 5.0; // from +2.5rem to -2.5rem
+                    plate.style.transform = \`translateY(\${translateY.toFixed(3)}rem)\`;
+                }
+            });
+        });
+    </script>
+
+    <style>
+        /* ═══════════════════════════════════════════════════════════════════
+           PAGE SHELL & COLOR TOKENS
+        ═══════════════════════════════════════════════════════════════════ */
+        :root {
+            --canvas: #ffffff;
+            --surface-grey: #f3f3f3;
+            --surface-dark: #191917;
+            --ink: #191917;
+            --ink-muted: rgba(25, 25, 23, 0.6);
+            --ink-faint: rgba(25, 25, 23, 0.3);
+            --on-dark: #ffffff;
+            --on-dark-muted: rgba(255, 255, 255, 0.6);
+            --on-dark-faint: rgba(255, 255, 255, 0.3);
+            --line: rgba(25, 25, 23, 0.2);
+            --line-strong: rgba(25, 25, 23, 0.4);
+            --line-on-dark: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Rem-based adaptive grid */
+        html { 
+            font-size: 16px; 
+            scroll-behavior: auto;
+        }
+        @media (max-width: 1920px) { html { font-size: 0.833333vw; } }
+        @media (max-width: 1440px) { html { font-size: 1.111111vw; } }
+        @media (max-width: 1024px) { html { font-size: 1.5625vw;  } }
+        @media (max-width: 640px)  { html { font-size: 4.444444vw; } }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--canvas);
+            color: var(--ink);
+            font-family: "Satoshi", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            overflow-x: hidden;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            background: none;
+            border: none;
+            color: inherit;
+            font: inherit;
+            cursor: pointer;
+        }
+
+        h1, h2, h3 {
+            font-family: "Playfair Display", serif;
+            font-weight: 400;
+            text-transform: none;
+            letter-spacing: -0.01em;
+            line-height: 1.12;
+        }
+
+        ::selection {
+            background: var(--ink);
+            color: #ffffff;
+        }
+
+        /* Dashed Hairlines */
+        .rule-dashed {
+            border-top: 1px dashed var(--line);
+        }
+        .rule-dashed-dark {
+            border-top: 1px dashed var(--line-on-dark);
+        }
+
+        /* Container */
+        .container-custom {
+            max-width: 120rem;
+            margin-inline: auto;
+            width: 100%;
+        }
+
+        .section-pad {
+            padding: 6rem 1.5rem;
+        }
+        @media (min-width: 1024px) {
+            .section-pad {
+                padding: 8rem 3rem;
+            }
+        }
+
+        .scroll-mt-custom {
+            scroll-margin-top: 6rem;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           SHARED UI PRIMITIVES
+        ═══════════════════════════════════════════════════════════════════ */
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--ink-muted);
+            font-weight: 500;
+        }
+        .eyebrow::before {
+            content: "";
+            display: block;
+            width: 2rem;
+            height: 1px;
+            background: var(--ink-muted);
+        }
+        .eyebrow-dark {
+            color: var(--on-dark-muted);
+        }
+        .eyebrow-dark::before {
+            background: var(--on-dark-muted);
+        }
+
+        .accent-serif {
+            font-family: "Playfair Display", serif;
+            font-style: italic;
+            font-weight: 400;
+            text-transform: none;
+        }
+
+        /* CTA Buttons */
+        .btn-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            font-weight: 500;
+            transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+        .btn-cta .btn-arrow {
+            display: inline-block;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .btn-cta:hover .btn-arrow {
+            transform: translateX(0.4rem);
+        }
+
+        .btn-solid-light {
+            background: #191917;
+            color: #ffffff;
+        }
+        .btn-solid-light:hover {
+            background: rgba(25, 25, 23, 0.9);
+        }
+
+        .btn-ghost-light {
+            border: 1px dashed var(--line);
+            color: #191917;
+        }
+        .btn-ghost-light:hover {
+            background: #191917;
+            color: #ffffff;
+            border-color: #191917;
+        }
+
+        .btn-solid-dark {
+            background: #ffffff;
+            color: #191917;
+        }
+        .btn-solid-dark:hover {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .btn-ghost-dark {
+            border: 1px dashed var(--line-on-dark);
+            color: #ffffff;
+        }
+        .btn-ghost-dark:hover {
+            background: #ffffff;
+            color: #191917;
+            border-color: #ffffff;
+        }
+
+        /* Ratio Locked Image Plates */
+        .ratio-plate {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            background: #e5e5e5;
+        }
+        .ratio-plate img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%);
+        }
+        .ratio-3-4 { aspect-ratio: 3 / 4; }
+        .ratio-3-2 { aspect-ratio: 3 / 2; }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           HEADER (FIXED, MIX-BLEND-DIFFERENCE)
+        ═══════════════════════════════════════════════════════════════════ */
+        #site-header {
+            position: fixed;
+            inset-inline: 0;
+            top: 0;
+            z-index: 50;
+            color: #ffffff;
+            mix-blend-mode: difference;
+            pointer-events: auto;
+        }
+
+        .header-inner {
+            padding: 1.25rem 1.5rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+        }
+        @media (min-width: 1024px) {
+            .header-inner {
+                padding: 1.25rem 3rem;
+                grid-template-columns: 1fr auto 1fr;
+            }
+        }
+
+        .header-left {
+            display: none;
+        }
+        @media (min-width: 1024px) {
+            .header-left {
+                display: flex;
+                flex-direction: column;
+                gap: 0.2rem;
+            }
+        }
+        .header-left-top {
+            font-size: 0.875rem;
+            letter-spacing: -0.02em;
+        }
+        .header-left-sub {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .header-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            justify-self: start;
+        }
+        @media (min-width: 1024px) {
+            .header-logo {
+                justify-self: center;
+            }
+        }
+
+        .diamond-mark {
+            width: 0.625rem;
+            height: 0.625rem;
+            border: 1px solid currentColor;
+            transform: rotate(45deg);
+        }
+
+        .logo-wordmark {
+            font-family: "Playfair Display", serif;
+            font-style: italic;
+            font-size: 1.125rem;
+            letter-spacing: 0.04em;
+        }
+
+        .header-right {
+            justify-self: end;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .header-nav {
+            display: none;
+            align-items: center;
+            gap: 2rem;
+        }
+        @media (min-width: 1024px) {
+            .header-nav {
+                display: flex;
+            }
+        }
+
+        .header-nav-link {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: opacity 0.2s;
+        }
+        .header-nav-dot {
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: #ffffff;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .header-nav-link:hover .header-nav-dot {
+            opacity: 1;
+        }
+
+        .btn-menu-trigger {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+        }
+        .menu-btn-label {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            display: none;
+        }
+        @media (min-width: 640px) {
+            .menu-btn-label {
+                display: inline-block;
+            }
+        }
+
+        .hamburger-lines {
+            display: flex;
+            flex-direction: column;
+            gap: 0.375rem;
+        }
+        .hamburger-lines span {
+            display: block;
+            width: 1.5rem;
+            height: 1px;
+            background: #ffffff;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           HERO SECTION
+        ═══════════════════════════════════════════════════════════════════ */
+        #hero {
+            position: relative;
+            min-height: 100svh;
+            padding: 8rem 1.5rem 4rem;
+            display: flex;
+            align-items: center;
+        }
+        @media (min-width: 1024px) {
+            #hero {
+                padding: 10rem 3rem 4rem;
+            }
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            align-items: center;
+            width: 100%;
+        }
+        @media (min-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: repeat(12, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        .hero-left {
+            display: flex;
+            flex-direction: column;
+        }
+        @media (min-width: 1024px) {
+            .hero-left {
+                grid-column: span 6;
+            }
+        }
+
+        .hero-h1 {
+            max-width: 14ch;
+            font-size: 3.75rem;
+            line-height: 1.04;
+            margin-top: 1.5rem;
+            font-family: "Playfair Display", serif;
+            font-weight: 400;
+        }
+        @media (min-width: 640px) {
+            .hero-h1 { font-size: 4.5rem; }
+        }
+        @media (min-width: 1024px) {
+            .hero-h1 { font-size: 6rem; }
+        }
+
+        .hero-lead {
+            max-width: 46ch;
+            font-size: 1.125rem;
+            line-height: 1.625;
+            color: var(--ink-muted);
+            margin-top: 2.5rem;
+        }
+
+        .hero-cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2.5rem;
+        }
+
+        .hero-facts-dl {
+            display: none;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+            border-top: 1px solid var(--line);
+            padding-top: 2rem;
+        }
+        @media (min-width: 1024px) {
+            .hero-facts-dl {
+                display: grid;
+            }
+        }
+        .hero-facts-dl dt {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--ink-faint);
+        }
+        .hero-facts-dl dd {
+            font-size: 0.875rem;
+            color: var(--ink);
+            margin-top: 0.25rem;
+        }
+
+        .hero-right {
+            width: 100%;
+        }
+        @media (min-width: 1024px) {
+            .hero-right {
+                grid-column: 7 / span 6;
+            }
+        }
+
+        .mobile-scroll-cue {
+            margin-top: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        @media (min-width: 1024px) {
+            .mobile-scroll-cue {
+                display: none;
+            }
+        }
+        .mobile-scroll-cue span {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--ink-faint);
+        }
+        .mobile-scroll-cue .cue-line {
+            width: 2.5rem;
+            height: 1px;
+            background: var(--line-strong);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           STATEMENT SECTION (LIGHT)
+        ═══════════════════════════════════════════════════════════════════ */
+        #statement {
+            background: #ffffff;
+            padding: 7rem 1.5rem;
+        }
+        @media (min-width: 1024px) {
+            #statement {
+                padding: 10rem 3rem;
+            }
+        }
+        .statement-inner {
+            max-width: 80rem;
+            margin-inline: auto;
+        }
+        .statement-p {
+            font-family: "Playfair Display", serif;
+            font-size: 1.875rem;
+            line-height: 1.3;
+            color: var(--ink);
+            margin-top: 3rem;
+        }
+        @media (min-width: 640px) {
+            .statement-p { font-size: 2.25rem; }
+        }
+        @media (min-width: 1024px) {
+            .statement-p { font-size: 3rem; line-height: 1.25; }
+        }
+        .statement-sig {
+            display: block;
+            font-family: "Playfair Display", serif;
+            font-style: italic;
+            font-size: 1.25rem;
+            color: var(--ink-muted);
+            margin-top: 3rem;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           FEATURED WORKS SECTION (LIGHT)
+        ═══════════════════════════════════════════════════════════════════ */
+        #works {
+            background: #ffffff;
+        }
+        .works-heading-h2 {
+            font-size: 2.25rem;
+            max-width: 18ch;
+            margin-top: 1.5rem;
+        }
+        @media (min-width: 640px) {
+            .works-heading-h2 { font-size: 3rem; }
+        }
+        @media (min-width: 1024px) {
+            .works-heading-h2 { font-size: 4.5rem; }
+        }
+
+        .works-gallery-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4rem;
+            margin-top: 4rem;
+        }
+        @media (min-width: 1024px) {
+            .works-gallery-grid {
+                grid-template-columns: repeat(12, 1fr);
+                column-gap: 2rem;
+                row-gap: 0;
+                margin-top: 6rem;
+            }
+        }
+
+        .work-article {
+            display: flex;
+            flex-direction: column;
+        }
+        @media (min-width: 1024px) {
+            .work-article {
+                grid-column: span 7;
+            }
+            .work-article:nth-child(even) {
+                grid-column-start: 6;
+                margin-top: 6rem;
+            }
+            .work-article:nth-child(odd) {
+                grid-column-start: 1;
+            }
+        }
+
+        .work-caption {
+            border-top: 1px dashed var(--line);
+            margin-top: 1.5rem;
+            padding-top: 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 1.5rem;
+        }
+        .work-title {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--ink);
+            font-family: "Satoshi", sans-serif;
+        }
+        .work-medium {
+            font-size: 0.875rem;
+            color: var(--ink-muted);
+            margin-top: 0.25rem;
+        }
+        .work-year {
+            font-family: "Playfair Display", serif;
+            font-size: 1rem;
+            color: var(--ink);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           PINNED CTA #1 (DARK)
+        ═══════════════════════════════════════════════════════════════════ */
+        #pinned-cta-1 {
+            background: #191917;
+            min-height: 100svh;
+            display: flex;
+            align-items: center;
+            color: #ffffff;
+        }
+        .pinned-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            align-items: center;
+            width: 100%;
+        }
+        @media (min-width: 1024px) {
+            .pinned-grid {
+                grid-template-columns: repeat(12, 1fr);
+                gap: 2rem;
+            }
+        }
+        .pinned-copy {
+            max-width: 34rem;
+        }
+        @media (min-width: 1024px) {
+            .pinned-copy {
+                grid-column: span 6;
+            }
+        }
+        .pinned-h2 {
+            font-size: 2.25rem;
+            color: var(--on-dark);
+            margin-top: 1.5rem;
+        }
+        @media (min-width: 640px) {
+            .pinned-h2 { font-size: 3rem; }
+        }
+        @media (min-width: 1024px) {
+            .pinned-h2 { font-size: 3.75rem; }
+        }
+
+        .pinned-body {
+            font-size: 1.125rem;
+            line-height: 1.625;
+            color: var(--on-dark-muted);
+            margin-top: 2rem;
+        }
+
+        .pinned-img-wrap {
+            width: 100%;
+        }
+        @media (min-width: 1024px) {
+            .pinned-img-wrap {
+                grid-column: 8 / span 5;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           PRINCIPLES SECTION (GREY)
+        ═══════════════════════════════════════════════════════════════════ */
+        #principles {
+            background: var(--surface-grey);
+        }
+        .principles-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+        @media (min-width: 640px) {
+            .principles-grid {
+                grid-template-columns: repeat(3, 1fr);
+                column-gap: 3rem;
+                row-gap: 2.5rem;
+            }
+        }
+        .principle-card {
+            border-top: 1px dashed var(--line);
+            padding-top: 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .principle-num {
+            font-family: "Playfair Display", serif;
+            font-size: 1.5rem;
+            color: var(--ink);
+        }
+        .principle-h3 {
+            font-family: "Satoshi", sans-serif;
+            font-size: 1.25rem;
+            font-weight: 500;
+            line-height: 1.2;
+            color: var(--ink);
+            margin-top: 1.5rem;
+        }
+        .principle-p {
+            font-size: 1rem;
+            line-height: 1.625;
+            color: var(--ink-muted);
+            margin-top: 0.75rem;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           ABOUT SECTION (LIGHT)
+        ═══════════════════════════════════════════════════════════════════ */
+        #about {
+            background: #ffffff;
+        }
+        .about-top-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+        @media (min-width: 1024px) {
+            .about-top-grid {
+                grid-template-columns: repeat(12, 1fr);
+                gap: 2rem;
+            }
+        }
+        .about-left {
+            display: flex;
+            flex-direction: column;
+        }
+        @media (min-width: 1024px) {
+            .about-left {
+                grid-column: span 7;
+            }
+        }
+        .about-h2 {
+            font-size: 2.25rem;
+            line-height: 1.1;
+            color: var(--ink);
+            max-width: 20ch;
+            margin-top: 2rem;
+        }
+        @media (min-width: 640px) {
+            .about-h2 { font-size: 3rem; }
+        }
+        @media (min-width: 1024px) {
+            .about-h2 { font-size: 3.75rem; }
+        }
+
+        .about-right {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        @media (min-width: 1024px) {
+            .about-right {
+                grid-column: span 5;
+            }
+        }
+        .about-p {
+            font-size: 1rem;
+            line-height: 1.625;
+            color: var(--ink-muted);
+            max-width: 52ch;
+        }
+
+        .about-photos-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 4rem;
+        }
+        @media (min-width: 640px) {
+            .about-photos-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        @media (min-width: 1024px) {
+            .about-photos-grid {
+                margin-top: 5rem;
+            }
+        }
+
+        .about-photo-item {
+            overflow: hidden;
+        }
+        .about-photo-item img {
+            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @media (hover: hover) and (pointer: fine) {
+            .about-photo-item:hover img {
+                transform: scale(1.06);
+            }
+        }
+
+        .about-facts-ledger {
+            border-top: 1px dashed var(--line);
+            margin-top: 4rem;
+            padding-top: 2.5rem;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem 1.5rem;
+        }
+        @media (min-width: 640px) {
+            .about-facts-ledger {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        .about-facts-ledger dt {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--ink-faint);
+        }
+        .about-facts-ledger dd {
+            font-size: 1rem;
+            color: var(--ink);
+            margin-top: 0.5rem;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           PROCESS SECTION (STICKY HEADING)
+        ═══════════════════════════════════════════════════════════════════ */
+        #process {
+            background: #ffffff;
+        }
+        .process-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+        @media (min-width: 1024px) {
+            .process-grid {
+                grid-template-columns: repeat(12, 1fr);
+                gap: 2rem;
+            }
+        }
+        .process-sticky-left {
+            width: 100%;
+        }
+        @media (min-width: 1024px) {
+            .process-sticky-left {
+                grid-column: span 5;
+                position: sticky;
+                top: 8rem;
+                align-self: start;
+            }
+        }
+        .process-right {
+            list-style: none;
+        }
+        @media (min-width: 1024px) {
+            .process-right {
+                grid-column: span 7;
+            }
+        }
+        .process-step-li {
+            border-top: 1px dashed var(--line);
+            padding-block: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        @media (min-width: 640px) {
+            .process-step-li {
+                padding-block: 3rem;
+                flex-direction: row;
+                gap: 3rem;
+            }
+        }
+        .process-num {
+            font-family: "Playfair Display", serif;
+            font-size: 4.5rem;
+            line-height: 1;
+            color: var(--ink-faint);
+            flex-shrink: 0;
+        }
+        @media (min-width: 640px) {
+            .process-num {
+                font-size: 6rem;
+            }
+        }
+        .process-info {
+            flex: 1;
+        }
+        @media (min-width: 640px) {
+            .process-info {
+                padding-top: 0.75rem;
+            }
+        }
+        .process-h3 {
+            font-family: "Satoshi", sans-serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--ink);
+        }
+        @media (min-width: 1024px) {
+            .process-h3 { font-size: 1.875rem; }
+        }
+        .process-p {
+            font-size: 1.125rem;
+            line-height: 1.625;
+            color: var(--ink-muted);
+            max-width: 48ch;
+            margin-top: 1rem;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           ACQUIRE SECTION (LIGHT)
+        ═══════════════════════════════════════════════════════════════════ */
+        #acquire {
+            background: #ffffff;
+        }
+        .acquire-header-row {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+        @media (min-width: 1024px) {
+            .acquire-header-row {
+                flex-direction: row;
+                align-items: flex-end;
+                justify-content: space-between;
+            }
+        }
+        .acquire-lead {
+            font-size: 1rem;
+            line-height: 1.625;
+            color: var(--ink-muted);
+            max-width: 42ch;
+        }
+
+        .for-sale-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3.5rem 2.5rem;
+            margin-top: 4rem;
+        }
+        @media (min-width: 640px) {
+            .for-sale-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .acquire-card-link {
+            display: flex;
+            flex-direction: column;
+        }
+        .acquire-card-plate {
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @media (hover: hover) and (pointer: fine) {
+            .acquire-card-link:hover .acquire-card-plate {
+                transform: translateY(-0.75rem);
+            }
+        }
+
+        .acquire-info-row {
+            border-top: 1px dashed var(--line);
+            margin-top: 1.5rem;
+            padding-top: 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1.5rem;
+        }
+        .acquire-title {
+            font-family: "Satoshi", sans-serif;
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--ink);
+        }
+        .acquire-medium {
+            font-size: 0.875rem;
+            color: var(--ink-muted);
+            margin-top: 0.5rem;
+        }
+        .acquire-edition {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--ink-faint);
+            margin-top: 0.25rem;
+        }
+        .acquire-price {
+            font-family: "Playfair Display", serif;
+            font-size: 1.25rem;
+            color: var(--ink);
+            white-space: nowrap;
+        }
+
+        .acquire-bottom-cta {
+            margin-top: 4rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           PINNED CTA #2 (DARK, CENTERED)
+        ═══════════════════════════════════════════════════════════════════ */
+        #contact {
+            background: #191917;
+            min-height: 100svh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            text-align: center;
+        }
+        .pinned-centered-box {
+            max-width: 40rem;
+            margin-inline: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           TESTIMONIALS SECTION (LIGHT)
+        ═══════════════════════════════════════════════════════════════════ */
+        #testimonials {
+            background: #ffffff;
+        }
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+        @media (min-width: 768px) {
+            .testimonials-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        .testimonial-card {
+            border-top: 1px dashed var(--line);
+            padding-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+        .testimonial-quote {
+            font-family: "Playfair Display", serif;
+            font-size: 1.25rem;
+            line-height: 1.625;
+            color: var(--ink);
+        }
+        @media (min-width: 1024px) {
+            .testimonial-quote { font-size: 1.5rem; }
+        }
+        .testimonial-author {
+            margin-top: 2.5rem;
+        }
+        .author-name {
+            font-size: 1rem;
+            color: var(--ink);
+            font-weight: 500;
+        }
+        .author-role {
+            font-size: 0.875rem;
+            color: var(--ink-muted);
+            margin-top: 0.25rem;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           EXHIBITIONS SECTION (GREY)
+        ═══════════════════════════════════════════════════════════════════ */
+        #exhibitions {
+            background: var(--surface-grey);
+        }
+        .exhibitions-ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr;
+            margin-top: 4rem;
+        }
+        @media (min-width: 640px) {
+            .exhibitions-ul {
+                grid-template-columns: repeat(2, 1fr);
+                column-gap: 3rem;
+            }
+        }
+        @media (min-width: 1024px) {
+            .exhibitions-ul {
+                grid-template-columns: repeat(3, 1fr);
+                column-gap: 3rem;
+            }
+        }
+        .exhibition-li {
+            border-top: 1px dashed var(--line);
+            padding-block: 1.5rem;
+            display: flex;
+            align-items: baseline;
+            gap: 1.25rem;
+        }
+        .exhibition-idx {
+            font-family: "Playfair Display", serif;
+            font-size: 0.875rem;
+            color: var(--ink-muted);
+        }
+        .exhibition-venue {
+            font-family: "Playfair Display", serif;
+            font-size: 1.25rem;
+            color: var(--ink);
+        }
+        @media (min-width: 1024px) {
+            .exhibition-venue {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           FAQ SECTION (ACCORDION)
+        ═══════════════════════════════════════════════════════════════════ */
+        #faq {
+            background: #ffffff;
+        }
+        .faq-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+        @media (min-width: 1024px) {
+            .faq-grid {
+                grid-template-columns: repeat(12, 1fr);
+                gap: 2rem;
+            }
+        }
+        .faq-left {
+            width: 100%;
+        }
+        @media (min-width: 1024px) {
+            .faq-left {
+                grid-column: span 4;
+            }
+        }
+        .faq-right {
+            width: 100%;
+        }
+        @media (min-width: 1024px) {
+            .faq-right {
+                grid-column: span 8;
+            }
+        }
+        .faq-row {
+            border-top: 1px dashed var(--line);
+        }
+        .faq-btn {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            padding-block: 2rem;
+            text-align: left;
+        }
+        .faq-q-text {
+            font-family: "Satoshi", sans-serif;
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--ink);
+        }
+        @media (min-width: 1024px) {
+            .faq-q-text { font-size: 1.5rem; }
+        }
+        .faq-plus-icon {
+            font-family: "Satoshi", sans-serif;
+            font-size: 1.5rem;
+            color: var(--ink);
+            display: inline-block;
+            transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+            transform-origin: center;
+        }
+        .faq-row.is-open .faq-plus-icon {
+            transform: rotate(45deg);
+        }
+        .faq-panel {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.55s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.55s ease;
+        }
+        .faq-row.is-open .faq-panel {
+            opacity: 1;
+        }
+        .faq-a-text {
+            font-size: 1.125rem;
+            line-height: 1.625;
+            color: var(--ink-muted);
+            max-width: 60ch;
+            padding-bottom: 2.5rem;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           FOOTER (DARK)
+        ═══════════════════════════════════════════════════════════════════ */
+        #site-footer {
+            background: #191917;
+            color: #ffffff;
+            padding: 6rem 1.5rem 3rem;
+        }
+        @media (min-width: 1024px) {
+            #site-footer {
+                padding: 6rem 3rem 3rem;
+            }
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4rem;
+        }
+        @media (min-width: 1024px) {
+            .footer-grid {
+                grid-template-columns: repeat(12, 1fr);
+                gap: 3rem;
+            }
+        }
+        .footer-brand-col {
+            display: flex;
+            flex-direction: column;
+        }
+        @media (min-width: 1024px) {
+            .footer-brand-col {
+                grid-column: span 5;
+            }
+        }
+        .footer-tagline {
+            font-family: "Playfair Display", serif;
+            font-style: italic;
+            font-size: 1.5rem;
+            color: var(--on-dark-muted);
+            max-width: 28ch;
+            margin-top: 1.5rem;
+        }
+        .footer-mail-link {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--on-dark);
+            margin-top: 2rem;
+            transition: color 0.2s;
+        }
+        .footer-mail-link:hover {
+            color: var(--on-dark-muted);
+        }
+
+        .footer-col-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--on-dark-faint);
+        }
+        .footer-links-list {
+            list-style: none;
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .footer-links-list a {
+            font-size: 1rem;
+            color: var(--on-dark-muted);
+            transition: color 0.2s;
+        }
+        .footer-links-list a:hover {
+            color: var(--on-dark);
+        }
+
+        @media (min-width: 1024px) {
+            .footer-col-explore { grid-column: span 2; }
+            .footer-col-studio { grid-column: span 2; }
+            .footer-col-follow { grid-column: span 3; }
+        }
+
+        .footer-giant-wordmark {
+            overflow: hidden;
+            margin-top: 6rem;
+            text-align: center;
+        }
+        .giant-word {
+            font-family: "Satoshi", sans-serif;
+            font-size: 18vw;
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 0.8;
+            letter-spacing: -0.04em;
+            color: rgba(255, 255, 255, 0.1);
+            user-select: none;
+        }
+
+        .footer-legal-bar {
+            margin-top: 3rem;
+            border-top: 1px dashed var(--line-on-dark);
+            padding-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        @media (min-width: 640px) {
+            .footer-legal-bar {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+        .footer-copyright {
+            font-size: 0.875rem;
+            color: var(--on-dark-faint);
+        }
+        .footer-legal-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        .footer-legal-links a {
+            font-size: 0.875rem;
+            color: var(--on-dark-faint);
+            transition: color 0.2s;
+        }
+        .footer-legal-links a:hover {
+            color: var(--on-dark-muted);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           MODAL MENU (FULL-SCREEN OVERLAY)
+        ═══════════════════════════════════════════════════════════════════ */
+        #modal-menu {
+            position: fixed;
+            inset: 0;
+            z-index: 60;
+            color: #ffffff;
+            display: none;
+            pointer-events: none;
+        }
+        #modal-menu.is-open {
+            display: block;
+            pointer-events: auto;
+        }
+
+        .modal-backdrop-panel {
+            position: absolute;
+            inset: 0;
+            background: #191917;
+            transform-origin: top;
+            transform: scaleY(0);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #modal-menu.is-open .modal-backdrop-panel {
+            transform: scaleY(1);
+        }
+
+        .modal-content-wrap {
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem 1.5rem 2.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        @media (min-width: 1024px) {
+            .modal-content-wrap {
+                padding: 1.5rem 3rem 2.5rem;
+            }
+        }
+        #modal-menu.is-open .modal-content-wrap {
+            opacity: 1;
+            transition-delay: 0.15s;
+        }
+
+        .modal-topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-menu-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.28em;
+            color: var(--on-dark-faint);
+        }
+        .btn-modal-close {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: #ffffff;
+            transition: color 0.2s;
+        }
+        .btn-modal-close:hover {
+            color: var(--on-dark-muted);
+        }
+
+        .modal-nav {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .modal-nav-item {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 1.25rem;
+            opacity: 0;
+            transform: translateY(1.5rem);
+            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #modal-menu.is-open .modal-nav-item {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .modal-nav-idx {
+            width: 2rem;
+            font-size: 0.875rem;
+            color: var(--on-dark-muted);
+            font-family: "Playfair Display", serif;
+        }
+        .modal-nav-label {
+            font-family: "Playfair Display", serif;
+            font-size: 3rem;
+            color: #ffffff;
+            transition: font-style 0.2s ease;
+        }
+        @media (min-width: 640px) {
+            .modal-nav-label { font-size: 3.75rem; }
+        }
+        @media (min-width: 1024px) {
+            .modal-nav-label { font-size: 4.5rem; }
+        }
+        .modal-nav-item:hover .modal-nav-label {
+            font-style: italic;
+        }
+
+        .modal-bottom-block {
+            border-top: 1px dashed var(--line-on-dark);
+            padding-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.5s ease 0.4s;
+        }
+        @media (min-width: 640px) {
+            .modal-bottom-block {
+                flex-direction: row;
+                align-items: flex-end;
+                justify-content: space-between;
+            }
+        }
+        #modal-menu.is-open .modal-bottom-block {
+            opacity: 1;
+        }
+
+        .modal-mail {
+            font-size: 1.125rem;
+            color: #ffffff;
+        }
+        .modal-loc {
+            font-size: 0.875rem;
+            color: var(--on-dark-muted);
+            margin-top: 0.25rem;
+        }
+        .modal-socials {
+            display: flex;
+            gap: 1.5rem;
+        }
+        .modal-socials a {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--on-dark-muted);
+            transition: color 0.2s;
+        }
+        .modal-socials a:hover {
+            color: var(--on-dark);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           MOTION ENGINE & REVEALS
+        ═══════════════════════════════════════════════════════════════════ */
+        /* Line reveal clips */
+        .reveal-line-wrap {
+            display: inline-block;
+            overflow: hidden;
+            vertical-align: top;
+        }
+        .reveal-line-inner {
+            display: inline-block;
+            transform: translateY(110%);
+            opacity: 0;
+            transition: transform 1000ms cubic-bezier(0.16, 1, 0.3, 1), opacity 1000ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .is-revealed .reveal-line-inner {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Word reveals */
+        .reveal-word {
+            display: inline-block;
+            transform: translateY(0.8rem);
+            opacity: 0;
+            transition: transform 720ms cubic-bezier(0.165, 0.84, 0.44, 1), opacity 720ms cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .is-revealed .reveal-word {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Fade Up */
+        .reveal-fade-up {
+            opacity: 0;
+            transform: translateY(2.5rem);
+            transition: opacity 720ms cubic-bezier(0.16, 1, 0.3, 1), transform 720ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .is-revealed.reveal-fade-up, .is-revealed .reveal-fade-up {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Fade */
+        .reveal-fade {
+            opacity: 0;
+            transition: opacity 640ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .is-revealed.reveal-fade, .is-revealed .reveal-fade {
+            opacity: 1;
+        }
+
+        /* Plate reveal */
+        .reveal-plate {
+            opacity: 0;
+            transform: translateY(3.5rem) scale(1.04);
+            transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .is-revealed.reveal-plate, .is-revealed .reveal-plate {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+                transform: none !important;
+                opacity: 1 !important;
+            }
+        }
+    </style>
+</head>
+<body id="top">
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         HEADER (FIXED, MIX-BLEND-DIFFERENCE)
+    ═══════════════════════════════════════════════════════════════════ -->
+    <header id="site-header">
+        <div class="header-inner container-custom">
+            <!-- Left Column (Hidden below lg) -->
+            <div class="header-left">
+                <p class="header-left-top">Digital &amp; Generative Artist</p>
+                <p class="header-left-sub">Light · Code · Memory</p>
+            </div>
+
+            <!-- Center Logo -->
+            <a href="#top" class="header-logo" aria-label="Kai Nomura Home">
+                <span class="diamond-mark" aria-hidden="true"></span>
+                <span class="logo-wordmark">kai nomura</span>
+            </a>
+
+            <!-- Right Column -->
+            <div class="header-right">
+                <nav class="header-nav" aria-label="Primary">
+                    <a href="#works" class="header-nav-link">
+                        <span class="header-nav-dot"></span> Works
+                    </a>
+                    <a href="#about" class="header-nav-link">
+                        <span class="header-nav-dot"></span> About
+                    </a>
+                    <a href="#process" class="header-nav-link">
+                        <span class="header-nav-dot"></span> Process
+                    </a>
+                </nav>
+
+                <button class="btn-menu-trigger" onclick="openModalMenu()" aria-label="Open navigation menu">
+                    <span class="menu-btn-label">Menu</span>
+                    <div class="hamburger-lines" aria-hidden="true">
+                        <span></span>
+                        <span></span>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         HERO SECTION (FULL VIEWPORT)
+    ═══════════════════════════════════════════════════════════════════ -->
+    <section id="hero" class="container-custom">
+        <div class="hero-grid" data-reveal-section>
+            <!-- Left (lg col-span 6) -->
+            <div class="hero-left">
+                <div class="eyebrow reveal-fade" style="transition-delay: 0ms;">Digital &amp; generative artist</div>
+                
+                <h1 class="hero-h1">
+                    <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 0ms;">Light,</span></span>
+                    <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 140ms;"><span class="accent-serif">written</span> in</span></span>
+                    <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 280ms;">code.</span></span>
+                </h1>
+
+                <p class="hero-lead" data-word-reveal data-word-stagger="18" data-word-delay="500">
+                    Kai Nomura builds immersive works where light, memory, and machine become one material — generative installations and editioned prints, exhibited worldwide and held in private collections.
+                </p>
+
+                <div class="hero-cta-row reveal-fade-up" style="transition-delay: 800ms;">
+                    <a href="#works" class="btn-cta btn-solid-light">
+                        View the work <span class="btn-arrow">→</span>
+                    </a>
+                    <a href="#acquire" class="btn-cta btn-ghost-light">
+                        Acquire a piece <span class="btn-arrow">→</span>
+                    </a>
+                </div>
+
+                <dl class="hero-facts-dl reveal-fade" style="transition-delay: 1000ms;">
+                    <div>
+                        <dt>Based</dt>
+                        <dd>Kyoto · Berlin</dd>
+                    </div>
+                    <div>
+                        <dt>Working since</dt>
+                        <dd>2004</dd>
+                    </div>
+                    <div>
+                        <dt>Mediums</dt>
+                        <dd>Code, light, print</dd>
+                    </div>
+                </dl>
+
+                <div class="mobile-scroll-cue reveal-fade" style="transition-delay: 1400ms;">
+                    <span>Scroll to enter</span>
+                    <div class="cue-line"></div>
+                </div>
+            </div>
+
+            <!-- Right Hero Portrait Plate (lg col-span 6, col-start 7) -->
+            <div class="hero-right">
+                <div class="ratio-plate ratio-3-4 reveal-plate" style="transition-delay: 200ms;">
+                    <img src="https://api.getlayers.ai/storage/v1/object/public/public/assets/artist-32290926f6/site/art-p1.webp" alt="Kai Nomura — portrait" loading="eager">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         STATEMENT SECTION (LIGHT)
+    ═══════════════════════════════════════════════════════════════════ -->
+    <section id="statement" class="rule-dashed">
+        <div class="statement-inner" data-reveal-section>
+            <div class="eyebrow reveal-fade">The practice</div>
+
+            <p class="statement-p" data-word-reveal data-word-stagger="30" data-word-delay="100">
+                For two decades I have treated code as a material — as physical as clay, as fleeting as light. My work is not made by the machine; it is made with it. Each system is tuned until it breathes, then released to find its own form.
+            </p>
+
+            <span class="statement-sig reveal-fade-up" style="transition-delay: 400ms;">— K.N.</span>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         FEATURED WORKS SECTION (LIGHT)
+    ═══════════════════════════════════════════════════════════════════ -->
+    <section id="works" class="rule-dashed section-pad scroll-mt-custom">
+        <div class="container-custom" data-reveal-section>
+            <div class="eyebrow reveal-fade">Selected works</div>
+            
+            <h2 class="works-heading-h2">
+                <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 0ms;">A field of <span class="accent-serif">light,</span></span></span>
+                <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 90ms;">never the same twice.</span></span>
+            </h2>
+
+            <div class="works-gallery-grid">
+                <!-- 01 · Ma (間) · 2024 · Generative light installation · art-l1.webp · 3 / 2 -->
+                <article class="work-article" data-reveal-section>
+                    <figure>
+                        <div class="ratio-plate ratio-3-2 reveal-plate" data-parallax-plate>
+                            <img src="https://api.getlayers.ai/storage/v1/object/public/public/assets/artist-32290926f6/site/art-l1.webp" alt="Ma (間) — Generative light installation" loading="lazy">
+                        </div>
+                        <figcaption class="work-caption">
+                            <div>
+                                <h3 class="work-title">Ma (間)</h3>
+                                <p class="work-medium">Generative light installation</p>
+                            </div>
+                            <span class="work-year">2024</span>
+                        </figcaption>
+                    </figure>
+                </article>
+
+                <!-- 02 · Tidal Memory · 2023 · Real-time projection, sound · art-l2.webp · 3 / 2 -->
+                <article class="work-article" data-reveal-section>
+                    <figure>
+                        <div class="ratio-plate ratio-3-2 reveal-plate" data-parallax-plate>
+                            <img src="https://api.getlayers.ai/storage/v1/object/public/public/assets/artist-32290926f6/site/art-l2.webp" alt="Tidal Memory — Real-time projection, sound" loading="lazy">
+                        </div>
+                        <figcaption class="work-caption">
+                            <div>
+                                <h3 class="work-title">Tidal Memory</h3>
+                                <p class="work-medium">Real-time projection, sound</p>
+                            </div>
+                            <span class="work-year">2023</span>
+                        </figcaption>
+                    </figure>
+                </article>
+
+                <!-- 03 · Hanabi Engine · 2024 · Generative print series · art-p3.webp · 3 / 4 -->
+                <article class="work-article" data-reveal-section>
+                    <figure>
+                        <div class="ratio-plate ratio-3-4 reveal-plate" data-parallax-plate>
+                            <img src="https://api.getlayers.ai/storage/v1/object/public/public/assets/artist-32290926f6/site/art-p3.webp" alt="Hanabi Engine — Generative print series" loading="lazy">
+                        </div>
+                        <figcaption class="work-caption">
+                            <div>
+                                <h3 class="work-title">Hanabi Engine</h3>
+                                <p class="work-medium">Generative print series</p>
+                            </div>
+                            <span class="work-year">2024</span>
+                        </figcaption>
+                    </figure>
+                </article>
+
+                <!-- 04 · Silent Architecture · 2022 · LED matrix, custom code · art-l4.webp · 3 / 2 -->
+                <article class="work-article" data-reveal-section>
+                    <figure>
+                        <div class="ratio-plate ratio-3-2 reveal-plate" data-parallax-plate>
+                            <img src="https://api.getlayers.ai/storage/v1/object/public/public/assets/artist-32290926f6/site/art-l4.webp" alt="Silent Architecture — LED matrix, custom code" loading="lazy">
+                        </div>
+                        <figcaption class="work-caption">
+                            <div>
+                                <h3 class="work-title">Silent Architecture</h3>
+                                <p class="work-medium">LED matrix, custom code</p>
+                            </div>
+                            <span class="work-year">2022</span>
+                        </figcaption>
+                    </figure>
+                </article>
+
+                <!-- 05 · After Image · 2025 · Archival pigment print · art-l3.webp · 3 / 2 -->
+                <article class="work-article" data-reveal-section>
+                    <figure>
+                        <div class="ratio-plate ratio-3-2 reveal-plate" data-parallax-plate>
+                            <img src="https://api.getlayers.ai/storage/v1/object/public/public/assets/artist-32290926f6/site/art-l3.webp" alt="After Image — Archival pigment print" loading="lazy">
+                        </div>
+                        <figcaption class="work-caption">
+                            <div>
+                                <h3 class="work-title">After Image</h3>
+                                <p class="work-medium">Archival pigment print</p>
+                            </div>
+                            <span class="work-year">2025</span>
+                        </figcaption>
+                    </figure>
+                </article>
+
+                <!-- 06 · Static Garden · 2023 · Interactive installation · art-l5.webp · 3 / 2 -->
+                <article class="work-article" data-reveal-section>
+                    <figure>
+                        <div class="ratio-plate ratio-3-2 reveal-plate" data-parallax-plate>
+                            <img src="https://api.getlayers.ai/storage/v1/object/public/public/assets/artist-32290926f6/site/art-l5.webp" alt="Static Garden — Interactive installation" loading="lazy">
+                        </div>
+                        <figcaption class="work-caption">
+                            <div>
+                                <h3 class="work-title">Static Garden</h3>
+                                <p class="work-medium">Interactive installation</p>
+                            </div>
+                            <span class="work-year">2023</span>
+                        </figcaption>
+                    </figure>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         PINNED CTA #1 (DARK, WITH PORTRAIT)
+    ═══════════════════════════════════════════════════════════════════ -->
+    <section id="pinned-cta-1" class="rule-dashed-dark section-pad">
+        <div class="container-custom" data-reveal-section>
+            <div class="pinned-grid">
+                <div class="pinned-copy">
+                    <div class="eyebrow eyebrow-dark reveal-fade">Acquire</div>
+
+                    <h2 class="pinned-h2">
+                        <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 0ms;">Some works only</span></span>
+                        <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 90ms;">exist once.</span></span>
+                    </h2>
+
+                    <p class="pinned-body" data-word-reveal data-word-stagger="16" data-word-delay="200">
+                        Each edition is signed, certified, and released in a strictly limited run. When it is gone, it is gone.
+                    </p>
+
+                    <div style="margin-top: 2.5rem;" class="reveal-fade-up" style="transition-delay: 300ms;">
+                        <a href="#acquire" class="btn-cta btn-solid-dark">
+                            See what's available <span class="btn-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="pinned-img-wrap">
+                    <div class="ratio-plate ratio-3-4 reveal-plate" style="transition-delay: 150ms;">
+                        <img src="https://api.getlayers.ai/storage/v1/object/public/public/assets/artist-32290926f6/site/art-p2.webp" alt="" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         PRINCIPLES SECTION (GREY)
+    ═══════════════════════════════════════════════════════════════════ -->
+    <section id="principles" class="rule-dashed section-pad">
+        <div class="container-custom" data-reveal-section>
+            <div class="eyebrow reveal-fade">Studio principles</div>
+            
+            <h2 class="works-heading-h2">
+                <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 0ms;">Four rules the</span></span>
+                <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 90ms;">studio runs on.</span></span>
+            </h2>
+
+            <div class="principles-grid">
+                <!-- 01 -->
+                <article class="principle-card reveal-fade-up" style="transition-delay: 0ms;">
+                    <span class="principle-num">01</span>
+                    <h3 class="principle-h3">The code is the brush.</h3>
+                    <p class="principle-p">Tools should vanish. What remains on the wall is feeling, not technique.</p>
+                </article>
+
+                <!-- 02 -->
+                <article class="principle-card reveal-fade-up" style="transition-delay: 90ms;">
+                    <span class="principle-num">02</span>
+                    <h3 class="principle-h3">Impermanence is the medium.</h3>
+                    <p class="principle-p">A work that can change is more alive than one fixed forever in glass.</p>
+                </article>
+
+                <!-- 03 -->
+                <article class="principle-card reveal-fade-up" style="transition-delay: 180ms;">
+                    <span class="principle-num">03</span>
+                    <h3 class="principle-h3">Light belongs to no one.</h3>
+                    <p class="principle-p">I borrow it, shape it, and give it back. The viewer completes the piece.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         ABOUT SECTION (LIGHT)
+    ═══════════════════════════════════════════════════════════════════ -->
+    <section id="about" class="rule-dashed section-pad scroll-mt-custom">
+        <div class="container-custom" data-reveal-section>
+            <div class="about-top-grid">
+                <div class="about-left">
+                    <div class="eyebrow reveal-fade">About</div>
+
+                    <h2 class="about-h2">
+                        <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 0ms;">I make work that</span></span>
+                        <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 90ms;">disappears the</span></span>
+                        <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 180ms;">moment you understand it.</span></span>
+                    </h2>
+                </div>
+
+                <div class="about-right">
+                    <p class="about-p" data-word-reveal data-word-stagger="10" data-word-delay="100">
+                        I grew up between two cities and two alphabets, and I think that is why impermanence never frightened me. My earliest pieces were small programs that drew with light and then forgot what they had drawn.
+                    </p>
+                    <p class="about-p" data-word-reveal data-word-stagger="10" data-word-delay="250">
+                        Today my studio sits somewhere between an observatory and a workshop. I write the systems, tune them by hand, and let them run until something honest appears. Then I step back.
+                    </p>
+                    <p class="about-p" data-word-reveal data-word-stagger="10" data-word-delay="400">
+                        When a work leaves the studio, it keeps changing. That is the point. I am not selling an object so much as a way of paying attention.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Photo Grid -->
+            <div class="about-photos-grid">
+                <div class="about-photo-item reveal-plate" style="transition-delay: 0ms;">
+                    <div class="ratio-plate ratio-3-2">
+                        <img src="https://api.getlayers.ai/storage/v1/object/public/public/assets/artist-32290926f6/site/art-l1.webp" alt="Studio light study" loading="lazy">
+                    </div>
+                </div>
+                <div class="about-photo-item reveal-plate" style="transition-delay: 100ms;">
+                    <div class="ratio-plate ratio-3-2">
+                        <img src="https://api.getlayers.ai/storage/v1/object/public/public/assets/artist-32290926f6/site/art-l2.webp" alt="Installation detail" loading="lazy">
+                    </div>
+                </div>
+                <div class="about-photo-item reveal-plate" style="transition-delay: 200ms;">
+                    <div class="ratio-plate ratio-3-2">
+                        <img src="https://api.getlayers.ai/storage/v1/object/public/public/assets/artist-32290926f6/site/art-l3.webp" alt="Work in progress" loading="lazy">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Facts Ledger -->
+            <dl class="about-facts-ledger reveal-fade-up" style="transition-delay: 300ms;">
+                <div>
+                    <dt>Based</dt>
+                    <dd>Kyoto · Berlin</dd>
+                </div>
+                <div>
+                    <dt>Working since</dt>
+                    <dd>2004</dd>
+                </div>
+                <div>
+                    <dt>Mediums</dt>
+                    <dd>Code, light, print</dd>
+                </div>
+                <div>
+                    <dt>Represented by</dt>
+                    <dd>Meridian Gallery</dd>
+                </div>
+            </dl>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         PROCESS SECTION (STICKY HEADING)
+    ═══════════════════════════════════════════════════════════════════ -->
+    <section id="process" class="rule-dashed section-pad scroll-mt-custom">
+        <div class="container-custom" data-reveal-section>
+            <div class="process-grid">
+                <!-- Left Sticky Heading (lg col-span 5) -->
+                <div class="process-sticky-left">
+                    <div class="eyebrow reveal-fade">The studio process</div>
+                    <h2 class="works-heading-h2">
+                        <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 0ms;">From observation</span></span>
+                        <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 90ms;">to exhibition.</span></span>
+                    </h2>
+                </div>
+
+                <!-- Right Steps List (lg col-span 7) -->
+                <ol class="process-right">
+                    <!-- Step 01 -->
+                    <li class="process-step-li reveal-fade-up" style="transition-delay: 0ms;">
+                        <span class="process-num">01</span>
+                        <div class="process-info">
+                            <h3 class="process-h3">Observe</h3>
+                            <p class="process-p">Months of looking — at tides, crowds, signal noise, the way a room holds dusk. Nothing is sketched yet.</p>
+                        </div>
+                    </li>
+
+                    <!-- Step 02 -->
+                    <li class="process-step-li reveal-fade-up" style="transition-delay: 90ms;">
+                        <span class="process-num">02</span>
+                        <div class="process-info">
+                            <h3 class="process-h3">Compose</h3>
+                            <p class="process-p">I write the rules of the system: how light is born, how it decays, what it remembers. The score before the symphony.</p>
+                        </div>
+                    </li>
+
+                    <!-- Step 03 -->
+                    <li class="process-step-li reveal-fade-up" style="transition-delay: 180ms;">
+                        <span class="process-num">03</span>
+                        <div class="process-info">
+                            <h3 class="process-h3">Generate</h3>
+                            <p class="process-p">The system runs for days. I sit with it, tune it by hand, and wait for the moment it stops being mine.</p>
+                        </div>
+                    </li>
+
+                    <!-- Step 04 -->
+                    <li class="process-step-li reveal-fade-up" style="transition-delay: 270ms;">
+                        <span class="process-num">04</span>
+                        <div class="process-info">
+                            <h3 class="process-h3">Exhibit</h3>
+                            <p class="process-p">Each work is editioned, certified, and installed — in a gallery, a private collection, or a screen in your home.</p>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         ACQUIRE SECTION (LIGHT)
+    ═══════════════════════════════════════════════════════════════════ -->
+    <section id="acquire" class="rule-dashed section-pad scroll-mt-custom">
+        <div class="container-custom" data-reveal-section>
+            <div class="acquire-header-row">
+                <div>
+                    <div class="eyebrow reveal-fade">Acquire</div>
+                    <h2 class="works-heading-h2">
+                        <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 0ms;">Own a piece of</span></span>
+                        <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 90ms;">the field.</span></span>
+                    </h2>
+                </div>
+
+                <p class="acquire-lead reveal-fade" style="transition-delay: 150ms;">
+                    Limited editions, each signed and accompanied by a certificate of authenticity and a lifetime conservation guarantee. Worldwide shipping, fully insured.
+                </p>
+            </div>
+
+            <!-- For-Sale Grid -->
+            <div class="for-sale-grid">
+                <!-- Card 1: After Image — Plate I · Edition of 12 · Archival pigment print, 90 × 112 cm · €4,800 · art-l4.webp · 3 / 2 -->
+                <article class="reveal-fade-up" style="transition-delay: 0ms;">
+                    <a href="#contact" class="acquire-card-link" aria-label="Enquire about After Image — Plate I">
+                        <div class="ratio-plate ratio-3-2 acquire-card-plate">
+                            <img src="https://api.getlayers.ai/storage/v1/object/public/public/assets/artist-32290926f6/site/art-l4.webp" alt="After Image — Plate I" loading="lazy">
+                        </div>
+                        <div class="acquire-info-row">
+                            <div>
+                                <h3 class="acquire-title">After Image — Plate I</h3>
+                                <p class="acquire-medium">Archival pigment print, 90 × 112 cm</p>
+                                <p class="acquire-edition">Edition of 12</p>
+                            </div>
+                            <span class="acquire-price">€4,800</span>
+                        </div>
+                    </a>
+                </article>
+
+                <!-- Card 2: Hanabi Engine — 03 · Edition of 25 · Generative print, 70 × 93 cm · €2,400 · art-p2.webp · 3 / 4 -->
+                <article class="reveal-fade-up" style="transition-delay: 90ms;">
+                    <a href="#contact" class="acquire-card-link" aria-label="Enquire about Hanabi Engine — 03">
+                        <div class="ratio-plate ratio-3-4 acquire-card-plate">
+                            <img src="https://api.getlayers.ai/storage/v1/object/public/public/assets/artist-32290926f6/site/art-p2.webp" alt="Hanabi Engine — 03" loading="lazy">
+                        </div>
+                        <div class="acquire-info-row">
+                            <div>
+                                <h3 class="acquire-title">Hanabi Engine — 03</h3>
+                                <p class="acquire-medium">Generative print, 70 × 93 cm</p>
+                                <p class="acquire-edition">Edition of 25</p>
+                            </div>
+                            <span class="acquire-price">€2,400</span>
+                        </div>
+                    </a>
+                </article>
+
+                <!-- Card 3: Ma (間) — Still · Edition of 8 · Editioned digital work, 4K, with display · €6,200 · art-l5.webp · 3 / 2 -->
+                <article class="reveal-fade-up" style="transition-delay: 0ms;">
+                    <a href="#contact" class="acquire-card-link" aria-label="Enquire about Ma (間) — Still">
+                        <div class="ratio-plate ratio-3-2 acquire-card-plate">
+                            <img src="https://api.getlayers.ai/storage/v1/object/public/public/assets/artist-32290926f6/site/art-l5.webp" alt="Ma (間) — Still" loading="lazy">
+                        </div>
+                        <div class="acquire-info-row">
+                            <div>
+                                <h3 class="acquire-title">Ma (間) — Still</h3>
+                                <p class="acquire-medium">Editioned digital work, 4K, with display</p>
+                                <p class="acquire-edition">Edition of 8</p>
+                            </div>
+                            <span class="acquire-price">€6,200</span>
+                        </div>
+                    </a>
+                </article>
+
+                <!-- Card 4: Tidal Memory — Frame 41 · Edition of 30 · Archival pigment print, 100 × 69 cm · €1,950 · art-p3.webp · 3 / 4 -->
+                <article class="reveal-fade-up" style="transition-delay: 90ms;">
+                    <a href="#contact" class="acquire-card-link" aria-label="Enquire about Tidal Memory — Frame 41">
+                        <div class="ratio-plate ratio-3-4 acquire-card-plate">
+                            <img src="https://api.getlayers.ai/storage/v1/object/public/public/assets/artist-32290926f6/site/art-p3.webp" alt="Tidal Memory — Frame 41" loading="lazy">
+                        </div>
+                        <div class="acquire-info-row">
+                            <div>
+                                <h3 class="acquire-title">Tidal Memory — Frame 41</h3>
+                                <p class="acquire-medium">Archival pigment print, 100 × 69 cm</p>
+                                <p class="acquire-edition">Edition of 30</p>
+                            </div>
+                            <span class="acquire-price">€1,950</span>
+                        </div>
+                    </a>
+                </article>
+            </div>
+
+            <!-- Bottom CTA -->
+            <div class="acquire-bottom-cta reveal-fade-up" style="transition-delay: 200ms;">
+                <a href="#contact" class="btn-cta btn-solid-light">
+                    Enquire about a work <span class="btn-arrow">→</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         PINNED CTA #2 (DARK, CENTERED, NO IMAGE)
+    ═══════════════════════════════════════════════════════════════════ -->
+    <section id="contact" class="rule-dashed-dark section-pad scroll-mt-custom">
+        <div class="container-custom" data-reveal-section>
+            <div class="pinned-centered-box">
+                <div class="eyebrow eyebrow-dark reveal-fade">Begin</div>
+
+                <h2 class="pinned-h2" style="max-width: 22ch;">
+                    <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 0ms;">Start with a single</span></span>
+                    <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 90ms;">conversation.</span></span>
+                </h2>
+
+                <p class="pinned-body" data-word-reveal data-word-stagger="16" data-word-delay="200" style="max-width: 38ch;">
+                    Acquiring an edition, planning a commission, or simply curious — write to the studio. No pressure, just a real reply.
+                </p>
+
+                <div style="margin-top: 2.5rem;" class="reveal-fade-up" style="transition-delay: 300ms;">
+                    <a href="mailto:studio@kainomura.art" class="btn-cta btn-solid-dark">
+                        Write to the studio <span class="btn-arrow">→</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         TESTIMONIALS SECTION (LIGHT)
+    ═══════════════════════════════════════════════════════════════════ -->
+    <section id="testimonials" class="rule-dashed section-pad">
+        <div class="container-custom" data-reveal-section>
+            <div class="eyebrow reveal-fade">In their words</div>
+            
+            <h2 class="works-heading-h2">
+                <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 0ms;">What collectors and</span></span>
+                <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 90ms;">curators say.</span></span>
+            </h2>
+
+            <div class="testimonials-grid">
+                <!-- 01 -->
+                <figure class="testimonial-card reveal-fade-up" style="transition-delay: 0ms;">
+                    <blockquote class="testimonial-quote">
+                        “Standing inside one of Nomura's installations, you stop checking your phone. Time slows down. That is the rarest thing an artwork can do now.”
+                    </blockquote>
+                    <figcaption class="testimonial-author">
+                        <p class="author-name">Elena Vossberg</p>
+                        <p class="author-role">Curator, Kunsthalle Nord</p>
+                    </figcaption>
+                </figure>
+
+                <!-- 02 -->
+                <figure class="testimonial-card reveal-fade-up" style="transition-delay: 110ms;">
+                    <blockquote class="testimonial-quote">
+                        “We bought a print and ended up rearranging the whole room around it. It changes with the daylight — it is never the same painting twice.”
+                    </blockquote>
+                    <figcaption class="testimonial-author">
+                        <p class="author-name">Marcus &amp; Lia Hartmann</p>
+                        <p class="author-role">Private collectors, Zürich</p>
+                    </figcaption>
+                </figure>
+
+                <!-- 03 -->
+                <figure class="testimonial-card reveal-fade-up" style="transition-delay: 220ms;">
+                    <blockquote class="testimonial-quote">
+                        “Kai is one of the few artists working with code who never lets the technology become the subject. The work is always, quietly, about us.”
+                    </blockquote>
+                    <figcaption class="testimonial-author">
+                        <p class="author-name">Daniel Asante</p>
+                        <p class="author-role">Director, Lumen Festival</p>
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         EXHIBITIONS SECTION (GREY)
+    ═══════════════════════════════════════════════════════════════════ -->
+    <section id="exhibitions" class="rule-dashed section-pad">
+        <div class="container-custom" data-reveal-section>
+            <div class="eyebrow reveal-fade">Exhibited &amp; collected</div>
+            
+            <h2 class="works-heading-h2">
+                <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 0ms;">Shown in good</span></span>
+                <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 90ms;">company.</span></span>
+            </h2>
+
+            <ul class="exhibitions-ul">
+                <li class="exhibition-li reveal-fade-up" style="transition-delay: 0ms;"><span class="exhibition-idx">01</span><span class="exhibition-venue">Meridian Gallery</span></li>
+                <li class="exhibition-li reveal-fade-up" style="transition-delay: 80ms;"><span class="exhibition-idx">02</span><span class="exhibition-venue">Aurora Biennale</span></li>
+                <li class="exhibition-li reveal-fade-up" style="transition-delay: 160ms;"><span class="exhibition-idx">03</span><span class="exhibition-venue">Lumen Festival</span></li>
+                <li class="exhibition-li reveal-fade-up" style="transition-delay: 0ms;"><span class="exhibition-idx">04</span><span class="exhibition-venue">Kunsthalle Nord</span></li>
+                <li class="exhibition-li reveal-fade-up" style="transition-delay: 80ms;"><span class="exhibition-idx">05</span><span class="exhibition-venue">Pavilion 9</span></li>
+                <li class="exhibition-li reveal-fade-up" style="transition-delay: 160ms;"><span class="exhibition-idx">06</span><span class="exhibition-venue">Nocturne Foundation</span></li>
+                <li class="exhibition-li reveal-fade-up" style="transition-delay: 0ms;"><span class="exhibition-idx">07</span><span class="exhibition-venue">Verso Institute</span></li>
+                <li class="exhibition-li reveal-fade-up" style="transition-delay: 80ms;"><span class="exhibition-idx">08</span><span class="exhibition-venue">Halcyon Trust</span></li>
+                <li class="exhibition-li reveal-fade-up" style="transition-delay: 160ms;"><span class="exhibition-idx">09</span><span class="exhibition-venue">Field Museum of Light</span></li>
+                <li class="exhibition-li reveal-fade-up" style="transition-delay: 0ms;"><span class="exhibition-idx">10</span><span class="exhibition-venue">Serra Collection</span></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         FAQ SECTION (ACCORDION)
+    ═══════════════════════════════════════════════════════════════════ -->
+    <section id="faq" class="rule-dashed section-pad">
+        <div class="container-custom" data-reveal-section>
+            <div class="faq-grid">
+                <!-- Left (lg col-span 4) -->
+                <div class="faq-left">
+                    <div class="eyebrow reveal-fade">Questions</div>
+                    <h2 class="works-heading-h2">
+                        <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 0ms;">Before you</span></span>
+                        <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 90ms;">acquire.</span></span>
+                    </h2>
+                </div>
+
+                <!-- Right Accordion (lg col-span 8) -->
+                <div class="faq-right">
+                    <!-- Q1 -->
+                    <div class="faq-row reveal-fade-up" style="transition-delay: 0ms;">
+                        <h3>
+                            <button class="faq-btn" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-panel-1" id="faq-btn-1">
+                                <span class="faq-q-text">How are the editions authenticated?</span>
+                                <span class="faq-plus-icon">+</span>
+                            </button>
+                        </h3>
+                        <div class="faq-panel" id="faq-panel-1" role="region" aria-labelledby="faq-btn-1">
+                            <p class="faq-a-text">
+                                Every work ships with a signed certificate of authenticity, an embedded edition number, and a registry entry held by the studio. Digital works include a verifiable provenance record.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="faq-row reveal-fade-up" style="transition-delay: 80ms;">
+                        <h3>
+                            <button class="faq-btn" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-panel-2" id="faq-btn-2">
+                                <span class="faq-q-text">Do you ship worldwide?</span>
+                                <span class="faq-plus-icon">+</span>
+                            </button>
+                        </h3>
+                        <div class="faq-panel" id="faq-panel-2" role="region" aria-labelledby="faq-btn-2">
+                            <p class="faq-a-text">
+                                Yes. All works are shipped fully insured, in archival packaging, by specialist art couriers. Lead time is typically two to four weeks depending on framing and destination.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div class="faq-row reveal-fade-up" style="transition-delay: 160ms;">
+                        <h3>
+                            <button class="faq-btn" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-panel-3" id="faq-btn-3">
+                                <span class="faq-q-text">Can I commission an original work?</span>
+                                <span class="faq-plus-icon">+</span>
+                            </button>
+                        </h3>
+                        <div class="faq-panel" id="faq-panel-3" role="region" aria-labelledby="faq-btn-3">
+                            <p class="faq-a-text">
+                                Selectively. The studio takes on a small number of commissions each year — site-specific installations and bespoke generative works for collectors and institutions.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div class="faq-row reveal-fade-up" style="transition-delay: 240ms;">
+                        <h3>
+                            <button class="faq-btn" onclick="toggleFaq(this)" aria-expanded="false" aria-controls="faq-panel-4" id="faq-btn-4">
+                                <span class="faq-q-text">How do I care for a generative or screen-based piece?</span>
+                                <span class="faq-plus-icon">+</span>
+                            </button>
+                        </h3>
+                        <div class="faq-panel" id="faq-panel-4" role="region" aria-labelledby="faq-btn-4">
+                            <p class="faq-a-text">
+                                Editioned digital works arrive with a calibrated display and a lifetime conservation guarantee. The studio handles updates, replacements, and migration so the work outlives the hardware.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         FOOTER (DARK)
+    ═══════════════════════════════════════════════════════════════════ -->
+    <footer id="site-footer" class="section-pad">
+        <div class="container-custom" data-reveal-section>
+            <div class="footer-grid">
+                <!-- Brand (lg col-span 5) -->
+                <div class="footer-brand-col reveal-fade-up">
+                    <a href="#top" class="header-logo" aria-label="Kai Nomura Home">
+                        <span class="diamond-mark" aria-hidden="true"></span>
+                        <span class="logo-wordmark">kai nomura</span>
+                    </a>
+                    <p class="footer-tagline">Light, written in code.</p>
+                    <a href="mailto:studio@kainomura.art" class="footer-mail-link">studio@kainomura.art</a>
+                </div>
+
+                <!-- Explore (lg col-span 2) -->
+                <div class="footer-col-explore reveal-fade-up" style="transition-delay: 100ms;">
+                    <p class="footer-col-title">Explore</p>
+                    <ul class="footer-links-list">
+                        <li><a href="#works">Works</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#process">Process</a></li>
+                        <li><a href="#acquire">Acquire</a></li>
+                    </ul>
+                </div>
+
+                <!-- Studio (lg col-span 2) -->
+                <div class="footer-col-studio reveal-fade-up" style="transition-delay: 200ms;">
+                    <p class="footer-col-title">Studio</p>
+                    <ul class="footer-links-list">
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#contact">Commissions</a></li>
+                        <li><a href="#contact">Press kit</a></li>
+                        <li><a href="#contact">Newsletter</a></li>
+                    </ul>
+                </div>
+
+                <!-- Follow (lg col-span 3) -->
+                <div class="footer-col-follow reveal-fade-up" style="transition-delay: 300ms;">
+                    <p class="footer-col-title">Follow</p>
+                    <ul class="footer-links-list">
+                        <li><a href="https://instagram.com" target="_blank" rel="noreferrer noopener">Instagram</a></li>
+                        <li><a href="https://behance.net" target="_blank" rel="noreferrer noopener">Behance</a></li>
+                        <li><a href="https://vimeo.com" target="_blank" rel="noreferrer noopener">Vimeo</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Giant Wordmark -->
+            <div class="footer-giant-wordmark reveal-fade-up" aria-hidden="true" style="transition-delay: 200ms;">
+                <div class="giant-word">Nomura</div>
+            </div>
+
+            <!-- Legal Bar -->
+            <div class="footer-legal-bar">
+                <p class="footer-copyright">© 2026 Kai Nomura Studio. All rights reserved.</p>
+                <div class="footer-legal-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         MODAL MENU (FULL-SCREEN OVERLAY)
+    ═══════════════════════════════════════════════════════════════════ -->
+    <div id="modal-menu" role="dialog" aria-modal="true" aria-label="Main menu">
+        <div class="modal-backdrop-panel"></div>
+        <div class="modal-content-wrap container-custom">
+            <!-- Top Bar -->
+            <div class="modal-topbar">
+                <span class="modal-menu-title">Menu</span>
+                <button class="btn-modal-close" onclick="closeModalMenu()">Close ✕</button>
+            </div>
+
+            <!-- Nav Links -->
+            <nav class="modal-nav">
+                <a href="#works" class="modal-nav-item" style="transition-delay: 180ms;" onclick="closeModalMenu()">
+                    <span class="modal-nav-idx">01</span>
+                    <span class="modal-nav-label">Works</span>
+                </a>
+                <a href="#about" class="modal-nav-item" style="transition-delay: 250ms;" onclick="closeModalMenu()">
+                    <span class="modal-nav-idx">02</span>
+                    <span class="modal-nav-label">About</span>
+                </a>
+                <a href="#process" class="modal-nav-item" style="transition-delay: 320ms;" onclick="closeModalMenu()">
+                    <span class="modal-nav-idx">03</span>
+                    <span class="modal-nav-label">Process</span>
+                </a>
+                <a href="#acquire" class="modal-nav-item" style="transition-delay: 390ms;" onclick="closeModalMenu()">
+                    <span class="modal-nav-idx">04</span>
+                    <span class="modal-nav-label">Acquire</span>
+                </a>
+                <a href="#contact" class="modal-nav-item" style="transition-delay: 460ms;" onclick="closeModalMenu()">
+                    <span class="modal-nav-idx">05</span>
+                    <span class="modal-nav-label">Contact</span>
+                </a>
+            </nav>
+
+            <!-- Bottom Block -->
+            <div class="modal-bottom-block">
+                <div>
+                    <a href="mailto:studio@kainomura.art" class="modal-mail">studio@kainomura.art</a>
+                    <p class="modal-loc">Kyoto · Berlin</p>
+                </div>
+                <div class="modal-socials">
+                    <a href="https://instagram.com" target="_blank" rel="noreferrer noopener">Instagram</a>
+                    <a href="https://behance.net" target="_blank" rel="noreferrer noopener">Behance</a>
+                    <a href="https://vimeo.com" target="_blank" rel="noreferrer noopener">Vimeo</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         INTERACTION LOGIC & INTERSECTION OBSERVERS
+    ═══════════════════════════════════════════════════════════════════ -->
+    <script>
+        // Modal Menu Controller
+        const modalMenu = document.getElementById('modal-menu');
+
+        window.openModalMenu = function() {
+            modalMenu.classList.add('is-open');
+            document.documentElement.style.overflow = 'hidden';
+            document.documentElement.style.height = '100%';
+            document.documentElement.style.position = 'relative';
+            if (window.lenis) window.lenis.stop();
+        };
+
+        window.closeModalMenu = function() {
+            modalMenu.classList.remove('is-open');
+            document.documentElement.style.overflow = '';
+            document.documentElement.style.height = '';
+            document.documentElement.style.position = '';
+            if (window.lenis) window.lenis.start();
+        };
+
+        // FAQ Accordion Controller
+        window.toggleFaq = function(button) {
+            const row = button.closest('.faq-row');
+            const panel = row.querySelector('.faq-panel');
+            const isOpen = row.classList.contains('is-open');
+
+            if (isOpen) {
+                row.classList.remove('is-open');
+                button.setAttribute('aria-expanded', 'false');
+                panel.style.maxHeight = '0px';
+            } else {
+                row.classList.add('is-open');
+                button.setAttribute('aria-expanded', 'true');
+                panel.style.maxHeight = panel.scrollHeight + 'px';
+            }
+        };
+
+        // Auto-recalculate open FAQ panel heights on window resize
+        window.addEventListener('resize', () => {
+            document.querySelectorAll('.faq-row.is-open .faq-panel').forEach(panel => {
+                panel.style.maxHeight = panel.scrollHeight + 'px';
+            });
+        });
+
+        // Word-by-word text engine splitter
+        function initWordReveals() {
+            const elements = document.querySelectorAll('[data-word-reveal]');
+            elements.forEach(el => {
+                const text = el.textContent.trim();
+                const words = text.split(/\\s+/);
+                const stagger = parseInt(el.getAttribute('data-word-stagger') || '20', 10);
+                const baseDelay = parseInt(el.getAttribute('data-word-delay') || '0', 10);
+
+                el.innerHTML = words.map((word, idx) => {
+                    const delay = baseDelay + idx * stagger;
+                    return \`<span class="reveal-word" style="transition-delay: \${delay}ms">\${word}&nbsp;</span>\`;
+                }).join('');
+            });
+        }
+        initWordReveals();
+
+        // IntersectionObserver for scroll-triggered spring reveals
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-revealed');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0,
+            rootMargin: '0px 0px -10% 0px'
+        });
+
+        document.querySelectorAll('[data-reveal-section], .work-article, .reveal-fade-up, .reveal-plate, .reveal-fade').forEach(el => {
+            revealObserver.observe(el);
+        });
+
+        // Smooth scroll anchor link handler
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === '#' || href === '#top') {
+                    e.preventDefault();
+                    if (window.lenis) window.lenis.scrollTo(0);
+                    else window.scrollTo({ top: 0, behavior: 'smooth' });
+                    return;
+                }
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    if (window.lenis) window.lenis.scrollTo(target, { offset: -30 });
+                    else target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+`;
+
+fs.writeFileSync('c:/Users/manis/Desktop/Antigravity 2.0 web designer/index.html', indexHtml, 'utf8');
+console.log('Successfully written index.html! Bytes:', Buffer.byteLength(indexHtml));

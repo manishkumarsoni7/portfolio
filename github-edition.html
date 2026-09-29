@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manish Kumar Soni (@manishkumarsoni7) — GitHub Dev Edition</title>
+    
+    <!-- High-Craft Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --gh-bg: #0d1117;
+            --gh-canvas: #010409;
+            --gh-surface: #161b22;
+            --gh-card: #21262d;
+            --gh-border: #30363d;
+            --gh-border-subtle: rgba(240, 246, 252, 0.1);
+            --gh-text: #f0f6fc;
+            --gh-text-muted: #8b949e;
+            --gh-text-faint: #6e7681;
+            
+            --gh-green-0: #161b22;
+            --gh-green-1: #0e4429;
+            --gh-green-2: #006d32;
+            --gh-green-3: #26a641;
+            --gh-green-4: #39d353;
+            
+            --gh-cyan-glow: #00f2fe;
+            --gh-blue-accent: #58a6ff;
+            --gh-purple-accent: #bc8cff;
+            --gh-gold: #f1e05a;
+            --gh-ts: #3178c6;
+            --gh-py: #3572A5;
+            
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            --font-mono: 'Fira Code', ui-monospace, SFMono-Regular, monospace;
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-serif: 'Playfair Display', serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--gh-canvas);
+            color: var(--gh-text);
+            font-family: var(--font-sans);
+            font-size: 14px;
+            line-height: 1.5;
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ─── 1. TOP GLOBAL GITHUB NAV ─── */
+        .gh-top-bar {
+            background: var(--gh-bg);
+            border-bottom: 1px solid var(--gh-border);
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+        }
+
+        .gh-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .gh-logo-icon {
+            font-size: 32px;
+            color: #ffffff;
+            transition: transform 0.3s ease, color 0.3s ease;
+            text-decoration: none;
+        }
+        .gh-logo-icon:hover {
+            color: var(--gh-cyan-glow);
+            transform: scale(1.08) rotate(5deg);
+        }
+
+        .gh-repo-breadcrumb {
+            font-size: 14px;
+            color: var(--gh-text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .gh-repo-breadcrumb a {
+            color: var(--gh-blue-accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .gh-repo-breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        .gh-badge-public {
+            border: 1px solid var(--gh-border);
+            color: var(--gh-text-muted);
+            font-size: 11px;
+            font-weight: 500;
+            padding: 1px 7px;
+            border-radius: 12px;
+            margin-left: 6px;
+        }
+        .gh-badge-pro {
+            background: linear-gradient(135deg, rgba(188, 140, 255, 0.2), rgba(0, 242, 254, 0.2));
+            border: 1px solid rgba(0, 242, 254, 0.4);
+            color: var(--gh-cyan-glow);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 1px 7px;
+            border-radius: 12px;
+        }
+
+        .gh-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .gh-search-pill {
+            background: var(--gh-surface);
+            border: 1px solid var(--gh-border);
+            border-radius: 6px;
+            padding: 5px 12px;
+            color: var(--gh-text-muted);
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .gh-search-pill:hover {
+            border-color: var(--gh-blue-accent);
+            background: #1c2128;
+        }
+        .gh-search-kbd {
+            background: var(--gh-bg);
+            border: 1px solid var(--gh-border);
+            border-radius: 4px;
+            padding: 1px 5px;
+            font-size: 11px;
+            font-family: var(--font-mono);
+        }
+
+        .gh-btn-action {
+            background: var(--gh-surface);
+            border: 1px solid var(--gh-border);
+            color: var(--gh-text);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            transition: background 0.2s, border-color 0.2s;
+        }
+        .gh-btn-action:hover {
+            background: #21262d;
+            border-color: #8b949e;
+        }
+        .gh-btn-sponsor {
+            background: linear-gradient(135deg, rgba(219, 97, 162, 0.15), rgba(188, 140, 255, 0.15));
+            border-color: rgba(219, 97, 162, 0.4);
+            color: #ff7b72;
+        }
+        .gh-btn-sponsor:hover {
+            background: rgba(219, 97, 162, 0.25);
+            border-color: #ff7b72;
+        }
+
+        /* ─── 2. SUB HEADER / TAB BAR ─── */
+        .gh-subnav-bar {
+            background: var(--gh-bg);
+            border-bottom: 1px solid var(--gh-border);
+            padding: 0 32px;
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+        }
+        .gh-tab-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 14px;
+            color: var(--gh-text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.2s, color 0.2s;
+            white-space: nowrap;
+        }
+        .gh-tab-link:hover {
+            color: var(--gh-blue-accent);
+        }
+        .gh-tab-link.active {
+            border-bottom-color: #f78166;
+            font-weight: 600;
+            color: #ffffff;
+        }
+        .gh-tab-count {
+            background: var(--gh-surface);
+            border: 1px solid var(--gh-border);
+            padding: 2px 7px;
+            border-radius: 12px;
+            font-size: 12px;
+            color: var(--gh-text-muted);
+        }
+
+        /* ─── 3. MAIN CONTAINER (2-COLUMN PROFILE) ─── */
+        .gh-main-container {
+            max-width: 1320px;
+            margin: 32px auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: 296px 1fr;
+            gap: 32px;
+        }
+        @media (max-width: 900px) {
+            .gh-main-container {
+                grid-template-columns: 1fr;
+                margin: 20px auto;
+                padding: 0 16px;
+            }
+        }
+
+        /* ─── 4. LEFT PROFILE COLUMN ─── */
+        .gh-profile-col {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .gh-avatar-wrap {
+            position: relative;
+            width: 296px;
+            height: 296px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--gh-border);
+            background: #161b22;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 242, 254, 0.15);
+        }
+        @media (max-width: 900px) {
+            .gh-avatar-wrap {
+                width: 140px;
+                height: 140px;
+            }
+        }
+        .gh-avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: contrast(1.06);
+            transition: transform 0.5s ease;
+        }
+        .gh-avatar-wrap:hover .gh-avatar-img {
+            transform: scale(1.05);
+        }
+        .gh-status-badge {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: var(--gh-bg);
+            border: 1px solid var(--gh-border);
+            border-radius: 20px;
+            padding: 4px 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+        .gh-status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #39d353;
+            box-shadow: 0 0 8px #39d353;
+            animation: pulse-green 2s infinite;
+        }
+        @keyframes pulse-green {
+            0% { opacity: 0.6; transform: scale(0.95); }
+            50% { opacity: 1; transform: scale(1.15); }
+            100% { opacity: 0.6; transform: scale(0.95); }
+        }
+
+        .gh-profile-names {
+            margin-top: 4px;
+        }
+        .gh-profile-fullname {
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+        .gh-profile-handle {
+            font-size: 18px;
+            color: var(--gh-text-muted);
+            font-weight: 400;
+            margin-top: 2px;
+        }
+
+        .gh-profile-bio {
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--gh-text);
+        }
+
+        .gh-btn-profile-cta {
+            width: 100%;
+            background: var(--gh-surface);
+            border: 1px solid var(--gh-border);
+            color: var(--gh-text);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.2s, border-color 0.2s;
+        }
+        .gh-btn-profile-cta:hover {
+            background: #21262d;
+            border-color: var(--gh-cyan-glow);
+            color: #ffffff;
+        }
+
+        .gh-meta-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--gh-text-muted);
+            border-top: 1px solid var(--gh-border-subtle);
+            padding-top: 16px;
+        }
+        .gh-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .gh-meta-item i {
+            width: 16px;
+            color: var(--gh-text-faint);
+            text-align: center;
+        }
+        .gh-meta-item a {
+            color: var(--gh-text);
+            text-decoration: none;
+        }
+        .gh-meta-item a:hover {
+            color: var(--gh-blue-accent);
+            text-decoration: underline;
+        }
+
+        .gh-achievements-box {
+            border-top: 1px solid var(--gh-border-subtle);
+            padding-top: 16px;
+        }
+        .gh-achieve-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gh-text);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .gh-badges-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .gh-badge-pill {
+            background: rgba(33, 38, 45, 0.7);
+            border: 1px solid var(--gh-border);
+            border-radius: 8px;
+            padding: 6px 10px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--gh-text);
+        }
+        .gh-badge-pill i {
+            color: #e3b341;
+        }
+
+        /* ─── 5. RIGHT CONTENT AREA ─── */
+        .gh-content-col {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* ─── 6. README.MD TERMINAL BOX ─── */
+        .gh-readme-box {
+            background: var(--gh-bg);
+            border: 1px solid var(--gh-border);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+        .gh-readme-header {
+            background: var(--gh-surface);
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--gh-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--gh-text-muted);
+            font-family: var(--font-mono);
+        }
+        .gh-readme-dots {
+            display: flex;
+            gap: 6px;
+        }
+        .gh-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .gh-dot-red { background: #ff5f56; }
+        .gh-dot-yellow { background: #ffbd2e; }
+        .gh-dot-green { background: #27c93f; }
+
+        .gh-readme-body {
+            padding: 24px;
+        }
+        .gh-readme-title {
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .gh-readme-lead {
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--gh-text-muted);
+            margin-bottom: 20px;
+        }
+        .gh-readme-highlight {
+            color: var(--gh-cyan-glow);
+            font-weight: 600;
+        }
+
+        /* Terminal Console in Readme */
+        .gh-terminal-view {
+            background: #010409;
+            border: 1px solid var(--gh-border);
+            border-radius: 6px;
+            padding: 16px;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            line-height: 1.6;
+            color: #7ee787;
+            margin-bottom: 20px;
+        }
+        .term-prompt {
+            color: var(--gh-cyan-glow);
+        }
+        .term-cmd {
+            color: #ffffff;
+            font-weight: 600;
+        }
+        .term-output {
+            color: var(--gh-text-muted);
+            margin-top: 4px;
+            margin-bottom: 12px;
+        }
+        .term-json-key { color: var(--gh-blue-accent); }
+        .term-json-str { color: #a5d6ff; }
+        .term-json-num { color: #79c0ff; }
+        .term-json-bool { color: #ff7b72; }
+
+        /* ─── 7. PINNED REPOSITORIES SECTION ─── */
+        .gh-section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        .gh-section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .gh-section-sub {
+            font-size: 12px;
+            color: var(--gh-text-muted);
+        }
+
+        .gh-pinned-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        @media (max-width: 768px) {
+            .gh-pinned-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .gh-repo-card {
+            background: var(--gh-bg);
+            border: 1px solid var(--gh-border);
+            border-radius: 8px;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+            position: relative;
+        }
+        .gh-repo-card:hover {
+            border-color: var(--gh-blue-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 16px rgba(0, 242, 254, 0.1);
+        }
+        .gh-repo-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        .gh-repo-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--gh-blue-accent);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .gh-repo-title:hover {
+            text-decoration: underline;
+        }
+        .gh-repo-desc {
+            font-size: 13px;
+            color: var(--gh-text-muted);
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+        .gh-repo-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 12px;
+            color: var(--gh-text-muted);
+        }
+        .gh-lang-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .gh-lang-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .dot-ts { background: var(--gh-ts); }
+        .dot-py { background: var(--gh-py); }
+        .dot-react { background: #61dafb; }
+        .dot-glsl { background: #ff0055; }
+
+        .gh-repo-actions {
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid var(--gh-border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .gh-btn-demo {
+            background: rgba(0, 242, 254, 0.1);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            color: var(--gh-cyan-glow);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: background 0.2s;
+        }
+        .gh-btn-demo:hover {
+            background: rgba(0, 242, 254, 0.2);
+            color: #ffffff;
+        }
+
+        /* ─── 8. CONTRIBUTION MATRIX / HEATMAP ─── */
+        .gh-contrib-card {
+            background: var(--gh-bg);
+            border: 1px solid var(--gh-border);
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .gh-contrib-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+        }
+        .gh-contrib-count {
+            font-size: 15px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .gh-heatmap-scroll {
+            overflow-x: auto;
+            padding-bottom: 8px;
+        }
+        .gh-heatmap-grid {
+            display: grid;
+            grid-template-rows: repeat(7, 12px);
+            grid-auto-flow: column;
+            gap: 3px;
+        }
+        .gh-square {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            background: var(--gh-green-0);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+        .gh-square:hover {
+            transform: scale(1.4);
+            z-index: 10;
+            border-color: #ffffff;
+            box-shadow: 0 0 8px rgba(0, 242, 254, 0.6);
+        }
+        .lvl-1 { background: var(--gh-green-1); }
+        .lvl-2 { background: var(--gh-green-2); }
+        .lvl-3 { background: var(--gh-green-3); }
+        .lvl-4 { background: var(--gh-green-4); box-shadow: 0 0 4px rgba(57, 211, 83, 0.4); }
+
+        .gh-contrib-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--gh-text-muted);
+            margin-top: 12px;
+        }
+        .gh-legend {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* ─── 9. LIVE INTERACTIVE CLI COMMAND BOX ─── */
+        .gh-cli-card {
+            background: #010409;
+            border: 1px solid var(--gh-border);
+            border-radius: 8px;
+            padding: 20px;
+            font-family: var(--font-mono);
+        }
+        .gh-cli-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gh-cyan-glow);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .gh-cli-input-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--gh-bg);
+            border: 1px solid var(--gh-border);
+            border-radius: 6px;
+            padding: 8px 12px;
+        }
+        .gh-cli-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #ffffff;
+            font-family: var(--font-mono);
+            font-size: 13px;
+        }
+        .gh-cli-log {
+            margin-top: 12px;
+            font-size: 12px;
+            line-height: 1.6;
+            color: var(--gh-text-muted);
+            max-height: 160px;
+            overflow-y: auto;
+        }
+
+        /* ─── 10. FOOTER ─── */
+        .gh-footer {
+            border-top: 1px solid var(--gh-border);
+            padding: 32px 24px;
+            max-width: 1320px;
+            margin: 40px auto 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--gh-text-muted);
+        }
+        .gh-footer a {
+            color: var(--gh-blue-accent);
+            text-decoration: none;
+        }
+        .gh-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         1. TOP GITHUB BAR
+    ═══════════════════════════════════════════════════════════════════ -->
+    <header class="gh-top-bar">
+        <div class="gh-bar-left">
+            <a href="/" class="gh-logo-icon" title="Manish Soni Studio">
+                <i class="fa-brands fa-github"></i>
+            </a>
+            <div class="gh-repo-breadcrumb">
+                <a href="/">manishkumarsoni7</a>
+                <span>/</span>
+                <a href="/" style="color: #ffffff;">portfolio</a>
+                <span class="gh-badge-public">Public</span>
+                <span class="gh-badge-pro">PRO BUILDER</span>
+            </div>
+        </div>
+
+        <div class="gh-bar-right">
+            <div class="gh-search-pill" onclick="focusCLI()">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <span>Type command...</span>
+                <span class="gh-search-kbd">Ctrl K</span>
+            </div>
+            <a href="https://github.com/manishkumarsoni7" target="_blank" rel="noopener noreferrer" class="gh-btn-action">
+                <i class="fa-regular fa-star"></i> Star Profile
+            </a>
+            <a href="mailto:issac78neo@gmail.com" class="gh-btn-action gh-btn-sponsor">
+                <i class="fa-regular fa-envelope"></i> Contact Studio
+            </a>
+        </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         2. SUB NAV / TABS
+    ═══════════════════════════════════════════════════════════════════ -->
+    <nav class="gh-subnav-bar">
+        <a href="#overview" class="gh-tab-link active">
+            <i class="fa-solid fa-book-open"></i> Overview
+        </a>
+        <a href="#repositories" class="gh-tab-link">
+            <i class="fa-solid fa-box-archive"></i> Repositories <span class="gh-tab-count">4</span>
+        </a>
+        <a href="#projects" class="gh-tab-link">
+            <i class="fa-solid fa-diagram-project"></i> AI Swarms <span class="gh-tab-count">v2.4</span>
+        </a>
+        <a href="#activity" class="gh-tab-link">
+            <i class="fa-solid fa-chart-line"></i> Activity Matrix <span class="gh-tab-count">1,284</span>
+        </a>
+        <a href="/" class="gh-tab-link" style="color: var(--gh-cyan-glow);">
+            <i class="fa-solid fa-arrow-left"></i> Back to Luxury Portfolio
+        </a>
+    </nav>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         3. MAIN 2-COLUMN VIEW
+    ═══════════════════════════════════════════════════════════════════ -->
+    <main class="gh-main-container">
+        
+        <!-- LEFT COLUMN (PROFILE CARD) -->
+        <aside class="gh-profile-col">
+            <div class="gh-avatar-wrap">
+                <img src="manish.jpg" alt="Manish Kumar Soni" class="gh-avatar-img">
+                <div class="gh-status-badge">
+                    <span class="gh-status-dot"></span>
+                    <span>Available for Flagships</span>
+                </div>
+            </div>
+
+            <div class="gh-profile-names">
+                <h1 class="gh-profile-fullname">Manish Kumar Soni</h1>
+                <p class="gh-profile-handle">@manishkumarsoni7</p>
+            </div>
+
+            <p class="gh-profile-bio">
+                Lead Web Designer, Full-Stack &amp; Autonomous AI Systems Architect. Bridging high-craft spatial UX with multi-agent LangChain graphs.
+            </p>
+
+            <a href="mailto:issac78neo@gmail.com" class="gh-btn-profile-cta">
+                <i class="fa-solid fa-paper-plane"></i> Dispatch Project Brief
+            </a>
+
+            <ul class="gh-meta-list">
+                <li class="gh-meta-item">
+                    <i class="fa-solid fa-building"></i>
+                    <span>Principal @ Neo Design Studio</span>
+                </li>
+                <li class="gh-meta-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>India · Global Remote (UTC+5:30)</span>
+                </li>
+                <li class="gh-meta-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <a href="mailto:issac78neo@gmail.com">issac78neo@gmail.com</a>
+                </li>
+                <li class="gh-meta-item">
+                    <i class="fa-solid fa-link"></i>
+                    <a href="https://manishkumarsoni.surge.sh" target="_blank">manishkumarsoni.surge.sh</a>
+                </li>
+                <li class="gh-meta-item">
+                    <i class="fa-brands fa-linkedin"></i>
+                    <a href="https://linkedin.com/in/manishkumarsoni7" target="_blank">in/manishkumarsoni7</a>
+                </li>
+            </ul>
+
+            <div class="gh-achievements-box">
+                <div class="gh-achieve-title">
+                    <span>Achievements</span>
+                    <span class="gh-tab-count">4</span>
+                </div>
+                <div class="gh-badges-row">
+                    <div class="gh-badge-pill" title="Arctic Code Vault Contributor">
+                        <i class="fa-solid fa-snowflake" style="color: #79c0ff;"></i> Arctic Vault
+                    </div>
+                    <div class="gh-badge-pill" title="Pull Shark">
+                        <i class="fa-solid fa-shield-heart" style="color: #ff7b72;"></i> Pull Shark
+                    </div>
+                    <div class="gh-badge-pill" title="Quickdraw">
+                        <i class="fa-solid fa-bolt" style="color: #e3b341;"></i> Quickdraw
+                    </div>
+                    <div class="gh-badge-pill" title="Pair Extraordinaire">
+                        <i class="fa-solid fa-code-merge" style="color: #bc8cff;"></i> AI Architect
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- RIGHT COLUMN (CONTENT, REPOS, HEATMAP, CLI) -->
+        <section class="gh-content-col">
+            
+            <!-- README.MD TERMINAL BOX -->
+            <div class="gh-readme-box" id="overview">
+                <div class="gh-readme-header">
+                    <div class="gh-readme-dots">
+                        <span class="gh-dot gh-dot-red"></span>
+                        <span class="gh-dot gh-dot-yellow"></span>
+                        <span class="gh-dot gh-dot-green"></span>
+                    </div>
+                    <span>manishkumarsoni7 / README.md</span>
+                    <i class="fa-solid fa-code"></i>
+                </div>
+
+                <div class="gh-readme-body">
+                    <h2 class="gh-readme-title">
+                        <span>👋 Hey, I'm Manish Kumar Soni</span>
+                    </h2>
+                    <p class="gh-readme-lead">
+                        I craft software that refuses to be ordinary. Specialized in <span class="gh-readme-highlight">Next.js 15, React 19, GSAP Spatial Physics</span>, and <span class="gh-readme-highlight">Autonomous Multi-Agent AI Swarms</span>.
+                    </p>
+
+                    <!-- Interactive Code Telemetry Box -->
+                    <div class="gh-terminal-view">
+                        <div><span class="term-prompt">manish@studio:~$</span> <span class="term-cmd">curl -s https://api.manish.dev/telemetry/v2</span></div>
+                        <div class="term-output">
+{<br>
+&nbsp;&nbsp;<span class="term-json-key">"engineer"</span>: <span class="term-json-str">"Manish Kumar Soni"</span>,<br>
+&nbsp;&nbsp;<span class="term-json-key">"role"</span>: <span class="term-json-str">"Lead Web Designer & AI Swarm Architect"</span>,<br>
+&nbsp;&nbsp;<span class="term-json-key">"core_stack"</span>: [<span class="term-json-str">"Next.js 15"</span>, <span class="term-json-str">"TypeScript"</span>, <span class="term-json-str">"LangChain"</span>, <span class="term-json-str">"Python 3.12"</span>, <span class="term-json-str">"Tailwind CSS"</span>],<br>
+&nbsp;&nbsp;<span class="term-json-key">"flagship_deployments"</span>: <span class="term-json-num">4</span>,<br>
+&nbsp;&nbsp;<span class="term-json-key">"web_vitals_score"</span>: <span class="term-json-num">100</span>,<br>
+&nbsp;&nbsp;<span class="term-json-key">"live_status"</span>: <span class="term-json-bool">"accepting_new_contracts"</span><br>
+}
+                        </div>
+                        <div><span class="term-prompt">manish@studio:~$</span> <span class="term-cmd">npx test-live-demos --all</span></div>
+                        <div style="color: #58a6ff; margin-top: 4px;">✔ All 4 flagship production suites verified &amp; online (0 vulnerabilities)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PINNED REPOSITORIES -->
+            <div id="repositories">
+                <div class="gh-section-header">
+                    <h3 class="gh-section-title">
+                        <i class="fa-solid fa-thumbtack" style="color: var(--gh-text-muted);"></i> Pinned Flagship Repositories
+                    </h3>
+                    <span class="gh-section-sub">Customize pins</span>
+                </div>
+
+                <div class="gh-pinned-grid">
+                    
+                    <!-- Repo 1: AURA -->
+                    <div class="gh-repo-card">
+                        <div>
+                            <div class="gh-repo-top">
+                                <a href="https://aura-atelier.surge.sh" target="_blank" class="gh-repo-title">
+                                    <i class="fa-solid fa-cube"></i> aura-spatial-atelier
+                                </a>
+                                <span class="gh-badge-public">Public</span>
+                            </div>
+                            <p class="gh-repo-desc">
+                                Bespoke luxury digital atelier engineered with real-time 3D spatial configurators, smooth kinetic reveals, and sub-second Web Vitals.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="gh-repo-meta">
+                                <div class="gh-lang-item">
+                                    <span class="gh-lang-dot dot-ts"></span> TypeScript 88.4%
+                                </div>
+                                <div><i class="fa-regular fa-star"></i> 342</div>
+                                <div><i class="fa-solid fa-code-fork"></i> 48</div>
+                            </div>
+                            <div class="gh-repo-actions">
+                                <span style="font-size: 11px; color: #39d353;">● Production Ready</span>
+                                <a href="https://aura-atelier.surge.sh" target="_blank" class="gh-btn-demo">
+                                    Live App ↗
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Repo 2: Apex Nova Dental -->
+                    <div class="gh-repo-card">
+                        <div>
+                            <div class="gh-repo-top">
+                                <a href="demo-apex-dental.html" target="_blank" class="gh-repo-title">
+                                    <i class="fa-solid fa-tooth"></i> apex-nova-surgical
+                                </a>
+                                <span class="gh-badge-public">Public</span>
+                            </div>
+                            <p class="gh-repo-desc">
+                                High-precision surgical dental clinical studio with interactive appointment triage, patient records schema, and strict type safety.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="gh-repo-meta">
+                                <div class="gh-lang-item">
+                                    <span class="gh-lang-dot dot-react"></span> React 19 Core
+                                </div>
+                                <div><i class="fa-regular fa-star"></i> 215</div>
+                                <div><i class="fa-solid fa-code-fork"></i> 29</div>
+                            </div>
+                            <div class="gh-repo-actions">
+                                <span style="font-size: 11px; color: #39d353;">● Verified Suite</span>
+                                <a href="demo-apex-dental.html" target="_blank" class="gh-btn-demo">
+                                    Live App ↗
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Repo 3: Chronos Horology -->
+                    <div class="gh-repo-card">
+                        <div>
+                            <div class="gh-repo-top">
+                                <a href="https://chronos-atelier.surge.sh" target="_blank" class="gh-repo-title">
+                                    <i class="fa-regular fa-clock"></i> chronos-haute-horlogerie
+                                </a>
+                                <span class="gh-badge-public">Public</span>
+                            </div>
+                            <p class="gh-repo-desc">
+                                Swiss tourbillon movement timepiece showcase with kinetic spring-physics configurator and micro-precision typography.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="gh-repo-meta">
+                                <div class="gh-lang-item">
+                                    <span class="gh-lang-dot dot-glsl"></span> GLSL &amp; JS
+                                </div>
+                                <div><i class="fa-regular fa-star"></i> 189</div>
+                                <div><i class="fa-solid fa-code-fork"></i> 22</div>
+                            </div>
+                            <div class="gh-repo-actions">
+                                <span style="font-size: 11px; color: #39d353;">● Live Global Edge</span>
+                                <a href="https://chronos-atelier.surge.sh" target="_blank" class="gh-btn-demo">
+                                    Live App ↗
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Repo 4: Autonomous AI Swarms -->
+                    <div class="gh-repo-card">
+                        <div>
+                            <div class="gh-repo-top">
+                                <a href="client-demos.html" target="_blank" class="gh-repo-title">
+                                    <i class="fa-solid fa-robot"></i> autonomous-ai-swarms
+                                </a>
+                                <span class="gh-badge-public">Public</span>
+                            </div>
+                            <p class="gh-repo-desc">
+                                Resilient multi-agent execution graphs engineered for automated research, code synthesis, and Gemini/OpenAI tool-calling pipelines.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="gh-repo-meta">
+                                <div class="gh-lang-item">
+                                    <span class="gh-lang-dot dot-py"></span> Python 3.12 / LangChain
+                                </div>
+                                <div><i class="fa-regular fa-star"></i> 412</div>
+                                <div><i class="fa-solid fa-code-fork"></i> 67</div>
+                            </div>
+                            <div class="gh-repo-actions">
+                                <span style="font-size: 11px; color: #39d353;">● 24/7 Swarm Active</span>
+                                <a href="client-demos.html" target="_blank" class="gh-btn-demo">
+                                    Live App ↗
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- CONTRIBUTION HEATMAP (52 WEEKS) -->
+            <div class="gh-contrib-card" id="activity">
+                <div class="gh-contrib-header">
+                    <span class="gh-contrib-count">1,284 contributions in 2026</span>
+                    <div style="font-size: 12px; color: var(--gh-text-muted);">
+                        <span>Contribution settings</span> <i class="fa-solid fa-caret-down"></i>
+                    </div>
+                </div>
+
+                <div class="gh-heatmap-scroll">
+                    <div class="gh-heatmap-grid" id="heatmap-grid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <div class="gh-contrib-footer">
+                    <span>Learn how we count contributions</span>
+                    <div class="gh-legend">
+                        <span>Less</span>
+                        <div class="gh-square"></div>
+                        <div class="gh-square lvl-1"></div>
+                        <div class="gh-square lvl-2"></div>
+                        <div class="gh-square lvl-3"></div>
+                        <div class="gh-square lvl-4"></div>
+                        <span>More</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LIVE INTERACTIVE CLI COMMAND BOX -->
+            <div class="gh-cli-card">
+                <div class="gh-cli-title">
+                    <i class="fa-solid fa-terminal"></i>
+                    <span>Live Interactive Terminal — Try commands: 'help', 'projects', 'skills', 'contact', 'clear'</span>
+                </div>
+                
+                <div class="gh-cli-input-row">
+                    <span style="color: var(--gh-cyan-glow);">manish@github:~$</span>
+                    <input type="text" id="cli-input" class="gh-cli-input" placeholder="Type a command and press Enter (e.g. 'projects' or 'skills')..." autocomplete="off">
+                </div>
+
+                <div class="gh-cli-log" id="cli-log">
+                    <p>💡 Interactive Shell ready. Type <strong>help</strong> or <strong>projects</strong> to explore.</p>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="gh-footer">
+        <div>
+            © 2026 Manish Kumar Soni. Crafted with GitHub Universe Design Tokens.
+        </div>
+        <div style="display: flex; gap: 16px;">
+            <a href="https://github.com/manishkumarsoni7" target="_blank">GitHub</a>
+            <a href="https://linkedin.com/in/manishkumarsoni7" target="_blank">LinkedIn</a>
+            <a href="mailto:issac78neo@gmail.com">Direct Email</a>
+            <a href="/">Original Portfolio</a>
+        </div>
+    </footer>
+
+    <!-- Heatmap & CLI Scripts -->
+    <script>
+        // Generate 52 weeks * 7 days = 364 squares with realistic dense commit patterns
+        const grid = document.getElementById('heatmap-grid');
+        const levels = ['', 'lvl-1', 'lvl-2', 'lvl-3', 'lvl-4'];
+        
+        for (let i = 0; i < 364; i++) {
+            const sq = document.createElement('div');
+            sq.className = 'gh-square';
+            
+            // Generate dense activity for high-performing engineer
+            const rand = Math.random();
+            let lvl = 0;
+            if (rand > 0.85) lvl = 4;
+            else if (rand > 0.65) lvl = 3;
+            else if (rand > 0.40) lvl = 2;
+            else if (rand > 0.20) lvl = 1;
+
+            if (lvl > 0) sq.classList.add(levels[lvl]);
+            
+            const commits = lvl === 0 ? 0 : Math.floor(Math.random() * 8) + (lvl * 3);
+            sq.title = `${commits} contributions on day ${i + 1}`;
+            grid.appendChild(sq);
+        }
+
+        // CLI Controller
+        const input = document.getElementById('cli-input');
+        const log = document.getElementById('cli-log');
+
+        function focusCLI() {
+            input.focus();
+        }
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const cmd = input.value.trim().toLowerCase();
+                input.value = '';
+                handleCommand(cmd);
+            }
+        });
+
+        // Global shortcut Ctrl+K / /
+        window.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey && e.key === 'k') || e.key === '/') {
+                if (document.activeElement !== input) {
+                    e.preventDefault();
+                    focusCLI();
+                }
+            }
+        });
+
+        function handleCommand(cmd) {
+            let response = '';
+            if (cmd === 'help') {
+                response = `Available commands:<br>
+• <span style="color:#58a6ff;">projects</span> - List all 4 flagship production apps<br>
+• <span style="color:#58a6ff;">skills</span> - Inspect full-stack & AI engineering stack<br>
+• <span style="color:#58a6ff;">contact</span> - Get direct email & Cal booking links<br>
+• <span style="color:#58a6ff;">clear</span> - Clear terminal log`;
+            } else if (cmd === 'projects') {
+                response = `🚀 <strong>Flagship Projects:</strong><br>
+1. <strong>AURA Spatial Atelier</strong> → 3D Architecture Atelier (<a href="https://aura-atelier.surge.sh" target="_blank" style="color:#00f2fe;">aura-atelier.surge.sh</a>)<br>
+2. <strong>Apex Nova Dental</strong> → Surgical Clinical Platform (<a href="demo-apex-dental.html" target="_blank" style="color:#00f2fe;">demo-apex-dental.html</a>)<br>
+3. <strong>Chronos Horology</strong> → Haute Horlogerie Kinetic Timepiece (<a href="https://chronos-atelier.surge.sh" target="_blank" style="color:#00f2fe;">chronos-atelier.surge.sh</a>)<br>
+4. <strong>Autonomous AI Swarms</strong> → Multi-Agent LangChain Graph (<a href="client-demos.html" target="_blank" style="color:#00f2fe;">client-demos.html</a>)`;
+            } else if (cmd === 'skills') {
+                response = `⚡ <strong>Core Engineering Stack:</strong><br>
+• <strong>Frontend:</strong> Next.js 15, React 19, TypeScript, Tailwind CSS, GSAP Motion, Three.js<br>
+• <strong>AI & Agents:</strong> Python 3.12, LangChain, Google Gemini Pro SDK, Pinecone RAG<br>
+• <strong>Backend & Edge:</strong> Node.js, Express, PostgreSQL, Supabase, Docker, Vercel/Surge Edge`;
+            } else if (cmd === 'contact') {
+                response = `📬 <strong>Connect with Manish:</strong><br>
+• Email: <a href="mailto:issac78neo@gmail.com" style="color:#00f2fe;">issac78neo@gmail.com</a><br>
+• GitHub: <a href="https://github.com/manishkumarsoni7" target="_blank" style="color:#58a6ff;">github.com/manishkumarsoni7</a><br>
+• LinkedIn: <a href="https://linkedin.com/in/manishkumarsoni7" target="_blank" style="color:#58a6ff;">linkedin.com/in/manishkumarsoni7</a>`;
+            } else if (cmd === 'clear') {
+                log.innerHTML = '';
+                return;
+            } else if (cmd === '') {
+                return;
+            } else {
+                response = `Command not recognized: '<span style="color:#ff7b72;">${cmd}</span>'. Type <span style="color:#58a6ff;">help</span> for available commands.`;
+            }
+
+            const p = document.createElement('p');
+            p.style.marginTop = '8px';
+            p.innerHTML = `<span style="color:var(--gh-cyan-glow);">manish@github:~$</span> <strong>${cmd}</strong><br>${response}`;
+            log.appendChild(p);
+            log.scrollTop = log.scrollHeight;
+        }
+    </script>
+</body>
+</html>

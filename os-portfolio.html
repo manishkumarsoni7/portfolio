@@ -1,0 +1,2991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Manish Kumar Soni — Windows 7 Ultimate Edition (Full Interactive Portfolio)</title>
+    
+    <!-- Meta & Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- YouTube IFrame API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+
+    <style>
+        /* ═══════════════════════════════════════════════════════════════════
+           AUTHENTIC WINDOWS 7 AERO GLASS & KINETIC PHYSICS ENGINE
+        ═══════════════════════════════════════════════════════════════════ */
+        :root {
+            --win7-font: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            --win7-mono: Consolas, "Courier New", monospace;
+            --aero-spring: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        html, body {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background: #0d2847;
+            font-family: var(--win7-font);
+            position: fixed;
+            inset: 0;
+        }
+
+        /* ═══ REAL WINDOWS 7 HARMONY WALLPAPER ═══ */
+        #win-wallpaper {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background: #0f3a68;
+            background-image: 
+                radial-gradient(ellipse at 50% 40%, #4693db 0%, #1c5694 40%, #0d2f57 75%, #05162b 100%);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .wallpaper-light-rays {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: 
+                radial-gradient(ellipse at 70% 30%, rgba(130, 210, 255, 0.35) 0%, transparent 60%),
+                radial-gradient(ellipse at 25% 65%, rgba(60, 170, 240, 0.25) 0%, transparent 50%),
+                linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, transparent 40%, rgba(0, 0, 0, 0.3) 100%);
+        }
+
+        /* Swaying Nature Grass */
+        @keyframes jg-sway {
+            from { transform: rotate(-2.2deg); }
+            to { transform: rotate(2.2deg); }
+        }
+        .jg-sway {
+            animation: jg-sway var(--d, 3s) ease-in-out infinite alternate;
+            transform-box: fill-box;
+            transform-origin: 50% 100%;
+            will-change: transform;
+        }
+
+        .grass-strip {
+            position: absolute;
+            bottom: 40px;
+            left: 0;
+            right: 0;
+            height: 85px;
+            pointer-events: none;
+            z-index: 4;
+        }
+
+        /* ═══ DESKTOP ICONS GRID ═══ */
+        #desktop-icons-area {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            bottom: 50px;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            gap: 6px;
+            z-index: 10;
+            align-content: flex-start;
+        }
+
+        .win7-desk-icon {
+            width: 86px;
+            height: 94px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4px;
+            border-radius: 3px;
+            border: 1px solid transparent;
+            cursor: pointer;
+            text-align: center;
+            gap: 4px;
+            transition: background 0.15s, border-color 0.15s;
+        }
+
+        .win7-desk-icon:hover {
+            background: rgba(255, 255, 255, 0.18);
+            border-color: rgba(255, 255, 255, 0.35);
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
+        }
+
+        .win7-desk-icon.selected {
+            background: rgba(135, 195, 255, 0.32);
+            border-color: rgba(165, 215, 255, 0.6);
+        }
+
+        .desk-icon-img {
+            width: 44px;
+            height: 44px;
+            filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.6));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+
+        .desk-icon-title {
+            color: #ffffff;
+            font-size: 11px;
+            line-height: 1.25;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9), 0 0 5px rgba(0, 0, 0, 0.8);
+            word-break: break-word;
+            max-width: 78px;
+        }
+
+        /* ═══ INTERACTIVE DESK AVATAR ═══ */
+        .avatar-scene-wrap {
+            position: absolute;
+            right: 36px;
+            bottom: 40px;
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            pointer-events: auto;
+        }
+
+        .avatar-glow {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, rgba(147, 197, 253, 0.4) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -20px;
+            filter: blur(10px);
+            animation: pulse-glow 3s infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            from { transform: scale(0.9); opacity: 0.5; }
+            to { transform: scale(1.15); opacity: 0.85; }
+        }
+
+        .avatar-bubble {
+            position: absolute;
+            bottom: 115px;
+            background: #ffffff;
+            color: #0f172a;
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+            border: 1px solid #cbd5e1;
+            white-space: nowrap;
+            opacity: 0;
+            transform: scale(0.7) translateY(10px);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+        }
+
+        .avatar-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 6px 6px 0;
+            border-style: solid;
+            border-color: #ffffff transparent;
+        }
+
+        .avatar-bubble.show {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        .avatar-desk-card {
+            width: 90px;
+            height: 105px;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.2s;
+        }
+
+        .avatar-desk-card:hover {
+            transform: translateY(-4px);
+        }
+
+        /* ═══ AERO GLASS WINDOW ARCHITECTURE ═══ */
+        .aero-window {
+            position: absolute;
+            border-radius: 8px;
+            overflow: hidden;
+            display: none;
+            flex-direction: column;
+            background: rgba(225, 238, 252, 0.94);
+            border: 1px solid rgba(255, 255, 255, 0.65);
+            box-shadow: 
+                0 0 0 1px rgba(0, 20, 50, 0.45),
+                0 12px 36px rgba(0, 0, 0, 0.65),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            min-width: 320px;
+            min-height: 220px;
+            backdrop-filter: blur(14px) saturate(1.4);
+            -webkit-backdrop-filter: blur(14px) saturate(1.4);
+            z-index: 100;
+            will-change: transform, opacity, filter;
+        }
+
+        .aero-window.active {
+            box-shadow: 
+                0 0 0 1px rgba(0, 50, 110, 0.75),
+                0 16px 44px rgba(0, 0, 0, 0.75),
+                0 0 20px rgba(130, 200, 255, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 1);
+        }
+
+        .aero-window.open {
+            display: flex;
+        }
+
+        .aero-window.minimized {
+            display: none !important;
+        }
+
+        .aero-window.maximized {
+            left: 0 !important;
+            top: 0 !important;
+            width: 100vw !important;
+            height: calc(100vh - 40px) !important;
+            border-radius: 0 !important;
+        }
+
+        /* Aero Titlebar */
+        .aero-titlebar {
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6px 0 10px;
+            background: linear-gradient(to bottom, 
+                rgba(235, 245, 255, 0.75) 0%, 
+                rgba(195, 222, 250, 0.65) 45%, 
+                rgba(165, 205, 245, 0.75) 50%, 
+                rgba(180, 218, 255, 0.85) 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+            cursor: move;
+            position: relative;
+        }
+
+        .aero-title-left {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #1e293b;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .aero-controls {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .aero-btn {
+            width: 26px;
+            height: 20px;
+            border-radius: 3px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            background: linear-gradient(to bottom, rgba(255,255,255,0.7) 0%, rgba(215,230,245,0.6) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #334155;
+            cursor: pointer;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 1px 2px rgba(0,0,0,0.15);
+            transition: all 0.1s;
+        }
+
+        .aero-btn:hover {
+            background: linear-gradient(to bottom, rgba(255,255,255,0.9) 0%, rgba(230,242,255,0.9) 100%);
+            border-color: rgba(100, 160, 230, 0.8);
+            box-shadow: 0 0 6px rgba(100, 180, 255, 0.5);
+        }
+
+        .aero-btn.btn-close:hover {
+            background: linear-gradient(to bottom, #f87171 0%, #dc2626 100%);
+            color: #ffffff;
+            border-color: #b91c1c;
+            box-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
+        }
+
+        .aero-body {
+            flex: 1;
+            background: #ffffff;
+            overflow: auto;
+            position: relative;
+            color: #1e293b;
+            font-size: 13px;
+        }
+
+        /* ═══ TASKBAR ═══ */
+        #win-taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            z-index: 4000;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(to bottom, 
+                rgba(210, 230, 248, 0.65) 0%, 
+                rgba(110, 140, 175, 0.7) 7%, 
+                rgba(38, 60, 92, 0.88) 18%, 
+                rgba(12, 24, 44, 0.95) 48%, 
+                rgba(1, 4, 10, 0.98) 100%);
+            border-top: 1px solid rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(18px) saturate(1.35);
+            -webkit-backdrop-filter: blur(18px) saturate(1.35);
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Start Orb */
+        .win-start-orb {
+            position: absolute;
+            left: 8px;
+            top: -5px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 24%, #f2fbff 0%, #a8dcf8 18%, #52aeee 44%, #1a6fc4 70%, #0b4a97 88%, #073568 100%);
+            box-shadow: 
+                0 2px 7px rgba(0, 0, 0, 0.7), 
+                0 0 12px 3px rgba(90, 160, 230, 0.4), 
+                inset 0 2px 6px rgba(255, 255, 255, 0.8), 
+                inset 0 -6px 10px rgba(0, 25, 60, 0.65);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.15s, box-shadow 0.15s;
+            z-index: 4010;
+        }
+
+        .win-start-orb:hover {
+            transform: scale(1.08);
+            box-shadow: 
+                0 2px 10px rgba(0, 0, 0, 0.8), 
+                0 0 18px 6px rgba(110, 190, 255, 0.7), 
+                inset 0 2px 6px rgba(255, 255, 255, 0.9);
+        }
+
+        .taskbar-tasks-area {
+            margin-left: 62px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex: 1;
+            height: 100%;
+            padding: 0 4px;
+        }
+
+        .taskbar-item-btn {
+            height: 33px;
+            padding: 0 10px;
+            border-radius: 4px;
+            border: 1px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            color: #ffffff;
+            font-size: 11.5px;
+            transition: background 0.15s, border-color 0.15s;
+        }
+
+        .taskbar-item-btn:hover {
+            background: rgba(255, 255, 255, 0.18);
+            border-color: rgba(255, 255, 255, 0.28);
+        }
+
+        .taskbar-item-btn.task-open {
+            background: rgba(255, 255, 255, 0.22);
+            border-color: rgba(165, 215, 255, 0.5);
+            box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.25);
+        }
+
+        .taskbar-system-tray {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0 10px 0 14px;
+            border-left: 1px solid rgba(255, 255, 255, 0.15);
+            height: 100%;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 11px;
+        }
+
+        .tray-clock {
+            text-align: right;
+            line-height: 1.25;
+            color: #ffffff;
+            font-size: 11px;
+            cursor: default;
+        }
+
+        /* ═══ WATERMARK (ACTIVATE WINDOWS EASTER EGG) ═══ */
+        #activate-watermark {
+            position: fixed;
+            right: 16px;
+            bottom: 50px;
+            z-index: 20;
+            color: rgba(255, 255, 255, 0.45);
+            font-size: 12px;
+            text-align: right;
+            line-height: 1.35;
+            cursor: pointer;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+            transition: color 0.2s;
+        }
+
+        #activate-watermark:hover {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        /* ═══ START MENU ═══ */
+        #win-start-menu {
+            position: fixed;
+            bottom: 40px;
+            left: 0;
+            width: 380px;
+            height: 480px;
+            background: rgba(14, 30, 50, 0.96);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 8px 8px 0 0;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            display: none;
+            flex-direction: column;
+            z-index: 4500;
+            overflow: hidden;
+        }
+
+        .start-menu-inner {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .start-left-pane {
+            flex: 1.3;
+            background: #ffffff;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            overflow-y: auto;
+        }
+
+        .start-right-pane {
+            flex: 1;
+            background: rgba(15, 35, 60, 0.7);
+            padding: 12px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            color: #dbeafe;
+            font-size: 11.5px;
+            border-left: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .start-item-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 8px;
+            border-radius: 3px;
+            cursor: pointer;
+            color: #0f172a;
+            font-size: 12px;
+            font-weight: 500;
+            transition: background 0.1s;
+        }
+
+        .start-item-row:hover {
+            background: #dbeafe;
+        }
+
+        .start-right-item {
+            cursor: pointer;
+            padding: 4px 6px;
+            border-radius: 3px;
+            transition: background 0.1s;
+        }
+
+        .start-right-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+        }
+
+        /* ═══ MUSIC LIBRARY WINDOW (151 SONGS) ═══ */
+        .music-win-layout {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            background: #f8fafc;
+        }
+
+        .music-player-top {
+            padding: 12px 16px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #38bdf8;
+        }
+
+        .music-track-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .music-track-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .music-track-item:hover {
+            background: #f0f9ff;
+            border-color: #7dd3fc;
+            transform: translateX(3px);
+        }
+
+        .music-track-item.playing {
+            background: #e0f2fe;
+            border-color: #0284c7;
+            font-weight: 700;
+        }
+
+        /* ═══ J.A.R.V.I.S 5.1 HUD ═══ */
+        .jarvis-hud-wrap {
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 6, 23, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 5000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .jarvis-hud-box {
+            width: 620px;
+            max-width: 95vw;
+            background: radial-gradient(circle at center, rgba(15, 23, 42, 0.95) 0%, rgba(2, 6, 23, 0.98) 100%);
+            border: 1px solid #00f2fe;
+            border-radius: 16px;
+            box-shadow: 0 0 35px rgba(0, 242, 254, 0.35), inset 0 0 20px rgba(0, 242, 254, 0.15);
+            padding: 24px;
+            color: #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            position: relative;
+        }
+
+        .jarvis-feed {
+            height: 220px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-family: var(--win7-mono);
+            font-size: 12.5px;
+        }
+
+        .j-msg {
+            padding: 6px 10px;
+            border-radius: 6px;
+            max-width: 85%;
+            line-height: 1.4;
+        }
+
+        .j-bot {
+            background: rgba(0, 242, 254, 0.12);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            color: #38bdf8;
+            align-self: flex-start;
+        }
+
+        .j-user {
+            background: rgba(255, 255, 255, 0.12);
+            color: #ffffff;
+            align-self: flex-end;
+        }
+
+        /* ═══ BSOD SCREEN ═══ */
+        #bsod-screen {
+            position: fixed;
+            inset: 0;
+            background: #0000aa;
+            color: #ffffff;
+            font-family: var(--win7-mono);
+            padding: 40px;
+            z-index: 9999;
+            display: none;
+            flex-direction: column;
+            gap: 20px;
+            font-size: 14px;
+            line-height: 1.6;
+            cursor: pointer;
+        }
+
+        /* ═══ MEME PRIVATE VIDEOS MODAL ═══ */
+        #rickroll-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.88);
+            z-index: 6000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .rickroll-box {
+            background: #111827;
+            border: 2px solid #ef4444;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            color: #ffffff;
+            max-width: 440px;
+            box-shadow: 0 0 30px rgba(239, 68, 68, 0.6);
+        }
+
+        /* Boot Screen */
+        #win-boot-screen {
+            position: fixed;
+            inset: 0;
+            background: #000000;
+            z-index: 9000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            cursor: pointer;
+            transition: opacity 0.8s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═══ REAL WINDOWS 7 HARMONY WALLPAPER ═══ -->
+    <div id="win-wallpaper">
+        <div class="wallpaper-light-rays"></div>
+    </div>
+
+    <!-- Hidden Container for YouTube Background Player -->
+    <div id="yt-player-container" style="position:fixed; left:-9999px; top:-9999px; width:320px; height:180px; pointer-events:none;">
+        <div id="yt-player"></div>
+    </div>
+
+    <!-- Swaying Grass SVGs -->
+    <div class="grass-strip">
+        <svg viewBox="0 0 1200 85" width="100%" height="85" preserveAspectRatio="none">
+            <g class="jg-sway" style="--d: 4s; opacity:0.85;">
+                <path d="M 20 85 Q 28 30 45 10 Q 38 45 35 85 Z" fill="#22c55e"/>
+                <path d="M 80 85 Q 92 25 115 5 Q 102 45 98 85 Z" fill="#16a34a"/>
+                <path d="M 180 85 Q 170 35 150 15 Q 165 48 172 85 Z" fill="#15803d"/>
+                <path d="M 320 85 Q 335 20 360 8 Q 345 45 338 85 Z" fill="#22c55e"/>
+                <path d="M 450 85 Q 440 30 420 12 Q 435 48 442 85 Z" fill="#16a34a"/>
+                <path d="M 580 85 Q 595 22 620 6 Q 605 45 598 85 Z" fill="#15803d"/>
+                <path d="M 720 85 Q 710 32 690 14 Q 705 48 712 85 Z" fill="#22c55e"/>
+                <path d="M 860 85 Q 875 25 900 10 Q 885 45 878 85 Z" fill="#16a34a"/>
+                <path d="M 980 85 Q 995 20 1020 8 Q 1005 45 998 85 Z" fill="#15803d"/>
+                <path d="M 1100 85 Q 1090 35 1070 15 Q 1085 48 1092 85 Z" fill="#22c55e"/>
+            </g>
+        </svg>
+    </div>
+
+    <!-- ═══ DESKTOP ICONS (11 AUTHENTIC APPS & EASTER EGGS) ═══ -->
+    <div id="desktop-icons-area">
+        <div class="win7-desk-icon" id="icon-win-computer" onclick="launchWindowWithFlyout('win-computer', this)" onmousedown="selectDeskIcon(this, event)">
+            <div class="desk-icon-img"><i class="fas fa-desktop" style="color:#60a5fa;"></i></div>
+            <div class="desk-icon-title">Computer</div>
+        </div>
+
+        <div class="win7-desk-icon" id="icon-win-cpanel" onclick="launchWindowWithFlyout('win-cpanel', this)" onmousedown="selectDeskIcon(this, event)">
+            <div class="desk-icon-img"><i class="fas fa-sliders-h" style="color:#94a3b8;"></i></div>
+            <div class="desk-icon-title">System Config</div>
+        </div>
+
+        <div class="win7-desk-icon" id="icon-win-notepad" onclick="launchWindowWithFlyout('win-notepad', this)" onmousedown="selectDeskIcon(this, event)">
+            <div class="desk-icon-img"><i class="fas fa-file-alt" style="color:#38bdf8;"></i></div>
+            <div class="desk-icon-title">About_Me.txt</div>
+        </div>
+
+        <div class="win7-desk-icon" id="icon-win-explorer" onclick="launchWindowWithFlyout('win-explorer', this)" onmousedown="selectDeskIcon(this, event)">
+            <div class="desk-icon-img"><i class="fas fa-folder" style="color:#eab308;"></i></div>
+            <div class="desk-icon-title">My Projects</div>
+        </div>
+
+        <div class="win7-desk-icon" id="icon-win-skills" onclick="launchWindowWithFlyout('win-skills', this)" onmousedown="selectDeskIcon(this, event)">
+            <div class="desk-icon-img"><i class="fas fa-cogs" style="color:#38bdf8;"></i></div>
+            <div class="desk-icon-title">Skills.exe</div>
+        </div>
+
+        <div class="win7-desk-icon" id="icon-win-resume" onclick="launchWindowWithFlyout('win-resume', this)" onmousedown="selectDeskIcon(this, event)">
+            <div class="desk-icon-img"><i class="fas fa-file-pdf" style="color:#ef4444;"></i></div>
+            <div class="desk-icon-title">Resume.pdf</div>
+        </div>
+
+        <div class="win7-desk-icon" id="icon-win-music-lib" onclick="launchWindowWithFlyout('win-music-lib', this)" onmousedown="selectDeskIcon(this, event)">
+            <div class="desk-icon-img"><i class="fas fa-compact-disc" style="color:#f97316;"></i></div>
+            <div class="desk-icon-title">Music (151)</div>
+        </div>
+
+        <div class="win7-desk-icon" id="icon-win-office" onclick="launchWindowWithFlyout('win-office', this)" onmousedown="selectDeskIcon(this, event)">
+            <div class="desk-icon-img"><i class="fas fa-building" style="color:#38bdf8;"></i></div>
+            <div class="desk-icon-title">Virtual Office</div>
+        </div>
+
+        <div class="win7-desk-icon" id="icon-win-myex" onclick="launchWindowWithFlyout('win-myex', this)" onmousedown="selectDeskIcon(this, event)">
+            <div class="desk-icon-img"><i class="fas fa-heart-broken" style="color:#ec4899;"></i></div>
+            <div class="desk-icon-title">My Ex Photos</div>
+        </div>
+
+        <div class="win7-desk-icon" id="icon-win-privatevid" onclick="openRickrollModal()" onmousedown="selectDeskIcon(this, event)">
+            <div class="desk-icon-img"><i class="fas fa-folder-minus" style="color:#f59e0b;"></i></div>
+            <div class="desk-icon-title">Private Videos</div>
+        </div>
+
+        <div class="win7-desk-icon" id="icon-win-contact" onclick="launchWindowWithFlyout('win-contact', this)" onmousedown="selectDeskIcon(this, event)">
+            <div class="desk-icon-img"><i class="fas fa-paper-plane" style="color:#22c55e;"></i></div>
+            <div class="desk-icon-title">Contact.exe</div>
+        </div>
+
+        <div class="win7-desk-icon" id="icon-win-recycle" onclick="launchWindowWithFlyout('win-recycle', this)" onmousedown="selectDeskIcon(this, event)">
+            <div class="desk-icon-img"><i class="fas fa-trash-alt" style="color:#94a3b8;"></i></div>
+            <div class="desk-icon-title">Recycle Bin</div>
+        </div>
+    </div>
+
+    <!-- ═══ INTERACTIVE DESK AVATAR (BOTTOM RIGHT) ═══ -->
+    <div class="avatar-scene-wrap">
+        <div class="avatar-glow"></div>
+        <div class="avatar-bubble" id="avatarBubble">
+            Namaste! I'm Manish. Click me or J.A.R.V.I.S! 👋
+        </div>
+        <div class="avatar-desk-card" onclick="toggleAvatarBubble()">
+            <svg viewBox="0 0 100 120" width="90" height="105">
+                <rect x="10" y="80" width="80" height="25" rx="4" fill="#64748b"/>
+                <rect x="25" y="65" width="50" height="28" rx="2" fill="#0284c7"/>
+                <circle cx="50" cy="35" r="22" fill="#fed7aa"/>
+                <path d="M 28 35 Q 50 10 72 35 Q 65 18 50 18 Q 35 18 28 35 Z" fill="#1e293b"/>
+                <circle cx="43" cy="34" r="3" fill="#0f172a"/>
+                <circle cx="57" cy="34" r="3" fill="#0f172a"/>
+                <path d="M 45 44 Q 50 49 55 44" stroke="#0f172a" stroke-width="2" fill="none" stroke-linecap="round"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- ═══ WATERMARK (ACTIVATE WINDOWS EASTER EGG) ═══ -->
+    <div id="activate-watermark" onclick="speakJarvisVoice('Activate Windows? Manish is already activated and coding at 100% efficiency, sir!')">
+        <div>Activate Windows</div>
+        <div style="font-size:10px; opacity:0.75;">Go to Settings to activate Windows.</div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         AERO GLASS WINDOWS
+    ═══════════════════════════════════════════════════════════════════ -->
+
+    <!-- 1. NOTEPAD (About_Me.txt) -->
+    <div class="aero-window" id="win-notepad" style="left:120px; top:60px; width:560px; height:420px;">
+        <div class="aero-titlebar" onmousedown="dragAero(event, 'win-notepad')">
+            <div class="aero-title-left"><i class="fas fa-file-alt" style="color:#0284c7;"></i> About_Me.txt — Notepad</div>
+            <div class="aero-controls">
+                <div class="aero-btn" onclick="minAero('win-notepad')"><i class="fas fa-minus"></i></div>
+                <div class="aero-btn" onclick="maxAero('win-notepad')"><i class="far fa-square"></i></div>
+                <div class="aero-btn btn-close" onclick="closeAero('win-notepad')"><i class="fas fa-times"></i></div>
+            </div>
+        </div>
+        <div style="background:#f1f5f9; padding:2px 8px; border-bottom:1px solid #cbd5e1; font-size:11px; display:flex; gap:12px; color:#475569;">
+            <span><u>F</u>ile</span><span><u>E</u>dit</span><span><u>F</u>ormat</span><span><u>V</u>iew</span><span><u>H</u>elp</span>
+        </div>
+        <div class="aero-body" style="padding:16px; font-family:var(--win7-mono); line-height:1.6; font-size:13px; color:#1e293b;">
+            <p style="font-weight:700; color:#0284c7;">===========================================================</p>
+            <p style="font-weight:700; color:#0284c7;">  MANISH KUMAR SONI — LEAD WEB DESIGNER & AI ARCHITECT</p>
+            <p style="font-weight:700; color:#0284c7;">===========================================================</p>
+            <br>
+            <p><strong>Alias / Developer Handle:</strong> issac78neo | manishkumarsoni7</p>
+            <p><strong>Primary Contact:</strong> issac78neo@gmail.com</p>
+            <p><strong>Specialization:</strong> Ultra-Luxury Frontend Craft, Autonomous AI Agents, Next.js Architecture</p>
+            <br>
+            <p>I craft high-end web experiences that blend state-of-the-art interactive motion with robust engineering. Trained in advanced agentic systems, Next.js 15, Tailwind CSS, Framer Motion, and Python backend infrastructure.</p>
+            <br>
+            <p><strong>🚀 Flagship Deployed Systems:</strong></p>
+            <p>&bull; <strong>AURA Spatial Atelier:</strong> Luxury interior engineering showroom (<a href="https://aura-atelier.surge.sh" target="_blank" style="color:#0284c7;">aura-atelier.surge.sh</a>)</p>
+            <p>&bull; <strong>Apex Nova Dental:</strong> Next-gen clinic booking portal (<a href="https://apex-novadental.surge.sh" target="_blank" style="color:#0284c7;">apex-novadental.surge.sh</a>)</p>
+            <p>&bull; <strong>Chronos Horology:</strong> Luxury kinetic timepiece configurator</p>
+            <br>
+            <p style="color:#16a34a; font-weight:600;">[Status: Available for Full-Stack Contracts & High-Impact Web Projects]</p>
+        </div>
+    </div>
+
+    <!-- 2. EXPLORER (My Projects) -->
+    <div class="aero-window" id="win-explorer" style="left:160px; top:80px; width:760px; height:480px;">
+        <div class="aero-titlebar" onmousedown="dragAero(event, 'win-explorer')">
+            <div class="aero-title-left"><i class="fas fa-folder" style="color:#eab308;"></i> My Projects — Windows Explorer</div>
+            <div class="aero-controls">
+                <div class="aero-btn" onclick="minAero('win-explorer')"><i class="fas fa-minus"></i></div>
+                <div class="aero-btn" onclick="maxAero('win-explorer')"><i class="far fa-square"></i></div>
+                <div class="aero-btn btn-close" onclick="closeAero('win-explorer')"><i class="fas fa-times"></i></div>
+            </div>
+        </div>
+        <div style="background:#f8fafc; padding:6px 12px; border-bottom:1px solid #cbd5e1; display:flex; align-items:center; gap:8px; font-size:12px;">
+            <i class="fas fa-arrow-left" style="color:#94a3b8;"></i>
+            <i class="fas fa-arrow-right" style="color:#94a3b8;"></i>
+            <div style="flex:1; background:#ffffff; border:1px solid #cbd5e1; border-radius:3px; padding:2px 8px; color:#475569;">
+                <i class="fas fa-folder-open" style="color:#eab308; margin-right:4px;"></i> Computer &gt; Manish Soni &gt; Production Projects
+            </div>
+        </div>
+        <div class="aero-body" style="display:flex;">
+            <!-- Left Tree -->
+            <div style="width:180px; background:#f1f5f9; border-right:1px solid #cbd5e1; padding:12px 8px; font-size:11.5px; display:flex; flex-direction:column; gap:6px;">
+                <div style="font-weight:700; color:#64748b; margin-bottom:4px;">Favorites</div>
+                <div style="padding:4px 6px; background:#dbeafe; border-radius:3px; color:#0284c7; font-weight:600;"><i class="fas fa-star" style="margin-right:4px;"></i> Production</div>
+                <div style="padding:4px 6px; color:#475569;"><i class="fas fa-desktop" style="margin-right:4px;"></i> Desktop</div>
+                <div style="padding:4px 6px; color:#475569;"><i class="fas fa-download" style="margin-right:4px;"></i> Downloads</div>
+            </div>
+            <!-- Right Projects Grid -->
+            <div style="flex:1; padding:16px; overflow-y:auto; display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:14px;">
+                <!-- Card 1 -->
+                <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:12px; box-shadow:0 2px 6px rgba(0,0,0,0.05); display:flex; flex-direction:column; gap:8px;">
+                    <div style="font-weight:700; color:#0f172a; font-size:14px;">AURA Spatial Atelier</div>
+                    <div style="font-size:11.5px; color:#64748b; line-height:1.4;">Luxury architectural interior atelier with custom 3D lighting and spatial configurators.</div>
+                    <div style="margin-top:auto; display:flex; gap:6px;">
+                        <a href="https://aura-atelier.surge.sh" target="_blank" style="flex:1; text-align:center; background:#0284c7; color:#fff; text-decoration:none; padding:4px 8px; border-radius:4px; font-size:11px; font-weight:600;">Live Demo</a>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:12px; box-shadow:0 2px 6px rgba(0,0,0,0.05); display:flex; flex-direction:column; gap:8px;">
+                    <div style="font-weight:700; color:#0f172a; font-size:14px;">Apex Nova Dental</div>
+                    <div style="font-size:11.5px; color:#64748b; line-height:1.4;">Next-gen dental surgery & patient triage portal with real-time slot booking engine.</div>
+                    <div style="margin-top:auto; display:flex; gap:6px;">
+                        <a href="https://apex-novadental.surge.sh" target="_blank" style="flex:1; text-align:center; background:#0284c7; color:#fff; text-decoration:none; padding:4px 8px; border-radius:4px; font-size:11px; font-weight:600;">Live Demo</a>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:12px; box-shadow:0 2px 6px rgba(0,0,0,0.05); display:flex; flex-direction:column; gap:8px;">
+                    <div style="font-weight:700; color:#0f172a; font-size:14px;">Chronos Horology</div>
+                    <div style="font-size:11.5px; color:#64748b; line-height:1.4;">Haute horlogerie timepiece showcase featuring kinetic gear physics & custom bezel builder.</div>
+                    <div style="margin-top:auto; display:flex; gap:6px;">
+                        <span style="flex:1; text-align:center; background:#10b981; color:#fff; padding:4px 8px; border-radius:4px; font-size:11px; font-weight:600;">Active Build</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. MUSIC LIBRARY (151 SONGS WITH FULL YOUTUBE AUDIO ENGINE) -->
+    <div class="aero-window" id="win-music-lib" style="left:200px; top:50px; width:700px; height:500px;">
+        <div class="aero-titlebar" onmousedown="dragAero(event, 'win-music-lib')">
+            <div class="aero-title-left"><i class="fas fa-compact-disc" style="color:#f97316;"></i> Music Library — 151 Real Hindi Songs</div>
+            <div class="aero-controls">
+                <div class="aero-btn" onclick="minAero('win-music-lib')"><i class="fas fa-minus"></i></div>
+                <div class="aero-btn" onclick="maxAero('win-music-lib')"><i class="far fa-square"></i></div>
+                <div class="aero-btn btn-close" onclick="closeAero('win-music-lib')"><i class="fas fa-times"></i></div>
+            </div>
+        </div>
+        <div class="music-win-layout">
+            <div class="music-player-top">
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <button onclick="toggleLibMusic()" style="width:40px; height:40px; border-radius:50%; background:#0284c7; color:#fff; border:none; font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center;">
+                        <i class="fas fa-play" id="libPlayIcon"></i>
+                    </button>
+                    <div>
+                        <div id="libCurrentTitle" style="font-weight:700; font-size:14px;">Select any song to play real music</div>
+                        <div id="libCurrentArtist" style="font-size:11px; color:#94a3b8;">151 High Quality Bollywood Songs • YouTube Audio Streaming</div>
+                    </div>
+                </div>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <button onclick="playRandomTrack()" style="background:#334155; color:#fff; border:1px solid #475569; padding:6px 12px; border-radius:4px; font-size:11.5px; cursor:pointer;">
+                        <i class="fas fa-random"></i> Shuffle
+                    </button>
+                </div>
+            </div>
+
+            <!-- Search & Filter Bar -->
+            <div style="padding:8px 12px; background:#e2e8f0; border-bottom:1px solid #cbd5e1; display:flex; gap:8px;">
+                <input type="text" id="musicSearchInput" oninput="filterSongsList()" placeholder="🔍 Search by song name or singer..." style="flex:1; height:28px; border:1px solid #94a3b8; border-radius:4px; padding:0 8px; font-size:12px; outline:none;">
+            </div>
+
+            <!-- Track List -->
+            <div class="music-track-list" id="trackListDom">
+                <!-- Dynamically Populated with all 151 songs -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. SKILLS.EXE -->
+    <div class="aero-window" id="win-skills" style="left:180px; top:90px; width:560px; height:430px;">
+        <div class="aero-titlebar" onmousedown="dragAero(event, 'win-skills')">
+            <div class="aero-title-left"><i class="fas fa-cogs" style="color:#0284c7;"></i> Skills.exe — Technical Diagnostics</div>
+            <div class="aero-controls">
+                <div class="aero-btn" onclick="minAero('win-skills')"><i class="fas fa-minus"></i></div>
+                <div class="aero-btn" onclick="maxAero('win-skills')"><i class="far fa-square"></i></div>
+                <div class="aero-btn btn-close" onclick="closeAero('win-skills')"><i class="fas fa-times"></i></div>
+            </div>
+        </div>
+        <div class="aero-body" style="padding:16px; display:flex; flex-direction:column; gap:16px;">
+            <div>
+                <div style="display:flex; justify-content:space-between; font-weight:600; font-size:12px; margin-bottom:4px;">
+                    <span>Frontend & Web Design Craft (HTML, CSS, React, Next.js, Tailwind)</span><span>95%</span>
+                </div>
+                <div style="height:12px; background:#e2e8f0; border-radius:6px; overflow:hidden;">
+                    <div style="width:95%; height:100%; background:linear-gradient(90deg, #0284c7, #38bdf8);"></div>
+                </div>
+            </div>
+
+            <div>
+                <div style="display:flex; justify-content:space-between; font-weight:600; font-size:12px; margin-bottom:4px;">
+                    <span>Autonomous AI Agents & Python Workflows (LangChain, LLM APIs)</span><span>90%</span>
+                </div>
+                <div style="height:12px; background:#e2e8f0; border-radius:6px; overflow:hidden;">
+                    <div style="width:90%; height:100%; background:linear-gradient(90deg, #10b981, #34d399);"></div>
+                </div>
+            </div>
+
+            <div>
+                <div style="display:flex; justify-content:space-between; font-weight:600; font-size:12px; margin-bottom:4px;">
+                    <span>Backend Architecture (Node.js, PostgreSQL, REST/GraphQL)</span><span>85%</span>
+                </div>
+                <div style="height:12px; background:#e2e8f0; border-radius:6px; overflow:hidden;">
+                    <div style="width:85%; height:100%; background:linear-gradient(90deg, #f59e0b, #fbbf24);"></div>
+                </div>
+            </div>
+
+            <div>
+                <div style="display:flex; justify-content:space-between; font-weight:600; font-size:12px; margin-bottom:4px;">
+                    <span>Kinetic Animations & Motion Physics (Framer Motion, Canvas, WebGL)</span><span>92%</span>
+                </div>
+                <div style="height:12px; background:#e2e8f0; border-radius:6px; overflow:hidden;">
+                    <div style="width:92%; height:100%; background:linear-gradient(90deg, #ec4899, #f472b6);"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. RESUME.PDF -->
+    <div class="aero-window" id="win-resume" style="left:220px; top:70px; width:620px; height:460px;">
+        <div class="aero-titlebar" onmousedown="dragAero(event, 'win-resume')">
+            <div class="aero-title-left"><i class="fas fa-file-pdf" style="color:#ef4444;"></i> Resume.pdf — Adobe Acrobat Reader</div>
+            <div class="aero-controls">
+                <div class="aero-btn" onclick="minAero('win-resume')"><i class="fas fa-minus"></i></div>
+                <div class="aero-btn" onclick="maxAero('win-resume')"><i class="far fa-square"></i></div>
+                <div class="aero-btn btn-close" onclick="closeAero('win-resume')"><i class="fas fa-times"></i></div>
+            </div>
+        </div>
+        <div class="aero-body" style="padding:20px; background:#f8fafc; font-family:var(--win7-font);">
+            <div style="background:#ffffff; padding:24px; border:1px solid #e2e8f0; border-radius:6px; box-shadow:0 4px 12px rgba(0,0,0,0.06);">
+                <div style="display:flex; justify-content:space-between; border-bottom:2px solid #0284c7; padding-bottom:12px; margin-bottom:16px;">
+                    <div>
+                        <h2 style="color:#0f172a; font-size:20px;">MANISH KUMAR SONI</h2>
+                        <div style="color:#64748b; font-size:12px;">Full Stack Web Developer &amp; AI Builder</div>
+                    </div>
+                    <div style="text-align:right; font-size:11.5px; color:#475569;">
+                        <div>Email: issac78neo@gmail.com</div>
+                        <div>Portfolio: manishkumarsoni.surge.sh</div>
+                    </div>
+                </div>
+                <div style="font-size:12.5px; line-height:1.6; color:#334155;">
+                    <p><strong>CORE EXPERTISE:</strong> Building ultra-luxury responsive SaaS interfaces, bespoke interactive brand portals, and agentic AI copilots.</p>
+                    <p style="margin-top:8px;"><strong>HIGHLIGHTS:</strong> Architect of AURA Spatial Atelier, Apex Nova Dental, and intelligent Windows 7 OS Portfolio engine.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. CONTACT.EXE -->
+    <div class="aero-window" id="win-contact" style="left:240px; top:110px; width:480px; height:410px;">
+        <div class="aero-titlebar" onmousedown="dragAero(event, 'win-contact')">
+            <div class="aero-title-left"><i class="fas fa-paper-plane" style="color:#22c55e;"></i> Contact.exe — Hire Manish</div>
+            <div class="aero-controls">
+                <div class="aero-btn" onclick="minAero('win-contact')"><i class="fas fa-minus"></i></div>
+                <div class="aero-btn" onclick="maxAero('win-contact')"><i class="far fa-square"></i></div>
+                <div class="aero-btn btn-close" onclick="closeAero('win-contact')"><i class="fas fa-times"></i></div>
+            </div>
+        </div>
+        <div class="aero-body" style="padding:16px;">
+            <form onsubmit="handleWinContact(event)" style="display:flex; flex-direction:column; gap:12px;">
+                <div>
+                    <label style="font-size:11.5px; font-weight:600; color:#334155; display:block; margin-bottom:4px;">Your Name:</label>
+                    <input type="text" required style="width:100%; height:28px; border:1px solid #94a3b8; border-radius:3px; padding:0 8px; font-size:12px;">
+                </div>
+                <div>
+                    <label style="font-size:11.5px; font-weight:600; color:#334155; display:block; margin-bottom:4px;">Email Address:</label>
+                    <input type="email" required style="width:100%; height:28px; border:1px solid #94a3b8; border-radius:3px; padding:0 8px; font-size:12px;">
+                </div>
+                <div>
+                    <label style="font-size:11.5px; font-weight:600; color:#334155; display:block; margin-bottom:4px;">Message / Project Brief:</label>
+                    <textarea rows="4" required style="width:100%; border:1px solid #94a3b8; border-radius:3px; padding:8px; font-size:12px; resize:none;"></textarea>
+                </div>
+                <button type="submit" style="background:#0284c7; color:#fff; border:none; padding:8px 16px; border-radius:4px; font-weight:600; cursor:pointer; font-size:12px;">
+                    Send Proposal Dispatch 🚀
+                </button>
+                <div id="winContactFeedback" style="display:none; color:#16a34a; font-size:11.5px; font-weight:600; text-align:center;">
+                    ✓ Message received! Manish and J.A.R.V.I.S will respond shortly.
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 7. RECYCLE BIN -->
+    <div class="aero-window" id="win-recycle" style="left:260px; top:130px; width:520px; height:360px;">
+        <div class="aero-titlebar" onmousedown="dragAero(event, 'win-recycle')">
+            <div class="aero-title-left"><i class="fas fa-trash-alt" style="color:#94a3b8;"></i> Recycle Bin</div>
+            <div class="aero-controls">
+                <div class="aero-btn" onclick="minAero('win-recycle')"><i class="fas fa-minus"></i></div>
+                <div class="aero-btn" onclick="maxAero('win-recycle')"><i class="far fa-square"></i></div>
+                <div class="aero-btn btn-close" onclick="closeAero('win-recycle')"><i class="fas fa-times"></i></div>
+            </div>
+        </div>
+        <div class="aero-body" style="padding:12px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding-bottom:8px; margin-bottom:10px;">
+                <span style="font-size:11.5px; color:#64748b;">4 deleted items</span>
+                <button onclick="emptyRecycleBin()" style="background:#ef4444; color:#fff; border:none; padding:4px 8px; border-radius:3px; font-size:11px; cursor:pointer;">Empty Recycle Bin</button>
+            </div>
+            <div id="recycleItemsDom" style="display:flex; flex-direction:column; gap:6px;">
+                <div style="display:flex; justify-content:space-between; padding:6px 8px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:4px; font-size:11.5px;">
+                    <span>🐛 bugs_in_production.log</span><span style="color:#94a3b8;">0 KB</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:6px 8px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:4px; font-size:11.5px;">
+                    <span>⚠️ ie6_legacy_support.dll</span><span style="color:#94a3b8;">42 KB</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:6px 8px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:4px; font-size:11.5px;">
+                    <span>🎨 ugly_generic_template_v1.zip</span><span style="color:#94a3b8;">1.2 MB</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 8. MY EX PHOTOS (EASTER EGG) -->
+    <div class="aero-window" id="win-myex" style="left:280px; top:150px; width:460px; height:320px;">
+        <div class="aero-titlebar" onmousedown="dragAero(event, 'win-myex')">
+            <div class="aero-title-left"><i class="fas fa-heart-broken" style="color:#ec4899;"></i> My Ex Photos — Confidential</div>
+            <div class="aero-controls">
+                <div class="aero-btn" onclick="minAero('win-myex')"><i class="fas fa-minus"></i></div>
+                <div class="aero-btn" onclick="maxAero('win-myex')"><i class="far fa-square"></i></div>
+                <div class="aero-btn btn-close" onclick="closeAero('win-myex')"><i class="fas fa-times"></i></div>
+            </div>
+        </div>
+        <div class="aero-body" style="padding:20px; text-align:center; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px;">
+            <i class="fas fa-folder-open" style="font-size:44px; color:#ec4899;"></i>
+            <h3 style="color:#0f172a; font-size:16px;">404 Girlfriend Not Found! 💔</h3>
+            <p style="font-size:12px; color:#64748b; max-width:320px;">
+                Manish is 100% committed to pure code, high-craft web engineering, and building AI agents.
+            </p>
+        </div>
+    </div>
+
+    <!-- 9. COMPUTER / SYSTEM CONFIG -->
+    <div class="aero-window" id="win-computer" style="left:150px; top:70px; width:580px; height:400px;">
+        <div class="aero-titlebar" onmousedown="dragAero(event, 'win-computer')">
+            <div class="aero-title-left"><i class="fas fa-desktop" style="color:#0284c7;"></i> System Properties — MANISH-PC</div>
+            <div class="aero-controls">
+                <div class="aero-btn" onclick="minAero('win-computer')"><i class="fas fa-minus"></i></div>
+                <div class="aero-btn" onclick="maxAero('win-computer')"><i class="far fa-square"></i></div>
+                <div class="aero-btn btn-close" onclick="closeAero('win-computer')"><i class="fas fa-times"></i></div>
+            </div>
+        </div>
+        <div class="aero-body" style="padding:20px; font-size:12.5px; line-height:1.7;">
+            <h3 style="color:#0284c7; margin-bottom:8px;">Windows Edition</h3>
+            <p>Windows 7 Ultimate — Manish Developer Edition (SP1)</p>
+            <hr style="margin:12px 0; border:0; border-top:1px solid #e2e8f0;">
+            <h3 style="color:#0284c7; margin-bottom:8px;">System</h3>
+            <p><strong>Processor:</strong> Manish Soni v2.0 Neural Engine @ 5.00 GHz</p>
+            <p><strong>Installed Memory (RAM):</strong> Unlimited Creative Memory (Full-Stack 64-bit)</p>
+            <p><strong>System Type:</strong> Next-Gen High Craft AI Developer</p>
+            <p><strong>Computer Name:</strong> MANISH-AI-WORKSTATION</p>
+            <button onclick="triggerBsod()" style="margin-top:14px; background:#dc2626; color:#fff; border:none; padding:6px 12px; border-radius:3px; font-size:11.5px; cursor:pointer;">
+                Simulate Blue Screen (BSOD Test)
+            </button>
+        </div>
+    </div>
+
+    <!-- ═══ MEME PRIVATE VIDEOS RICKROLL MODAL ═══ -->
+    <div id="rickroll-modal" onclick="closeRickrollModal()">
+        <div class="rickroll-box" onclick="event.stopPropagation()">
+            <h2 style="color:#ef4444; font-size:20px; margin-bottom:8px;">🚨 CAUGHT IN 4K! 🚨</h2>
+            <p style="font-size:13px; color:#d1d5db; margin-bottom:14px;">
+                When you try to open someone's "Private Videos" folder... 😉
+            </p>
+            <div style="background:#000; border-radius:8px; padding:20px; color:#facc15; font-size:16px; font-weight:700;">
+                ♪ Never Gonna Give You Up ♪
+            </div>
+            <button onclick="closeRickrollModal()" style="margin-top:16px; background:#ef4444; color:#fff; border:none; padding:6px 16px; border-radius:4px; font-weight:600; cursor:pointer;">
+                Close Modal
+            </button>
+        </div>
+    </div>
+
+    <!-- ═══ J.A.R.V.I.S 5.1 HUD MODAL ═══ -->
+    <div class="jarvis-hud-wrap" id="jarvis-hud-modal">
+        <div class="jarvis-hud-box">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div style="display:flex; align-items:center; gap:8px; color:#00f2fe; font-weight:700; font-size:16px;">
+                    <i class="fas fa-brain"></i> J.A.R.V.I.S 5.1 VOICE ENGINE
+                </div>
+                <button onclick="closeJarvisHud()" style="background:transparent; border:none; color:#94a3b8; font-size:18px; cursor:pointer;">&times;</button>
+            </div>
+
+            <div class="jarvis-feed" id="jarvisFeed">
+                <div class="j-msg j-bot">J.A.R.V.I.S initialized, sir. Voice synthesis &amp; mic ready. Type or speak any command.</div>
+            </div>
+
+            <div style="display:flex; gap:8px;">
+                <input type="text" id="jarvisInput" onkeydown="handleJarvisInput(event)" placeholder="Command J.A.R.V.I.S (e.g. 'play song', 'open projects', 'time')..." style="flex:1; height:36px; background:rgba(0,0,0,0.6); border:1px solid #00f2fe; border-radius:6px; color:#ffffff; padding:0 12px; font-size:13px; outline:none;">
+                <button id="jarvisMicBtn" onclick="toggleSpeechRec()" style="width:36px; height:36px; border-radius:6px; background:#00f2fe; color:#0f172a; border:none; cursor:pointer; font-size:14px; display:flex; align-items:center; justify-content:center;">
+                    <i class="fas fa-microphone"></i>
+                </button>
+                <button onclick="sendJarvisPrompt()" style="background:#00f2fe; color:#0f172a; border:none; padding:0 14px; border-radius:6px; font-weight:700; cursor:pointer; font-size:13px;">
+                    EXECUTE
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ BSOD SCREEN ═══ -->
+    <div id="bsod-screen" onclick="hideBsod()">
+        <h2>*** STOP: 0x000000D1 (0x0000000C,0x00000002,0x00000000,0xF86B5A89)</h2>
+        <p>A problem has been detected and Windows has been shut down to prevent damage to your computer.</p>
+        <p>The problem seems to be caused by the following file: CHAOS_DEPLOYED.SYS</p>
+        <p style="margin-top:30px; font-weight:700;">Click anywhere to reboot back to Windows 7 desktop...</p>
+    </div>
+
+    <!-- ═══ START MENU ═══ -->
+    <div id="win-start-menu">
+        <div class="start-menu-inner">
+            <div class="start-left-pane">
+                <div class="start-item-row" onclick="launchWindowWithFlyout('win-notepad', document.getElementById('icon-win-notepad')); toggleStartMenu();">
+                    <i class="fas fa-file-alt" style="color:#0284c7;"></i> <span>About_Me.txt</span>
+                </div>
+                <div class="start-item-row" onclick="launchWindowWithFlyout('win-explorer', document.getElementById('icon-win-explorer')); toggleStartMenu();">
+                    <i class="fas fa-folder" style="color:#eab308;"></i> <span>My Projects</span>
+                </div>
+                <div class="start-item-row" onclick="launchWindowWithFlyout('win-music-lib', document.getElementById('icon-win-music-lib')); toggleStartMenu();">
+                    <i class="fas fa-compact-disc" style="color:#f97316;"></i> <span>Music (151 Songs)</span>
+                </div>
+                <div class="start-item-row" onclick="launchJarvisHud(); toggleStartMenu();">
+                    <i class="fas fa-brain" style="color:#00f2fe;"></i> <span>J.A.R.V.I.S 5.1</span>
+                </div>
+                <div class="start-item-row" onclick="launchWindowWithFlyout('win-contact', document.getElementById('icon-win-contact')); toggleStartMenu();">
+                    <i class="fas fa-paper-plane" style="color:#22c55e;"></i> <span>Contact &amp; Hire</span>
+                </div>
+            </div>
+
+            <div class="start-right-pane">
+                <div class="start-right-item" style="font-weight:700; color:#fff;">Manish Soni</div>
+                <div class="start-right-item" onclick="launchWindowWithFlyout('win-explorer', document.getElementById('icon-win-explorer')); toggleStartMenu();">Documents</div>
+                <div class="start-right-item" onclick="launchWindowWithFlyout('win-music-lib', document.getElementById('icon-win-music-lib')); toggleStartMenu();">Music Library</div>
+                <div class="start-right-item" onclick="launchWindowWithFlyout('win-computer', document.getElementById('icon-win-computer')); toggleStartMenu();">Computer</div>
+                <div class="start-right-item" onclick="launchWindowWithFlyout('win-skills', document.getElementById('icon-win-skills')); toggleStartMenu();">Control Panel</div>
+            </div>
+        </div>
+
+        <div style="height:44px; background:rgba(0,0,0,0.35); border-top:1px solid rgba(255,255,255,0.15); display:flex; align-items:center; justify-content:space-between; padding:0 12px;">
+            <input type="text" placeholder="Search programs..." style="width:240px; height:26px; border:1px solid #829cb8; border-radius:2px; padding:0 8px; font-size:11.5px; outline:none;">
+            <button onclick="location.reload()" style="background:#c9302c; color:#fff; border:1px solid #ac2925; padding:4px 12px; border-radius:3px; font-size:11px; cursor:pointer;">Shut down</button>
+        </div>
+    </div>
+
+    <!-- ═══ TASKBAR ═══ -->
+    <div id="win-taskbar">
+        <div style="position:relative; width:54px; display:flex; align-items:center; justify-content:center;">
+            <div class="win-start-orb" onclick="toggleStartMenu()">
+                <svg viewBox="0 0 88 88" fill="none" style="width:22px; height:22px;">
+                    <path d="M6 18C20 8 32 26 44 14C44 28 44 48 44 62C32 74 20 56 6 66Z" fill="#F25022"/>
+                    <path d="M48 13C60 25 72 7 86 17V65C72 55 60 73 48 61Z" fill="#7FBA00"/>
+                    <path d="M6 68C20 58 32 76 44 64V82C32 94 20 76 6 86Z" fill="#00A4EF"/>
+                    <path d="M48 63C60 75 72 57 86 67V85C72 75 60 93 48 81Z" fill="#FFB900"/>
+                </svg>
+            </div>
+        </div>
+
+        <div class="taskbar-tasks-area">
+            <div class="taskbar-item-btn" id="task-win-notepad" onclick="toggleTaskbarWindow('win-notepad', 'icon-win-notepad')" title="Notepad">
+                <i class="fas fa-file-alt" style="color:#0284c7;"></i>
+            </div>
+            <div class="taskbar-item-btn" id="task-win-explorer" onclick="toggleTaskbarWindow('win-explorer', 'icon-win-explorer')" title="My Projects">
+                <i class="fas fa-folder" style="color:#eab308;"></i>
+            </div>
+            <div class="taskbar-item-btn" id="task-win-music-lib" onclick="toggleTaskbarWindow('win-music-lib', 'icon-win-music-lib')" title="Music Library">
+                <i class="fas fa-compact-disc" style="color:#f97316;"></i>
+                <span id="taskbarRadioText" style="font-size:10.5px; opacity:0.85;">Radio</span>
+            </div>
+            <div class="taskbar-item-btn" onclick="launchJarvisHud()" title="J.A.R.V.I.S">
+                <span style="display:block; width:22px; height:22px; border-radius:50%; background:radial-gradient(circle at 35% 28%, #dffaff 0%, #0f8cc2 80%); box-shadow:0 0 8px rgba(80,220,255,0.6);"></span>
+            </div>
+        </div>
+
+        <div class="taskbar-system-tray">
+            <i class="fas fa-volume-up" style="cursor:pointer;" onclick="playWinSound('click')"></i>
+            <i class="fas fa-network-wired"></i>
+            <i class="fas fa-flag" style="color:#ffc107;"></i>
+            <div class="tray-clock" id="trayClock">
+                <div>12:00 PM</div>
+                <div style="font-size:9.5px; opacity:0.8;">2026-09-20</div>
+            </div>
+            <div style="width:14px; height:100%; border-left:1px solid rgba(255,255,255,0.4); background:rgba(255,255,255,0.08); cursor:pointer;" onclick="showDesktop()" title="Show Desktop"></div>
+        </div>
+    </div>
+
+    <!-- ═══ WINDOWS 7 BOOT SCREEN (REQUIRED FOR BROWSER AUDIO PERMISSION) ═══ -->
+    <div id="win-boot-screen" onclick="bootIntoWindows()">
+        <svg viewBox="0 0 88 88" fill="none" style="width:80px; height:80px; filter:drop-shadow(0 0 20px rgba(0, 164, 239, 0.6));">
+            <path d="M6 18C20 8 32 26 44 14C44 28 44 48 44 62C32 74 20 56 6 66Z" fill="#F25022"/>
+            <path d="M48 13C60 25 72 7 86 17V65C72 55 60 73 48 61Z" fill="#7FBA00"/>
+            <path d="M6 68C20 58 32 76 44 64V82C32 94 20 76 6 86Z" fill="#00A4EF"/>
+            <path d="M48 63C60 75 72 57 86 67V85C72 75 60 93 48 81Z" fill="#FFB900"/>
+        </svg>
+        <div style="font-size:24px; font-weight:300; margin-top:24px; letter-spacing:1px; text-shadow:0 0 15px rgba(255,255,255,0.6);">
+            Starting Windows
+        </div>
+        <div style="font-size:11px; color:#94a3b8; margin-top:12px; letter-spacing:2px;">
+            CLICK ANYWHERE TO BOOT INTO MANISH'S DESKTOP
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         FULL JAVASCRIPT MASTER ENGINE (YOUTUBE STREAMING & FLYOUT PHYSICS)
+    ═══════════════════════════════════════════════════════════════════ -->
+    <script>
+        let topZ = 100;
+        let winAudioCtx = null;
+        let ytPlayer = null;
+        let isYtReady = false;
+
+        // 151 Complete Songs Dataset
+        const SONGS_151 = [
+  {
+    "id": "old-0",
+    "title": "Pal Pal Dil Ke Paas",
+    "artist": "Kishore Kumar",
+    "year": "1973",
+    "era": "Classic Golden Era",
+    "ytId": "AMuooY_NlXg"
+  },
+  {
+    "id": "old-1",
+    "title": "Mere Sapno Ki Rani",
+    "artist": "Kishore Kumar",
+    "year": "1969",
+    "era": "Classic Golden Era",
+    "ytId": "vo1MykK4uG4"
+  },
+  {
+    "id": "old-2",
+    "title": "Roop Tera Mastana",
+    "artist": "Kishore Kumar",
+    "year": "1969",
+    "era": "Classic Golden Era",
+    "ytId": "HenA-OUyo0s"
+  },
+  {
+    "id": "old-3",
+    "title": "Zindagi Ek Safar Hai Suhana",
+    "artist": "Kishore Kumar",
+    "year": "1971",
+    "era": "Classic Golden Era",
+    "ytId": "e_z5Nks1h5E"
+  },
+  {
+    "id": "old-4",
+    "title": "Chingari Koi Bhadke",
+    "artist": "Kishore Kumar",
+    "year": "1972",
+    "era": "Classic Golden Era",
+    "ytId": "5j_R_tDqPqA"
+  },
+  {
+    "id": "old-5",
+    "title": "Kora Kagaz Tha Yeh Man Mera",
+    "artist": "Kishore Kumar & Lata",
+    "year": "1969",
+    "era": "Classic Golden Era",
+    "ytId": "Y1Xk3m0D8sI"
+  },
+  {
+    "id": "old-6",
+    "title": "Gaata Rahe Mera Dil",
+    "artist": "Kishore Kumar & Lata",
+    "year": "1972",
+    "era": "Classic Golden Era",
+    "ytId": "jW_hI4n3qQY"
+  },
+  {
+    "id": "old-7",
+    "title": "Yeh Jo Mohabbat Hai",
+    "artist": "Kishore Kumar",
+    "year": "1971",
+    "era": "Classic Golden Era",
+    "ytId": "k3fHk4F_tqg"
+  },
+  {
+    "id": "old-8",
+    "title": "O Mere Dil Ke Chain",
+    "artist": "Kishore Kumar",
+    "year": "1972",
+    "era": "Classic Golden Era",
+    "ytId": "0E5s_8iT1_8"
+  },
+  {
+    "id": "old-9",
+    "title": "Khilona Jaan Kar Tum",
+    "artist": "Mohammed Rafi",
+    "year": "1970",
+    "era": "Classic Golden Era",
+    "ytId": "zU6qFhV4q7A"
+  },
+  {
+    "id": "old-10",
+    "title": "Chaudhvin Ka Chand Ho",
+    "artist": "Mohammed Rafi",
+    "year": "1960",
+    "era": "Classic Golden Era",
+    "ytId": "mdfqDsqZ3m4"
+  },
+  {
+    "id": "old-11",
+    "title": "Yeh Chand Sa Roshan Chehra",
+    "artist": "Mohammed Rafi",
+    "year": "1964",
+    "era": "Classic Golden Era",
+    "ytId": "Z-mS4m1C3jY"
+  },
+  {
+    "id": "old-12",
+    "title": "Kya Hua Tera Wada",
+    "artist": "Mohammed Rafi",
+    "year": "1977",
+    "era": "Classic Golden Era",
+    "ytId": "6i5x0V2m8lI"
+  },
+  {
+    "id": "old-13",
+    "title": "Badan Pe Sitare Lapete Hue",
+    "artist": "Mohammed Rafi",
+    "year": "1969",
+    "era": "Classic Golden Era",
+    "ytId": "5e1cM-3Yj0E"
+  },
+  {
+    "id": "old-14",
+    "title": "Maine Poochha Chand Se",
+    "artist": "Mohammed Rafi",
+    "year": "1967",
+    "era": "Classic Golden Era",
+    "ytId": "r6m7vX1y2zA"
+  },
+  {
+    "id": "old-15",
+    "title": "Baharon Phool Barsao",
+    "artist": "Mohammed Rafi",
+    "year": "1964",
+    "era": "Classic Golden Era",
+    "ytId": "m3y9s4F1b_s"
+  },
+  {
+    "id": "old-16",
+    "title": "Aaj Mausam Bada Beimaan Hai",
+    "artist": "Mohammed Rafi",
+    "year": "1973",
+    "era": "Classic Golden Era",
+    "ytId": "H3g_q4j9w3U"
+  },
+  {
+    "id": "old-17",
+    "title": "Kabhi Kabhie Mere Dil Mein",
+    "artist": "Mukesh",
+    "year": "1976",
+    "era": "Classic Golden Era",
+    "ytId": "f8r3u_k9qLw"
+  },
+  {
+    "id": "old-18",
+    "title": "Maine Tere Liye Hi Saat Rang Ke Sapne",
+    "artist": "Mukesh",
+    "year": "1970",
+    "era": "Classic Golden Era",
+    "ytId": "m3m6b9x2l1E"
+  },
+  {
+    "id": "old-19",
+    "title": "Dost Dost Na Raha",
+    "artist": "Mukesh",
+    "year": "1964",
+    "era": "Classic Golden Era",
+    "ytId": "k4j9u2x8m7Q"
+  },
+  {
+    "id": "old-20",
+    "title": "Awara Hoon",
+    "artist": "Mukesh",
+    "year": "1951",
+    "era": "Classic Golden Era",
+    "ytId": "VY16_czcxAM"
+  },
+  {
+    "id": "old-21",
+    "title": "Mera Joota Hai Japani",
+    "artist": "Mukesh",
+    "year": "1955",
+    "era": "Classic Golden Era",
+    "ytId": "5wjGc1zGWAo"
+  },
+  {
+    "id": "old-22",
+    "title": "Lag Ja Gale",
+    "artist": "Lata Mangeshkar",
+    "year": "1964",
+    "era": "Classic Golden Era",
+    "ytId": "TFr6G5zveS8"
+  },
+  {
+    "id": "old-23",
+    "title": "Ajeeb Dastan Hai Yeh",
+    "artist": "Lata Mangeshkar",
+    "year": "1960",
+    "era": "Classic Golden Era",
+    "ytId": "k9j1m7s2b_Q"
+  },
+  {
+    "id": "old-24",
+    "title": "Tere Bina Zindagi Se Koi",
+    "artist": "Kishore & Lata",
+    "year": "1975",
+    "era": "Classic Golden Era",
+    "ytId": "f9m3v2l1q_A"
+  },
+  {
+    "id": "old-25",
+    "title": "Piya Tu Ab To Aaja",
+    "artist": "Asha Bhosle & RD Burman",
+    "year": "1971",
+    "era": "Classic Golden Era",
+    "ytId": "H6k9x3l2m1E"
+  },
+  {
+    "id": "old-26",
+    "title": "Dum Maro Dum",
+    "artist": "Asha Bhosle",
+    "year": "1971",
+    "era": "Classic Golden Era",
+    "ytId": "s4l9m2q1b_s"
+  },
+  {
+    "id": "old-27",
+    "title": "Chura Liya Hai Tumne",
+    "artist": "Asha Bhosle",
+    "year": "1966",
+    "era": "Classic Golden Era",
+    "ytId": "G3l9m2v1q_A"
+  },
+  {
+    "id": "old-28",
+    "title": "In Aankhon Ki Masti Ke",
+    "artist": "Asha Bhosle",
+    "year": "1980",
+    "era": "Classic Golden Era",
+    "ytId": "k2m9x4l1q_s"
+  },
+  {
+    "id": "old-29",
+    "title": "Parde Mein Rehne Do",
+    "artist": "Asha Bhosle",
+    "year": "1968",
+    "era": "Classic Golden Era",
+    "ytId": "s1m9l4v2q_A"
+  },
+  {
+    "id": "old-30",
+    "title": "Aap Yahan Aa Kis Liye Aaye",
+    "artist": "Asha Bhosle",
+    "year": "1966",
+    "era": "Classic Golden Era",
+    "ytId": "l3m9x2q1b_A"
+  },
+  {
+    "id": "old-31",
+    "title": "Ek Ladki Ko Dekha",
+    "artist": "Kumar Sanu",
+    "year": "1994",
+    "era": "Classic Golden Era",
+    "ytId": "dGv7kF4sOis"
+  },
+  {
+    "id": "old-32",
+    "title": "Chura Ke Dil Mera",
+    "artist": "Kumar Sanu & Alka Yagnik",
+    "year": "1994",
+    "era": "Classic Golden Era",
+    "ytId": "f4k9m2l1v_s"
+  },
+  {
+    "id": "old-33",
+    "title": "Ab Tere Bin Jee Lenge Hum",
+    "artist": "Kumar Sanu",
+    "year": "1994",
+    "era": "Classic Golden Era",
+    "ytId": "h3l9m2q1v_A"
+  },
+  {
+    "id": "old-34",
+    "title": "Bas Ek Sanam Chahiye",
+    "artist": "Kumar Sanu",
+    "year": "1993",
+    "era": "Classic Golden Era",
+    "ytId": "k4m9x2l1q_s"
+  },
+  {
+    "id": "old-35",
+    "title": "Yeh Kaali Kaali Aankhen",
+    "artist": "Kumar Sanu",
+    "year": "1992",
+    "era": "Classic Golden Era",
+    "ytId": "4b_L27rV_o8"
+  },
+  {
+    "id": "old-36",
+    "title": "Sochenge Tumhe Pyar",
+    "artist": "Kumar Sanu",
+    "year": "1991",
+    "era": "Classic Golden Era",
+    "ytId": "m2l9x4q1v_A"
+  },
+  {
+    "id": "old-37",
+    "title": "Dheere Dheere Se Meri Zindagi",
+    "artist": "Kumar Sanu & Anuradha",
+    "year": "1990",
+    "era": "Classic Golden Era",
+    "ytId": "m4l9x2q1v_s"
+  },
+  {
+    "id": "old-38",
+    "title": "Nazar Ke Samne Jigar Ke Paas",
+    "artist": "Kumar Sanu & Asha",
+    "year": "1991",
+    "era": "Classic Golden Era",
+    "ytId": "l2m9x4v1q_A"
+  },
+  {
+    "id": "old-39",
+    "title": "Pehla Nasha",
+    "artist": "Udit Narayan & Sadhana Sargam",
+    "year": "1993",
+    "era": "Classic Golden Era",
+    "ytId": "mNDn_vW5m7k"
+  },
+  {
+    "id": "old-40",
+    "title": "Papa Kehte Hain",
+    "artist": "Udit Narayan",
+    "year": "1988",
+    "era": "Classic Golden Era",
+    "ytId": "zU_lMw7g4tQ"
+  },
+  {
+    "id": "old-41",
+    "title": "Ae Mere Humsafar",
+    "artist": "Udit Narayan & Alka",
+    "year": "1991",
+    "era": "Classic Golden Era",
+    "ytId": "k3l9x2v1q_A"
+  },
+  {
+    "id": "old-42",
+    "title": "Maine Pyar Kiya (Dosti Theme)",
+    "artist": "S.P. Balasubrahmanyam",
+    "year": "1989",
+    "era": "Classic Golden Era",
+    "ytId": "l4m9x2v1q_s"
+  },
+  {
+    "id": "old-43",
+    "title": "Dil Deewana",
+    "artist": "S.P. Balasubrahmanyam & Lata",
+    "year": "1989",
+    "era": "Classic Golden Era",
+    "ytId": "m3l9x2v1q_A"
+  },
+  {
+    "id": "old-44",
+    "title": "Deewana Tera",
+    "artist": "Sonu Nigam",
+    "year": "1999",
+    "era": "Classic Golden Era",
+    "ytId": "E_Yn2m7mPqw"
+  },
+  {
+    "id": "old-45",
+    "title": "Sandese Aate Hain",
+    "artist": "Sonu Nigam & Roopkumar",
+    "year": "1997",
+    "era": "Classic Golden Era",
+    "ytId": "m4l9x2v1q_A"
+  },
+  {
+    "id": "old-46",
+    "title": "Kuch Kuch Hota Hai",
+    "artist": "Udit Narayan & Alka Yagnik",
+    "year": "1998",
+    "era": "Classic Golden Era",
+    "ytId": "s4l9m2v1q_A"
+  },
+  {
+    "id": "old-47",
+    "title": "Ladki Badi Anjani Hai",
+    "artist": "Kumar Sanu & Alka Yagnik",
+    "year": "1998",
+    "era": "Classic Golden Era",
+    "ytId": "k3l9m2v1q_s"
+  },
+  {
+    "id": "old-48",
+    "title": "Tujhe Dekha To Ye Jaana Sanam",
+    "artist": "Lata & Kumar Sanu",
+    "year": "1995",
+    "era": "Classic Golden Era",
+    "ytId": "cNV5hLKh9QE"
+  },
+  {
+    "id": "old-49",
+    "title": "Mehndi Laga Ke Rakhna",
+    "artist": "Lata & Udit Narayan",
+    "year": "1995",
+    "era": "Classic Golden Era",
+    "ytId": "l2m9x4v1q_s"
+  },
+  {
+    "id": "old-50",
+    "title": "Ho Gaya Hai Tujhko To Pyar Sajna",
+    "artist": "Lata & Udit Narayan",
+    "year": "1995",
+    "era": "Classic Golden Era",
+    "ytId": "m4l9x2q1v_A"
+  },
+  {
+    "id": "old-51",
+    "title": "Ruk Ja O Dil Deewane",
+    "artist": "Udit Narayan",
+    "year": "1995",
+    "era": "Classic Golden Era",
+    "ytId": "k4l9m2v1q_A"
+  },
+  {
+    "id": "old-52",
+    "title": "Bholi Si Surat",
+    "artist": "Lata & Udit Narayan",
+    "year": "1997",
+    "era": "Classic Golden Era",
+    "ytId": "s3l9m2v1q_A"
+  },
+  {
+    "id": "old-53",
+    "title": "Chaiyya Chaiyya",
+    "artist": "Sukhwinder Singh & Sapna",
+    "year": "1998",
+    "era": "Classic Golden Era",
+    "ytId": "PQmrmVs10X8"
+  },
+  {
+    "id": "old-54",
+    "title": "Dil To Pagal Hai",
+    "artist": "Udit Narayan & Lata",
+    "year": "1997",
+    "era": "Classic Golden Era",
+    "ytId": "m2l9x4v1q_A"
+  },
+  {
+    "id": "old-55",
+    "title": "Le Gayi Le Gayi",
+    "artist": "Asha Bhosle & Udit",
+    "year": "1997",
+    "era": "Classic Golden Era",
+    "ytId": "l3m9x2v1q_A"
+  },
+  {
+    "id": "old-56",
+    "title": "Aur Pass",
+    "artist": "Udit Narayan & Alka Yagnik",
+    "year": "2000",
+    "era": "Classic Golden Era",
+    "ytId": "s4l9m2v1q_s"
+  },
+  {
+    "id": "old-57",
+    "title": "Humko Humise Chura Lo",
+    "artist": "Udit Narayan & Lata",
+    "year": "2000",
+    "era": "Classic Golden Era",
+    "ytId": "m3l9x2v1q_s"
+  },
+  {
+    "id": "old-58",
+    "title": "Tumhe Jo Maine Dekha",
+    "artist": "Udit Narayan & Alka",
+    "year": "2004",
+    "era": "Classic Golden Era",
+    "ytId": "k4l9m2v1q_s"
+  },
+  {
+    "id": "old-59",
+    "title": "Main Yahaan Hoon",
+    "artist": "Udit Narayan",
+    "year": "2004",
+    "era": "Classic Golden Era",
+    "ytId": "l2m9x4v1q_s"
+  },
+  {
+    "id": "old-60",
+    "title": "Kalonchoe (Mitwa)",
+    "artist": "Shankar Mahadevan",
+    "year": "2006",
+    "era": "Classic Golden Era",
+    "ytId": "m4l9x2v1q_A"
+  },
+  {
+    "id": "old-61",
+    "title": "Kabhi Alvida Naa Kehna",
+    "artist": "Sonu Nigam & Alka",
+    "year": "2006",
+    "era": "Classic Golden Era",
+    "ytId": "s3l9m2v1q_s"
+  },
+  {
+    "id": "old-62",
+    "title": "Mitwa",
+    "artist": "Shafqat Amanat Ali",
+    "year": "2006",
+    "era": "Classic Golden Era",
+    "ytId": "l3m9x2v1q_A"
+  },
+  {
+    "id": "old-63",
+    "title": "Tum Se Hi",
+    "artist": "Mohit Chauhan",
+    "year": "2007",
+    "era": "Classic Golden Era",
+    "ytId": "m2l9x4v1q_s"
+  },
+  {
+    "id": "old-64",
+    "title": "Maula Mere Maula",
+    "artist": "Roop Kumar Rathod",
+    "year": "2007",
+    "era": "Classic Golden Era",
+    "ytId": "k4l9m2v1q_s"
+  },
+  {
+    "id": "old-65",
+    "title": "Pehli Nazar Mein",
+    "artist": "Atif Aslam",
+    "year": "2008",
+    "era": "Classic Golden Era",
+    "ytId": "BadBAMnPXtc"
+  },
+  {
+    "id": "old-66",
+    "title": "Tera Hone Laga Hoon",
+    "artist": "Atif Aslam & Alisha",
+    "year": "2009",
+    "era": "Classic Golden Era",
+    "ytId": "rTuxUAu3apc"
+  },
+  {
+    "id": "old-67",
+    "title": "Tu Jaane Na",
+    "artist": "Atif Aslam",
+    "year": "2009",
+    "era": "Classic Golden Era",
+    "ytId": "k3l9m2v1q_A"
+  },
+  {
+    "id": "old-68",
+    "title": "Tujhi Mein",
+    "artist": "Atif Aslam",
+    "year": "2009",
+    "era": "Classic Golden Era",
+    "ytId": "l4m9x2v1q_s"
+  },
+  {
+    "id": "old-69",
+    "title": "Piya O Re Piya",
+    "artist": "Atif Aslam & Shreya",
+    "year": "2011",
+    "era": "Classic Golden Era",
+    "ytId": "m3l9x2v1q_A"
+  },
+  {
+    "id": "old-70",
+    "title": "Tum Hi Ho (Acoustic era gem)",
+    "artist": "Arijit Singh",
+    "year": "2013",
+    "era": "Classic Golden Era",
+    "ytId": "IJq0yyWug1k"
+  },
+  {
+    "id": "old-71",
+    "title": "Sawan Aaya Hai",
+    "artist": "Arijit Singh",
+    "year": "2014",
+    "era": "Classic Golden Era",
+    "ytId": "k4l9m2v1q_A"
+  },
+  {
+    "id": "old-72",
+    "title": "Muskurane",
+    "artist": "Arijit Singh",
+    "year": "2014",
+    "era": "Classic Golden Era",
+    "ytId": "s3l9m2v1q_A"
+  },
+  {
+    "id": "old-73",
+    "title": "Samjhawan",
+    "artist": "Arijit Singh & Shreya",
+    "year": "2014",
+    "era": "Classic Golden Era",
+    "ytId": "l2m9x4v1q_s"
+  },
+  {
+    "id": "old-74",
+    "title": "Hamdard",
+    "artist": "Arijit Singh",
+    "year": "2014",
+    "era": "Classic Golden Era",
+    "ytId": "m4l9x2v1q_s"
+  },
+  {
+    "id": "old-75",
+    "title": "Manwa Laage",
+    "artist": "Arijit Singh & Shreya",
+    "year": "2014",
+    "era": "Classic Golden Era",
+    "ytId": "s4l9m2v1q_A"
+  },
+  {
+    "id": "new-0",
+    "title": "Tum Hi Ho",
+    "artist": "Arijit Singh",
+    "year": "2013",
+    "era": "Modern Hits",
+    "ytId": "IJq0yyWug1k"
+  },
+  {
+    "id": "new-1",
+    "title": "Channa Mereya",
+    "artist": "Arijit Singh",
+    "year": "2016",
+    "era": "Modern Hits",
+    "ytId": "bzSTpdcs-EI"
+  },
+  {
+    "id": "new-2",
+    "title": "Ae Dil Hai Mushkil",
+    "artist": "Arijit Singh",
+    "year": "2016",
+    "era": "Modern Hits",
+    "ytId": "6FURuLYrR_Q"
+  },
+  {
+    "id": "new-3",
+    "title": "Enna Sona",
+    "artist": "Arijit Singh",
+    "year": "2017",
+    "era": "Modern Hits",
+    "ytId": "1_8e4U7n7x0"
+  },
+  {
+    "id": "new-4",
+    "title": "Nashe Si Chadh Gayi",
+    "artist": "Arijit Singh",
+    "year": "2016",
+    "era": "Modern Hits",
+    "ytId": "Wd2B8OAotU8"
+  },
+  {
+    "id": "new-5",
+    "title": "Soch Na Sake",
+    "artist": "Arijit Singh",
+    "year": "2016",
+    "era": "Modern Hits",
+    "ytId": "ox9u4J3j6x4"
+  },
+  {
+    "id": "new-6",
+    "title": "Janam Janam",
+    "artist": "Arijit Singh",
+    "year": "2015",
+    "era": "Modern Hits",
+    "ytId": "s_Q4X7H4v1E"
+  },
+  {
+    "id": "new-7",
+    "title": "Gerua",
+    "artist": "Arijit Singh",
+    "year": "2015",
+    "era": "Modern Hits",
+    "ytId": "TFr6G5zveS8"
+  },
+  {
+    "id": "new-8",
+    "title": "Agar Tum Saath Ho",
+    "artist": "Arijit Singh & Alka",
+    "year": "2015",
+    "era": "Modern Hits",
+    "ytId": "mdfqDsqZ3m4"
+  },
+  {
+    "id": "new-9",
+    "title": "Kesariya",
+    "artist": "Arijit Singh",
+    "year": "2022",
+    "era": "Modern Hits",
+    "ytId": "BddP6PYo2gs"
+  },
+  {
+    "id": "new-10",
+    "title": "Tum Kya Mile",
+    "artist": "Arijit Singh & Shreya",
+    "year": "2023",
+    "era": "Modern Hits",
+    "ytId": "bzSTpdcs-EI"
+  },
+  {
+    "id": "new-11",
+    "title": "Tere Hawaale",
+    "artist": "Arijit Singh",
+    "year": "2023",
+    "era": "Modern Hits",
+    "ytId": "BddP6PYo2gs"
+  },
+  {
+    "id": "new-12",
+    "title": "Heeriye",
+    "artist": "Jasleen Royal & Arijit",
+    "year": "2023",
+    "era": "Modern Hits",
+    "ytId": "BadBAMnPXtc"
+  },
+  {
+    "id": "new-13",
+    "title": "Apna Bana Le",
+    "artist": "Sachin-Jigar & Arijit",
+    "year": "2022",
+    "era": "Modern Hits",
+    "ytId": "rTuxUAu3apc"
+  },
+  {
+    "id": "new-14",
+    "title": "Raataan Lambiyan",
+    "artist": "Jubin Nautiyal & Asees",
+    "year": "2021",
+    "era": "Modern Hits",
+    "ytId": "gvyUuxdRdR4"
+  },
+  {
+    "id": "new-15",
+    "title": "Tumse Pyaar Karke",
+    "artist": "Jubin Nautiyal",
+    "year": "2023",
+    "era": "Modern Hits",
+    "ytId": "VNs_cCtdbPc"
+  },
+  {
+    "id": "new-16",
+    "title": "Tujhe Kitna Chahne Lage",
+    "artist": "Jubin Nautiyal",
+    "year": "2019",
+    "era": "Modern Hits",
+    "ytId": "vX2cDW8LUWk"
+  },
+  {
+    "id": "new-17",
+    "title": "Lut Gaye",
+    "artist": "Jubin Nautiyal",
+    "year": "2021",
+    "era": "Modern Hits",
+    "ytId": "sCbbMZ-q4-I"
+  },
+  {
+    "id": "new-18",
+    "title": "Tum Hi Aana",
+    "artist": "Jubin Nautiyal",
+    "year": "2019",
+    "era": "Modern Hits",
+    "ytId": "_XBVWlI8TsQ"
+  },
+  {
+    "id": "new-19",
+    "title": "Bekhayali",
+    "artist": "Sachet Tandon",
+    "year": "2019",
+    "era": "Modern Hits",
+    "ytId": "cNV5hLKh9QE"
+  },
+  {
+    "id": "new-20",
+    "title": "Kabir Singh (Tujhe Kitna Chahne Lage)",
+    "artist": "Jubin Nautiyal",
+    "year": "2019",
+    "era": "Modern Hits",
+    "ytId": "mNDn_vW5m7k"
+  },
+  {
+    "id": "new-21",
+    "title": "Pehle Pyaar Ka Pehla Dard",
+    "artist": "Jubin Nautiyal",
+    "year": "2020",
+    "era": "Modern Hits",
+    "ytId": "E_Yn2m7mPqw"
+  },
+  {
+    "id": "new-22",
+    "title": "Khairiyat",
+    "artist": "Arijit Singh",
+    "year": "2019",
+    "era": "Modern Hits",
+    "ytId": "gvyUuxdRdR4"
+  },
+  {
+    "id": "new-23",
+    "title": "Kalank Title Track",
+    "artist": "Arijit Singh",
+    "year": "2019",
+    "era": "Modern Hits",
+    "ytId": "sCbbMZ-q4-I"
+  },
+  {
+    "id": "new-24",
+    "title": "Ghodey Pe Sawaar",
+    "artist": "Amitabh Bhattacharya",
+    "year": "2022",
+    "era": "Modern Hits",
+    "ytId": "AMuooY_NlXg"
+  },
+  {
+    "id": "new-25",
+    "title": "Qaafirana",
+    "artist": "Arijit Singh",
+    "year": "2018",
+    "era": "Modern Hits",
+    "ytId": "vo1MykK4uG4"
+  },
+  {
+    "id": "new-26",
+    "title": "Aashiqui Mashup",
+    "artist": "Various Artists",
+    "year": "2015",
+    "era": "Modern Hits",
+    "ytId": "HenA-OUyo0s"
+  },
+  {
+    "id": "new-27",
+    "title": "Ilahi",
+    "artist": "Arijit Singh",
+    "year": "2014",
+    "era": "Modern Hits",
+    "ytId": "TFr6G5zveS8"
+  },
+  {
+    "id": "new-28",
+    "title": "Kabira",
+    "artist": "Tochi Raina & Rekha",
+    "year": "2013",
+    "era": "Modern Hits",
+    "ytId": "mdfqDsqZ3m4"
+  },
+  {
+    "id": "new-29",
+    "title": "Manja",
+    "artist": "Amit Trivedi",
+    "year": "2013",
+    "era": "Modern Hits",
+    "ytId": "IJq0yyWug1k"
+  },
+  {
+    "id": "new-30",
+    "title": "Zaalima",
+    "artist": "Arijit Singh & Harshdeep",
+    "year": "2017",
+    "era": "Modern Hits",
+    "ytId": "bzSTpdcs-EI"
+  },
+  {
+    "id": "new-31",
+    "title": "Hawayein",
+    "artist": "Arijit Singh",
+    "year": "2017",
+    "era": "Modern Hits",
+    "ytId": "BddP6PYo2gs"
+  },
+  {
+    "id": "new-32",
+    "title": "Ranjha",
+    "artist": "B Praak & Jasleen",
+    "year": "2021",
+    "era": "Modern Hits",
+    "ytId": "BadBAMnPXtc"
+  },
+  {
+    "id": "new-33",
+    "title": "Dhokha",
+    "artist": "Arijit Singh",
+    "year": "2022",
+    "era": "Modern Hits",
+    "ytId": "rTuxUAu3apc"
+  },
+  {
+    "id": "new-34",
+    "title": "Phir Aur Kya Chahiye",
+    "artist": "Arijit Singh",
+    "year": "2022",
+    "era": "Modern Hits",
+    "ytId": "VuG7ge_8I2Y"
+  },
+  {
+    "id": "new-35",
+    "title": "Tere Vaaste",
+    "artist": "Varun Jain & Sachin-Jigar",
+    "year": "2023",
+    "era": "Modern Hits",
+    "ytId": "VNs_cCtdbPc"
+  },
+  {
+    "id": "new-36",
+    "title": "Choo Lo",
+    "artist": "The Local Train",
+    "year": "2015",
+    "era": "Modern Hits",
+    "ytId": "vX2cDW8LUWk"
+  },
+  {
+    "id": "new-37",
+    "title": "Khoya",
+    "artist": "The Local Train",
+    "year": "2018",
+    "era": "Modern Hits",
+    "ytId": "5Eqb_-j3FDA"
+  },
+  {
+    "id": "new-38",
+    "title": "Kahani",
+    "artist": "Sunidhi Chauhan",
+    "year": "2022",
+    "era": "Modern Hits",
+    "ytId": "_XBVWlI8TsQ"
+  },
+  {
+    "id": "new-39",
+    "title": "Kesariya (Ballam Waali)",
+    "artist": "Arijit Singh",
+    "year": "2022",
+    "era": "Modern Hits",
+    "ytId": "cNV5hLKh9QE"
+  },
+  {
+    "id": "new-40",
+    "title": "Jhoome Jo Pathaan",
+    "artist": "Vishal-Sheykhar ft Sukhwinder",
+    "year": "2023",
+    "era": "Modern Hits",
+    "ytId": "mNDn_vW5m7k"
+  },
+  {
+    "id": "new-41",
+    "title": "Besharam Rang",
+    "artist": "Shilpa Rao, Caralisa",
+    "year": "2022",
+    "era": "Modern Hits",
+    "ytId": "E_Yn2m7mPqw"
+  },
+  {
+    "id": "new-42",
+    "title": "Jhoome Jo Pathaan (Trap Mix)",
+    "artist": "Vishal-Sheykhar",
+    "year": "2023",
+    "era": "Modern Hits",
+    "ytId": "gvyUuxdRdR4"
+  },
+  {
+    "id": "new-43",
+    "title": "Naatu Naatu",
+    "artist": "Rahul Sipligunj & Kaala",
+    "year": "2022",
+    "era": "Modern Hits",
+    "ytId": "sCbbMZ-q4-I"
+  },
+  {
+    "id": "new-44",
+    "title": "Srivalli",
+    "artist": "Sid Sriram",
+    "year": "2021",
+    "era": "Modern Hits",
+    "ytId": "AMuooY_NlXg"
+  },
+  {
+    "id": "new-45",
+    "title": "Oo Antava",
+    "artist": "Indravathi Chauhan",
+    "year": "2021",
+    "era": "Modern Hits",
+    "ytId": "vo1MykK4uG4"
+  },
+  {
+    "id": "new-46",
+    "title": "Butta Bomma",
+    "artist": "Armaan Malik",
+    "year": "2020",
+    "era": "Modern Hits",
+    "ytId": "HenA-OUyo0s"
+  },
+  {
+    "id": "new-47",
+    "title": "Ramuloo Ramulaa",
+    "artist": "Anurag Kulkarni",
+    "year": "2020",
+    "era": "Modern Hits",
+    "ytId": "TFr6G5zveS8"
+  },
+  {
+    "id": "new-48",
+    "title": "Saami Saami",
+    "artist": "Mounika Yadav",
+    "year": "2021",
+    "era": "Modern Hits",
+    "ytId": "mdfqDsqZ3m4"
+  },
+  {
+    "id": "new-49",
+    "title": "Kala Chashma",
+    "artist": "Badshah, Neha Kakkar",
+    "year": "2016",
+    "era": "Modern Hits",
+    "ytId": "IJq0yyWug1k"
+  },
+  {
+    "id": "new-50",
+    "title": "Kar Gayi Chull",
+    "artist": "Badshah, Fazilpuria",
+    "year": "2016",
+    "era": "Modern Hits",
+    "ytId": "NTHz9ephYTw"
+  },
+  {
+    "id": "new-51",
+    "title": "Saturday Saturday",
+    "artist": "Badshah, Akriti Kakar",
+    "year": "2014",
+    "era": "Modern Hits",
+    "ytId": "7kL7qG8J0eY"
+  },
+  {
+    "id": "new-52",
+    "title": "Abhi Toh Party Shuru Hui Hai",
+    "artist": "Badshah",
+    "year": "2014",
+    "era": "Modern Hits",
+    "ytId": "89_KXT5ztTU"
+  },
+  {
+    "id": "new-53",
+    "title": "DJ Waley Babu",
+    "artist": "Badshah ft Aastha",
+    "year": "2015",
+    "era": "Modern Hits",
+    "ytId": "O_k3Vp4j0kE"
+  },
+  {
+    "id": "new-54",
+    "title": "Wakhra Swag",
+    "artist": "Navv Inder ft Badshah",
+    "year": "2015",
+    "era": "Modern Hits",
+    "ytId": "VuG7ge_8I2Y"
+  },
+  {
+    "id": "new-55",
+    "title": "Proper Patola",
+    "artist": "Badshah & Diljit",
+    "year": "2018",
+    "era": "Modern Hits",
+    "ytId": "4o_o2G4jG3w"
+  },
+  {
+    "id": "new-56",
+    "title": "Lamberghini",
+    "artist": "The Doorbeen ft Ragini",
+    "year": "2018",
+    "era": "Modern Hits",
+    "ytId": "vX2cDW8LUWk"
+  },
+  {
+    "id": "new-57",
+    "title": "Coca Cola",
+    "artist": "Tony Kakkar & Neha",
+    "year": "2019",
+    "era": "Modern Hits",
+    "ytId": "5Eqb_-j3FDA"
+  },
+  {
+    "id": "new-58",
+    "title": "Cringe",
+    "artist": "Payal Dev ft Badshah",
+    "year": "2022",
+    "era": "Modern Hits",
+    "ytId": "_XBVWlI8TsQ"
+  },
+  {
+    "id": "new-59",
+    "title": "Srivalli (Hindi)",
+    "artist": "Jubin Nautiyal",
+    "year": "2022",
+    "era": "Modern Hits",
+    "ytId": "hcMzwMrr1tE"
+  },
+  {
+    "id": "new-60",
+    "title": "Meri Jaan",
+    "artist": "Gangubai / Neeti Mohan",
+    "year": "2022",
+    "era": "Modern Hits",
+    "ytId": "mNDn_vW5m7k"
+  },
+  {
+    "id": "new-61",
+    "title": "Shikayat",
+    "artist": "King",
+    "year": "2023",
+    "era": "Modern Hits",
+    "ytId": "E_Yn2m7mPqw"
+  },
+  {
+    "id": "new-62",
+    "title": "Maan Meri Jaan",
+    "artist": "King",
+    "year": "2022",
+    "era": "Modern Hits",
+    "ytId": "VuG7ge_8I2Y"
+  },
+  {
+    "id": "new-63",
+    "title": "OOPS",
+    "artist": "King",
+    "year": "2023",
+    "era": "Modern Hits",
+    "ytId": "sCbbMZ-q4-I"
+  },
+  {
+    "id": "new-64",
+    "title": "Tu Aake Dil Mein",
+    "artist": "King",
+    "year": "2020",
+    "era": "Modern Hits",
+    "ytId": "AMuooY_NlXg"
+  },
+  {
+    "id": "new-65",
+    "title": "Brown Munde",
+    "artist": "AP Dhillon",
+    "year": "2020",
+    "era": "Modern Hits",
+    "ytId": "VNs_cCtdbPc"
+  },
+  {
+    "id": "new-66",
+    "title": "Excuses",
+    "artist": "AP Dhillon",
+    "year": "2020",
+    "era": "Modern Hits",
+    "ytId": "vX2cDW8LUWk"
+  },
+  {
+    "id": "new-67",
+    "title": "Tera Ki Khayal",
+    "artist": "AP Dhillon",
+    "year": "2021",
+    "era": "Modern Hits",
+    "ytId": "TFr6G5zveS8"
+  },
+  {
+    "id": "new-68",
+    "title": "Insane",
+    "artist": "AP Dhillon",
+    "year": "2022",
+    "era": "Modern Hits",
+    "ytId": "cl0a3iCSsD8"
+  },
+  {
+    "id": "new-69",
+    "title": "With You",
+    "artist": "AP Dhillon",
+    "year": "2023",
+    "era": "Modern Hits",
+    "ytId": "1L1o6g9h-l8"
+  },
+  {
+    "id": "new-70",
+    "title": "Pasoori",
+    "artist": "Shae Gill & Ali Sethi",
+    "year": "2022",
+    "era": "Modern Hits",
+    "ytId": "5Eqb_-j3FDA"
+  },
+  {
+    "id": "new-71",
+    "title": "Kahani Suno",
+    "artist": "Kaifi Khalil",
+    "year": "2022",
+    "era": "Modern Hits",
+    "ytId": "_XBVWlI8TsQ"
+  },
+  {
+    "id": "new-72",
+    "title": "Tere Bin (Serial)",
+    "artist": "Nusrat Fateh Ali Khan remix",
+    "year": "2023",
+    "era": "Modern Hits",
+    "ytId": "BadBAMnPXtc"
+  },
+  {
+    "id": "new-73",
+    "title": "Saiyaan",
+    "artist": "Rahul Vaidya",
+    "year": "2023",
+    "era": "Modern Hits",
+    "ytId": "rTuxUAu3apc"
+  },
+  {
+    "id": "new-74",
+    "title": "O Bedardeya",
+    "artist": "Arijit Singh",
+    "year": "2023",
+    "era": "Modern Hits",
+    "ytId": "ElZfdU54Cp8"
+  }
+];
+
+        // Initialize YouTube IFrame API
+        function onYouTubeIframeAPIReady() {
+            ytPlayer = new YT.Player('yt-player', {
+                height: '180',
+                width: '320',
+                playerVars: {
+                    autoplay: 0,
+                    controls: 0,
+                    disablekb: 1,
+                    modestbranding: 1,
+                    playsinline: 1,
+                    rel: 0
+                },
+                events: {
+                    onReady: (event) => {
+                        isYtReady = true;
+                    }
+                }
+            });
+        }
+
+        function populateMusicLib(list = SONGS_151) {
+            const dom = document.getElementById('trackListDom');
+            if (!dom) return;
+            dom.innerHTML = '';
+            list.forEach((s, idx) => {
+                const item = document.createElement('div');
+                item.className = 'music-track-item';
+                item.innerHTML = `
+                    <div>
+                        <span style="font-weight:600;">${idx + 1}. ${s.title}</span>
+                        <span style="color:#64748b; font-size:10.5px; display:block;">${s.artist} • ${s.year} (${s.era})</span>
+                    </div>
+                    <span style="color:#0284c7; font-size:10px; font-weight:700;"><i class="fab fa-youtube"></i> PLAY</span>
+                `;
+                item.onclick = () => selectAndPlayTrack(s, item);
+                dom.appendChild(item);
+            });
+        }
+
+        function filterSongsList() {
+            const query = document.getElementById('musicSearchInput').value.toLowerCase().trim();
+            if (!query) {
+                populateMusicLib(SONGS_151);
+                return;
+            }
+            const filtered = SONGS_151.filter(s => s.title.toLowerCase().includes(query) || s.artist.toLowerCase().includes(query));
+            populateMusicLib(filtered);
+        }
+
+        let isLibPlaying = false;
+        let currentPlayingSong = null;
+
+        function selectAndPlayTrack(song, domEl) {
+            document.querySelectorAll('.music-track-item').forEach(i => i.classList.remove('playing'));
+            if (domEl) domEl.classList.add('playing');
+            document.getElementById('libCurrentTitle').textContent = `♪ ${song.title}`;
+            document.getElementById('libCurrentArtist').textContent = `${song.artist} • ${song.year}`;
+            document.getElementById('taskbarRadioText').textContent = `♪ ${song.title}`;
+            isLibPlaying = true;
+            currentPlayingSong = song;
+            document.getElementById('libPlayIcon').className = 'fas fa-pause';
+            speakJarvisVoice(`Playing ${song.title} by ${song.artist}`);
+            
+            // Play YouTube song
+            if (ytPlayer && typeof ytPlayer.loadVideoById === 'function' && song.ytId) {
+                ytPlayer.loadVideoById(song.ytId);
+                ytPlayer.playVideo();
+            }
+        }
+
+        function toggleLibMusic() {
+            const icon = document.getElementById('libPlayIcon');
+            if (isLibPlaying) {
+                isLibPlaying = false;
+                icon.className = 'fas fa-play';
+                document.getElementById('taskbarRadioText').textContent = 'Radio (Paused)';
+                if (ytPlayer && typeof ytPlayer.pauseVideo === 'function') ytPlayer.pauseVideo();
+            } else {
+                if (currentPlayingSong) {
+                    selectAndPlayTrack(currentPlayingSong, null);
+                } else {
+                    playRandomTrack();
+                }
+            }
+        }
+
+        function playRandomTrack() {
+            const rand = SONGS_151[Math.floor(Math.random() * SONGS_151.length)];
+            selectAndPlayTrack(rand, null);
+        }
+
+        function getWinAudio() {
+            if (!winAudioCtx) {
+                const AudioClass = window.AudioContext || window.webkitAudioContext;
+                if (AudioClass) winAudioCtx = new AudioClass();
+            }
+            if (winAudioCtx && winAudioCtx.state === 'suspended') {
+                winAudioCtx.resume();
+            }
+            return winAudioCtx;
+        }
+
+        function playWinSound(type) {
+            try {
+                const ctx = getWinAudio();
+                if (!ctx) return;
+                const now = ctx.currentTime;
+                if (type === 'boot') {
+                    [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
+                        const o = ctx.createOscillator();
+                        const g = ctx.createGain();
+                        o.type = 'sine';
+                        o.frequency.setValueAtTime(freq, now + i * 0.12);
+                        g.gain.setValueAtTime(0.08, now + i * 0.12);
+                        g.gain.exponentialRampToValueAtTime(0.001, now + i * 0.12 + 1.2);
+                        o.connect(g);
+                        g.connect(ctx.destination);
+                        o.start(now + i * 0.12);
+                        o.stop(now + i * 0.12 + 1.2);
+                    });
+                } else if (type === 'click') {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(1000, now);
+                    gain.gain.setValueAtTime(0.06, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.04);
+                }
+            } catch(e) {}
+        }
+
+        /* ═══ TEXT-TO-SPEECH (J.A.R.V.I.S VOICE ENGINE) ═══ */
+        function speakJarvisVoice(text) {
+            if (!window.speechSynthesis) return;
+            try {
+                window.speechSynthesis.cancel();
+                const clean = text.replace(/[^\w\s\.,?!]/gi, '').slice(0, 300);
+                const utter = new SpeechSynthesisUtterance(clean);
+                const voices = window.speechSynthesis.getVoices();
+                const preferredVoice = voices.find(v => /en-IN/i.test(v.lang)) || voices.find(v => /en-GB/i.test(v.lang)) || voices[0];
+                if (preferredVoice) utter.voice = preferredVoice;
+                utter.rate = 1.0;
+                utter.pitch = 0.95;
+                window.speechSynthesis.speak(utter);
+            } catch(e) {}
+        }
+
+        /* ═══ SPEECH RECOGNITION (VOICE INPUT) ═══ */
+        let recognition = null;
+        let isListening = false;
+
+        function toggleSpeechRec() {
+            const btn = document.getElementById('jarvisMicBtn');
+            const SpeechRecClass = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecClass) {
+                alert("Speech recognition is not supported in this browser. Please type your prompt.");
+                return;
+            }
+
+            if (isListening) {
+                if (recognition) recognition.stop();
+                isListening = false;
+                btn.style.background = '#00f2fe';
+            } else {
+                recognition = new SpeechRecClass();
+                recognition.lang = 'en-IN';
+                recognition.interimResults = false;
+                recognition.onstart = () => {
+                    isListening = true;
+                    btn.style.background = '#ef4444';
+                };
+                recognition.onresult = (e) => {
+                    const text = e.results[0][0].transcript;
+                    document.getElementById('jarvisInput').value = text;
+                    sendJarvisPrompt();
+                };
+                recognition.onerror = () => {
+                    isListening = false;
+                    btn.style.background = '#00f2fe';
+                };
+                recognition.onend = () => {
+                    isListening = false;
+                    btn.style.background = '#00f2fe';
+                };
+                recognition.start();
+            }
+        }
+
+        /* ═══ AUTHENTIC FLYOUT ANIMATION PHYSICS ═══ */
+        function launchWindowWithFlyout(winId, originElement) {
+            playWinSound('click');
+            const win = document.getElementById(winId);
+            if (!win) return;
+
+            win.classList.remove('minimized');
+            win.classList.add('open');
+            bringAeroToFront(win);
+            updateTaskbarState(winId, true);
+
+            if (originElement) {
+                const originRect = originElement.getBoundingClientRect();
+                const winRect = win.getBoundingClientRect();
+
+                const deltaX = (originRect.left + originRect.width / 2) - (winRect.left + winRect.width / 2);
+                const deltaY = (originRect.top + originRect.height / 2) - (winRect.top + winRect.height / 2);
+
+                win.animate([
+                    { transform: `translate(${deltaX.toFixed(1)}px, ${deltaY.toFixed(1)}px) scale(0.01)`, opacity: 0, filter: 'blur(8px)' },
+                    { transform: `translate(${(0.42 * deltaX).toFixed(1)}px, ${(0.42 * deltaY).toFixed(1)}px) scale(0.52)`, opacity: 1, filter: 'blur(2px)', offset: 0.52 },
+                    { transform: 'translate(0px, 0px) scale(1)', opacity: 1, filter: 'blur(0px)' }
+                ], {
+                    duration: 520,
+                    easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
+                    fill: 'both'
+                });
+            }
+        }
+
+        function toggleTaskbarWindow(winId, iconId) {
+            const win = document.getElementById(winId);
+            if (!win) return;
+            if (win.classList.contains('open') && !win.classList.contains('minimized')) {
+                minAero(winId);
+            } else {
+                launchWindowWithFlyout(winId, document.getElementById(iconId));
+            }
+        }
+
+        function updateTaskbarState(winId, isOpen) {
+            const taskBtn = document.getElementById('task-' + winId);
+            if (taskBtn) {
+                if (isOpen) taskBtn.classList.add('task-open');
+                else taskBtn.classList.remove('task-open');
+            }
+        }
+
+        function bootIntoWindows() {
+            playWinSound('boot');
+            const boot = document.getElementById('win-boot-screen');
+            boot.style.opacity = '0';
+            setTimeout(() => {
+                boot.style.visibility = 'hidden';
+                populateMusicLib();
+                launchWindowWithFlyout('win-notepad', document.getElementById('icon-win-notepad'));
+            }, 700);
+        }
+
+        // Live Clock
+        function updateClock() {
+            const now = new Date();
+            let h = now.getHours();
+            const m = String(now.getMinutes()).padStart(2, '0');
+            const ampm = h >= 12 ? 'PM' : 'AM';
+            h = h % 12 || 12;
+            const y = now.getFullYear();
+            const mo = String(now.getMonth() + 1).padStart(2, '0');
+            const d = String(now.getDate()).padStart(2, '0');
+            document.getElementById('trayClock').innerHTML = `<div>${h}:${m} ${ampm}</div><div style="font-size:9.5px; opacity:0.8;">${y}-${mo}-${d}</div>`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        /* ═══ AERO CONTROLS ═══ */
+        function closeAero(id) {
+            playWinSound('click');
+            const win = document.getElementById(id);
+            if (win) {
+                win.animate([
+                    { transform: 'scale(1)', opacity: 1 },
+                    { transform: 'scale(0.85) translateY(20px)', opacity: 0 }
+                ], { duration: 200, fill: 'forwards' }).finished.then(() => {
+                    win.classList.remove('open');
+                    win.classList.remove('maximized');
+                    updateTaskbarState(id, false);
+                });
+            }
+        }
+
+        function minAero(id) {
+            playWinSound('click');
+            const win = document.getElementById(id);
+            if (win) {
+                const taskBtn = document.getElementById('task-' + id) || document.getElementById('win-taskbar');
+                const tRect = taskBtn.getBoundingClientRect();
+                const wRect = win.getBoundingClientRect();
+                const dX = (tRect.left + tRect.width / 2) - (wRect.left + wRect.width / 2);
+                const dY = (tRect.top + tRect.height / 2) - (wRect.top + wRect.height / 2);
+
+                win.animate([
+                    { transform: 'scale(1) translate(0, 0)', opacity: 1 },
+                    { transform: `translate(${dX}px, ${dY}px) scale(0.05)`, opacity: 0 }
+                ], { duration: 320, easing: 'cubic-bezier(0.4, 0, 0.8, 0.2)', fill: 'forwards' }).finished.then(() => {
+                    win.classList.add('minimized');
+                });
+            }
+        }
+
+        function maxAero(id) {
+            playWinSound('click');
+            const win = document.getElementById(id);
+            if (win) win.classList.toggle('maximized');
+        }
+
+        function bringAeroToFront(win) {
+            topZ += 2;
+            win.style.zIndex = topZ;
+            document.querySelectorAll('.aero-window').forEach(w => w.classList.remove('active'));
+            win.classList.add('active');
+        }
+
+        function showDesktop() {
+            playWinSound('click');
+            document.querySelectorAll('.aero-window').forEach(w => minAero(w.id));
+        }
+
+        function toggleStartMenu() {
+            playWinSound('click');
+            const menu = document.getElementById('win-start-menu');
+            menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        window.addEventListener('click', (e) => {
+            const menu = document.getElementById('win-start-menu');
+            const orb = document.querySelector('.win-start-orb');
+            if (menu.style.display === 'flex' && !menu.contains(e.target) && !orb.contains(e.target)) {
+                menu.style.display = 'none';
+            }
+        });
+
+        /* ═══ DRAG SYSTEM ═══ */
+        let draggedAero = null;
+        let aeroOffX = 0;
+        let aeroOffY = 0;
+
+        function dragAero(e, id) {
+            if (e.target.classList.contains('aero-btn')) return;
+            draggedAero = document.getElementById(id);
+            if (!draggedAero || draggedAero.classList.contains('maximized')) return;
+            bringAeroToFront(draggedAero);
+
+            const r = draggedAero.getBoundingClientRect();
+            aeroOffX = e.clientX - r.left;
+            aeroOffY = e.clientY - r.top;
+
+            window.addEventListener('mousemove', moveAero);
+            window.addEventListener('mouseup', stopAeroDrag);
+        }
+
+        function moveAero(e) {
+            if (!draggedAero) return;
+            let x = e.clientX - aeroOffX;
+            let y = e.clientY - aeroOffY;
+            if (y < 0) y = 0;
+            draggedAero.style.left = x + 'px';
+            draggedAero.style.top = y + 'px';
+        }
+
+        function stopAeroDrag() {
+            draggedAero = null;
+            window.removeEventListener('mousemove', moveAero);
+            window.removeEventListener('mouseup', stopAeroDrag);
+        }
+
+        function selectDeskIcon(el, e) {
+            e.stopPropagation();
+            playWinSound('click');
+            document.querySelectorAll('.win7-desk-icon').forEach(i => i.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+
+        function toggleAvatarBubble() {
+            playWinSound('click');
+            const b = document.getElementById('avatarBubble');
+            b.classList.toggle('show');
+            if (b.classList.contains('show')) {
+                speakJarvisVoice("Namaste! Welcome to Manish's Windows 7 desktop.");
+            }
+        }
+
+        function triggerBsod() {
+            speakJarvisVoice("As you wish sir. Deploying Blue Screen.");
+            setTimeout(() => {
+                document.getElementById('bsod-screen').style.display = 'flex';
+            }, 800);
+        }
+
+        function hideBsod() {
+            document.getElementById('bsod-screen').style.display = 'none';
+        }
+
+        function openRickrollModal() {
+            playWinSound('click');
+            document.getElementById('rickroll-modal').style.display = 'flex';
+            speakJarvisVoice("Alert: Private files requested. Rickroll protocol engaged.");
+        }
+
+        function closeRickrollModal() {
+            document.getElementById('rickroll-modal').style.display = 'none';
+        }
+
+        function emptyRecycleBin() {
+            playWinSound('click');
+            document.getElementById('recycleItemsDom').innerHTML = '<div style="color:#64748b; font-size:12px; text-align:center; padding:20px;">Recycle Bin is empty!</div>';
+            speakJarvisVoice("Recycle bin emptied, sir.");
+        }
+
+        /* ═══ J.A.R.V.I.S 5.1 HUD & ACTION NLP ═══ */
+        function launchJarvisHud() {
+            playWinSound('boot');
+            document.getElementById('jarvis-hud-modal').style.display = 'flex';
+            speakJarvisVoice("J.A.R.V.I.S online, sir. How may I assist you?");
+        }
+
+        function closeJarvisHud() {
+            document.getElementById('jarvis-hud-modal').style.display = 'none';
+        }
+
+        function handleJarvisInput(e) {
+            if (e.key === 'Enter') sendJarvisPrompt();
+        }
+
+        function sendJarvisPrompt() {
+            const input = document.getElementById('jarvisInput');
+            const val = input.value.trim();
+            if (!val) return;
+
+            const feed = document.getElementById('jarvisFeed');
+            const userMsg = document.createElement('div');
+            userMsg.className = 'j-msg j-user';
+            userMsg.textContent = val;
+            feed.appendChild(userMsg);
+            input.value = '';
+
+            setTimeout(() => {
+                const botMsg = document.createElement('div');
+                botMsg.className = 'j-msg j-bot';
+
+                const lower = val.toLowerCase();
+                if (lower.includes('song') || lower.includes('music') || lower.includes('gaana') || lower.includes('kishore') || lower.includes('arijit')) {
+                    botMsg.textContent = "Playing real song from 151 Songs Library, sir!";
+                    speakJarvisVoice("Playing real song from 151 Songs Library, sir.");
+                    launchWindowWithFlyout('win-music-lib', document.getElementById('icon-win-music-lib'));
+                    playRandomTrack();
+                } else if (lower.includes('project') || lower.includes('work')) {
+                    botMsg.textContent = "Opening My Projects Explorer for you, sir.";
+                    speakJarvisVoice("Opening My Projects Explorer, sir.");
+                    launchWindowWithFlyout('win-explorer', document.getElementById('icon-win-explorer'));
+                } else if (lower.includes('time') || lower.includes('samay')) {
+                    const now = new Date().toLocaleTimeString('en-IN', { hour: 'numeric', minute: '2-digit', hour12: true });
+                    botMsg.textContent = `Abhi ka time he: ${now}, sir.`;
+                    speakJarvisVoice(`It is ${now}, sir.`);
+                } else if (lower.includes('hire') || lower.includes('contact')) {
+                    botMsg.textContent = "Manish is open for web & AI contracts. Opening Contact.exe!";
+                    speakJarvisVoice("Opening Contact dispatch proposal, sir.");
+                    launchWindowWithFlyout('win-contact', document.getElementById('icon-win-contact'));
+                } else {
+                    botMsg.textContent = `Understood sir. Manish specializes in next-generation web products and autonomous AI agents.`;
+                    speakJarvisVoice("Understood sir. Manish specializes in modern web products.");
+                }
+
+                feed.appendChild(botMsg);
+                feed.scrollTop = feed.scrollHeight;
+            }, 400);
+        }
+
+        /* ═══ CONTACT FORM ═══ */
+        function handleWinContact(e) {
+            e.preventDefault();
+            playWinSound('click');
+            document.getElementById('winContactFeedback').style.display = 'block';
+            speakJarvisVoice("Thank you. Proposal dispatched to Manish.");
+            setTimeout(() => { e.target.reset(); }, 1200);
+        }
+    </script>
+</body>
+</html>

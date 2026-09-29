@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>NOVA DENTAL & SURGERY — Upper East Side Aesthetic &amp; Implant Clinic</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg: #FFFFFF;
+            --bg-subtle: #F8FAFC;
+            --bg-card: #FFFFFF;
+            --surface-elevated: #F1F5F9;
+            --border: #E2E8F0;
+            --border-hover: #0284C7;
+            --primary: #0284C7;
+            --primary-dark: #0369A1;
+            --primary-light: #E0F2FE;
+            --navy: #0F172A;
+            --navy-light: #1E293B;
+            --emerald: #059669;
+            --emerald-light: #ECFDF5;
+            --muted: #64748B;
+            --muted-light: #94A3B8;
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: var(--bg);
+            color: var(--navy);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+            width: 100%;
+        }
+
+        /* Top Clinical Announcement Bar */
+        .clinic-topbar {
+            background: #F8FAFC;
+            border-bottom: 1px solid var(--border);
+            padding: 8px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 0.75rem; color: var(--muted); font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .topbar-left { display: flex; align-items: center; gap: 12px; }
+        .status-dot {
+            display: inline-flex; align-items: center; gap: 6px; color: var(--emerald); font-weight: 700;
+            background: var(--emerald-light); padding: 3px 10px; border-radius: 50px; border: 1px solid #A7F3D0;
+            font-size: 0.72rem; white-space: nowrap;
+        }
+        .status-dot::before {
+            content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--emerald);
+            animation: pulseGreen 2s infinite;
+        }
+        @keyframes pulseGreen {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.4); opacity: 0.6; }
+        }
+        .topbar-right { display: flex; align-items: center; gap: 14px; font-weight: 500; }
+        .topbar-link { color: var(--primary); text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; }
+
+        @media (max-width: 768px) {
+            .clinic-topbar { justify-content: center; text-align: center; padding: 6px 4%; }
+            .topbar-right { display: none; }
+            .topbar-left span:nth-child(2), .topbar-left span:nth-child(3) { display: none; }
+        }
+
+        /* Fixed Navigation Header */
+        header {
+            position: sticky; top: 0; z-index: 1000;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .brand-logo {
+            font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.25rem; font-weight: 800;
+            color: var(--navy); text-decoration: none; display: flex; align-items: center; gap: 8px; letter-spacing: -0.5px;
+        }
+        .brand-logo i { color: var(--primary); font-size: 1.3rem; }
+        .brand-logo span { color: var(--primary); }
+        .clinic-pill {
+            background: var(--primary-light); border: 1px solid #BAE6FD; color: var(--primary-dark);
+            font-size: 0.68rem; padding: 3px 8px; border-radius: 50px; font-family: 'JetBrains Mono';
+            display: inline-flex; align-items: center; gap: 4px; margin-left: 6px; font-weight: 600;
+        }
+
+        nav { display: flex; gap: 24px; align-items: center; }
+        nav a {
+            color: var(--muted); text-decoration: none; font-family: 'Plus Jakarta Sans'; font-size: 0.85rem;
+            font-weight: 600; transition: color 0.25s;
+        }
+        nav a:hover { color: var(--primary); }
+
+        .header-actions { display: flex; align-items: center; gap: 12px; }
+
+        .btn-primary {
+            background: var(--primary); color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.85rem;
+            font-weight: 700; padding: 10px 20px; border-radius: 50px; border: none; cursor: pointer;
+            transition: all 0.25s var(--ease); text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.25); white-space: nowrap;
+        }
+        .btn-primary:hover {
+            background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(2, 132, 199, 0.35);
+        }
+        .btn-primary:active { transform: scale(0.98); }
+
+        .btn-outline {
+            background: transparent; color: var(--navy); border: 1px solid var(--border);
+            font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.85rem; font-weight: 700;
+            padding: 10px 20px; border-radius: 50px; cursor: pointer; transition: all 0.25s var(--ease);
+            text-decoration: none; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+        }
+        .btn-outline:hover {
+            border-color: var(--primary); color: var(--primary); background: var(--bg-subtle);
+        }
+        .btn-outline:active { transform: scale(0.98); }
+
+        /* Mobile Hamburger Button */
+        .mobile-menu-btn {
+            display: none; background: transparent; border: 1px solid var(--border);
+            width: 40px; height: 40px; border-radius: 10px; cursor: pointer;
+            color: var(--navy); font-size: 1.1rem; align-items: center; justify-content: center;
+        }
+
+        /* Mobile Drawer Menu */
+        .mobile-nav-drawer {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px);
+            z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s;
+        }
+        .mobile-nav-drawer.active { opacity: 1; pointer-events: auto; }
+        .drawer-content {
+            position: absolute; top: 0; right: 0; width: 82%; max-width: 340px; height: 100%;
+            background: #FFFFFF; padding: 24px; display: flex; flex-direction: column;
+            transform: translateX(100%); transition: transform 0.3s var(--ease); box-shadow: -10px 0 30px rgba(0,0,0,0.15);
+        }
+        .mobile-nav-drawer.active .drawer-content { transform: translateX(0); }
+        .drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
+        .drawer-close { background: none; border: none; font-size: 1.4rem; color: var(--navy); cursor: pointer; padding: 4px; }
+        .drawer-links { display: flex; flex-direction: column; gap: 18px; }
+        .drawer-links a {
+            color: var(--navy); text-decoration: none; font-family: 'Plus Jakarta Sans'; font-size: 1.05rem;
+            font-weight: 700; padding: 8px 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;
+        }
+        .drawer-links a:hover { color: var(--primary); }
+
+        /* Hero Section */
+        .hero-section {
+            padding: 50px 5% 60px 5%;
+            display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 40px; align-items: center;
+            background: radial-gradient(circle at top right, rgba(2, 132, 199, 0.08) 0%, #FFFFFF 70%);
+        }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 8px; background: var(--primary-light);
+            border: 1px solid #BAE6FD; color: var(--primary-dark); font-family: 'Plus Jakarta Sans';
+            font-size: 0.75rem; font-weight: 700; padding: 4px 12px; border-radius: 50px; margin-bottom: 16px;
+        }
+        .hero-title {
+            font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(2.1rem, 4.8vw, 3.5rem); font-weight: 800; line-height: 1.15;
+            margin-bottom: 18px; letter-spacing: -1px; color: var(--navy);
+        }
+        .hero-title span { color: var(--primary); }
+        .hero-desc { color: var(--muted); font-size: clamp(0.92rem, 2vw, 1.05rem); line-height: 1.7; margin-bottom: 28px; max-width: 560px; }
+        .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 30px; }
+
+        .hero-card-frame {
+            background: #FFFFFF; border: 1px solid var(--border); border-radius: 20px;
+            padding: 24px; box-shadow: 0 15px 40px rgba(15, 23, 42, 0.06); position: relative;
+        }
+        .hero-stats-row {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 20px;
+            border-top: 1px solid var(--border); padding-top: 18px;
+        }
+        .stat-box h4 { font-family: 'Plus Jakarta Sans'; font-size: clamp(1.3rem, 2.5vw, 1.7rem); color: var(--primary); font-weight: 800; }
+        .stat-box p { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; margin-top: 2px; }
+
+        /* Trust & Accreditation Strip */
+        .trust-strip {
+            background: #F8FAFC; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+            padding: 18px 5%; display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 14px;
+        }
+        .trust-item {
+            display: flex; align-items: center; gap: 8px; font-family: 'Plus Jakarta Sans'; font-size: 0.8rem;
+            color: var(--navy-light); font-weight: 600;
+        }
+        .trust-item i { color: var(--primary); font-size: 1rem; }
+
+        /* Section Wrappers */
+        .section-wrap { padding: 60px 5%; }
+        .section-header { text-align: center; margin-bottom: 36px; }
+        .sub-tag { font-family: 'Plus Jakarta Sans'; font-size: 0.75rem; color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; display: block; }
+        .sec-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(1.8rem, 3.8vw, 2.6rem); font-weight: 800; color: var(--navy); letter-spacing: -0.5px; }
+        .sec-desc { color: var(--muted); font-size: clamp(0.88rem, 1.8vw, 0.98rem); max-width: 600px; margin: 8px auto 0 auto; line-height: 1.65; }
+
+        /* Interactive Dental Arch Anatomical Map */
+        .arch-map-box {
+            background: #FFFFFF; border: 1px solid var(--border); border-radius: 20px;
+            padding: 24px; max-width: 960px; margin: 0 auto; box-shadow: 0 10px 35px rgba(15, 23, 42, 0.05);
+        }
+        .arch-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 28px; align-items: center; }
+
+        .arch-teeth-visual {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; background: #F8FAFC;
+            padding: 16px; border-radius: 16px; border: 1px solid var(--border);
+        }
+        .tooth-btn {
+            background: #FFFFFF; border: 1px solid var(--border); color: var(--navy);
+            padding: 12px 10px; border-radius: 12px; font-family: 'Plus Jakarta Sans'; font-size: 0.8rem; font-weight: 600;
+            cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03); text-align: center;
+        }
+        .tooth-btn i { font-size: 1.2rem; color: var(--primary); }
+        .tooth-btn.active, .tooth-btn:hover {
+            background: var(--primary-light); border-color: var(--primary); transform: translateY(-2px);
+            color: var(--primary-dark); box-shadow: 0 4px 12px rgba(2, 132, 199, 0.15);
+        }
+        .arch-spec-card {
+            background: #F8FAFC; border: 1px solid var(--border); border-radius: 16px; padding: 20px;
+        }
+
+        /* VITA Classical Shade Picker Simulator */
+        .shade-picker-box {
+            display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 14px;
+        }
+        .shade-tab {
+            padding: 10px 4px; border-radius: 8px; border: 1px solid var(--border);
+            text-align: center; font-family: 'JetBrains Mono'; font-size: 0.78rem; cursor: pointer; transition: all 0.2s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04); font-weight: 600;
+        }
+        .shade-tab.active { border-color: var(--primary); box-shadow: 0 0 10px rgba(2,132,199,0.35); font-weight: 800; transform: scale(1.05); }
+
+        /* Clinical Transformations Slider (100% Mobile Safe) */
+        .transformation-wrap {
+            max-width: 900px; margin: 0 auto; background: #FFFFFF;
+            border: 1px solid var(--border); border-radius: 20px; padding: 18px;
+            box-shadow: 0 10px 35px rgba(15, 23, 42, 0.05);
+        }
+        .slider-comparison-box {
+            position: relative; width: 100%; aspect-ratio: 16/10; min-height: 240px; max-height: 440px;
+            border-radius: 14px; overflow: hidden; user-select: none; -webkit-user-select: none; touch-action: pan-y;
+        }
+        .slider-comparison-box img {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none;
+        }
+        /* Mobile-safe Before Image using Clip-Path */
+        .before-img-layer {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;
+            clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+            transition: clip-path 0.05s ease-out;
+        }
+        .before-img-layer img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+        .slider-divider-line {
+            position: absolute; top: 0; bottom: 0; left: 50%; width: 2px;
+            background: #FFFFFF; box-shadow: 0 0 10px rgba(0,0,0,0.5); pointer-events: none; z-index: 8;
+        }
+        .slider-handle {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 38px; height: 38px; border-radius: 50%; background: var(--primary);
+            color: #fff; display: flex; align-items: center; justify-content: center;
+            font-size: 0.85rem; box-shadow: 0 4px 15px rgba(2, 132, 199, 0.6); cursor: ew-resize; z-index: 10;
+        }
+        .slider-labels {
+            position: absolute; bottom: 12px; width: 100%; padding: 0 12px;
+            display: flex; justify-content: space-between; pointer-events: none; z-index: 5; gap: 6px;
+        }
+        .badge-pill-tag {
+            background: rgba(15, 23, 42, 0.88); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.2);
+            color: #fff; font-family: 'Plus Jakarta Sans'; font-size: 0.68rem; font-weight: 600; padding: 4px 10px; border-radius: 50px;
+        }
+        .case-switcher {
+            display: flex; justify-content: center; gap: 8px; margin-top: 16px; flex-wrap: wrap;
+        }
+        .case-btn {
+            background: #F8FAFC; border: 1px solid var(--border); color: var(--muted);
+            padding: 8px 14px; border-radius: 50px; font-family: 'Plus Jakarta Sans'; font-size: 0.78rem; font-weight: 600;
+            cursor: pointer; transition: all 0.2s;
+        }
+        .case-btn.active, .case-btn:hover {
+            background: var(--primary-light); border-color: var(--primary); color: var(--primary-dark); font-weight: 700;
+        }
+
+        /* Treatments Grid */
+        .treatments-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px;
+        }
+        .treatment-card {
+            background: #FFFFFF; border: 1px solid var(--border); border-radius: 18px;
+            padding: 24px; transition: all 0.3s var(--ease); position: relative; overflow: hidden;
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03);
+        }
+        .treatment-card:hover {
+            border-color: var(--primary); transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(2, 132, 199, 0.1);
+        }
+        .t-icon {
+            width: 46px; height: 46px; border-radius: 12px; background: var(--primary-light);
+            border: 1px solid #BAE6FD; display: flex; align-items: center; justify-content: center;
+            color: var(--primary); font-size: 1.25rem; margin-bottom: 16px;
+        }
+        .t-title { font-family: 'Plus Jakarta Sans'; font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; color: var(--navy); }
+        .t-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
+        .t-footer {
+            display: flex; justify-content: space-between; align-items: center;
+            border-top: 1px solid var(--border); padding-top: 12px; font-size: 0.8rem;
+        }
+        .t-price { font-family: 'JetBrains Mono'; color: var(--primary-dark); font-weight: 700; }
+        .t-link { color: var(--navy); text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; }
+
+        /* Doctor Available Slots Matrix */
+        .schedule-matrix-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; margin: 18px 0;
+        }
+        .slot-pill {
+            background: #F8FAFC; border: 1px solid var(--border); color: var(--navy);
+            padding: 10px 8px; border-radius: 10px; text-align: center; font-family: 'JetBrains Mono';
+            font-size: 0.78rem; cursor: pointer; transition: all 0.2s; font-weight: 600;
+        }
+        .slot-pill:hover, .slot-pill.active {
+            background: var(--primary); color: #fff; border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+        }
+
+        /* Booking Form */
+        .booking-wrap {
+            background: #FFFFFF; border: 1px solid var(--border); border-radius: 20px;
+            padding: 24px; max-width: 800px; margin: 0 auto; box-shadow: 0 10px 35px rgba(15, 23, 42, 0.06);
+        }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+        .form-group label {
+            display: block; font-family: 'Plus Jakarta Sans'; font-size: 0.78rem; font-weight: 700;
+            color: var(--navy-light); margin-bottom: 5px;
+        }
+        .form-input {
+            width: 100%; background: #F8FAFC; border: 1px solid var(--border); color: var(--navy);
+            padding: 12px 14px; border-radius: 10px; font-family: 'Inter'; font-size: 16px; outline: none;
+            transition: border-color 0.2s;
+        }
+        .form-input:focus { border-color: var(--primary); background: #FFFFFF; }
+
+        /* Floating WhatsApp Button */
+        .whatsapp-float {
+            position: fixed; bottom: 20px; right: 20px; z-index: 999;
+            background: #25D366; color: #fff; width: 52px; height: 52px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 1.6rem;
+            box-shadow: 0 8px 22px rgba(37, 211, 102, 0.4); text-decoration: none;
+            transition: all 0.3s var(--ease);
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.08) rotate(8deg); box-shadow: 0 12px 28px rgba(37, 211, 102, 0.6);
+        }
+
+        /* Footer */
+        footer {
+            padding: 50px 5% 25px 5%; background: #0F172A; border-top: 1px solid var(--border);
+            font-size: 0.82rem; color: #94A3B8;
+        }
+        .footer-grid {
+            display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 30px; margin-bottom: 30px;
+        }
+        .footer-col h5 { font-family: 'Plus Jakarta Sans'; font-size: 0.95rem; color: #fff; margin-bottom: 14px; font-weight: 700; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 7px; }
+        .footer-col ul li a { color: #94A3B8; text-decoration: none; transition: color 0.2s; }
+        .footer-col ul li a:hover { color: #38BDF8; }
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.08); padding-top: 20px;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+        }
+
+        /* Mobile Specific Overrides */
+        @media (max-width: 900px) {
+            .hero-section { grid-template-columns: 1fr; padding-top: 30px; gap: 30px; }
+            header nav { display: none; }
+            .mobile-menu-btn { display: flex; }
+            .arch-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .hero-actions { flex-direction: column; width: 100%; }
+            .hero-actions .btn-primary, .hero-actions .btn-outline { width: 100%; justify-content: center; }
+            .clinic-pill { display: none; }
+            .form-row { grid-template-columns: 1fr; gap: 12px; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .trust-strip { justify-content: flex-start; gap: 10px; }
+            .trust-item { font-size: 0.75rem; width: 100%; }
+            .hero-stats-row { gap: 8px; }
+            .booking-wrap { padding: 20px 14px; }
+            .arch-map-box { padding: 18px 14px; }
+            .transformation-wrap { padding: 12px; }
+            header .btn-primary { padding: 8px 14px; font-size: 0.78rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Clinical Announcement Bar -->
+    <div class="clinic-topbar">
+        <div class="topbar-left">
+            <span class="status-dot">CLINIC OPEN TODAY: 8:00 AM – 7:30 PM</span>
+            <span>•</span>
+            <span><i class="fas fa-shield-halved" style="color: var(--primary);"></i> Low-Radiation 3D CBCT &amp; Hospital Sterilization Grade A+</span>
+        </div>
+        <div class="topbar-right">
+            <span>Direct Patient Line:</span>
+            <a href="tel:+12125550192" class="topbar-link"><i class="fas fa-phone"></i> (212) 555-0192</a>
+        </div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header>
+        <a href="#" class="brand-logo">
+            <i class="fas fa-tooth"></i>
+            NOVA <span>DENTAL</span>
+            <div class="clinic-pill">ADA ACCREDITED</div>
+        </a>
+        <nav>
+            <a href="#archmap">Dental Arch Map</a>
+            <a href="#services">Treatments</a>
+            <a href="#gallery">Clinical Cases</a>
+            <a href="#schedule">Doctor Schedule</a>
+        </nav>
+        <div class="header-actions">
+            <a href="#book" class="btn-primary"><i class="fas fa-calendar-check"></i> <span>Book Doctor</span></a>
+            <button class="mobile-menu-btn" onclick="toggleMobileNav()" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Drawer Menu -->
+    <div class="mobile-nav-drawer" id="mobileDrawer" onclick="handleDrawerBackdrop(event)">
+        <div class="drawer-content">
+            <div class="drawer-header">
+                <div class="brand-logo">
+                    <i class="fas fa-tooth"></i> NOVA <span>DENTAL</span>
+                </div>
+                <button class="drawer-close" onclick="toggleMobileNav()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="drawer-links">
+                <a href="#archmap" onclick="toggleMobileNav()"><span>Dental Arch Map</span> <i class="fas fa-chevron-right" style="font-size:0.8rem; color:var(--muted);"></i></a>
+                <a href="#services" onclick="toggleMobileNav()"><span>Treatments &amp; Pricing</span> <i class="fas fa-chevron-right" style="font-size:0.8rem; color:var(--muted);"></i></a>
+                <a href="#gallery" onclick="toggleMobileNav()"><span>Before &amp; After Cases</span> <i class="fas fa-chevron-right" style="font-size:0.8rem; color:var(--muted);"></i></a>
+                <a href="#schedule" onclick="toggleMobileNav()"><span>Doctor Schedule</span> <i class="fas fa-chevron-right" style="font-size:0.8rem; color:var(--muted);"></i></a>
+                <a href="#book" onclick="toggleMobileNav()" style="color:var(--primary);"><span>Book Consultation</span> <i class="fas fa-calendar-alt"></i></a>
+                <a href="https://manishkumarsoni.surge.sh" style="margin-top:20px; font-size:0.85rem; color:var(--muted);"><span>← Back to Portfolio</span></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div>
+            <div class="hero-badge"><i class="fas fa-award"></i> UPPER EAST SIDE MULTISPECIALTY CLINIC</div>
+            <h1 class="hero-title">Comprehensive aesthetic &amp; <span>surgical dentistry.</span></h1>
+            <p class="hero-desc">
+                From handcrafted porcelain veneers to 3D computer-guided dental implants, our board-certified prosthodontists and oral surgeons deliver restorative perfection in a calm, sterile clinical environment.
+            </p>
+            <div class="hero-actions">
+                <a href="#book" class="btn-primary"><i class="fas fa-calendar-alt"></i> Schedule Examination</a>
+                <a href="#archmap" class="btn-outline"><i class="fas fa-tooth"></i> Explore Dental Arch</a>
+            </div>
+
+            <div class="hero-stats-row">
+                <div class="stat-box">
+                    <h4>14,000+</h4>
+                    <p>Smiles Restored</p>
+                </div>
+                <div class="stat-box">
+                    <h4>99.4%</h4>
+                    <p>Implant Longevity</p>
+                </div>
+                <div class="stat-box">
+                    <h4>4.98 ★</h4>
+                    <p>Verified Rating</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-card-frame">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 8px;">
+                <h3 style="font-family: 'Plus Jakarta Sans'; font-size: 1.15rem; font-weight: 700;"><i class="fas fa-stethoscope" style="color: var(--primary); margin-right: 8px;"></i> On-Duty Lead Surgeon</h3>
+                <span class="badge-pill-tag" style="background: var(--primary-light); color: var(--primary-dark); border-color: #BAE6FD;">NYC Upper East Side</span>
+            </div>
+            <p style="font-size: 0.88rem; color: var(--muted); margin-bottom: 16px; line-height: 1.55;">
+                Require an emergency consult, cracked tooth repair, or a secondary evaluation from a prosthodontist?
+            </p>
+            <div style="background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 14px; padding: 14px; margin-bottom: 16px;">
+                <div style="display: flex; gap: 12px; align-items: center;">
+                    <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=150&q=80" alt="Doctor" style="width: 46px; height: 46px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary);">
+                    <div>
+                        <div style="font-weight: 700; font-size: 0.92rem; color: var(--navy);">Dr. Sarah Lin, DDS, MS</div>
+                        <div style="font-size: 0.75rem; color: var(--emerald); font-weight: 600;"><i class="fas fa-circle" style="font-size: 0.5rem;"></i> In-Clinic Today (Surgical Lead)</div>
+                    </div>
+                </div>
+            </div>
+            <a href="https://wa.me/12125550192?text=Hello%20Nova%20Dental,%20I%20would%20like%20to%20schedule%20a%20consultation." target="_blank" class="btn-primary" style="width: 100%; justify-content: center; padding: 12px;">
+                <i class="fab fa-whatsapp"></i> Direct WhatsApp Patient Desk
+            </a>
+        </div>
+    </section>
+
+    <!-- Trust Accreditation Strip -->
+    <div class="trust-strip">
+        <div class="trust-item"><i class="fas fa-certificate"></i> American Dental Association (ADA) Member</div>
+        <div class="trust-item"><i class="fas fa-microscope"></i> Carl Zeiss 25x Surgical Magnification</div>
+        <div class="trust-item"><i class="fas fa-gem"></i> Diamond Apex Invisalign® Provider</div>
+        <div class="trust-item"><i class="fas fa-hospital"></i> Hospital-Grade Sterilization Protocols</div>
+    </div>
+
+    <!-- Interactive Dental Arch Anatomical Map -->
+    <section class="section-wrap" id="archmap" style="background: var(--bg-subtle);">
+        <div class="section-header">
+            <span class="sub-tag">Interactive Anatomical Explorer</span>
+            <h2 class="sec-title">Dental Arch Treatment Map</h2>
+            <p class="sec-desc">Tap any tooth group in the anatomical arch to view corresponding restorative techniques, prep thickness, and materials.</p>
+        </div>
+
+        <div class="arch-map-box">
+            <div class="arch-grid">
+                <div>
+                    <h4 style="font-family: 'Plus Jakarta Sans'; font-size: 1.05rem; font-weight: 700; margin-bottom: 12px;">Select Tooth Group on Dental Arch:</h4>
+                    <div class="arch-teeth-visual">
+                        <button class="tooth-btn active" onclick="selectToothZone('incisors', this)">
+                            <i class="fas fa-tooth"></i>
+                            <span>Central Incisors</span>
+                        </button>
+                        <button class="tooth-btn" onclick="selectToothZone('canines', this)">
+                            <i class="fas fa-tooth"></i>
+                            <span>Canines (Eye Teeth)</span>
+                        </button>
+                        <button class="tooth-btn" onclick="selectToothZone('premolars', this)">
+                            <i class="fas fa-tooth"></i>
+                            <span>Premolars</span>
+                        </button>
+                        <button class="tooth-btn" onclick="selectToothZone('molars', this)">
+                            <i class="fas fa-tooth"></i>
+                            <span>1st &amp; 2nd Molars</span>
+                        </button>
+                    </div>
+
+                    <h4 style="font-family: 'Plus Jakarta Sans'; font-size: 1.05rem; font-weight: 700; margin-top: 22px; margin-bottom: 8px;">VITA Classical Shade Spectrum:</h4>
+                    <div class="shade-picker-box">
+                        <div class="shade-tab active" style="background: #FFFFFF; color: #000;" onclick="setVitaShade('BL1', this)">BL1</div>
+                        <div class="shade-tab" style="background: #FAF7F2; color: #000;" onclick="setVitaShade('B1', this)">B1</div>
+                        <div class="shade-tab" style="background: #F5EFE6; color: #000;" onclick="setVitaShade('A1', this)">A1</div>
+                        <div class="shade-tab" style="background: #EDE2D1; color: #000;" onclick="setVitaShade('A2', this)">A2</div>
+                        <div class="shade-tab" style="background: #E4D5BE; color: #000;" onclick="setVitaShade('A3', this)">A3</div>
+                    </div>
+                </div>
+
+                <div class="arch-spec-card" id="archSpecCard">
+                    <span class="sub-tag" id="zoneTag" style="margin-bottom: 4px;">ZONE: ANTERIOR SMILE LINE</span>
+                    <h3 style="font-family: 'Plus Jakarta Sans'; font-size: 1.3rem; font-weight: 800; margin: 4px 0 10px 0;" id="zoneTitle">Central &amp; Lateral Incisors</h3>
+                    <div style="font-size: 0.88rem; color: var(--muted); line-height: 1.65; margin-bottom: 16px;" id="zoneDesc">
+                        Restored with 0.3mm ultra-thin Swiss E-Max lithium disilicate porcelain veneers. Micro-etched for biological bond preservation without enamel stripping.
+                    </div>
+                    <div style="border-top: 1px solid var(--border); padding-top: 12px; font-family: 'JetBrains Mono'; font-size: 0.78rem; color: var(--primary-dark); font-weight: 600; line-height: 1.5;" id="zoneSpecs">
+                        Prep Thickness: 0.3mm • Flexural Strength: 530 MPa • Longevity: 15-20 Yrs
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clinical Transformations Slider -->
+    <section class="section-wrap" id="gallery">
+        <div class="section-header">
+            <span class="sub-tag">Verified Patient Cases</span>
+            <h2 class="sec-title">Clinical Before &amp; After Results</h2>
+            <p class="sec-desc">Drag the divider left or right on mobile to inspect natural enamel textures restored by our surgeons.</p>
+        </div>
+
+        <div class="transformation-wrap">
+            <div class="slider-comparison-box" id="dentalBox">
+                <!-- After Image (Base) -->
+                <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=1200&q=80" alt="After" id="dentalAfter">
+                
+                <!-- Before Image Layer with Responsive Clip-Path -->
+                <div class="before-img-layer" id="dentalBeforeLayer">
+                    <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=1200&q=80" alt="Before" id="dentalBefore">
+                </div>
+
+                <!-- Divider Line -->
+                <div class="slider-divider-line" id="dentalDivider"></div>
+
+                <!-- Touch & Drag Handle -->
+                <div class="slider-handle" id="dentalHandle">
+                    <i class="fas fa-arrows-alt-h"></i>
+                </div>
+
+                <div class="slider-labels">
+                    <span class="badge-pill-tag">BEFORE: Discoloration</span>
+                    <span class="badge-pill-tag">AFTER: Swiss E-Max Porcelain</span>
+                </div>
+            </div>
+
+            <div class="case-switcher">
+                <button class="case-btn active" onclick="switchDentalCase('veneers', this)">Case 1: Porcelain Veneers</button>
+                <button class="case-btn" onclick="switchDentalCase('implants', this)">Case 2: Guided Implants</button>
+                <button class="case-btn" onclick="switchDentalCase('invisalign', this)">Case 3: Invisalign Aligners</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Treatments Grid -->
+    <section class="section-wrap" id="services" style="background: var(--bg-subtle);">
+        <div class="section-header">
+            <span class="sub-tag">Clinical Departments</span>
+            <h2 class="sec-title">Specialized Dental Medicine</h2>
+            <p class="sec-desc">From single-visit ceramic restorations to full mouth rehabilitation, delivered with microscopic precision.</p>
+        </div>
+
+        <div class="treatments-grid">
+            <div class="treatment-card">
+                <div class="t-icon"><i class="fas fa-magic"></i></div>
+                <h3 class="t-title">Porcelain Veneers &amp; Aesthetics</h3>
+                <p class="t-desc">Handcrafted Swiss E-Max ceramic laminates tailored to your facial proportions with minimal tooth preparation.</p>
+                <div class="t-footer">
+                    <span class="t-price">From $450 / unit</span>
+                    <a href="#book" class="t-link">Consult <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="treatment-card">
+                <div class="t-icon"><i class="fas fa-screwdriver"></i></div>
+                <h3 class="t-title">3D Guided Dental Implants</h3>
+                <p class="t-desc">Straumann® Swiss titanium implants with 3D computer surgical guides for lifetime stability and bone integration.</p>
+                <div class="t-footer">
+                    <span class="t-price">From $1,200</span>
+                    <a href="#book" class="t-link">Consult <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="treatment-card">
+                <div class="t-icon"><i class="fas fa-teeth-open"></i></div>
+                <h3 class="t-title">Invisalign® Clear Aligners</h3>
+                <p class="t-desc">Discreet teeth straightening utilizing SmartTrack® aligners and digital progression tracking every 4 weeks.</p>
+                <div class="t-footer">
+                    <span class="t-price">From $1,800</span>
+                    <a href="#book" class="t-link">Consult <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="treatment-card">
+                <div class="t-icon"><i class="fas fa-microscope"></i></div>
+                <h3 class="t-title">Microscopic Endodontics</h3>
+                <p class="t-desc">Painless root canal therapy conducted under Zeiss 25x magnification to preserve your natural tooth structure.</p>
+                <div class="t-footer">
+                    <span class="t-price">From $350</span>
+                    <a href="#book" class="t-link">Consult <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Doctor Available Slots Matrix -->
+    <section class="section-wrap" id="schedule">
+        <div class="section-header">
+            <span class="sub-tag">Real-Time Surgery Desk</span>
+            <h2 class="sec-title">Doctor Available Consultation Slots</h2>
+            <p class="sec-desc">Tap an open clinical slot to pre-reserve your 45-minute comprehensive diagnostic examination.</p>
+        </div>
+
+        <div style="max-width: 820px; margin: 0 auto; background: #FFFFFF; border: 1px solid var(--border); border-radius: 20px; padding: 24px; box-shadow: 0 10px 35px rgba(15, 23, 42, 0.05);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 8px;">
+                <h4 style="font-family: 'Plus Jakarta Sans'; font-size: 1.05rem; font-weight: 700;"><i class="far fa-calendar-alt" style="color: var(--primary); margin-right: 8px;"></i> Available Slots for Tomorrow</h4>
+                <span class="badge-pill-tag" style="background: var(--emerald-light); color: var(--emerald); border-color: #A7F3D0;">4 Slots Open</span>
+            </div>
+
+            <div class="schedule-matrix-grid">
+                <div class="slot-pill active" onclick="pickSlot('09:30 AM', this)">09:30 AM <br><small style="color:var(--emerald);">Open</small></div>
+                <div class="slot-pill" onclick="pickSlot('11:00 AM', this)">11:00 AM <br><small style="color:var(--emerald);">Open</small></div>
+                <div class="slot-pill" style="opacity: 0.4; pointer-events: none;">01:30 PM <br><small style="color:var(--muted);">Booked</small></div>
+                <div class="slot-pill" onclick="pickSlot('03:15 PM', this)">03:15 PM <br><small style="color:var(--emerald);">Open</small></div>
+                <div class="slot-pill" onclick="pickSlot('05:00 PM', this)">05:00 PM <br><small style="color:var(--emerald);">Open</small></div>
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="#book" class="btn-primary" id="confirmSlotBtn" style="width: 100%; max-width: 320px; justify-content: center;"><i class="fas fa-check"></i> Select 09:30 AM Consultation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Form -->
+    <section class="section-wrap" id="book" style="background: var(--bg-subtle);">
+        <div class="section-header">
+            <span class="sub-tag">Priority Appointment</span>
+            <h2 class="sec-title">Book a Dental Consultation</h2>
+            <p class="sec-desc">Select your preferred date, time slot, and specialist. Our desk will confirm your appointment via phone/SMS.</p>
+        </div>
+
+        <div class="booking-wrap">
+            <form id="clinicBookingForm" onsubmit="handleBooking(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Patient Full Name</label>
+                        <input type="text" class="form-input" placeholder="e.g. Manish Soni" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone / WhatsApp</label>
+                        <input type="tel" class="form-input" placeholder="+1 (212) 555-0192" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Treatment Focus</label>
+                        <select class="form-input" required>
+                            <option>Porcelain Veneers &amp; Aesthetics</option>
+                            <option>Guided Dental Implant</option>
+                            <option>Invisalign Clear Aligners</option>
+                            <option>Microscopic Root Canal Therapy</option>
+                            <option>Comprehensive Checkup &amp; Clean</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Preferred Specialist</label>
+                        <select class="form-input">
+                            <option>First Available Senior Specialist</option>
+                            <option>Dr. Sarah Lin (Surgical &amp; Implants)</option>
+                            <option>Dr. Alexander Vance (Porcelain Veneers)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Preferred Date</label>
+                        <input type="date" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Preferred Time</label>
+                        <select class="form-input" id="bookingTimeSlot">
+                            <option>09:30 AM</option>
+                            <option>11:00 AM</option>
+                            <option>03:15 PM</option>
+                            <option>05:00 PM</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; font-family: 'Plus Jakarta Sans'; font-size: 0.78rem; font-weight: 700; color: var(--navy-light); margin-bottom: 5px;">
+                        Medical History / Dental Concerns (Optional)
+                    </label>
+                    <textarea class="form-input" style="height: 80px; resize: none;" placeholder="Tooth sensitivity, dental anxiety, or prior dental restorations..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; font-size: 0.92rem; padding: 14px;">
+                    <i class="fas fa-calendar-check"></i> Confirm Consultation Request
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Floating WhatsApp Action -->
+    <a href="https://wa.me/12125550192?text=Hello%20Nova%20Dental,%20I%20would%20like%20to%20schedule%20a%20consultation." target="_blank" class="whatsapp-float" title="Direct Patient WhatsApp Line">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="brand-logo" style="margin-bottom: 12px; color: #fff;">
+                    <i class="fas fa-tooth" style="color: #38BDF8;"></i> NOVA <span style="color: #38BDF8;">DENTAL</span>
+                </div>
+                <p style="line-height: 1.65; margin-bottom: 16px;">
+                    Upper East Side multispecialty dental clinic specializing in prosthodontics, surgical implantology, and micro-aesthetic restorations.
+                </p>
+                <div style="color: #38BDF8; font-family: 'JetBrains Mono'; font-size: 0.75rem;">
+                    <i class="fas fa-map-marker-alt"></i> 742 Park Avenue, Upper East Side, New York, NY 10021
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h5>Clinical Services</h5>
+                <ul>
+                    <li><a href="#services">Porcelain Veneers</a></li>
+                    <li><a href="#services">Dental Implants</a></li>
+                    <li><a href="#services">Invisalign Clear Aligners</a></li>
+                    <li><a href="#services">Microscopic Endodontics</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h5>Office Hours</h5>
+                <p style="margin-bottom: 6px;"><strong>Mon – Fri:</strong> 8:00 AM – 7:30 PM</p>
+                <p style="margin-bottom: 6px;"><strong>Saturday:</strong> 9:00 AM – 4:00 PM</p>
+                <p style="margin-bottom: 12px;"><strong>Sunday:</strong> Closed</p>
+                <p style="color: #38BDF8; font-weight: 700;">+1 (212) 555-0192</p>
+            </div>
+
+            <div class="footer-col">
+                <h5>Patient Care</h5>
+                <p style="font-size: 0.8rem; line-height: 1.6;">
+                    HIPAA Compliant Practice. Direct insurance pre-authorizations and interest-free installment options provided.
+                </p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div>© 2026 NOVA Dental &amp; Surgery PC. All Rights Reserved.</div>
+            <div style="display: flex; gap: 16px;">
+                <a href="#" style="color: #94A3B8; text-decoration: none;">HIPAA Privacy</a>
+                <a href="#" style="color: #94A3B8; text-decoration: none;">Patient Rights</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Mobile Drawer Navigation Toggle
+        function toggleMobileNav() {
+            const drawer = document.getElementById('mobileDrawer');
+            if (drawer) {
+                drawer.classList.toggle('active');
+                document.body.style.overflow = drawer.classList.contains('active') ? 'hidden' : '';
+            }
+        }
+        function handleDrawerBackdrop(e) {
+            if (e.target === document.getElementById('mobileDrawer')) toggleMobileNav();
+        }
+
+        const teethZones = {
+            incisors: {
+                tag: 'ZONE: ANTERIOR SMILE LINE',
+                title: 'Central & Lateral Incisors',
+                desc: 'Restored with 0.3mm ultra-thin Swiss E-Max lithium disilicate porcelain veneers. Micro-etched for biological bond preservation without enamel stripping.',
+                specs: 'Prep Thickness: 0.3mm • Flexural Strength: 530 MPa • Longevity: 15-20 Yrs'
+            },
+            canines: {
+                tag: 'ZONE: CANINE GUIDANCE & TEAR',
+                title: 'Canine Disclusion & Alignment',
+                desc: 'Protected by reinforced ceramic cusp architecture to maintain natural lateral jaw movement and prevent posterior molar grind.',
+                specs: 'Material: Zirconia High-Translucency • Occlusal Force: 800N • Shock Absorption: Grade A'
+            },
+            premolars: {
+                tag: 'ZONE: TRANSITIONAL MASTICATION',
+                title: 'Bicuspid Restorations & Inlays',
+                desc: 'Treated with CAD/CAM milled ceramic onlays to reconstruct lost tooth structure without full-crown aggressive reductions.',
+                specs: 'Bonding: Dual-Cure Resin • Marginal Integrity: 99.8% • Preservation: 85% Natural Enamel'
+            },
+            molars: {
+                tag: 'ZONE: POSTERIOR CRUSHING ARCH',
+                title: 'Molar Guided Titanium Implants',
+                desc: 'Straumann® Roxolid titanium-zirconium implants anchored with 3D surgical guide precision into alveolar bone with SLActive surface healing.',
+                specs: 'Primary Stability: 45 Ncm • Osseointegration: 3-4 Weeks • Warranty: Lifetime'
+            }
+        };
+
+        function selectToothZone(zoneKey, btn) {
+            document.querySelectorAll('.tooth-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const z = teethZones[zoneKey];
+            document.getElementById('zoneTag').innerText = z.tag;
+            document.getElementById('zoneTitle').innerText = z.title;
+            document.getElementById('zoneDesc').innerText = z.desc;
+            document.getElementById('zoneSpecs').innerText = z.specs;
+        }
+
+        function setVitaShade(shade, tab) {
+            document.querySelectorAll('.shade-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+        }
+
+        function pickSlot(slotTime, pill) {
+            document.querySelectorAll('.slot-pill').forEach(p => p.classList.remove('active'));
+            pill.classList.add('active');
+            document.getElementById('confirmSlotBtn').innerHTML = `<i class="fas fa-check"></i> Select ${slotTime} Consultation`;
+            document.getElementById('bookingTimeSlot').value = slotTime;
+        }
+
+        // Clip-Path Smooth Before/After Touch & Mouse Slider
+        const dContainer = document.getElementById('dentalBox');
+        const dBeforeLayer = document.getElementById('dentalBeforeLayer');
+        const dDivider = document.getElementById('dentalDivider');
+        const dHandle = document.getElementById('dentalHandle');
+        let dDragging = false;
+
+        function setDentalPos(x) {
+            if (!dContainer) return;
+            const rect = dContainer.getBoundingClientRect();
+            let pct = ((x - rect.left) / rect.width) * 100;
+            if (pct < 3) pct = 3;
+            if (pct > 97) pct = 97;
+
+            dBeforeLayer.style.clipPath = `polygon(0 0, ${pct}% 0, ${pct}% 100%, 0 100%)`;
+            dDivider.style.left = pct + '%';
+            dHandle.style.left = pct + '%';
+        }
+
+        if (dContainer) {
+            dContainer.addEventListener('mousedown', (e) => {
+                dDragging = true;
+                setDentalPos(e.clientX);
+            });
+            window.addEventListener('mouseup', () => dDragging = false);
+            window.addEventListener('mousemove', (e) => {
+                if (!dDragging) return;
+                setDentalPos(e.clientX);
+            });
+
+            dContainer.addEventListener('touchstart', (e) => {
+                dDragging = true;
+                setDentalPos(e.touches[0].clientX);
+            }, { passive: true });
+            window.addEventListener('touchend', () => dDragging = false);
+            window.addEventListener('touchmove', (e) => {
+                if (!dDragging) return;
+                setDentalPos(e.touches[0].clientX);
+            }, { passive: true });
+        }
+
+        const dentalCases = {
+            veneers: {
+                before: 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=1200&q=80',
+                after: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=1200&q=80'
+            },
+            implants: {
+                before: 'https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&w=1200&q=80',
+                after: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80'
+            },
+            invisalign: {
+                before: 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=1200&q=80',
+                after: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=1200&q=80'
+            }
+        };
+
+        function switchDentalCase(k, btn) {
+            document.querySelectorAll('.case-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('dentalBefore').src = dentalCases[k].before;
+            document.getElementById('dentalAfter').src = dentalCases[k].after;
+        }
+
+        function handleBooking(e) {
+            e.preventDefault();
+            alert('Thank you! Your consultation request has been received. Our patient desk will contact you within 15 minutes to confirm.');
+            e.target.reset();
+        }
+    </script>
+</body>
+</html>

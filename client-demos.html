@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Client Business Websites Showcase | Manish Kumar Soni</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500;700&family=Manrope:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg: #07080A;
+            --surface: #0E1015;
+            --surface-card: #12151D;
+            --border: rgba(255, 255, 255, 0.08);
+            --accent: #00F2FE;
+            --gold: #D4AF37;
+            --white: #FFFFFF;
+            --muted: #94A3B8;
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--bg);
+            color: var(--white);
+            font-family: 'Manrope', sans-serif;
+            overflow-x: hidden;
+            padding: 40px 6% 80px 6%;
+            min-height: 100vh;
+        }
+
+        .showcase-header { text-align: center; margin-bottom: 50px; }
+        .tag { font-family: 'Space Grotesk'; font-size: 0.8rem; color: var(--accent); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 10px; display: block; }
+        .title { font-family: 'Cormorant Garamond', serif; font-size: 3.4rem; font-weight: 300; color: var(--white); margin-bottom: 12px; }
+        .desc { color: var(--muted); font-size: 1rem; max-width: 680px; margin: 0 auto; }
+
+        .client-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 32px; max-width: 1280px; margin: 0 auto;
+        }
+
+        .client-card {
+            background: var(--surface-card); border: 1px solid var(--border); border-radius: 22px;
+            overflow: hidden; transition: all 0.35s var(--ease); display: flex; flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+        }
+        .client-card:hover {
+            border-color: var(--accent); transform: translateY(-6px);
+            box-shadow: 0 25px 60px rgba(0,242,254,0.15);
+        }
+
+        .card-img-wrap {
+            width: 100%; aspect-ratio: 16/10; overflow: hidden; position: relative;
+        }
+        .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+        .client-card:hover .card-img-wrap img { transform: scale(1.05); }
+        .card-tag {
+            position: absolute; top: 14px; left: 14px; background: rgba(8, 10, 14, 0.88);
+            backdrop-filter: blur(10px); border: 1px solid var(--border); color: var(--accent);
+            font-family: 'JetBrains Mono'; font-size: 0.72rem; padding: 4px 12px; border-radius: 50px; font-weight: 700;
+        }
+
+        .card-body { padding: 28px; display: flex; flex-direction: column; flex-grow: 1; }
+        .card-title { font-family: 'Syne'; font-size: 1.4rem; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+        .card-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.6; margin-bottom: 20px; }
+
+        .feature-chips {
+            display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 22px;
+        }
+        .chip {
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+            font-size: 0.72rem; font-family: 'JetBrains Mono'; color: var(--muted); padding: 4px 10px; border-radius: 6px;
+        }
+
+        .btn-live-launch {
+            background: var(--accent); color: #000; font-family: 'Syne'; font-size: 0.85rem;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 13px 24px;
+            border-radius: 50px; text-decoration: none; display: inline-flex; align-items: center;
+            justify-content: center; gap: 8px; transition: all 0.25s; margin-top: auto;
+        }
+        .btn-live-launch:hover {
+            box-shadow: 0 0 25px rgba(0,242,254,0.4); transform: translateY(-2px);
+        }
+        .btn-gold-launch {
+            background: var(--gold); color: #000; font-family: 'Syne'; font-size: 0.85rem;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 13px 24px;
+            border-radius: 50px; text-decoration: none; display: inline-flex; align-items: center;
+            justify-content: center; gap: 8px; transition: all 0.25s; margin-top: auto;
+        }
+        .btn-gold-launch:hover {
+            box-shadow: 0 0 25px rgba(212,175,55,0.4); transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:40px; flex-wrap:wrap; gap:12px;">
+        <a href="index.html" style="color:var(--muted); text-decoration:none; font-family:'Space Grotesk'; font-size:0.85rem; display:flex; align-items:center; gap:6px;">
+            <i class="fas fa-arrow-left"></i> Back to Main Portfolio
+        </a>
+        <div style="display:flex; gap:12px;">
+            <a href="design-studio.html" style="color:var(--accent); text-decoration:none; font-family:'JetBrains Mono'; font-size:0.8rem; border:1px solid var(--border); padding:6px 14px; border-radius:50px;">
+                <i class="fas fa-palette"></i> 8-Variation Design Studio
+            </a>
+            <a href="skills-variations.html" style="color:var(--gold); text-decoration:none; font-family:'JetBrains Mono'; font-size:0.8rem; border:1px solid var(--border); padding:6px 14px; border-radius:50px;">
+                <i class="fas fa-microchip"></i> Skills Lab (8 Styles)
+            </a>
+        </div>
+    </div>
+
+    <div class="showcase-header">
+        <span class="tag">REAL-WORLD INDUSTRY PRODUCTION SITES</span>
+        <h1 class="title">Production Client Websites</h1>
+        <p class="desc">Each standalone site below features bespoke interactive simulators: Color Chemistry Formulation, Dental Arch Anatomy, Real-Time Solar Daylight Engine, and Interactive Dish Plating.</p>
+    </div>
+
+    <div class="client-grid">
+        <!-- Flagship 1: AURA Architecture & Spatial Atelier (100vh Fullscreen Monolith) -->
+        <div class="client-card" style="border-color: rgba(212,175,55,0.45); background: linear-gradient(180deg, #181922 0%, #0D0E12 100%);">
+            <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80" alt="AURA Architecture Atelier" />
+                <span class="card-tag" style="color:var(--gold); border-color:rgba(212,175,55,0.4); background:rgba(7,7,9,0.95);"><i class="fas fa-gem"></i> 100VH CINEMATIC MONOLITH ARCHITECTURE</span>
+            </div>
+            <div class="card-body">
+                <h3 class="card-title" style="color:#FFF6D6;">AURA — Luxury Architecture &amp; Spatial Atelier</h3>
+                <p class="card-desc">High-end monolithic architectural studio featuring 100vh full-bleed cinematic sceneries, real-time CAD blueprint measurement ruler, 3D diurnal solar raycasting engine, tactile material atelier, and Web Audio acoustic spatializer.</p>
+                
+                <div class="feature-chips">
+                    <span class="chip" style="color:var(--gold); border-color:rgba(212,175,55,0.3);"><i class="fas fa-film"></i> 100vh Fullscreen Hero</span>
+                    <span class="chip" style="color:var(--gold); border-color:rgba(212,175,55,0.3);"><i class="fas fa-ruler-combined"></i> Interactive CAD Ruler</span>
+                    <span class="chip" style="color:var(--accent); border-color:rgba(0,242,254,0.3);"><i class="fas fa-sun"></i> 3D Diurnal Raycasting</span>
+                    <span class="chip"><i class="fas fa-volume-up"></i> Acoustic Spatializer</span>
+                </div>
+
+                <a href="https://aura-atelier.surge.sh" target="_blank" rel="noopener noreferrer" class="btn-gold-launch" style="background:linear-gradient(135deg, #D4AF37 0%, #AA820A 100%); box-shadow:0 0 25px rgba(212,175,55,0.35);">
+                    <i class="fas fa-external-link-alt"></i> Launch Live Website (Hosted)
+                </a>
+            </div>
+        </div>
+
+        <!-- Flagship 2: KRONOS Swiss Haute Horlogerie (1 Lakh+ Bespoke Flagship) -->
+        <div class="client-card" style="border-color: rgba(212,175,55,0.4); background: linear-gradient(180deg, #161822 0%, #0F1015 100%);">
+            <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1000&q=80" alt="KRONOS Haute Horlogerie" />
+                <span class="card-tag" style="color:var(--gold); border-color:rgba(212,175,55,0.4); background:rgba(7,7,9,0.95);"><i class="fas fa-crown"></i> SWISS HAUTE HORLOGERIE BESPOKE STUDIO</span>
+            </div>
+            <div class="card-body">
+                <h3 class="card-title" style="color:#FFF6D6;">KRONOS &amp; CO. — Geneva Manufacture</h3>
+                <p class="card-desc">Artisanal Swiss horology atelier featuring 60FPS mechanical tourbillon canvas simulation, 3D interactive watch customizer, Super-LumiNova night vision mode, and real synthesized mechanical escapement audio engine (28,800 vph).</p>
+                
+                <div class="feature-chips">
+                    <span class="chip" style="color:var(--gold); border-color:rgba(212,175,55,0.3);"><i class="fas fa-cogs"></i> 60FPS Tourbillon Canvas</span>
+                    <span class="chip" style="color:var(--gold); border-color:rgba(212,175,55,0.3);"><i class="fas fa-volume-up"></i> Mechanical Audio Engine</span>
+                    <span class="chip" style="color:var(--accent); border-color:rgba(0,242,254,0.3);"><i class="fas fa-moon"></i> Super-LumiNova Mode</span>
+                    <span class="chip"><i class="fas fa-certificate"></i> VIP Allocation Vault</span>
+                </div>
+
+                <a href="demo-chronos-horology.html" target="_blank" class="btn-gold-launch" style="background:linear-gradient(135deg, #D4AF37 0%, #AA820A 100%); box-shadow:0 0 25px rgba(212,175,55,0.35);">
+                    <i class="fas fa-external-link-alt"></i> Launch Flagship Experience
+                </a>
+            </div>
+        </div>
+
+        <!-- Site 1: Luxury Salon -->
+        <div class="client-card">
+            <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1000&q=80" alt="AURA & BLADE Salon" />
+                <span class="card-tag">BEAUTY &amp; SPA ATELIER</span>
+            </div>
+            <div class="card-body">
+                <h3 class="card-title">AURA &amp; BLADE — Hair &amp; Scalp Studio</h3>
+                <p class="card-desc">Beverly Hills flagship studio featuring live Hair Color Formulation Lab, 3D Apple Wallet VIP Pass Generator, and Japanese head spa booking.</p>
+                
+                <div class="feature-chips">
+                    <span class="chip"><i class="fas fa-flask"></i> Color Formulation Lab</span>
+                    <span class="chip"><i class="fab fa-apple"></i> Apple Wallet Pass</span>
+                    <span class="chip"><i class="fas fa-arrows-alt-h"></i> Transformation Slider</span>
+                </div>
+
+                <a href="demo-luxe-salon.html" target="_blank" class="btn-gold-launch">
+                    <i class="fas fa-external-link-alt"></i> Launch Live Website
+                </a>
+            </div>
+        </div>
+
+        <!-- Site 2: Apex Dental Clinic -->
+        <div class="client-card">
+            <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1000&q=80" alt="Nova Dental Clinic" />
+                <span class="card-tag">MEDICAL &amp; SURGICAL DENTISTRY</span>
+            </div>
+            <div class="card-body">
+                <h3 class="card-title">NOVA DENTAL — Upper East Side Clinic</h3>
+                <p class="card-desc">Private surgical practice featuring Interactive Dental Arch Anatomical Map, VITA Shade Picker, and Live Doctor Schedule Slot Matrix.</p>
+                
+                <div class="feature-chips">
+                    <span class="chip"><i class="fas fa-tooth"></i> Dental Arch Map</span>
+                    <span class="chip"><i class="fas fa-palette"></i> VITA Shade Picker</span>
+                    <span class="chip"><i class="far fa-clock"></i> Doctor Schedule Matrix</span>
+                </div>
+
+                <a href="https://apex-novadental.surge.sh" target="_blank" rel="noopener noreferrer" class="btn-live-launch">
+                    <i class="fas fa-external-link-alt"></i> Launch Live Website (Hosted)
+                </a>
+            </div>
+        </div>
+
+        <!-- Site 3: Verdant Estates -->
+        <div class="client-card">
+            <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80" alt="Verdant Estates" />
+                <span class="card-tag">PRIVATE CLIENT REAL ESTATE</span>
+            </div>
+            <div class="card-body">
+                <h3 class="card-title">VERDANT ESTATES — Trophy Residences</h3>
+                <p class="card-desc">Architectural advisory featuring Live Solar Daylight Simulator (06:00 to 23:00), Material Swatch Board, and Dual-Engine Mortgage/Yield Analytics.</p>
+                
+                <div class="feature-chips">
+                    <span class="chip"><i class="fas fa-sun"></i> Daylight Sun Simulator</span>
+                    <span class="chip"><i class="fas fa-cubes"></i> Material Swatch Lab</span>
+                    <span class="chip"><i class="fas fa-coins"></i> Currency Switcher</span>
+                </div>
+
+                <a href="demo-estate-living.html" target="_blank" class="btn-gold-launch">
+                    <i class="fas fa-external-link-alt"></i> Launch Live Website
+                </a>
+            </div>
+        </div>
+
+        <!-- Site 4: Michelin Dining Bistro -->
+        <div class="client-card">
+            <div class="card-img-wrap">
+                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1000&q=80" alt="L'Etoile Royale Bistro" />
+                <span class="card-tag">MICHELIN 2-STAR GASTRONOMY</span>
+            </div>
+            <div class="card-body">
+                <h3 class="card-title">L’ÉTOILE ROYALE — Haute Gastronomy</h3>
+                <p class="card-desc">Culinary flagship featuring Interactive Dish Plating Canvas with micro-provenance hotspots and Subterranean Wine Vault bottle inspector.</p>
+                
+                <div class="feature-chips">
+                    <span class="chip"><i class="fas fa-utensils"></i> Interactive Plating Canvas</span>
+                    <span class="chip"><i class="fas fa-wine-bottle"></i> Grand Wine Vault</span>
+                    <span class="chip"><i class="fas fa-chair"></i> Zoned Dining Covers</span>
+                </div>
+
+                <a href="demo-velvet-bistro.html" target="_blank" class="btn-gold-launch">
+                    <i class="fas fa-external-link-alt"></i> Launch Live Website
+                </a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

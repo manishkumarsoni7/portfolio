@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manish Kumar Soni — GitHub Profile README Master Collection</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --bg: #050608;
+            --surface: #0e1117;
+            --card: #161b22;
+            --border: #30363d;
+            --cyan: #00f2fe;
+            --text: #f0f6fc;
+            --text-muted: #8b949e;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px dashed var(--border);
+        }
+        .gallery-badge {
+            display: inline-block;
+            background: rgba(0, 242, 254, 0.1);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            color: var(--cyan);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            letter-spacing: 0.05em;
+        }
+        .gallery-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+        .gallery-sub {
+            color: var(--text-muted);
+            font-size: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .styles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 24px;
+        }
+
+        .style-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .style-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--cyan);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 242, 254, 0.15);
+        }
+
+        .card-num-pill {
+            font-family: 'Fira Code', monospace;
+            font-size: 11px;
+            color: var(--cyan);
+            background: rgba(0, 242, 254, 0.08);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            padding: 2px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+        .card-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+        .card-desc {
+            color: var(--text-muted);
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+        .card-tag {
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .card-btn-row {
+            display: flex;
+            gap: 10px;
+        }
+        .btn-view {
+            flex: 1;
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: background 0.2s, border-color 0.2s;
+        }
+        .btn-view:hover {
+            background: #21262d;
+            border-color: var(--cyan);
+            color: #ffffff;
+        }
+
+        .btn-copy-md {
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(79, 172, 254, 0.15));
+            border: 1px solid rgba(0, 242, 254, 0.4);
+            color: var(--cyan);
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s;
+        }
+        .btn-copy-md:hover {
+            background: rgba(0, 242, 254, 0.3);
+            color: #ffffff;
+        }
+
+        .instructions-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px;
+            margin-top: 48px;
+        }
+        .instructions-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .instructions-list {
+            list-style: decimal;
+            margin-left: 20px;
+            color: var(--text-muted);
+            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .instructions-list strong {
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gallery-container">
+        
+        <header class="gallery-header">
+            <span class="gallery-badge">⭐ MASTER COLLECTION (6 WORLD-CLASS STYLES)</span>
+            <h1 class="gallery-title">GitHub Profile README Styles for @manishkumarsoni7</h1>
+            <p class="gallery-sub">Choose your favorite design theme. Click "Copy Markdown" to grab the code and paste it directly into your GitHub profile repository!</p>
+        </header>
+
+        <div class="styles-grid">
+            
+            <!-- Card 1: Ultimate Animated Master -->
+            <div class="style-card">
+                <div>
+                    <span class="card-num-pill">STYLE 01 · FLAGSHIP MASTER</span>
+                    <h2 class="card-title">Ultimate Animated Obsidian</h2>
+                    <p class="card-desc">Typing SVG banner, interactive TypeScript interface block, 4 flagship project cards, stats matrix, and animated snake game eating contribution dots.</p>
+                    <div class="card-tags">
+                        <span class="card-tag">Typing SVG</span>
+                        <span class="card-tag">4 Flagships</span>
+                        <span class="card-tag">Snake Animation</span>
+                        <span class="card-tag">Radical Stats</span>
+                    </div>
+                </div>
+                <div class="card-btn-row">
+                    <button class="btn-copy-md" onclick="copyFile('GITHUB_PROFILE_README.md', this)">
+                        <i class="fa-regular fa-copy"></i> Copy Markdown
+                    </button>
+                </div>
+            </div>
+
+            <!-- Card 2: Cyber Terminal -->
+            <div class="style-card">
+                <div>
+                    <span class="card-num-pill">STYLE 02 · CYBERPUNK HUD</span>
+                    <h2 class="card-title">Cyber Terminal Mainframe</h2>
+                    <p class="card-desc">ASCII art banner, Matrix green telemetry, system specs JSON, live clearance badges, and raw terminal commands.</p>
+                    <div class="card-tags">
+                        <span class="card-tag">ASCII Art</span>
+                        <span class="card-tag">Matrix Theme</span>
+                        <span class="card-tag">JSON Telemetry</span>
+                        <span class="card-tag">Hacker HUD</span>
+                    </div>
+                </div>
+                <div class="card-btn-row">
+                    <button class="btn-copy-md" onclick="copyFile('GITHUB_PROFILE_1_CYBER_TERMINAL.md', this)">
+                        <i class="fa-regular fa-copy"></i> Copy Markdown
+                    </button>
+                </div>
+            </div>
+
+            <!-- Card 3: Minimal Luxury -->
+            <div class="style-card">
+                <div>
+                    <span class="card-num-pill">STYLE 03 · AWWWARDS LUXURY</span>
+                    <h2 class="card-title">Minimalist Editorial Luxury</h2>
+                    <p class="card-desc">Hushed monochrome typography, quiet editorial spacing, curated digital atelier ledger, and high-contrast dark badges.</p>
+                    <div class="card-tags">
+                        <span class="card-tag">Monochrome</span>
+                        <span class="card-tag">Editorial</span>
+                        <span class="card-tag">Luxury Ledger</span>
+                        <span class="card-tag">Clean Hierarchy</span>
+                    </div>
+                </div>
+                <div class="card-btn-row">
+                    <button class="btn-copy-md" onclick="copyFile('GITHUB_PROFILE_2_MINIMAL_LUXURY.md', this)">
+                        <i class="fa-regular fa-copy"></i> Copy Markdown
+                    </button>
+                </div>
+            </div>
+
+            <!-- Card 4: AI Research & Swarms -->
+            <div class="style-card">
+                <div>
+                    <span class="card-num-pill">STYLE 04 · AI ARCHITECT</span>
+                    <h2 class="card-title">Autonomous AI & Swarm Specialist</h2>
+                    <p class="card-desc">Multi-agent orchestration state diagrams, LangChain & Gemini Pro pipeline schemas, vector RAG metrics, and Tokyo Night telemetry.</p>
+                    <div class="card-tags">
+                        <span class="card-tag">Multi-Agent Graph</span>
+                        <span class="card-tag">LangChain</span>
+                        <span class="card-tag">TokyoNight</span>
+                        <span class="card-tag">AI Telemetry</span>
+                    </div>
+                </div>
+                <div class="card-btn-row">
+                    <button class="btn-copy-md" onclick="copyFile('GITHUB_PROFILE_3_AI_RESEARCH_ENGINEER.md', this)">
+                        <i class="fa-regular fa-copy"></i> Copy Markdown
+                    </button>
+                </div>
+            </div>
+
+            <!-- Card 5: Full-Stack Dev Pro -->
+            <div class="style-card">
+                <div>
+                    <span class="card-num-pill">STYLE 05 · VERCEL / LINEAR PRO</span>
+                    <h2 class="card-title">Linear Dev-Craft Pro</h2>
+                    <p class="card-desc">Rust struct benchmarks, sub-400ms Web Vitals metrics, clean flat-square badges, and Nord theme contribution analytics.</p>
+                    <div class="card-tags">
+                        <span class="card-tag">Linear UI</span>
+                        <span class="card-tag">Rust Struct</span>
+                        <span class="card-tag">Nord Theme</span>
+                        <span class="card-tag">Web Vitals</span>
+                    </div>
+                </div>
+                <div class="card-btn-row">
+                    <button class="btn-copy-md" onclick="copyFile('GITHUB_PROFILE_4_FULLSTACK_DEVELOPER_PRO.md', this)">
+                        <i class="fa-regular fa-copy"></i> Copy Markdown
+                    </button>
+                </div>
+            </div>
+
+            <!-- Card 6: Gamified RPG -->
+            <div class="style-card">
+                <div>
+                    <span class="card-num-pill">STYLE 06 · LEVEL 99 RPG</span>
+                    <h2 class="card-title">Gamified Tech Sorcerer</h2>
+                    <p class="card-desc">Level 99 Character Stats Sheet, Mana & Stamina bars, completed Epic Quests table, and dynamic GitHub Trophies bar.</p>
+                    <div class="card-tags">
+                        <span class="card-tag">RPG Stats</span>
+                        <span class="card-tag">GitHub Trophies</span>
+                        <span class="card-tag">Epic Quests</span>
+                        <span class="card-tag">Blood Theme</span>
+                    </div>
+                </div>
+                <div class="card-btn-row">
+                    <button class="btn-copy-md" onclick="copyFile('GITHUB_PROFILE_5_GAMIFIED_DEVELOPER.md', this)">
+                        <i class="fa-regular fa-copy"></i> Copy Markdown
+                    </button>
+                </div>
+            </div>
+
+            <!-- Card 7: 3D Spatial Holographic -->
+            <div class="style-card">
+                <div>
+                    <span class="card-num-pill">STYLE 07 · SPATIAL 3D</span>
+                    <h2 class="card-title">3D Spatial & Holographic</h2>
+                    <p class="card-desc">Waving holographic headers, Three.js & WebGL badges, spatial architecture table, and Cyberpunk neon telemetry cards.</p>
+                    <div class="card-tags">
+                        <span class="card-tag">Three.js 3D</span>
+                        <span class="card-tag">Holographic</span>
+                        <span class="card-tag">Cyberpunk Neon</span>
+                        <span class="card-tag">Spatial Web</span>
+                    </div>
+                </div>
+                <div class="card-btn-row">
+                    <button class="btn-copy-md" onclick="copyFile('GITHUB_PROFILE_6_DYNAMIC_3D_ISOMETRIC.md', this)">
+                        <i class="fa-regular fa-copy"></i> Copy Markdown
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Instructions -->
+        <div class="instructions-box">
+            <h3 class="instructions-title">
+                <i class="fa-solid fa-circle-info" style="color: var(--cyan);"></i> How to apply to your GitHub Account (1 Minute Setup)
+            </h3>
+            <ol class="instructions-list">
+                <li>Go to <strong><a href="https://github.com/new" target="_blank" style="color: var(--cyan);">github.com/new</a></strong>.</li>
+                <li>In <strong>Repository name</strong>, type your exact GitHub username: <strong>manishkumarsoni7</strong>.</li>
+                <li>Make sure it is set to <strong>Public</strong>, and check the box <strong>"Add a README file"</strong>.</li>
+                <li>Click <strong>"Copy Markdown"</strong> on your favorite style above, paste it into the <code>README.md</code>, and click <strong>Commit changes</strong>.</li>
+            </ol>
+        </div>
+
+    </div>
+
+    <script>
+        async function copyFile(fileName, btn) {
+            try {
+                const res = await fetch('/' + fileName);
+                const text = await res.text();
+                await navigator.clipboard.writeText(text);
+                const original = btn.innerHTML;
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied to Clipboard!';
+                btn.style.background = 'rgba(57, 211, 83, 0.3)';
+                btn.style.borderColor = '#39d353';
+                btn.style.color = '#39d353';
+                setTimeout(() => {
+                    btn.innerHTML = original;
+                    btn.style.background = '';
+                    btn.style.borderColor = '';
+                    btn.style.color = '';
+                }, 2500);
+            } catch (e) {
+                alert('File path: ' + fileName + '\nPlease copy directly from your workspace folder.');
+            }
+        }
+    </script>
+</body>
+</html>

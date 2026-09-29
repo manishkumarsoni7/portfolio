@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accordion Mastery Lab — 5 Bespoke Variations | Manish Kumar Soni</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <style>
+        :root {
+            --bg-obsidian: #030407;
+            --bg-surface: #07090f;
+            --bg-card: rgba(11, 15, 24, 0.7);
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(0, 242, 254, 0.45);
+            --accent-cyan: #00f2fe;
+            --accent-blue: #4facfe;
+            --accent-violet: #8a2be2;
+            --accent-gold: #e2b714;
+            --text-primary: #ffffff;
+            --text-muted: #8e95a5;
+            --text-faint: #525a6c;
+            --line: rgba(255, 255, 255, 0.12);
+            --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { font-size: 16px; scroll-behavior: smooth; background: var(--bg-obsidian); color: var(--text-primary); font-family: "Satoshi", sans-serif; }
+
+        body {
+            background-color: var(--bg-obsidian);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Ambient Lighting */
+        .ambient-glow-1 {
+            position: fixed;
+            top: -15vw;
+            left: 20vw;
+            width: 55vw;
+            height: 55vw;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 242, 254, 0.08) 0%, rgba(79, 172, 254, 0.02) 50%, transparent 70%);
+            filter: blur(120px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .ambient-glow-2 {
+            position: fixed;
+            bottom: 5vw;
+            right: 5vw;
+            width: 45vw;
+            height: 45vw;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 242, 254, 0.06) 0%, transparent 70%);
+            filter: blur(100px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 84rem;
+            margin-inline: auto;
+            padding-inline: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+        @media (min-width: 1024px) { .container { padding-inline: 3rem; } }
+
+        /* Master Switcher Topbar */
+        .preview-topbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(3, 4, 7, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--line);
+            padding: 0.85rem 0;
+        }
+        .preview-bar-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .preview-brand {
+            font-family: "Space Grotesk", sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .brand-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-cyan); box-shadow: 0 0 10px var(--accent-cyan); animation: pulse 2s infinite ease-in-out; }
+        @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } }
+
+        .concept-nav-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 0.3rem;
+            border-radius: 999px;
+            border: 1px solid var(--border-subtle);
+        }
+        .concept-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 0.45rem 1.1rem;
+            border-radius: 999px;
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.35s var(--ease-spring);
+        }
+        .concept-btn.is-active {
+            background: var(--accent-cyan);
+            color: #030407;
+            box-shadow: 0 4px 20px rgba(0, 242, 254, 0.35);
+        }
+
+        .back-link {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: color 0.3s ease;
+        }
+        .back-link:hover { color: var(--accent-cyan); }
+
+        /* Typography */
+        .eyebrow {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            color: var(--accent-cyan);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .eyebrow::before { content: ""; display: inline-block; width: 1.5rem; height: 1px; background: var(--accent-cyan); }
+
+        .section-h2 {
+            font-family: "Playfair Display", serif;
+            font-size: 2.5rem;
+            line-height: 1.08;
+            margin-top: 1rem;
+            letter-spacing: -0.02em;
+        }
+        @media (min-width: 640px) { .section-h2 { font-size: 3.25rem; } }
+        @media (min-width: 1024px) { .section-h2 { font-size: 3.75rem; } }
+        .accent-serif { font-style: italic; color: var(--accent-cyan); font-weight: 400; }
+
+        .section-lead {
+            font-size: 1.05rem;
+            line-height: 1.65;
+            color: var(--text-muted);
+            max-width: 52ch;
+            margin-top: 1.25rem;
+        }
+
+        /* View Panels */
+        .concept-view {
+            display: none;
+            padding: 4.5rem 0 8rem;
+            animation: viewFadeIn 0.45s var(--ease-spring) forwards;
+        }
+        .concept-view.is-visible { display: block; }
+        @keyframes viewFadeIn {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           VARIATION 2.1: THE MONOLITH EDITORIAL ACCORDION (Awwwards Masterpiece)
+        ═══════════════════════════════════════════════════════════════════ */
+        .v1-list {
+            margin-top: 3.5rem;
+            border-top: 1px dashed var(--line);
+        }
+        .v1-row {
+            border-bottom: 1px dashed var(--line);
+            padding-block: 2.25rem;
+            cursor: pointer;
+            transition: all 0.4s var(--ease-spring);
+        }
+        .v1-row:hover { background: rgba(255, 255, 255, 0.015); padding-left: 1.25rem; }
+        
+        .v1-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+        }
+        .v1-header-left {
+            display: flex;
+            align-items: baseline;
+            gap: 2.5rem;
+        }
+        .v1-num {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            width: 2.5rem;
+            flex-shrink: 0;
+        }
+        .v1-title {
+            font-family: "Playfair Display", serif;
+            font-size: 2rem;
+            color: #ffffff;
+            transition: color 0.3s ease, transform 0.4s var(--ease-spring);
+        }
+        @media (min-width: 640px) { .v1-title { font-size: 2.5rem; } }
+        .v1-row.is-open .v1-title, .v1-row:hover .v1-title { color: var(--accent-cyan); font-style: italic; }
+
+        .v1-icon-plus {
+            font-size: 1.75rem;
+            color: var(--accent-cyan);
+            transition: transform 0.45s var(--ease-spring), color 0.3s ease;
+        }
+        .v1-row.is-open .v1-icon-plus { transform: rotate(45deg); color: #ffffff; }
+
+        .v1-panel {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.55s var(--ease-spring), opacity 0.4s ease, margin-top 0.4s ease;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+        @media (min-width: 1024px) {
+            .v1-panel { grid-template-columns: 1.4fr 1fr; }
+        }
+        .v1-row.is-open .v1-panel {
+            max-height: 350px;
+            opacity: 1;
+            margin-top: 2rem;
+            padding-top: 1.75rem;
+            border-top: 1px dashed rgba(255, 255, 255, 0.08);
+        }
+
+        .v1-desc { font-size: 1.05rem; line-height: 1.7; color: var(--text-muted); }
+        .v1-chips-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.65rem; }
+        .v1-chip {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 0.82rem;
+            color: #ffffff;
+            background: rgba(0, 242, 254, 0.05);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            padding: 0.5rem 0.85rem;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.25s ease;
+        }
+        .v1-chip:hover { border-color: var(--accent-cyan); background: rgba(0, 242, 254, 0.12); }
+        .v1-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent-cyan); }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           VARIATION 2.2: THE BENTO-DRAWER ACCORDION (MODULAR GLASS PANELS)
+        ═══════════════════════════════════════════════════════════════════ */
+        .v2-cards-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            margin-top: 3.5rem;
+        }
+        .v2-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 14px;
+            padding: 1.75rem 2rem;
+            backdrop-filter: blur(20px);
+            cursor: pointer;
+            transition: all 0.4s var(--ease-spring);
+        }
+        .v2-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(0, 242, 254, 0.35);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+        }
+        .v2-card.is-open {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 242, 254, 0.08);
+            background: rgba(13, 18, 28, 0.85);
+        }
+        .v2-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .v2-card-title {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .v2-card-pill {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--accent-cyan);
+            background: rgba(0, 242, 254, 0.08);
+            border: 1px solid rgba(0, 242, 254, 0.25);
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+        }
+        .v2-drawer {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.5s var(--ease-spring), opacity 0.4s ease, margin-top 0.4s ease;
+        }
+        .v2-card.is-open .v2-drawer {
+            max-height: 300px;
+            opacity: 1;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .v2-mini-bento {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+        }
+        @media (min-width: 640px) { .v2-mini-bento { grid-template-columns: repeat(3, 1fr); } }
+        .v2-mini-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .v2-mini-label { font-family: "Space Grotesk", monospace; font-size: 0.7rem; color: var(--accent-cyan); text-transform: uppercase; }
+        .v2-mini-val { font-size: 0.88rem; color: #ffffff; font-weight: 500; }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           VARIATION 2.3: SPLIT HORIZON DUAL-PANE (INSPECTOR VISUAL)
+        ═══════════════════════════════════════════════════════════════════ */
+        .v3-split-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3.5rem;
+            margin-top: 3.5rem;
+            align-items: start;
+        }
+        @media (min-width: 1024px) {
+            .v3-split-layout { grid-template-columns: 1.2fr 1fr; gap: 4rem; }
+        }
+        .v3-items-list {
+            display: flex;
+            flex-direction: column;
+            border-top: 1px dashed var(--line);
+        }
+        .v3-row {
+            border-bottom: 1px dashed var(--line);
+            padding-block: 1.75rem;
+            cursor: pointer;
+            transition: all 0.35s var(--ease-spring);
+        }
+        .v3-row:hover, .v3-row.is-active {
+            padding-left: 1rem;
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .v3-row.is-active .v3-row-title {
+            color: var(--accent-cyan);
+            font-style: italic;
+        }
+        .v3-row-title {
+            font-family: "Playfair Display", serif;
+            font-size: 1.75rem;
+            color: #ffffff;
+            transition: color 0.3s ease;
+        }
+        .v3-row-sub { font-size: 0.88rem; color: var(--text-muted); margin-top: 0.35rem; }
+
+        .v3-inspector-card {
+            background: #080b12;
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            border-radius: 16px;
+            padding: 2.25rem;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8), 0 0 35px rgba(0, 242, 254, 0.08);
+            position: sticky;
+            top: 6rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .v3-inspector-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px dashed var(--line);
+            padding-bottom: 1rem;
+        }
+        .v3-inspect-title { font-family: "Space Grotesk", sans-serif; font-size: 1.2rem; font-weight: 700; color: #ffffff; }
+        .v3-inspect-badge { font-family: "Space Grotesk", monospace; font-size: 0.75rem; color: var(--accent-cyan); }
+        .v3-inspect-desc { font-size: 0.95rem; line-height: 1.6; color: var(--text-muted); }
+        .v3-inspect-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .v3-pill {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 0.75rem;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.3rem 0.75rem;
+            border-radius: 4px;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           VARIATION 2.4: SWISS MINIMALIST INDEX (BRUTALIST PRECISION)
+        ═══════════════════════════════════════════════════════════════════ */
+        .v4-table-wrap {
+            margin-top: 3.5rem;
+            border-top: 1px dashed var(--line);
+        }
+        .v4-row {
+            border-bottom: 1px dashed var(--line);
+            padding-block: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .v4-row:hover { background: rgba(0, 242, 254, 0.02); }
+        .v4-header-grid {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 2rem;
+        }
+        .v4-index-mono { font-family: "JetBrains Mono", monospace; font-size: 0.85rem; color: var(--accent-cyan); }
+        .v4-heading { font-family: "Space Grotesk", sans-serif; font-size: 1.5rem; font-weight: 700; color: #ffffff; text-transform: uppercase; letter-spacing: -0.01em; }
+        .v4-status { font-family: "JetBrains Mono", monospace; font-size: 0.75rem; color: var(--text-faint); }
+        .v4-row.is-open .v4-heading { color: var(--accent-cyan); }
+        .v4-drawer {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.45s var(--ease-spring), opacity 0.35s ease;
+            margin-top: 0;
+        }
+        .v4-row.is-open .v4-drawer {
+            max-height: 250px;
+            opacity: 1;
+            margin-top: 1.5rem;
+            padding-top: 1.25rem;
+            border-top: 1px dashed rgba(255, 255, 255, 0.06);
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        @media (min-width: 1024px) { .v4-row.is-open .v4-drawer { grid-template-columns: repeat(3, 1fr); } }
+        .v4-col-title { font-family: "JetBrains Mono", monospace; font-size: 0.72rem; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.5rem; }
+        .v4-col-body { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           VARIATION 2.5: CYBER-NEON AGENTIC ACCORDION (MATRIX GLOW)
+        ═══════════════════════════════════════════════════════════════════ */
+        .v5-matrix-list {
+            margin-top: 3.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .v5-matrix-card {
+            background: linear-gradient(135deg, rgba(8, 12, 20, 0.9) 0%, rgba(4, 6, 12, 0.9) 100%);
+            border: 1px solid rgba(0, 242, 254, 0.18);
+            border-radius: 12px;
+            padding: 1.75rem 2rem;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s var(--ease-spring);
+        }
+        .v5-matrix-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--accent-cyan);
+            opacity: 0.3;
+            transition: opacity 0.3s ease, width 0.3s ease;
+        }
+        .v5-matrix-card:hover::before, .v5-matrix-card.is-open::before {
+            opacity: 1;
+            width: 6px;
+            box-shadow: 0 0 15px var(--accent-cyan);
+        }
+        .v5-matrix-card.is-open {
+            border-color: rgba(0, 242, 254, 0.45);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 242, 254, 0.1);
+        }
+        .v5-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .v5-title { font-family: "Space Grotesk", sans-serif; font-size: 1.35rem; font-weight: 700; color: #ffffff; }
+        .v5-terminal-drawer {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.5s var(--ease-spring), opacity 0.4s ease;
+        }
+        .v5-matrix-card.is-open .v5-terminal-drawer {
+            max-height: 280px;
+            opacity: 1;
+            margin-top: 1.5rem;
+            padding-top: 1.25rem;
+            border-top: 1px dashed rgba(0, 242, 254, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .v5-cli-box {
+            background: #020306;
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            border-radius: 6px;
+            padding: 1rem;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 0.82rem;
+            color: #a7f3d0;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ambient Lighting Glows -->
+    <div class="ambient-glow-1"></div>
+    <div class="ambient-glow-2"></div>
+
+    <!-- Master Switcher Topbar -->
+    <header class="preview-topbar">
+        <div class="container preview-bar-inner">
+            <div class="preview-brand">
+                <span class="brand-dot"></span>
+                <span>Accordion Mastery Lab · Manish Kumar Soni</span>
+            </div>
+
+            <nav class="concept-nav-pills" aria-label="Accordion Variations">
+                <button class="concept-btn is-active" onclick="switchConcept('concept-2-1')">
+                    2.1 · Monolith Editorial
+                </button>
+                <button class="concept-btn" onclick="switchConcept('concept-2-2')">
+                    2.2 · Bento Glass Drawer
+                </button>
+                <button class="concept-btn" onclick="switchConcept('concept-2-3')">
+                    2.3 · Split Visual Inspector
+                </button>
+                <button class="concept-btn" onclick="switchConcept('concept-2-4')">
+                    2.4 · Swiss Minimalist Index
+                </button>
+                <button class="concept-btn" onclick="switchConcept('concept-2-5')">
+                    2.5 · Cyber-Neon Matrix
+                </button>
+            </nav>
+
+            <a href="/" class="back-link">
+                ← Return to Live Portfolio
+            </a>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- ═══════════════════════════════════════════════════════════════════
+             VARIATION 2.1: THE MONOLITH EDITORIAL ACCORDION
+        ═══════════════════════════════════════════════════════════════════ -->
+        <section id="concept-2-1" class="concept-view is-visible">
+            <div class="eyebrow">Variation 2.1 · Monolith Editorial Atelier</div>
+            <h2 class="section-h2">
+                The pillars of <span class="accent-serif">technical</span> mastery.
+            </h2>
+            <p class="section-lead">
+                Oversized Playfair Display headings paired with smooth spring accordion expansion, measured height, and curated tech chips.
+            </p>
+
+            <div class="v1-list">
+                <!-- 01 -->
+                <div class="v1-row is-open" onclick="toggleV1(this)">
+                    <div class="v1-header">
+                        <div class="v1-header-left">
+                            <span class="v1-num">01</span>
+                            <h3 class="v1-title">Frontend Craft &amp; Spatial Motion</h3>
+                        </div>
+                        <span class="v1-icon-plus">+</span>
+                    </div>
+                    <div class="v1-panel">
+                        <p class="v1-desc">
+                            Next.js 15, React 19, TypeScript, and Tailwind CSS engineered with adaptive viewport rem grids, GSAP timeline spring reveals, and Lenis smooth scrolling for Awwwards-caliber flagship performance.
+                        </p>
+                        <div class="v1-chips-grid">
+                            <span class="v1-chip"><span class="v1-dot"></span> Next.js 15 App Router</span>
+                            <span class="v1-chip"><span class="v1-dot"></span> React 19 Core</span>
+                            <span class="v1-chip"><span class="v1-dot"></span> TypeScript Strict</span>
+                            <span class="v1-chip"><span class="v1-dot"></span> GSAP 3 Physics</span>
+                            <span class="v1-chip"><span class="v1-dot"></span> Lenis Smooth Scroll</span>
+                            <span class="v1-chip"><span class="v1-dot"></span> Three.js / Canvas</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 02 -->
+                <div class="v1-row" onclick="toggleV1(this)">
+                    <div class="v1-header">
+                        <div class="v1-header-left">
+                            <span class="v1-num">02</span>
+                            <h3 class="v1-title">Autonomous AI &amp; Agent Swarms</h3>
+                        </div>
+                        <span class="v1-icon-plus">+</span>
+                    </div>
+                    <div class="v1-panel">
+                        <p class="v1-desc">
+                            Building resilient multi-agent orchestration graphs using LangChain and Python, vector embeddings retrieval (RAG), automated code synthesis, and Gemini/OpenAI high-concurrency tool calling.
+                        </p>
+                        <div class="v1-chips-grid">
+                            <span class="v1-chip"><span class="v1-dot"></span> LangChain Swarms</span>
+                            <span class="v1-chip"><span class="v1-dot"></span> Python 3.12</span>
+                            <span class="v1-chip"><span class="v1-dot"></span> Gemini Pro SDK</span>
+                            <span class="v1-chip"><span class="v1-dot"></span> OpenAI API</span>
+                            <span class="v1-chip"><span class="v1-dot"></span> Vector RAG</span>
+                            <span class="v1-chip"><span class="v1-dot"></span> Tool Calling Graphs</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 03 -->
+                <div class="v1-row" onclick="toggleV1(this)">
+                    <div class="v1-header">
+                        <div class="v1-header-left">
+                            <span class="v1-num">03</span>
+                            <h3 class="v1-title">Backend Architecture &amp; Cloud</h3>
+                        </div>
+                        <span class="v1-icon-plus">+</span>
+                    </div>
+                    <div class="v1-panel">
+                        <p class="v1-desc">
+                            Designing scalable microservices, relational PostgreSQL architectures, real-time Supabase integrations, REST &amp; GraphQL endpoints, and containerized Docker edge deployments.
+                        </p>
+                        <div class="v1-chips-grid">
+                            <span class="v1-chip"><span class="v1-dot"></span> Node.js / Express</span>
+                            <span class="v1-chip"><span class="v1-dot"></span> PostgreSQL Relational</span>
+                            <span class="v1-chip"><span class="v1-dot"></span> Supabase Realtime</span>
+                            <span class="v1-chip"><span class="v1-dot"></span> REST &amp; GraphQL</span>
+                            <span class="v1-chip"><span class="v1-dot"></span> Docker Edge</span>
+                            <span class="v1-chip"><span class="v1-dot"></span> Redis Caching</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 04 -->
+                <div class="v1-row" onclick="toggleV1(this)">
+                    <div class="v1-header">
+                        <div class="v1-header-left">
+                            <span class="v1-num">04</span>
+                            <h3 class="v1-title">UX Precision &amp; Web Vitals</h3>
+                        </div>
+                        <span class="v1-icon-plus">+</span>
+                    </div>
+                    <div class="v1-panel">
+                        <p class="v1-desc">
+                            Rigorous mathematical proportions scaling across all screens, sub-second First Contentful Paint, zero cumulative layout shifts, semantic SEO structure, and bespoke typography pairing.
+                        </p>
+                        <div class="v1-chips-grid">
+                            <span class="v1-chip"><span class="v1-dot"></span> 100/100 Lighthouse</span>
+                            <span class="v1-chip"><span class="v1-dot"></span> Adaptive Rem Grids</span>
+                            <span class="v1-chip"><span class="v1-dot"></span> Figma Atelier</span>
+                            <span class="v1-chip"><span class="v1-dot"></span> Semantic SEO</span>
+                            <span class="v1-chip"><span class="v1-dot"></span> Sub-0.8s Vitals</span>
+                            <span class="v1-chip"><span class="v1-dot"></span> WCAG A11y</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════════════
+             VARIATION 2.2: THE BENTO-DRAWER ACCORDION
+        ═══════════════════════════════════════════════════════════════════ -->
+        <section id="concept-2-2" class="concept-view">
+            <div class="eyebrow">Variation 2.2 · Bento Glass Drawers</div>
+            <h2 class="section-h2">
+                Modular architecture, <span class="accent-serif">elevated</span> glass.
+            </h2>
+            <p class="section-lead">
+                Encapsulated obsidian cards that smoothly lift on hover and unroll into rich three-tier bento metric panels.
+            </p>
+
+            <div class="v2-cards-list">
+                <!-- Card 1 -->
+                <div class="v2-card is-open" onclick="toggleV2(this)">
+                    <div class="v2-card-header">
+                        <h3 class="v2-card-title">
+                            <span style="color:var(--accent-cyan); font-family:'Space Grotesk', monospace;">01</span>
+                            Frontend Systems &amp; Motion Architecture
+                        </h3>
+                        <span class="v2-card-pill">Production Grade</span>
+                    </div>
+                    <div class="v2-drawer">
+                        <div class="v2-mini-bento">
+                            <div class="v2-mini-box">
+                                <span class="v2-mini-label">Core Technologies</span>
+                                <span class="v2-mini-val">Next.js 15 · React 19 · TS · Tailwind</span>
+                            </div>
+                            <div class="v2-mini-box">
+                                <span class="v2-mini-label">Kinetic Motion</span>
+                                <span class="v2-mini-val">GSAP 3 · Spring Physics · Lenis</span>
+                            </div>
+                            <div class="v2-mini-box">
+                                <span class="v2-mini-label">Benchmark</span>
+                                <span class="v2-mini-val" style="color:var(--accent-cyan);">100/100 Lighthouse Performance</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="v2-card" onclick="toggleV2(this)">
+                    <div class="v2-card-header">
+                        <h3 class="v2-card-title">
+                            <span style="color:var(--accent-cyan); font-family:'Space Grotesk', monospace;">02</span>
+                            Autonomous AI &amp; Multi-Agent Swarms
+                        </h3>
+                        <span class="v2-card-pill">Agentic Intelligence</span>
+                    </div>
+                    <div class="v2-drawer">
+                        <div class="v2-mini-bento">
+                            <div class="v2-mini-box">
+                                <span class="v2-mini-label">Frameworks</span>
+                                <span class="v2-mini-val">LangChain · Python 3.12 · Gemini Pro</span>
+                            </div>
+                            <div class="v2-mini-box">
+                                <span class="v2-mini-label">Capabilities</span>
+                                <span class="v2-mini-val">Vector Search RAG · Tool Calling</span>
+                            </div>
+                            <div class="v2-mini-box">
+                                <span class="v2-mini-label">Benchmark</span>
+                                <span class="v2-mini-val" style="color:var(--accent-cyan);">15+ Active Pipelines Deployed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="v2-card" onclick="toggleV2(this)">
+                    <div class="v2-card-header">
+                        <h3 class="v2-card-title">
+                            <span style="color:var(--accent-cyan); font-family:'Space Grotesk', monospace;">03</span>
+                            Distributed Backend &amp; Cloud Relational Core
+                        </h3>
+                        <span class="v2-card-pill">Distributed Core</span>
+                    </div>
+                    <div class="v2-drawer">
+                        <div class="v2-mini-bento">
+                            <div class="v2-mini-box">
+                                <span class="v2-mini-label">Databases</span>
+                                <span class="v2-mini-val">PostgreSQL · Supabase · Redis</span>
+                            </div>
+                            <div class="v2-mini-box">
+                                <span class="v2-mini-label">API Architecture</span>
+                                <span class="v2-mini-val">RESTful · GraphQL · Docker Edge</span>
+                            </div>
+                            <div class="v2-mini-box">
+                                <span class="v2-mini-label">Benchmark</span>
+                                <span class="v2-mini-val" style="color:var(--accent-cyan);">99.99% Production Uptime</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="v2-card" onclick="toggleV2(this)">
+                    <div class="v2-card-header">
+                        <h3 class="v2-card-title">
+                            <span style="color:var(--accent-cyan); font-family:'Space Grotesk', monospace;">04</span>
+                            UX Precision, Design Systems &amp; Web Vitals
+                        </h3>
+                        <span class="v2-card-pill">Sub-Second Vitals</span>
+                    </div>
+                    <div class="v2-drawer">
+                        <div class="v2-mini-bento">
+                            <div class="v2-mini-box">
+                                <span class="v2-mini-label">Layout Architecture</span>
+                                <span class="v2-mini-val">Adaptive Viewport Rem Grids</span>
+                            </div>
+                            <div class="v2-mini-box">
+                                <span class="v2-mini-label">Design &amp; Search</span>
+                                <span class="v2-mini-val">Figma Atelier · Semantic SEO</span>
+                            </div>
+                            <div class="v2-mini-box">
+                                <span class="v2-mini-label">Benchmark</span>
+                                <span class="v2-mini-val" style="color:var(--accent-cyan);">&lt; 0.8s First Contentful Paint</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════════════
+             VARIATION 2.3: SPLIT HORIZON DUAL-PANE (INSPECTOR VISUAL)
+        ═══════════════════════════════════════════════════════════════════ -->
+        <section id="concept-2-3" class="concept-view">
+            <div class="eyebrow">Variation 2.3 · Split Visual Inspector</div>
+            <h2 class="section-h2">
+                Synchronized <span class="accent-serif">telemetry</span> &amp; stack inspection.
+            </h2>
+            <p class="section-lead">
+                Hover or click any pillar on the left to dynamically stream technical specifications and telemetry on the right inspector card.
+            </p>
+
+            <div class="v3-split-layout">
+                <!-- Left: Interactive Rows -->
+                <div class="v3-items-list">
+                    <div class="v3-row is-active" onmouseenter="inspectV3(0)" onclick="inspectV3(0)">
+                        <h3 class="v3-row-title">01 · Frontend &amp; Spatial Motion</h3>
+                        <p class="v3-row-sub">Next.js 15, React 19, TypeScript, GSAP, and adaptive rem typography.</p>
+                    </div>
+                    <div class="v3-row" onmouseenter="inspectV3(1)" onclick="inspectV3(1)">
+                        <h3 class="v3-row-title">02 · Autonomous AI &amp; LangChain</h3>
+                        <p class="v3-row-sub">Multi-agent orchestrations, vector memory, and automated LLM tool calling.</p>
+                    </div>
+                    <div class="v3-row" onmouseenter="inspectV3(2)" onclick="inspectV3(2)">
+                        <h3 class="v3-row-title">03 · Distributed Cloud &amp; PostgreSQL</h3>
+                        <p class="v3-row-sub">High-concurrency Node.js, relational data schemas, Supabase, and Docker.</p>
+                    </div>
+                    <div class="v3-row" onmouseenter="inspectV3(3)" onclick="inspectV3(3)">
+                        <h3 class="v3-row-title">04 · UX Precision &amp; Sub-0.8s Vitals</h3>
+                        <p class="v3-row-sub">100/100 Lighthouse benchmark, responsive fluid scaling, and zero layout shift.</p>
+                    </div>
+                </div>
+
+                <!-- Right: Visual Inspector Card -->
+                <div class="v3-inspector-card">
+                    <div class="v3-inspector-top">
+                        <span class="v3-inspect-title" id="v3-title">Frontend Craft &amp; Spatial Motion</span>
+                        <span class="v3-inspect-badge" id="v3-badge">● STACK READY</span>
+                    </div>
+                    <p class="v3-inspect-desc" id="v3-desc">
+                        Engineering world-class digital ateliers with Next.js 15 App Router, React 19, and rigorous strict TypeScript typing. Integrated with Lenis smooth scroll inertia and custom GSAP spring physics.
+                    </p>
+                    <div>
+                        <span style="font-family:'Space Grotesk', monospace; font-size:0.75rem; color:var(--text-faint); text-transform:uppercase; display:block; margin-bottom:0.75rem;">Technology Stack</span>
+                        <div class="v3-inspect-pills" id="v3-pills">
+                            <span class="v3-pill">Next.js 15</span>
+                            <span class="v3-pill">React 19</span>
+                            <span class="v3-pill">TypeScript</span>
+                            <span class="v3-pill">GSAP 3</span>
+                            <span class="v3-pill">Tailwind CSS</span>
+                            <span class="v3-pill">Lenis</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════════════
+             VARIATION 2.4: SWISS MINIMALIST INDEX (BRUTALIST PRECISION)
+        ═══════════════════════════════════════════════════════════════════ -->
+        <section id="concept-2-4" class="concept-view">
+            <div class="eyebrow">Variation 2.4 · Swiss Minimalist Index</div>
+            <h2 class="section-h2">
+                Uncompromising <span class="accent-serif">clarity</span> &amp; structure.
+            </h2>
+            <p class="section-lead">
+                Minimalist monospace indices, tight uppercase typography, and a structured three-column deliverable breakdown.
+            </p>
+
+            <div class="v4-table-wrap">
+                <!-- Row 1 -->
+                <div class="v4-row is-open" onclick="toggleV4(this)">
+                    <div class="v4-header-grid">
+                        <span class="v4-index-mono">[ 01 ]</span>
+                        <h3 class="v4-heading">Frontend Engineering &amp; Kinetic UI</h3>
+                        <span class="v4-status">// PROD_READY</span>
+                    </div>
+                    <div class="v4-drawer">
+                        <div>
+                            <div class="v4-col-title">Engineering Focus</div>
+                            <p class="v4-col-body">Type-safe component architectures with sub-second hydration and spring physics animations.</p>
+                        </div>
+                        <div>
+                            <div class="v4-col-title">Primary Tooling</div>
+                            <p class="v4-col-body">Next.js 15, React 19, TypeScript, Tailwind CSS, GSAP 3, Lenis Smooth Scroll.</p>
+                        </div>
+                        <div>
+                            <div class="v4-col-title">Deliverable Benchmark</div>
+                            <p class="v4-col-body">100/100 Lighthouse score with mathematical viewport rem grid scaling.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 2 -->
+                <div class="v4-row" onclick="toggleV4(this)">
+                    <div class="v4-header-grid">
+                        <span class="v4-index-mono">[ 02 ]</span>
+                        <h3 class="v4-heading">Autonomous AI &amp; Multi-Agent Swarms</h3>
+                        <span class="v4-status">// SWARM_ACTIVE</span>
+                    </div>
+                    <div class="v4-drawer">
+                        <div>
+                            <div class="v4-col-title">Engineering Focus</div>
+                            <p class="v4-col-body">Graph-based autonomous agent pipelines with real-time vector search and tool calling.</p>
+                        </div>
+                        <div>
+                            <div class="v4-col-title">Primary Tooling</div>
+                            <p class="v4-col-body">LangChain, Python 3.12, Google Gemini SDK, OpenAI API, Vector RAG.</p>
+                        </div>
+                        <div>
+                            <div class="v4-col-title">Deliverable Benchmark</div>
+                            <p class="v4-col-body">Automated code synthesis and continuous multi-agent verification workflows.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 3 -->
+                <div class="v4-row" onclick="toggleV4(this)">
+                    <div class="v4-header-grid">
+                        <span class="v4-index-mono">[ 03 ]</span>
+                        <h3 class="v4-heading">Distributed Backend &amp; Cloud DB</h3>
+                        <span class="v4-status">// CLOUD_SCALE</span>
+                    </div>
+                    <div class="v4-drawer">
+                        <div>
+                            <div class="v4-col-title">Engineering Focus</div>
+                            <p class="v4-col-body">High-throughput REST/GraphQL microservices with strict relational integrity.</p>
+                        </div>
+                        <div>
+                            <div class="v4-col-title">Primary Tooling</div>
+                            <p class="v4-col-body">Node.js, Express.js, PostgreSQL, Supabase, Docker, Redis Cache.</p>
+                        </div>
+                        <div>
+                            <div class="v4-col-title">Deliverable Benchmark</div>
+                            <p class="v4-col-body">Zero-downtime serverless edge deployment with transactional durability.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 4 -->
+                <div class="v4-row" onclick="toggleV4(this)">
+                    <div class="v4-header-grid">
+                        <span class="v4-index-mono">[ 04 ]</span>
+                        <h3 class="v4-heading">UX Precision &amp; Sub-0.8s Web Vitals</h3>
+                        <span class="v4-status">// SUB_SECOND</span>
+                    </div>
+                    <div class="v4-drawer">
+                        <div>
+                            <div class="v4-col-title">Engineering Focus</div>
+                            <p class="v4-col-body">Ultra-fast asset delivery pipelines, semantic SEO markup, and editorial typography.</p>
+                        </div>
+                        <div>
+                            <div class="v4-col-title">Primary Tooling</div>
+                            <p class="v4-col-body">Figma Atelier, Viewport Rem Scaling, Web Vitals API, Semantic HTML5.</p>
+                        </div>
+                        <div>
+                            <div class="v4-col-title">Deliverable Benchmark</div>
+                            <p class="v4-col-body">&lt; 0.8s First Contentful Paint with zero cumulative layout shifts.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════════════
+             VARIATION 2.5: CYBER-NEON AGENTIC ACCORDION (MATRIX GLOW)
+        ═══════════════════════════════════════════════════════════════════ -->
+        <section id="concept-2-5" class="concept-view">
+            <div class="eyebrow">Variation 2.5 · Cyber-Neon Agentic Matrix</div>
+            <h2 class="section-h2">
+                High-voltage <span class="accent-serif">cybernetic</span> execution.
+            </h2>
+            <p class="section-lead">
+                Active glowing cyber-border telemetry cards embedded with simulated command terminal telemetry drawers.
+            </p>
+
+            <div class="v5-matrix-list">
+                <!-- 1 -->
+                <div class="v5-matrix-card is-open" onclick="toggleV5(this)">
+                    <div class="v5-card-header">
+                        <h3 class="v5-title">01 · NEXT.JS 15 &amp; KINETIC SPATIAL MOTION</h3>
+                        <span style="font-family:'JetBrains Mono', monospace; font-size:0.75rem; color:var(--accent-cyan);">[ STATUS: 100% OK ]</span>
+                    </div>
+                    <div class="v5-terminal-drawer">
+                        <div class="v5-cli-box">
+                            $ agy test --target frontend-engine<br>
+                            &gt; React 19 Core: HYDRATED (0.04s)<br>
+                            &gt; GSAP 3 Physics: ACTIVE (Spring Curves Eased)<br>
+                            &gt; Lighthouse Performance: 100/100 PASS
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2 -->
+                <div class="v5-matrix-card" onclick="toggleV5(this)">
+                    <div class="v5-card-header">
+                        <h3 class="v5-title">02 · AUTONOMOUS AI &amp; MULTI-AGENT SWARMS</h3>
+                        <span style="font-family:'JetBrains Mono', monospace; font-size:0.75rem; color:var(--accent-cyan);">[ SWARMS: 4 ACTIVE ]</span>
+                    </div>
+                    <div class="v5-terminal-drawer">
+                        <div class="v5-cli-box">
+                            $ python -m agentic_swarm.orchestrator<br>
+                            &gt; LangChain Graph: INITIALIZED<br>
+                            &gt; Gemini Pro Tool-Calling: CONNECTED<br>
+                            &gt; Vector RAG Memory: 100% RETRIEVAL ACCURACY
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3 -->
+                <div class="v5-matrix-card" onclick="toggleV5(this)">
+                    <div class="v5-card-header">
+                        <h3 class="v5-title">03 · DISTRIBUTED BACKEND &amp; POSTGRESQL</h3>
+                        <span style="font-family:'JetBrains Mono', monospace; font-size:0.75rem; color:var(--accent-cyan);">[ DB: CONNECTED ]</span>
+                    </div>
+                    <div class="v5-terminal-drawer">
+                        <div class="v5-cli-box">
+                            $ node serverless_edge.js --inspect<br>
+                            &gt; PostgreSQL Pool: 24 Connections Open (0.01ms latency)<br>
+                            &gt; Supabase Realtime Channels: LISTENING<br>
+                            &gt; Docker Edge Container: RUNNING (Healthy)
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4 -->
+                <div class="v5-matrix-card" onclick="toggleV5(this)">
+                    <div class="v5-card-header">
+                        <h3 class="v5-title">04 · UX PRECISION &amp; SUB-0.8S VITALS</h3>
+                        <span style="font-family:'JetBrains Mono', monospace; font-size:0.75rem; color:var(--accent-cyan);">[ VITALS: SUB-0.8S ]</span>
+                    </div>
+                    <div class="v5-terminal-drawer">
+                        <div class="v5-cli-box">
+                            $ web-vitals check --url https://aura-atelier.surge.sh<br>
+                            &gt; First Contentful Paint: 0.72s (EXCELLENT)<br>
+                            &gt; Cumulative Layout Shift: 0.000 (PERFECT)<br>
+                            &gt; Time to Interactive: 0.81s (OPTIMAL)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        function switchConcept(id) {
+            document.querySelectorAll('.concept-view').forEach(view => {
+                view.classList.remove('is-visible');
+            });
+            document.querySelectorAll('.concept-btn').forEach(btn => {
+                btn.classList.remove('is-active');
+            });
+
+            const target = document.getElementById(id);
+            if (target) target.classList.add('is-visible');
+
+            const indexMap = { 
+                'concept-2-1': 0, 
+                'concept-2-2': 1, 
+                'concept-2-3': 2, 
+                'concept-2-4': 3,
+                'concept-2-5': 4
+            };
+            const idx = indexMap[id];
+            if (idx !== undefined) {
+                document.querySelectorAll('.concept-btn')[idx].classList.add('is-active');
+            }
+        }
+
+        // Variation 2.1 Accordion Toggle
+        function toggleV1(row) {
+            const isOpen = row.classList.contains('is-open');
+            document.querySelectorAll('.v1-row').forEach(r => r.classList.remove('is-open'));
+            if (!isOpen) row.classList.add('is-open');
+        }
+
+        // Variation 2.2 Bento Card Toggle
+        function toggleV2(card) {
+            const isOpen = card.classList.contains('is-open');
+            document.querySelectorAll('.v2-card').forEach(c => c.classList.remove('is-open'));
+            if (!isOpen) card.classList.add('is-open');
+        }
+
+        // Variation 2.3 Inspector Data Switcher
+        const v3Data = [
+            {
+                title: "Frontend Craft & Spatial Motion",
+                badge: "● STACK READY",
+                desc: "Engineering world-class digital ateliers with Next.js 15 App Router, React 19, and rigorous strict TypeScript typing. Integrated with Lenis smooth scroll inertia and custom GSAP spring physics.",
+                pills: ["Next.js 15", "React 19", "TypeScript", "GSAP 3", "Tailwind CSS", "Lenis"]
+            },
+            {
+                title: "Autonomous AI & Multi-Agent Swarms",
+                badge: "● 4 SWARMS ACTIVE",
+                desc: "Multi-agent LLM orchestration pipelines using LangChain and Python. Engineered for autonomous web search, multi-source verification, automated code synthesis, and Gemini/OpenAI tool-calling.",
+                pills: ["LangChain", "Python 3.12", "Gemini Pro SDK", "OpenAI API", "Vector RAG", "Tool Graphs"]
+            },
+            {
+                title: "Distributed Backend & Cloud PostgreSQL",
+                badge: "● RELATIONAL CORE",
+                desc: "High-throughput API microservices built on Node.js and Express, backed by relational PostgreSQL architectures, real-time Supabase subscriptions, and zero-downtime Docker edge deployments.",
+                pills: ["Node.js", "Express.js", "PostgreSQL", "Supabase", "Docker", "Redis"]
+            },
+            {
+                title: "UX Precision, Design & Web Vitals",
+                badge: "● 100/100 VITALS",
+                desc: "Mathematical viewport rem scaling architectures scaling fluidly across all devices. Sub-second First Contentful Paint, zero cumulative layout shifts, and semantic SEO dominance.",
+                pills: ["100/100 Lighthouse", "Adaptive Rem Grids", "Figma Atelier", "Semantic SEO", "Sub-0.8s Vitals"]
+            }
+        ];
+
+        function inspectV3(index) {
+            const rows = document.querySelectorAll('.v3-row');
+            rows.forEach((r, i) => {
+                if (i === index) r.classList.add('is-active');
+                else r.classList.remove('is-active');
+            });
+
+            const data = v3Data[index];
+            document.getElementById('v3-title').textContent = data.title;
+            document.getElementById('v3-badge').textContent = data.badge;
+            document.getElementById('v3-desc').textContent = data.desc;
+            document.getElementById('v3-pills').innerHTML = data.pills.map(p => `<span class="v3-pill">${p}</span>`).join('');
+        }
+
+        // Variation 2.4 Swiss Toggle
+        function toggleV4(row) {
+            const isOpen = row.classList.contains('is-open');
+            document.querySelectorAll('.v4-row').forEach(r => r.classList.remove('is-open'));
+            if (!isOpen) row.classList.add('is-open');
+        }
+
+        // Variation 2.5 Cyber-Neon Toggle
+        function toggleV5(card) {
+            const isOpen = card.classList.contains('is-open');
+            document.querySelectorAll('.v5-matrix-card').forEach(c => c.classList.remove('is-open'));
+            if (!isOpen) card.classList.add('is-open');
+        }
+    </script>
+</body>
+</html>

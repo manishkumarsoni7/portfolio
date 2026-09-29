@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VERDANT ESTATES — Private Client Real Estate &amp; Trophy Residences</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=JetBrains+Mono:wght@400;500;700&family=Manrope:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg: #08080A;
+            --surface: #101015;
+            --surface-card: #15151C;
+            --surface-elevated: #1B1B24;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(229, 195, 120, 0.4);
+            --gold: #E5C378;
+            --gold-light: #F7E5B5;
+            --gold-glow: rgba(229, 195, 120, 0.35);
+            --white: #FFFFFF;
+            --muted: #A1A1AA;
+            --muted-dark: #71717A;
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: var(--bg);
+            color: var(--white);
+            font-family: 'Manrope', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Top Bar */
+        .vip-topbar {
+            background: #040406;
+            border-bottom: 1px solid var(--border);
+            padding: 8px 6%;
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 0.76rem; color: var(--muted); font-family: 'Space Grotesk';
+        }
+        .topbar-left { display: flex; align-items: center; gap: 15px; }
+        .currency-switch {
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--gold);
+            padding: 2px 8px; border-radius: 4px; font-family: 'JetBrains Mono'; font-size: 0.72rem; cursor: pointer; outline: none;
+        }
+
+        /* Fixed Navigation Header */
+        header {
+            position: sticky; top: 0; z-index: 1000;
+            background: rgba(8, 8, 10, 0.94);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 18px 6%;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .brand-logo {
+            font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; font-weight: 400;
+            color: var(--white); text-decoration: none; letter-spacing: 3px; display: flex; align-items: center; gap: 6px;
+        }
+        .brand-logo span { color: var(--gold); font-style: italic; }
+        .brand-subtag {
+            font-family: 'JetBrains Mono'; font-size: 0.65rem; color: var(--gold);
+            border-left: 1px solid var(--border); padding-left: 10px; margin-left: 10px; letter-spacing: 1px;
+        }
+
+        nav { display: flex; gap: 28px; align-items: center; }
+        nav a {
+            color: var(--muted); text-decoration: none; font-family: 'Space Grotesk'; font-size: 0.8rem;
+            font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; transition: color 0.3s;
+        }
+        nav a:hover { color: var(--gold); }
+
+        .btn-gold {
+            background: var(--gold); color: #000; font-family: 'Syne', sans-serif; font-size: 0.8rem;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 12px 26px;
+            border-radius: 50px; border: none; cursor: pointer; transition: all 0.3s var(--ease);
+            text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn-gold:hover {
+            transform: translateY(-2px); box-shadow: 0 0 25px var(--gold-glow); background: var(--gold-light);
+        }
+        .btn-outline {
+            background: transparent; color: var(--white); border: 1px solid var(--border);
+            font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1.5px; padding: 12px 26px; border-radius: 50px; cursor: pointer;
+            transition: all 0.3s; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 90vh; padding: 60px 6% 70px 6%;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+            background: radial-gradient(circle at top right, rgba(229, 195, 120, 0.07) 0%, transparent 60%);
+        }
+        .hero-tag {
+            display: inline-flex; align-items: center; gap: 8px; font-family: 'Space Grotesk';
+            font-size: 0.75rem; color: var(--gold); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 14px;
+        }
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif; font-size: 4.5rem; font-weight: 300;
+            line-height: 1.05; margin-bottom: 20px;
+        }
+        .hero-title span { font-style: italic; color: var(--gold); }
+        .hero-desc { color: var(--muted); font-size: 1.05rem; line-height: 1.8; margin-bottom: 35px; max-width: 520px; }
+
+        .hero-img-box {
+            position: relative; width: 100%; aspect-ratio: 16/12; border-radius: 24px; overflow: hidden;
+            border: 1px solid var(--border); box-shadow: 0 30px 70px rgba(0,0,0,0.8);
+        }
+        .hero-img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .hero-floating-badge {
+            position: absolute; bottom: 20px; left: 20px; right: 20px;
+            background: rgba(16, 16, 21, 0.88); backdrop-filter: blur(15px);
+            border: 1px solid var(--border); border-radius: 16px; padding: 18px 24px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        /* Section Global */
+        .section-wrap { padding: 90px 6%; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .sub-tag { font-family: 'Space Grotesk'; font-size: 0.78rem; color: var(--gold); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 8px; display: block; }
+        .sec-title { font-family: 'Cormorant Garamond', serif; font-size: 3.4rem; font-weight: 300; color: var(--white); }
+        .sec-desc { color: var(--muted); font-size: 0.95rem; max-width: 600px; margin: 10px auto 0 auto; }
+
+        /* INNOVATIVE FEATURE 1: Live Daylight & Solar Simulation Engine */
+        .solar-simulator-box {
+            background: var(--surface-card); border: 1px solid var(--border-hover); border-radius: 24px;
+            padding: 40px; max-width: 950px; margin: 0 auto; box-shadow: 0 30px 80px rgba(0,0,0,0.8);
+        }
+        .solar-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 40px; align-items: center; }
+        @media (max-width: 780px) { .solar-grid { grid-template-columns: 1fr; } }
+        .solar-viewport {
+            position: relative; width: 100%; height: 320px; border-radius: 18px; overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .solar-viewport img {
+            width: 100%; height: 100%; object-fit: cover; transition: filter 0.5s ease;
+        }
+        .solar-overlay-hud {
+            position: absolute; top: 16px; left: 16px; background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(10px); border: 1px solid var(--border); border-radius: 50px;
+            padding: 4px 14px; font-family: 'JetBrains Mono'; font-size: 0.75rem; color: var(--gold);
+        }
+
+        /* INNOVATIVE FEATURE 2: Architectural Material Swatch Board */
+        .swatch-board-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 24px;
+        }
+        .mat-swatch-card {
+            background: #0B0C10; border: 1px solid var(--border); border-radius: 14px; padding: 16px;
+            cursor: pointer; transition: all 0.25s; text-align: left;
+        }
+        .mat-swatch-card.active, .mat-swatch-card:hover {
+            border-color: var(--gold); transform: translateY(-3px); box-shadow: 0 10px 25px rgba(229,195,120,0.2);
+        }
+        .mat-thumb {
+            width: 100%; height: 70px; border-radius: 8px; margin-bottom: 10px; object-fit: cover;
+        }
+
+        /* Filter Tabs */
+        .filter-nav {
+            display: flex; justify-content: center; gap: 12px; margin-bottom: 40px; flex-wrap: wrap;
+        }
+        .filter-btn {
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: var(--muted);
+            padding: 9px 20px; border-radius: 50px; font-family: 'Space Grotesk'; font-size: 0.8rem;
+            cursor: pointer; transition: all 0.25s; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background: rgba(229, 195, 120, 0.15); border-color: var(--gold); color: var(--gold);
+        }
+
+        /* Property Grid */
+        .prop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 32px; }
+        .prop-card {
+            background: var(--surface-card); border: 1px solid var(--border); border-radius: 22px;
+            overflow: hidden; transition: all 0.35s var(--ease); display: flex; flex-direction: column;
+        }
+        .prop-card:hover {
+            border-color: var(--border-hover); transform: translateY(-6px);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.8);
+        }
+        .prop-img-frame { width: 100%; aspect-ratio: 16/10; overflow: hidden; position: relative; }
+        .prop-img-frame img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease); }
+        .prop-card:hover .prop-img-frame img { transform: scale(1.06); }
+        .prop-badge {
+            position: absolute; top: 16px; left: 16px; background: rgba(8, 8, 10, 0.85);
+            backdrop-filter: blur(10px); border: 1px solid var(--border); color: var(--gold);
+            font-family: 'JetBrains Mono'; font-size: 0.72rem; padding: 5px 14px; border-radius: 50px;
+        }
+        .prop-location {
+            position: absolute; bottom: 16px; left: 16px; background: rgba(8, 8, 10, 0.85);
+            backdrop-filter: blur(10px); color: #fff; font-size: 0.78rem; padding: 4px 12px; border-radius: 6px;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .prop-body { padding: 26px; display: flex; flex-direction: column; flex-grow: 1; }
+        .prop-price-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+        .prop-price { font-family: 'JetBrains Mono'; font-size: 1.6rem; font-weight: 700; color: var(--gold); }
+        .prop-yield { font-size: 0.75rem; color: #10B981; font-family: 'JetBrains Mono'; }
+        .prop-name { font-family: 'Syne'; font-size: 1.35rem; font-weight: 700; color: var(--white); margin-bottom: 12px; }
+        .prop-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.6; margin-bottom: 20px; }
+        .prop-specs {
+            display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--muted);
+            border-top: 1px solid rgba(255,255,255,0.06); padding-top: 16px; margin-top: auto;
+        }
+        .prop-specs span { display: flex; align-items: center; gap: 6px; }
+        .prop-specs i { color: var(--gold); }
+
+        /* Interactive Floor Plan Viewer */
+        .floorplan-box {
+            background: var(--surface-card); border: 1px solid var(--border); border-radius: 24px;
+            padding: 40px; max-width: 960px; margin: 0 auto;
+        }
+        .fp-tabs { display: flex; justify-content: center; gap: 12px; margin-bottom: 30px; }
+        .fp-tab-btn {
+            background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--muted);
+            padding: 10px 22px; border-radius: 8px; font-family: 'Space Grotesk'; font-size: 0.85rem;
+            cursor: pointer; transition: all 0.2s;
+        }
+        .fp-tab-btn.active {
+            background: var(--gold); color: #000; font-weight: 700; border-color: var(--gold);
+        }
+        .fp-display {
+            display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 30px; align-items: center;
+        }
+        @media (max-width: 800px) { .fp-display { grid-template-columns: 1fr; } }
+        .fp-canvas {
+            background: #0B0C10; border: 1px dashed rgba(229, 195, 120, 0.3); border-radius: 16px;
+            height: 320px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 20px; text-align: center;
+        }
+        .fp-feature-list { list-style: none; }
+        .fp-feature-list li {
+            padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 0.88rem;
+            display: flex; justify-content: space-between; color: var(--muted);
+        }
+        .fp-feature-list li strong { color: var(--white); font-family: 'JetBrains Mono'; }
+
+        /* Dual-Engine Financial Calculator */
+        .calculator-box {
+            background: var(--surface-card); border: 1px solid var(--gold-glow); border-radius: 24px;
+            padding: 40px; max-width: 900px; margin: 0 auto; box-shadow: 0 30px 80px rgba(0,0,0,0.8);
+        }
+        .calc-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; }
+        @media (max-width: 800px) { .calc-grid { grid-template-columns: 1fr; } }
+        .slider-row { margin-bottom: 22px; }
+        .slider-row label { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--muted); margin-bottom: 8px; }
+        .calc-slider {
+            width: 100%; -webkit-appearance: none; height: 6px; background: rgba(255,255,255,0.1);
+            border-radius: 5px; outline: none; accent-color: var(--gold);
+        }
+        .calc-result-box {
+            background: #09090C; border: 1px solid var(--border); border-radius: 18px; padding: 30px; text-align: center;
+        }
+        .calc-price-big { font-family: 'JetBrains Mono'; font-size: 2.2rem; font-weight: 700; color: var(--gold); margin: 10px 0; }
+
+        /* VIP Tour Form */
+        .tour-form-wrap {
+            background: var(--surface); border: 1px solid var(--border); border-radius: 24px;
+            padding: 40px; max-width: 800px; margin: 0 auto;
+        }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
+        @media (max-width: 650px) { .form-row { grid-template-columns: 1fr; } }
+        .form-group label {
+            display: block; font-family: 'Space Grotesk'; font-size: 0.8rem; font-weight: 600;
+            color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .form-input {
+            width: 100%; background: #08080A; border: 1px solid var(--border); color: #fff;
+            padding: 14px 16px; border-radius: 10px; font-family: 'Manrope'; font-size: 0.9rem; outline: none;
+            transition: border-color 0.2s;
+        }
+        .form-input:focus { border-color: var(--gold); }
+
+        /* WhatsApp Floating Action */
+        .whatsapp-float {
+            position: fixed; bottom: 25px; right: 25px; z-index: 999;
+            background: #25D366; color: #fff; width: 60px; height: 60px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 1.8rem;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4); text-decoration: none;
+            transition: all 0.3s var(--ease);
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1) rotate(10deg); box-shadow: 0 15px 35px rgba(37, 211, 102, 0.6);
+        }
+
+        /* Footer */
+        footer {
+            padding: 70px 6% 30px 6%; background: #040406; border-top: 1px solid var(--border);
+            font-size: 0.85rem; color: var(--muted);
+        }
+        .footer-grid {
+            display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 40px; margin-bottom: 50px;
+        }
+        @media (max-width: 850px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 500px) { .footer-grid { grid-template-columns: 1fr; } }
+        .footer-col h5 { font-family: 'Syne'; font-size: 1rem; color: #fff; margin-bottom: 16px; letter-spacing: 1px; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col ul li a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+        .footer-col ul li a:hover { color: var(--gold); }
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.06); padding-top: 25px;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: gap: 15px;
+        }
+
+        @media (max-width: 900px) {
+            .hero-section { grid-template-columns: 1fr; padding-top: 40px; }
+            header nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top VIP Notice Bar -->
+    <div class="vip-topbar">
+        <div class="topbar-left">
+            <span><i class="fas fa-crown" style="color: var(--gold);"></i> PRIVATE CLIENT WEALTH ADVISORY</span>
+            <span>•</span>
+            <span>Off-Market Acquisitions in London, Beverly Hills &amp; Dubai</span>
+        </div>
+        <div>
+            <span>Currency: </span>
+            <select class="currency-switch" id="currencySelect" onchange="updateCurrency()">
+                <option value="USD">USD ($)</option>
+                <option value="EUR">EUR (€)</option>
+                <option value="GBP">GBP (£)</option>
+                <option value="AED">AED (د.إ)</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header>
+        <a href="#" class="brand-logo">
+            VERDANT <span>ESTATES</span>
+            <div class="brand-subtag">LONDON • NYC • DUBAI</div>
+        </a>
+        <nav>
+            <a href="#solar">Solar Simulator</a>
+            <a href="#properties">Residences</a>
+            <a href="#materials">Material Lab</a>
+            <a href="#calculator">Yield Engine</a>
+        </nav>
+        <a href="#tour" class="btn-gold"><i class="fas fa-key"></i> Request Showing</a>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div>
+            <div class="hero-tag"><i class="fas fa-gem"></i> Curated Private Acquisitions</div>
+            <h1 class="hero-title">Private residential estates &amp; <span>sky penthouses.</span></h1>
+            <p class="hero-desc">
+                Representing discreet buyers, family offices, and institutional collectors in the acquisition of iconic architectural residences across prime global capitals.
+            </p>
+            <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 30px;">
+                <a href="#properties" class="btn-gold"><i class="fas fa-compass"></i> View Active Portfolio</a>
+                <a href="#solar" class="btn-outline">Solar Daylight Lab</a>
+            </div>
+        </div>
+
+        <div class="hero-img-box">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80" alt="Villa Aurelia">
+            <div class="hero-floating-badge">
+                <div>
+                    <div style="font-family: 'Syne'; font-weight: 700; font-size: 1.1rem;">The Bel-Air Promontory</div>
+                    <div style="font-size: 0.78rem; color: var(--muted);"><i class="fas fa-map-pin" style="color: var(--gold);"></i> Los Angeles, California</div>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-family: 'JetBrains Mono'; font-weight: 700; font-size: 1.25rem; color: var(--gold);">$28,500,000</div>
+                    <div style="font-size: 0.7rem; color: #10B981; font-family: 'JetBrains Mono';">Off-Market Exclusive</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INNOVATIVE FEATURE 1: Live Daylight & Solar Lighting Simulator -->
+    <section class="section-wrap" id="solar" style="background: rgba(16, 16, 21, 0.4);">
+        <div class="section-header">
+            <span class="sub-tag">Micro-Climate &amp; Solar Orientation</span>
+            <h2 class="sec-title">Daylight &amp; Ambience Simulator</h2>
+            <p class="sec-desc">Slide the solar clock to simulate natural sunlight, shadow projection, and twilight illumination across the estate.</p>
+        </div>
+
+        <div class="solar-simulator-box">
+            <div class="solar-grid">
+                <div class="solar-viewport">
+                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1000&q=80" alt="Residence Lighting" id="solarImg">
+                    <div class="solar-overlay-hud" id="solarTimeHud">TIME: 18:30 (GOLDEN HOUR SUNSET)</div>
+                </div>
+
+                <div>
+                    <h4 style="font-family: 'Syne'; font-size: 1.2rem; margin-bottom: 8px;">Solar Time-of-Day Slider</h4>
+                    <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 20px;">Simulates 360-degree southern exposure and sunset angles on the infinity deck.</p>
+
+                    <input type="range" class="calc-slider" id="solarRange" min="6" max="23" value="18" step="1" oninput="updateSolarSim()">
+
+                    <div style="display: flex; justify-content: space-between; font-family: 'JetBrains Mono'; font-size: 0.75rem; color: var(--muted); margin-top: 8px;">
+                        <span>06:00 Dawn</span>
+                        <span>12:00 Midday</span>
+                        <span>18:30 Sunset</span>
+                        <span>23:00 Night</span>
+                    </div>
+
+                    <div style="background: #09090D; border: 1px solid var(--border); border-radius: 14px; padding: 18px; margin-top: 24px;" id="solarNote">
+                        <strong style="color: var(--gold); font-family: 'Space Grotesk'; font-size: 0.85rem;">Golden Hour Projection:</strong>
+                        <p style="font-size: 0.8rem; color: var(--muted); margin-top: 4px;">Direct warm amber light fills the 30ft grand salon with zero glare reflection.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INNOVATIVE FEATURE 2: Architectural Material Swatch Board -->
+    <section class="section-wrap" id="materials">
+        <div class="section-header">
+            <span class="sub-tag">Bespoke Specifications</span>
+            <h2 class="sec-title">Architectural Finish Swatches</h2>
+            <p class="sec-desc">Explore hand-selected tactile materials curated by our architectural studio for internal joinery and exterior facades.</p>
+        </div>
+
+        <div style="max-width: 950px; margin: 0 auto; background: var(--surface-card); border: 1px solid var(--border); border-radius: 24px; padding: 35px;">
+            <div class="swatch-board-grid">
+                <div class="mat-swatch-card active" onclick="selectMaterial('Calacatta Viola Slabs (Tuscan Quarry)', 'Full-height bookmatched book slabs in bathrooms and kitchen islands.', this)">
+                    <div style="height: 60px; background: linear-gradient(135deg, #E6DCD2 0%, #703D4E 100%); border-radius: 8px; margin-bottom: 10px;"></div>
+                    <div style="font-family: 'Syne'; font-weight: 700; font-size: 0.95rem;">Calacatta Viola</div>
+                    <div style="font-size: 0.75rem; color: var(--gold);">Italian Marble</div>
+                </div>
+
+                <div class="mat-swatch-card" onclick="selectMaterial('Smoked European Oak', 'Wire-brushed 300mm wide planks with matte ecological wax finish.', this)">
+                    <div style="height: 60px; background: linear-gradient(135deg, #3B2F2F 0%, #1E1A1A 100%); border-radius: 8px; margin-bottom: 10px;"></div>
+                    <div style="font-family: 'Syne'; font-weight: 700; font-size: 0.95rem;">Smoked Euro Oak</div>
+                    <div style="font-size: 0.75rem; color: var(--gold);">Hardwood Flooring</div>
+                </div>
+
+                <div class="mat-swatch-card" onclick="selectMaterial('Brushed Raw Unlacquered Brass', 'Custom Dornbracht sanitary fixtures developing a natural organic patina over decades.', this)">
+                    <div style="height: 60px; background: linear-gradient(135deg, #D4AF37 0%, #8A6D1C 100%); border-radius: 8px; margin-bottom: 10px;"></div>
+                    <div style="font-family: 'Syne'; font-weight: 700; font-size: 0.95rem;">Brushed Raw Brass</div>
+                    <div style="font-size: 0.75rem; color: var(--gold);">Architectural Hardware</div>
+                </div>
+
+                <div class="mat-swatch-card" onclick="selectMaterial('Fluted Cast Privacy Glass', 'Acoustic double-glazed reeded glass panels for private master dressing suites.', this)">
+                    <div style="height: 60px; background: linear-gradient(135deg, #4A5568 0%, #2D3748 100%); border-radius: 8px; margin-bottom: 10px;"></div>
+                    <div style="font-family: 'Syne'; font-weight: 700; font-size: 0.95rem;">Fluted Cast Glass</div>
+                    <div style="font-size: 0.75rem; color: var(--gold);">Glazing &amp; Screens</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 24px; padding: 18px; background: #08080A; border-radius: 12px; border: 1px solid var(--border);" id="matDetails">
+                <div style="font-family: 'Syne'; font-size: 1.1rem; color: var(--gold);" id="matName">Calacatta Viola Slabs (Tuscan Quarry)</div>
+                <p style="font-size: 0.85rem; color: var(--muted); margin-top: 4px;" id="matDesc">Full-height bookmatched book slabs in bathrooms and kitchen islands.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Properties Showcase -->
+    <section class="section-wrap" id="properties">
+        <div class="section-header">
+            <span class="sub-tag">The Trophy Collection</span>
+            <h2 class="sec-title">Featured Global Residences</h2>
+            <p class="sec-desc">Direct private listings with verified clean titles, full architectural CAD files, and private amenity suites.</p>
+        </div>
+
+        <div class="filter-nav">
+            <button class="filter-btn active" onclick="filterProp('all', this)">All Portfolios</button>
+            <button class="filter-btn" onclick="filterProp('waterfront', this)">Waterfront Sanctuaries</button>
+            <button class="filter-btn" onclick="filterProp('penthouse', this)">Sky Penthouses</button>
+            <button class="filter-btn" onclick="filterProp('estate', this)">Alpine &amp; Country Estates</button>
+        </div>
+
+        <div class="prop-grid">
+            <!-- Property 1 -->
+            <div class="prop-card" data-cat="waterfront">
+                <div class="prop-img-frame">
+                    <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80" alt="Villa Oceana">
+                    <div class="prop-badge">WATERFRONT TROPHY</div>
+                    <div class="prop-location"><i class="fas fa-location-dot"></i> Palm Jumeirah, Dubai</div>
+                </div>
+                <div class="prop-body">
+                    <div class="prop-price-row">
+                        <div class="prop-price" data-usd="24500000">$24,500,000</div>
+                        <div class="prop-yield">Yield: 8.4% Net</div>
+                    </div>
+                    <h3 class="prop-name">Villa Oceana Signature</h3>
+                    <p class="prop-desc">Direct private beach access, 120ft infinity horizon pool, 7 ensuite bedrooms, and subterranean 6-car gallery.</p>
+                    <div class="prop-specs">
+                        <span><i class="fas fa-bed"></i> 7 Beds</span>
+                        <span><i class="fas fa-bath"></i> 9 Baths</span>
+                        <span><i class="fas fa-vector-square"></i> 14,200 sq.ft</span>
+                        <span><i class="fas fa-ship"></i> Private Berth</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Property 2 -->
+            <div class="prop-card" data-cat="penthouse">
+                <div class="prop-img-frame">
+                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80" alt="The Sky Citadel">
+                    <div class="prop-badge">TRIPLEX PENTHOUSE</div>
+                    <div class="prop-location"><i class="fas fa-location-dot"></i> 57th St, Billionaires' Row, NYC</div>
+                </div>
+                <div class="prop-body">
+                    <div class="prop-price-row">
+                        <div class="prop-price" data-usd="38000000">$38,000,000</div>
+                        <div class="prop-yield">Yield: 6.2% Net</div>
+                    </div>
+                    <h3 class="prop-name">The Triplex Sky Citadel</h3>
+                    <p class="prop-desc">Panoramic 360-degree Central Park views, 30ft ceiling grand salon, cantilevered glass heated pool, and dual private elevators.</p>
+                    <div class="prop-specs">
+                        <span><i class="fas fa-bed"></i> 5 Beds</span>
+                        <span><i class="fas fa-bath"></i> 7 Baths</span>
+                        <span><i class="fas fa-vector-square"></i> 9,800 sq.ft</span>
+                        <span><i class="fas fa-elevator"></i> 2 Private Lifts</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Property 3 -->
+            <div class="prop-card" data-cat="estate">
+                <div class="prop-img-frame">
+                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80" alt="Chalet Mont Blanc">
+                    <div class="prop-badge">ALPINE RETREAT</div>
+                    <div class="prop-location"><i class="fas fa-location-dot"></i> Courchevel 1850, French Alps</div>
+                </div>
+                <div class="prop-body">
+                    <div class="prop-price-row">
+                        <div class="prop-price" data-usd="19800000">$19,800,000</div>
+                        <div class="prop-yield">Yield: 9.1% Net</div>
+                    </div>
+                    <h3 class="prop-name">Chalet Mont Blanc Royale</h3>
+                    <p class="prop-desc">Ski-in / ski-out direct piste access, private screening theater, full indoor wellness hammam, and 1,200 bottle wine cave.</p>
+                    <div class="prop-specs">
+                        <span><i class="fas fa-bed"></i> 6 Beds</span>
+                        <span><i class="fas fa-bath"></i> 8 Baths</span>
+                        <span><i class="fas fa-vector-square"></i> 11,400 sq.ft</span>
+                        <span><i class="fas fa-snowflake"></i> Ski-in/out</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dual Mortgage & Rental Yield Calculator -->
+    <section class="section-wrap" id="calculator">
+        <div class="section-header">
+            <span class="sub-tag">Financing Analytics</span>
+            <h2 class="sec-title">Mortgage &amp; Rental Yield Calculator</h2>
+            <p class="sec-desc">Calculate estimated debt servicing or simulate projected annual luxury rental income.</p>
+        </div>
+
+        <div class="calculator-box">
+            <div class="calc-grid">
+                <div>
+                    <div class="slider-row">
+                        <label><span>Property Value:</span> <strong id="valPrice" style="color: var(--gold); font-family: 'JetBrains Mono';">$20,000,000</strong></label>
+                        <input type="range" class="calc-slider" id="slidePrice" min="5000000" max="50000000" step="500000" value="20000000" oninput="calculateMortgage()">
+                    </div>
+
+                    <div class="slider-row">
+                        <label><span>Down Payment (%):</span> <strong id="valDown" style="color: var(--gold); font-family: 'JetBrains Mono';">30% ($6,000,000)</strong></label>
+                        <input type="range" class="calc-slider" id="slideDown" min="10" max="70" step="5" value="30" oninput="calculateMortgage()">
+                    </div>
+
+                    <div class="slider-row">
+                        <label><span>Interest Rate (% APR):</span> <strong id="valRate" style="color: var(--gold); font-family: 'JetBrains Mono';">5.5%</strong></label>
+                        <input type="range" class="calc-slider" id="slideRate" min="2.0" max="9.0" step="0.1" value="5.5" oninput="calculateMortgage()">
+                    </div>
+
+                    <div class="slider-row">
+                        <label><span>Loan Term:</span> <strong id="valYears" style="color: var(--gold); font-family: 'JetBrains Mono';">30 Years</strong></label>
+                        <input type="range" class="calc-slider" id="slideYears" min="10" max="30" step="5" value="30" oninput="calculateMortgage()">
+                    </div>
+                </div>
+
+                <div class="calc-result-box">
+                    <span class="sub-tag" style="margin-bottom: 4px;">Estimated Monthly Service</span>
+                    <div class="calc-price-big" id="resMonthly">$79,489</div>
+                    <p style="font-size: 0.82rem; color: var(--muted); margin-bottom: 20px;">Principal &amp; Interest based on Tier-1 Private Banking terms.</p>
+                    
+                    <div style="background: rgba(229,195,120,0.06); border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-bottom: 20px;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.85rem;">
+                            <span>Est. Annual Rental Yield:</span>
+                            <strong style="color: #10B981; font-family: 'JetBrains Mono';" id="resYield">$1,680,000 / yr (8.4%)</strong>
+                        </div>
+                    </div>
+
+                    <a href="#tour" class="btn-gold" style="width: 100%; justify-content: center;">
+                        <i class="fas fa-file-contract"></i> Inquire with Wealth Desk
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VIP Showing Scheduler -->
+    <section class="section-wrap" id="tour">
+        <div class="section-header">
+            <span class="sub-tag">Confidential Experience</span>
+            <h2 class="sec-title">Schedule a Private Showing</h2>
+            <p class="sec-desc">Choose your preferred viewing arrangement including private chauffeur or helicopter arrival.</p>
+        </div>
+
+        <div class="tour-form-wrap">
+            <form id="tourForm" onsubmit="handleTourSubmit(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Client Full Name</label>
+                        <input type="text" class="form-input" placeholder="e.g. Manish Kumar Soni" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Telephone / WhatsApp</label>
+                        <input type="tel" class="form-input" placeholder="+1 (555) 019-2831" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Property of Interest</label>
+                        <select class="form-input">
+                            <option>Villa Oceana Signature ($24,500,000)</option>
+                            <option>The Triplex Sky Citadel ($38,000,000)</option>
+                            <option>Chalet Mont Blanc Royale ($19,800,000)</option>
+                            <option>Off-Market Portfolio Inquiry</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Arrival Mode</label>
+                        <select class="form-input">
+                            <option>Chauffeured Vehicle Escort</option>
+                            <option>Helicopter Arrival</option>
+                            <option>Private Virtual Video Walkthrough</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Preferred Date</label>
+                        <input type="date" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Time Window</label>
+                        <select class="form-input">
+                            <option>Morning (10:00 AM - 01:00 PM)</option>
+                            <option>Afternoon (02:00 PM - 05:00 PM)</option>
+                            <option>Sunset Viewing (05:30 PM - 07:30 PM)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 24px;">
+                    <label style="display: block; font-family: 'Space Grotesk'; font-size: 0.8rem; font-weight: 600; color: var(--muted); margin-bottom: 6px; text-transform: uppercase;">
+                        Confidentiality / Special Requests (Optional)
+                    </label>
+                    <textarea class="form-input" style="height: 80px; resize: none;" placeholder="NDA requirements, private security arrangements, or family office notes..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-gold" style="width: 100%; justify-content: center; font-size: 0.95rem; padding: 15px;">
+                    <i class="fas fa-lock"></i> Submit Showing Request
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Floating WhatsApp Action -->
+    <a href="https://wa.me/18004926682?text=Hello%20Verdant%20Estates,%20I%20am%20interested%20in%20arranging%20a%20private%20showing%20for%20a%20trophy%20property." target="_blank" class="whatsapp-float" title="Private Client WhatsApp Concierge">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="brand-logo" style="margin-bottom: 14px;">
+                    VERDANT <span>ESTATES</span>
+                </div>
+                <p style="line-height: 1.7; margin-bottom: 18px;">
+                    Global luxury advisory firm providing confidential acquisition, development, and portfolio advisory for the world's most distinguished addresses.
+                </p>
+                <div style="display: flex; gap: 10px;">
+                    <span style="font-family: 'JetBrains Mono'; font-size: 0.72rem; color: var(--gold); border: 1px solid var(--border); padding: 4px 10px; border-radius: 4px;">
+                        FORBES GLOBAL PROPERTIES MEMBER
+                    </span>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h5>Destinations</h5>
+                <ul>
+                    <li><a href="#properties">Beverly Hills &amp; Bel-Air</a></li>
+                    <li><a href="#properties">Billionaires' Row NYC</a></li>
+                    <li><a href="#properties">Palm Jumeirah Dubai</a></li>
+                    <li><a href="#properties">Courchevel 1850</a></li>
+                    <li><a href="#properties">Cap d'Antibes Monaco</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h5>Services</h5>
+                <ul>
+                    <li><a href="#solar">Daylight Simulation</a></li>
+                    <li><a href="#materials">Material Specification</a></li>
+                    <li><a href="#calculator">Mortgage &amp; Yield</a></li>
+                    <li><a href="#tour">Helicopter Viewings</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h5>Private Concierge</h5>
+                <p style="margin-bottom: 8px;"><strong>London:</strong> +44 20 7946 0912</p>
+                <p style="margin-bottom: 8px;"><strong>Dubai:</strong> +971 4 398 7200</p>
+                <p style="margin-bottom: 14px;"><strong>New York:</strong> +1 212 555 0198</p>
+                <p style="color: var(--gold); font-family: 'JetBrains Mono'; font-weight: 700;">concierge@verdantestates.com</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div>© 2026 VERDANT ESTATES International Realty LLC. All Rights Reserved. Equal Housing Opportunity.</div>
+            <div style="display: flex; gap: 20px;">
+                <a href="#" style="color: var(--muted); text-decoration: none;">Confidentiality Agreement</a>
+                <a href="#" style="color: var(--muted); text-decoration: none;">Terms of Brokerage</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        function updateSolarSim() {
+            const hour = parseInt(document.getElementById('solarRange').value);
+            const img = document.getElementById('solarImg');
+            const hud = document.getElementById('solarTimeHud');
+            const note = document.getElementById('solarNote');
+
+            if (hour >= 6 && hour < 10) {
+                img.style.filter = 'brightness(0.85) sepia(0.2) contrast(1.05)';
+                hud.innerText = `TIME: ${hour}:00 (MORNING DAWN & SOFT SHADOWS)`;
+                note.innerHTML = `<strong style="color: var(--gold); font-family: 'Space Grotesk'; font-size: 0.85rem;">Morning Orientation:</strong><p style="font-size: 0.8rem; color: var(--muted); margin-top: 4px;">Soft eastern light enters private breakfast loggia and east wing master suites.</p>`;
+            } else if (hour >= 10 && hour < 17) {
+                img.style.filter = 'brightness(1.15) contrast(1.1)';
+                hud.innerText = `TIME: ${hour}:00 (HIGH NOON SUNLIGHT)`;
+                note.innerHTML = `<strong style="color: var(--gold); font-family: 'Space Grotesk'; font-size: 0.85rem;">Midday Sun Exposure:</strong><p style="font-size: 0.8rem; color: var(--muted); margin-top: 4px;">Overhead zenith sunlight illuminates infinity pool with cantilevered canopy shading.</p>`;
+            } else if (hour >= 17 && hour < 20) {
+                img.style.filter = 'brightness(0.9) saturate(1.4) hue-rotate(-10deg)';
+                hud.innerText = `TIME: ${hour}:30 (GOLDEN HOUR SUNSET)`;
+                note.innerHTML = `<strong style="color: var(--gold); font-family: 'Space Grotesk'; font-size: 0.85rem;">Golden Hour Projection:</strong><p style="font-size: 0.8rem; color: var(--muted); margin-top: 4px;">Direct warm amber light fills the 30ft grand salon with zero glare reflection.</p>`;
+            } else {
+                img.style.filter = 'brightness(0.4) contrast(1.2) hue-rotate(200deg)';
+                hud.innerText = `TIME: ${hour}:00 (NIGHT ILLUMINATION & POOL LIGHTS)`;
+                note.innerHTML = `<strong style="color: var(--gold); font-family: 'Space Grotesk'; font-size: 0.85rem;">Night Architectural Lighting:</strong><p style="font-size: 0.8rem; color: var(--muted); margin-top: 4px;">Submersible fiber-optic pool illumination and discreet perimeter landscape glow.</p>`;
+            }
+        }
+
+        function selectMaterial(name, desc, card) {
+            document.querySelectorAll('.mat-swatch-card').forEach(c => c.classList.remove('active'));
+            card.classList.add('active');
+            document.getElementById('matName').innerText = name;
+            document.getElementById('matDesc').innerText = desc;
+        }
+
+        const rates = { USD: 1, EUR: 0.92, GBP: 0.79, AED: 3.67 };
+        const symbols = { USD: '$', EUR: '€', GBP: '£', AED: 'AED ' };
+
+        function updateCurrency() {
+            const curr = document.getElementById('currencySelect').value;
+            const rate = rates[curr];
+            const sym = symbols[curr];
+
+            document.querySelectorAll('.prop-price').forEach(el => {
+                const usd = parseFloat(el.getAttribute('data-usd'));
+                const converted = Math.round(usd * rate);
+                el.innerText = sym + converted.toLocaleString();
+            });
+            calculateMortgage();
+        }
+
+        function filterProp(cat, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            document.querySelectorAll('.prop-card').forEach(card => {
+                if (cat === 'all' || card.getAttribute('data-cat') === cat) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function calculateMortgage() {
+            const price = parseFloat(document.getElementById('slidePrice').value);
+            const downPct = parseFloat(document.getElementById('slideDown').value);
+            const rate = parseFloat(document.getElementById('slideRate').value) / 100 / 12;
+            const years = parseFloat(document.getElementById('slideYears').value);
+            const totalMonths = years * 12;
+
+            const downVal = price * (downPct / 100);
+            const loanVal = price - downVal;
+
+            document.getElementById('valPrice').innerText = '$' + price.toLocaleString();
+            document.getElementById('valDown').innerText = `${downPct}% ($${downVal.toLocaleString()})`;
+            document.getElementById('valRate').innerText = (rate * 12 * 100).toFixed(1) + '%';
+            document.getElementById('valYears').innerText = years + ' Years';
+
+            const emi = loanVal * (rate * Math.pow(1 + rate, totalMonths)) / (Math.pow(1 + rate, totalMonths) - 1);
+            document.getElementById('resMonthly').innerText = '$' + Math.round(emi).toLocaleString();
+
+            const annualYield = price * 0.084;
+            document.getElementById('resYield').innerText = `$${Math.round(annualYield).toLocaleString()} / yr (8.4%)`;
+        }
+
+        function handleTourSubmit(e) {
+            e.preventDefault();
+            alert('Your showing request has been received. A managing partner will contact your office to coordinate security and viewing details.');
+            e.target.reset();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skills Showcase — 4 High-Craft Architectural Variations | Manish Kumar Soni</title>
+
+  <!-- Typography: Cormorant Garamond, Manrope, Syne, JetBrains Mono, Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'serif'],
+            sans: ['Manrope', 'sans-serif'],
+            display: ['Syne', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+            grotesk: ['"Space Grotesk"', 'sans-serif'],
+          },
+          colors: {
+            obsidian: '#08080a',
+            surface: '#0d0f14',
+            surfaceCard: '#12151c',
+            gold: '#d4af37',
+            goldLight: '#f3e5ab',
+            cyanAccent: '#00f2fe',
+            purpleAccent: '#a855f7',
+            emeraldAccent: '#10b981',
+          },
+          animation: {
+            'border-beam': 'borderBeam 8s linear infinite',
+            'spin-slow': 'spin 40s linear infinite',
+            'spin-slow-rev': 'spinRev 35s linear infinite',
+            'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+            'marquee-left': 'marqueeLeft 28s linear infinite',
+            'marquee-right': 'marqueeRight 28s linear infinite',
+          },
+          keyframes: {
+            borderBeam: {
+              '0%, 100%': { 'background-position': '0% 50%' },
+              '50%': { 'background-position': '100% 50%' },
+            },
+            spinRev: {
+              '0%': { transform: 'rotate(360deg)' },
+              '100%': { transform: 'rotate(0deg)' },
+            },
+            pulseGlow: {
+              '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
+              '50%': { opacity: '0.8', transform: 'scale(1.05)' },
+            },
+            marqueeLeft: {
+              '0%': { transform: 'translateX(0%)' },
+              '100%': { transform: 'translateX(-50%)' },
+            },
+            marqueeRight: {
+              '0%': { transform: 'translateX(-50%)' },
+              '100%': { transform: 'translateX(0%)' },
+            },
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --bg: #07080a;
+      --card-bg: rgba(18, 21, 28, 0.7);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(0, 242, 254, 0.4);
+      --gold-border: rgba(212, 175, 55, 0.35);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      background-color: var(--bg);
+      color: #f5f2eb;
+      font-family: 'Manrope', sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Ambient noise background */
+    .stone-grain {
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.025'/%3E%3C/svg%3E");
+    }
+
+    /* Animated Border Beam */
+    .border-beam-box {
+      position: relative;
+      background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%), #0d0f14;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      overflow: hidden;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .border-beam-box:hover {
+      border-color: rgba(212, 175, 55, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px -15px rgba(0,0,0,0.8), 0 0 30px rgba(212, 175, 55, 0.1);
+    }
+
+    /* Orbit Constellation Nodes */
+    .constellation-node {
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+      cursor: pointer;
+    }
+    .constellation-node:hover, .constellation-node.active-node {
+      transform: scale(1.15) !important;
+      box-shadow: 0 0 25px rgba(0, 242, 254, 0.6);
+      border-color: #00f2fe !important;
+    }
+
+    /* Custom Scrollbar Hide */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="stone-grain p-3 sm:p-8 selection:bg-gold/20 selection:text-goldLight">
+
+  <!-- ==================== STICKY SHOWCASE HEADER ==================== -->
+  <header class="sticky top-0 z-50 bg-[#090a0e]/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-3 sm:p-4 mb-10 shadow-2xl max-w-7xl mx-auto">
+    <div class="flex flex-col lg:flex-row items-center justify-between gap-4">
+      
+      <div class="flex items-center justify-between w-full lg:w-auto">
+        <a href="index.html" class="flex items-center gap-2.5 text-xs font-mono text-zinc-400 hover:text-white transition-colors">
+          <i class="fas fa-arrow-left"></i>
+          <span>Main Portfolio</span>
+        </a>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold/10 border border-gold/30 text-[11px] font-mono text-goldLight">
+          <span class="w-2 h-2 rounded-full bg-gold animate-pulse"></span>
+          <span>4 ARCHITECTURAL VARIATIONS</span>
+        </div>
+      </div>
+
+      <!-- 4 Showcase Selector Tabs -->
+      <div class="flex items-center gap-2 overflow-x-auto max-w-full pb-1 lg:pb-0 no-scrollbar w-full lg:w-auto justify-start lg:justify-center">
+        <button onclick="switchConcept('concept-1')" class="concept-btn active px-4 py-2 rounded-xl text-xs font-mono font-semibold transition-all whitespace-nowrap bg-gold text-black shadow-lg" data-target="concept-1">
+          1. Bento Capabilities Grid
+        </button>
+        <button onclick="switchConcept('concept-2')" class="concept-btn px-4 py-2 rounded-xl text-xs font-mono text-zinc-400 hover:text-white transition-all whitespace-nowrap border border-white/10 hover:border-white/20" data-target="concept-2">
+          2. Interactive IDE Studio
+        </button>
+        <button onclick="switchConcept('concept-3')" class="concept-btn px-4 py-2 rounded-xl text-xs font-mono text-zinc-400 hover:text-white transition-all whitespace-nowrap border border-white/10 hover:border-white/20" data-target="concept-3">
+          3. Kinetic Constellation Radar
+        </button>
+        <button onclick="switchConcept('concept-4')" class="concept-btn px-4 py-2 rounded-xl text-xs font-mono text-zinc-400 hover:text-white transition-all whitespace-nowrap border border-white/10 hover:border-white/20" data-target="concept-4">
+          4. Border-Beam Live Marquee
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==================== MAIN VARIATION WRAPPER ==================== -->
+  <main class="max-w-7xl mx-auto min-h-[700px]">
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         CONCEPT 1: THE LINEAR-STYLE BENTO CAPABILITIES GRID (MAGIC UI PRO)
+         ══════════════════════════════════════════════════════════════════ -->
+    <section id="concept-1" class="concept-section space-y-6">
+      
+      <div class="text-center space-y-2 max-w-2xl mx-auto mb-8">
+        <span class="text-xs font-mono text-gold tracking-[0.25em] uppercase">CONCEPT 01 / ASYMMETRIC BENTO ARCHITECTURE</span>
+        <h2 class="font-serif text-3xl sm:text-5xl text-white font-light tracking-tight">Engineering Capabilities &amp; Stacks</h2>
+        <p class="text-xs sm:text-sm text-zinc-400 font-light">
+          Each bento card is a live, interactive micro-suite with real technical metrics, live component tabs, and verified production references.
+        </p>
+      </div>
+
+      <!-- 12-Column Asymmetric Bento Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
+        
+        <!-- Bento Card 1: Frontend Architecture (Span 8) -->
+        <div class="md:col-span-8 border-beam-box p-6 sm:p-8 flex flex-col justify-between space-y-6">
+          
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
+            <div>
+              <span class="text-[10px] font-mono text-cyanAccent uppercase tracking-widest block font-semibold">DOMAIN 01 / WEB INTERFACES</span>
+              <h3 class="font-serif text-2xl sm:text-3xl text-white font-normal mt-0.5">Frontend &amp; Next.js 15 Ecosystem</h3>
+            </div>
+            
+            <!-- Live Interactive Module Toggle -->
+            <div class="flex items-center bg-black/50 border border-white/10 p-1 rounded-xl text-xs font-mono">
+              <button onclick="setFrontendModule('ssr')" class="fe-pill active px-3 py-1.5 rounded-lg bg-cyanAccent text-black font-bold transition-all text-[11px]" data-fe="ssr">SSR / App</button>
+              <button onclick="setFrontendModule('canvas')" class="fe-pill px-3 py-1.5 rounded-lg text-zinc-400 hover:text-white transition-all text-[11px]" data-fe="canvas">3D Canvas</button>
+              <button onclick="setFrontendModule('tokens')" class="fe-pill px-3 py-1.5 rounded-lg text-zinc-400 hover:text-white transition-all text-[11px]" data-fe="tokens">Design Tokens</button>
+            </div>
+          </div>
+
+          <!-- Dynamic Feature Box -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center">
+            <div class="space-y-3">
+              <p id="fe-desc" class="text-xs sm:text-sm text-zinc-300 font-light leading-relaxed">
+                Full-stack Next.js 15 architecture utilizing server-side rendering, nested layouts, client hydration, and hardware-accelerated 60FPS CSS physics.
+              </p>
+              
+              <div class="space-y-2 pt-2">
+                <div class="flex justify-between text-xs font-mono">
+                  <span class="text-zinc-400">Core Mastery Index</span>
+                  <span id="fe-pct" class="text-cyanAccent font-bold">92%</span>
+                </div>
+                <div class="w-full h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+                  <div id="fe-bar" class="w-[92%] h-full bg-gradient-to-r from-cyanAccent to-blue-500 rounded-full transition-all duration-500"></div>
+                </div>
+              </div>
+
+              <div class="flex flex-wrap gap-1.5 pt-2 font-mono text-[10px] text-zinc-300" id="fe-tags">
+                <span class="px-2.5 py-1 rounded bg-white/5 border border-white/10">React 19</span>
+                <span class="px-2.5 py-1 rounded bg-white/5 border border-white/10">Tailwind CSS</span>
+                <span class="px-2.5 py-1 rounded bg-white/5 border border-white/10">TypeScript</span>
+                <span class="px-2.5 py-1 rounded bg-white/5 border border-white/10">Three.js WebGL</span>
+              </div>
+            </div>
+
+            <!-- Interactive Micro-Telemetry Widget -->
+            <div class="bg-black/60 border border-white/10 rounded-2xl p-4 sm:p-5 font-mono text-xs space-y-3 shadow-inner">
+              <div class="flex justify-between items-center text-zinc-400 text-[11px]">
+                <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-cyanAccent animate-ping"></span> <span id="fe-widget-title">SSR PIPELINE</span></span>
+                <span class="text-emeraldAccent font-bold">ACTIVE</span>
+              </div>
+              <div class="p-3 bg-[#08090d] rounded-xl border border-white/5 space-y-1.5 text-[11px] text-zinc-300" id="fe-code-preview">
+                <div class="text-zinc-500">// Next.js 15 Server Action</div>
+                <div><span class="text-purple-400">export async function</span> <span class="text-cyan-300">getMonograph</span>() {</div>
+                <div class="pl-4 text-zinc-400"><span class="text-gold">const</span> data = <span class="text-purple-400">await</span> fetchCadastral();</div>
+                <div class="pl-4 text-emerald-400">return { render: "60fps", latency: "12ms" };</div>
+                <div>}</div>
+              </div>
+              <div class="flex items-center justify-between text-[10px] text-zinc-400 pt-1">
+                <span>Verified in Production:</span>
+                <span class="text-gold font-bold">AURA Atelier &bull; Nova Dental</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Bento Card 2: AI Intelligence & Agents (Span 4) -->
+        <div class="md:col-span-4 border-beam-box p-6 sm:p-8 flex flex-col justify-between space-y-6">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[10px] font-mono text-purpleAccent uppercase tracking-widest font-semibold">DOMAIN 02 / AI SYSTEMS</span>
+              <span class="px-2 py-0.5 rounded bg-purpleAccent/20 text-purpleAccent font-mono text-[10px] font-bold">88%</span>
+            </div>
+            <div class="w-10 h-10 rounded-xl bg-purpleAccent/10 border border-purpleAccent/20 flex items-center justify-center text-purpleAccent text-xl mb-3">
+              <i class="fas fa-brain"></i>
+            </div>
+            <h3 class="font-serif text-2xl text-white font-normal">AI Agents &amp; Python 3</h3>
+            <p class="text-xs text-zinc-300 font-light mt-2 leading-relaxed">
+              Retrieval-Augmented Generation (RAG), OpenAI GPT-4o SDK, automated web research scrapers, and n8n webhook triggers.
+            </p>
+          </div>
+
+          <!-- Interactive RAG Query Micro-Tester -->
+          <div class="bg-black/60 border border-white/10 rounded-2xl p-4 font-mono text-xs space-y-2.5">
+            <div class="text-[10px] text-zinc-400 uppercase flex justify-between">
+              <span>Vector Similarity Cosine Match:</span>
+              <span class="text-purpleAccent font-bold">0.962 (Top-1)</span>
+            </div>
+            <div class="w-full h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+              <div class="w-[96%] h-full bg-gradient-to-r from-purpleAccent to-pink-500 rounded-full"></div>
+            </div>
+            <div class="text-[10px] text-zinc-400 pt-1">
+              <span class="text-zinc-500 block mb-0.5">Applied in:</span>
+              <span class="text-white font-semibold">AutoDoc AI &bull; Research Agent Report</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bento Card 3: Supabase & PostgreSQL (Span 4) -->
+        <div class="md:col-span-4 border-beam-box p-6 sm:p-8 flex flex-col justify-between space-y-6">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[10px] font-mono text-emeraldAccent uppercase tracking-widest font-semibold">DOMAIN 03 / DATABASE</span>
+              <span class="px-2 py-0.5 rounded bg-emeraldAccent/20 text-emeraldAccent font-mono text-[10px] font-bold">85%</span>
+            </div>
+            <div class="w-10 h-10 rounded-xl bg-emeraldAccent/10 border border-emeraldAccent/20 flex items-center justify-center text-emeraldAccent text-xl mb-3">
+              <i class="fas fa-database"></i>
+            </div>
+            <h3 class="font-serif text-2xl text-white font-normal">Supabase &amp; SQL</h3>
+            <p class="text-xs text-zinc-300 font-light mt-2 leading-relaxed">
+              Relational PostgreSQL schemas, Row-Level Security (RLS) policies, and pgvector cosine similarity storage.
+            </p>
+          </div>
+
+          <div class="bg-black/60 border border-white/10 rounded-2xl p-4 font-mono text-xs space-y-2">
+            <div class="flex items-center justify-between text-[10px] text-zinc-400">
+              <span>SECURITY SPEC</span>
+              <span class="text-emeraldAccent font-bold">RLS LOCKED</span>
+            </div>
+            <div class="text-[10px] text-zinc-300 bg-[#08090d] p-2.5 rounded-lg border border-white/5">
+              <code>CREATE POLICY "user_vault" ON documents FOR SELECT USING (auth.uid() = user_id);</code>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bento Card 4: DevOps & Edge Delivery (Span 8) -->
+        <div class="md:col-span-8 border-beam-box p-6 sm:p-8 flex flex-col justify-between space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
+            <div>
+              <span class="text-[10px] font-mono text-gold uppercase tracking-widest block font-semibold">DOMAIN 04 / CI/CD &amp; DEVOPS</span>
+              <h3 class="font-serif text-2xl sm:text-3xl text-white font-normal mt-0.5">Git, GitHub &amp; Edge Deployment</h3>
+            </div>
+            <span class="px-3 py-1 rounded-full bg-gold/10 border border-gold/30 text-gold font-mono text-xs font-bold w-fit">
+              99.9% Uptime Deployment
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono text-xs">
+            <div class="p-4 bg-black/50 border border-white/10 rounded-xl space-y-1">
+              <span class="text-[10px] text-zinc-500 uppercase block">VERSION WORKFLOW</span>
+              <span class="text-white font-bold text-sm">Git CLI &amp; PRs</span>
+              <p class="text-[11px] text-zinc-400 font-light">Branch rebasing, semantic commit standards.</p>
+            </div>
+            <div class="p-4 bg-black/50 border border-white/10 rounded-xl space-y-1">
+              <span class="text-[10px] text-zinc-500 uppercase block">BUILD PIPELINE</span>
+              <span class="text-white font-bold text-sm">Vercel &amp; Surge</span>
+              <p class="text-[11px] text-zinc-400 font-light">Automated preview builds on git push.</p>
+            </div>
+            <div class="p-4 bg-black/50 border border-white/10 rounded-xl space-y-1">
+              <span class="text-[10px] text-zinc-500 uppercase block">LATENCY BENCHMARK</span>
+              <span class="text-emeraldAccent font-bold text-sm">&lt; 45ms Edge CDN</span>
+              <p class="text-[11px] text-zinc-400 font-light">Global CDN caching &amp; asset optimization.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         CONCEPT 2: INTERACTIVE DEV COMMAND STUDIO / IDE BENCHMARK (UNLUMEN UI)
+         ══════════════════════════════════════════════════════════════════ -->
+    <section id="concept-2" class="concept-section hidden space-y-6">
+      
+      <div class="text-center space-y-2 max-w-2xl mx-auto mb-8">
+        <span class="text-xs font-mono text-cyanAccent tracking-[0.25em] uppercase">CONCEPT 02 / LUXURY IDE BENCHMARK</span>
+        <h2 class="font-serif text-3xl sm:text-5xl text-white font-light tracking-tight">Interactive Code Studio</h2>
+        <p class="text-xs sm:text-sm text-zinc-400 font-light">
+          A titanium developer workspace. Switch code tabs to inspect live syntax-highlighted stack architectures and run simulated latency benchmarks.
+        </p>
+      </div>
+
+      <!-- IDE Container -->
+      <div class="bg-[#090b10] border border-white/15 rounded-3xl overflow-hidden shadow-2xl max-w-5xl mx-auto">
+        
+        <!-- IDE Header / Traffic Lights & Tabs -->
+        <div class="bg-[#0e1118] border-b border-white/10 px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+          
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+            <span class="w-3 h-3 rounded-full bg-yellow-500/80 inline-block"></span>
+            <span class="w-3 h-3 rounded-full bg-green-500/80 inline-block"></span>
+            <span class="text-xs font-mono text-zinc-500 ml-2">manish-stack-v2.0</span>
+          </div>
+
+          <!-- Code Tabs -->
+          <div class="flex items-center gap-1.5 font-mono text-xs overflow-x-auto no-scrollbar">
+            <button onclick="setIdeTab('frontend')" class="ide-tab active px-3.5 py-1.5 rounded-lg bg-black/60 text-cyanAccent border border-cyanAccent/30 font-semibold transition-all" data-tab="frontend">
+              <i class="fab fa-react mr-1.5"></i> Frontend.tsx
+            </button>
+            <button onclick="setIdeTab('ai')" class="ide-tab px-3.5 py-1.5 rounded-lg text-zinc-400 hover:text-white border border-transparent hover:border-white/10 transition-all" data-tab="ai">
+              <i class="fab fa-python mr-1.5 text-yellow-400"></i> Agent.py
+            </button>
+            <button onclick="setIdeTab('database')" class="ide-tab px-3.5 py-1.5 rounded-lg text-zinc-400 hover:text-white border border-transparent hover:border-white/10 transition-all" data-tab="database">
+              <i class="fas fa-database mr-1.5 text-emeraldAccent"></i> Schema.sql
+            </button>
+            <button onclick="setIdeTab('arch')" class="ide-tab px-3.5 py-1.5 rounded-lg text-zinc-400 hover:text-white border border-transparent hover:border-white/10 transition-all" data-tab="arch">
+              <i class="fas fa-file-code mr-1.5 text-gold"></i> Architecture.json
+            </button>
+          </div>
+
+          <button onclick="runBenchmarkTest()" class="px-3.5 py-1.5 rounded-lg bg-white/10 hover:bg-white text-white hover:text-black font-mono text-xs font-semibold transition-all flex items-center gap-1.5">
+            <i class="fas fa-play text-[10px]"></i>
+            <span id="benchmark-btn-text">Run Benchmark</span>
+          </button>
+        </div>
+
+        <!-- IDE Editor Code View -->
+        <div class="p-6 sm:p-8 font-mono text-xs leading-relaxed overflow-x-auto bg-[#07080a] text-zinc-300" id="ide-code-display">
+          <!-- Injected via JavaScript -->
+        </div>
+
+        <!-- IDE Status Bar -->
+        <div class="bg-[#0b0d13] border-t border-white/10 px-4 py-2.5 flex flex-wrap items-center justify-between text-[11px] font-mono text-zinc-400 gap-2">
+          <div class="flex items-center gap-4">
+            <span class="flex items-center gap-1.5"><i class="fas fa-check text-emeraldAccent text-[10px]"></i> TypeScript: 0 Errors</span>
+            <span id="ide-status-speed" class="text-cyanAccent">SSR Load: 112ms</span>
+          </div>
+          <span class="text-zinc-500">UTF-8 &bull; LF &bull; Next.js 15 &bull; Python 3.12</span>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         CONCEPT 3: KINETIC CONSTELLATION RADAR (SMOOTH UI / INTERACTIVE NODES)
+         ══════════════════════════════════════════════════════════════════ -->
+    <section id="concept-3" class="concept-section hidden space-y-6">
+      
+      <div class="text-center space-y-2 max-w-2xl mx-auto mb-8">
+        <span class="text-xs font-mono text-gold tracking-[0.25em] uppercase">CONCEPT 03 / INTERACTIVE CONSTELLATION RADAR</span>
+        <h2 class="font-serif text-3xl sm:text-5xl text-white font-light tracking-tight">Kinetic Technical Radar</h2>
+        <p class="text-xs sm:text-sm text-zinc-400 font-light">
+          Tap or hover any glowing planetary node to inspect technical mastery, connected frameworks, and real-world project usage.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center max-w-5xl mx-auto">
+        
+        <!-- Interactive Radar Canvas -->
+        <div class="lg:col-span-7 bg-[#0a0c12] border border-white/10 rounded-3xl p-6 relative aspect-square flex items-center justify-center overflow-hidden shadow-2xl">
+          
+          <!-- Concentric Orbit Rings -->
+          <div class="absolute w-[90%] h-[90%] rounded-full border border-dashed border-white/10 animate-spin-slow"></div>
+          <div class="absolute w-[68%] h-[68%] rounded-full border border-dashed border-cyanAccent/20 animate-spin-slow-rev"></div>
+          <div class="absolute w-[44%] h-[44%] rounded-full border border-white/10"></div>
+          
+          <!-- Center Core (Manish Core Stack) -->
+          <div class="relative z-10 w-24 h-24 rounded-full bg-gradient-to-tr from-gold to-amber-200 text-black flex flex-col items-center justify-center font-serif shadow-[0_0_40px_rgba(212,175,55,0.4)] cursor-pointer" onclick="selectConstellation('core')">
+            <span class="font-bold text-lg leading-none">CORE</span>
+            <span class="text-[9px] font-mono tracking-widest uppercase mt-0.5">STACK</span>
+          </div>
+
+          <!-- Planetary Node 1: Next.js (Top) -->
+          <div onclick="selectConstellation('nextjs')" class="constellation-node absolute top-[12%] left-[45%] w-14 h-14 rounded-2xl bg-[#11141f] border border-cyanAccent/40 flex items-center justify-center text-cyanAccent text-xl shadow-lg" title="Next.js 15">
+            <i class="fab fa-react"></i>
+          </div>
+
+          <!-- Planetary Node 2: Python (Right) -->
+          <div onclick="selectConstellation('python')" class="constellation-node absolute top-[44%] right-[10%] w-14 h-14 rounded-2xl bg-[#1a1710] border border-amber-400/40 flex items-center justify-center text-amber-400 text-xl shadow-lg" title="Python 3">
+            <i class="fab fa-python"></i>
+          </div>
+
+          <!-- Planetary Node 3: AI / OpenAI (Bottom Right) -->
+          <div onclick="selectConstellation('ai')" class="constellation-node absolute bottom-[14%] right-[22%] w-14 h-14 rounded-2xl bg-[#1c1228] border border-purpleAccent/40 flex items-center justify-center text-purpleAccent text-xl shadow-lg" title="OpenAI GPT-4o">
+            <i class="fas fa-brain"></i>
+          </div>
+
+          <!-- Planetary Node 4: Supabase (Bottom Left) -->
+          <div onclick="selectConstellation('supabase')" class="constellation-node absolute bottom-[14%] left-[22%] w-14 h-14 rounded-2xl bg-[#0f2218] border border-emeraldAccent/40 flex items-center justify-center text-emeraldAccent text-xl shadow-lg" title="Supabase PostgreSQL">
+            <i class="fas fa-database"></i>
+          </div>
+
+          <!-- Planetary Node 5: JavaScript & 3D (Left) -->
+          <div onclick="selectConstellation('js')" class="constellation-node absolute top-[44%] left-[10%] w-14 h-14 rounded-2xl bg-[#1a150f] border border-yellow-400/40 flex items-center justify-center text-yellow-400 text-xl shadow-lg" title="JavaScript ES6+">
+            <i class="fab fa-js"></i>
+          </div>
+
+        </div>
+
+        <!-- Telemetry Dossier Panel (Right) -->
+        <div class="lg:col-span-5 bg-[#0e1118] border border-white/10 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl">
+          <div class="border-b border-white/10 pb-4">
+            <span id="radar-category" class="text-[10px] font-mono text-gold uppercase tracking-widest block font-bold">RADAR TELEMETRY</span>
+            <h3 id="radar-title" class="font-serif text-3xl text-white font-normal mt-1">Full-Stack Core Engine</h3>
+          </div>
+
+          <p id="radar-desc" class="text-xs sm:text-sm text-zinc-300 font-light leading-relaxed">
+            Integrated architecture combining modern React SSR, autonomous Python agent workflows, and resilient vector database persistence.
+          </p>
+
+          <div class="space-y-3 font-mono text-xs border-t border-b border-white/10 py-4" id="radar-specs">
+            <div class="flex justify-between"><span class="text-zinc-400">Mastery Index:</span> <span class="text-gold font-bold">8+ Production Technologies</span></div>
+            <div class="flex justify-between"><span class="text-zinc-400">Primary Focus:</span> <span class="text-white">Web Apps &bull; AI Agents</span></div>
+            <div class="flex justify-between"><span class="text-zinc-400">Verified Deployments:</span> <span class="text-cyanAccent">AURA, Nova Dental, AutoDoc</span></div>
+          </div>
+
+          <div class="text-[11px] font-mono text-zinc-400 flex items-center gap-2">
+            <i class="fas fa-hand-pointer text-gold text-xs"></i>
+            <span>Click any node in the constellation radar to inspect specs.</span>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         CONCEPT 4: BORDER-BEAM KINETIC MARQUEE + SPOTLIGHT (MAGIC UI PRO)
+         ══════════════════════════════════════════════════════════════════ -->
+    <section id="concept-4" class="concept-section hidden space-y-6">
+      
+      <div class="text-center space-y-2 max-w-2xl mx-auto mb-8">
+        <span class="text-xs font-mono text-gold tracking-[0.25em] uppercase">CONCEPT 04 / CONTINUOUS BORDER BEAM</span>
+        <h2 class="font-serif text-3xl sm:text-5xl text-white font-light tracking-tight">Kinetic Border-Beam Marquee</h2>
+        <p class="text-xs sm:text-sm text-zinc-400 font-light">
+          Continuous infinite flow with traveling specular highlights. Hover or tap any card to pause and inspect real-time framework parameters.
+        </p>
+      </div>
+
+      <div class="bg-gradient-to-b from-[#10131c] to-[#07080a] border border-white/10 rounded-3xl p-6 sm:p-10 space-y-6 overflow-hidden shadow-2xl relative">
+        
+        <!-- Marquee Row 1 (Left) -->
+        <div class="relative overflow-hidden py-2">
+          <div class="animate-marquee-left flex gap-5">
+            
+            <div class="px-6 py-4 rounded-2xl bg-white/[0.03] hover:bg-cyanAccent/10 border border-white/10 hover:border-cyanAccent flex items-center gap-4 font-mono text-xs shrink-0 transition-all cursor-pointer shadow-lg" onclick="inspectMarquee('Next.js 15 & React 19', '92%', 'App Router, Server Components, SSR Hydration & Tailwind CSS.')">
+              <i class="fab fa-react text-cyanAccent text-2xl"></i>
+              <div>
+                <span class="text-white font-bold block text-sm">Next.js 15 &bull; React 19</span>
+                <span class="text-zinc-400 text-[11px]">92% Architecture Score</span>
+              </div>
+            </div>
+
+            <div class="px-6 py-4 rounded-2xl bg-white/[0.03] hover:bg-amber-400/10 border border-white/10 hover:border-amber-400 flex items-center gap-4 font-mono text-xs shrink-0 transition-all cursor-pointer shadow-lg" onclick="inspectMarquee('Python 3 Automation', '85%', 'Data scrapers, REST API integrations, webhook handlers.')">
+              <i class="fab fa-python text-amber-400 text-2xl"></i>
+              <div>
+                <span class="text-white font-bold block text-sm">Python 3 Automation</span>
+                <span class="text-zinc-400 text-[11px]">85% Scripting Mastery</span>
+              </div>
+            </div>
+
+            <div class="px-6 py-4 rounded-2xl bg-white/[0.03] hover:bg-purpleAccent/10 border border-white/10 hover:border-purpleAccent flex items-center gap-4 font-mono text-xs shrink-0 transition-all cursor-pointer shadow-lg" onclick="inspectMarquee('AI APIs & GPT-4o Agents', '88%', 'Retrieval-Augmented Generation, vector embeddings, prompt optimization.')">
+              <i class="fas fa-brain text-purpleAccent text-2xl"></i>
+              <div>
+                <span class="text-white font-bold block text-sm">AI APIs &amp; Agents</span>
+                <span class="text-zinc-400 text-[11px]">88% Vector Intelligence</span>
+              </div>
+            </div>
+
+            <div class="px-6 py-4 rounded-2xl bg-white/[0.03] hover:bg-emeraldAccent/10 border border-white/10 hover:border-emeraldAccent flex items-center gap-4 font-mono text-xs shrink-0 transition-all cursor-pointer shadow-lg" onclick="inspectMarquee('Supabase PostgreSQL', '85%', 'Relational modeling, Row Level Security (RLS), pgvector embeddings.')">
+              <i class="fas fa-database text-emeraldAccent text-2xl"></i>
+              <div>
+                <span class="text-white font-bold block text-sm">Supabase &amp; SQL</span>
+                <span class="text-zinc-400 text-[11px]">85% Cloud Persistence</span>
+              </div>
+            </div>
+
+            <!-- Loop Duplicates -->
+            <div class="px-6 py-4 rounded-2xl bg-white/[0.03] hover:bg-cyanAccent/10 border border-white/10 hover:border-cyanAccent flex items-center gap-4 font-mono text-xs shrink-0 transition-all cursor-pointer shadow-lg" onclick="inspectMarquee('Next.js 15 & React 19', '92%', 'App Router, Server Components, SSR Hydration & Tailwind CSS.')">
+              <i class="fab fa-react text-cyanAccent text-2xl"></i>
+              <div>
+                <span class="text-white font-bold block text-sm">Next.js 15 &bull; React 19</span>
+                <span class="text-zinc-400 text-[11px]">92% Architecture Score</span>
+              </div>
+            </div>
+
+            <div class="px-6 py-4 rounded-2xl bg-white/[0.03] hover:bg-amber-400/10 border border-white/10 hover:border-amber-400 flex items-center gap-4 font-mono text-xs shrink-0 transition-all cursor-pointer shadow-lg" onclick="inspectMarquee('Python 3 Automation', '85%', 'Data scrapers, REST API integrations, webhook handlers.')">
+              <i class="fab fa-python text-amber-400 text-2xl"></i>
+              <div>
+                <span class="text-white font-bold block text-sm">Python 3 Automation</span>
+                <span class="text-zinc-400 text-[11px]">85% Scripting Mastery</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Marquee Row 2 (Right) -->
+        <div class="relative overflow-hidden py-2">
+          <div class="animate-marquee-right flex gap-5">
+            
+            <div class="px-6 py-4 rounded-2xl bg-white/[0.03] hover:bg-yellow-400/10 border border-white/10 hover:border-yellow-400 flex items-center gap-4 font-mono text-xs shrink-0 transition-all cursor-pointer shadow-lg" onclick="inspectMarquee('JavaScript ES6+ & Three.js', '90%', 'Asynchronous event loops, DOM engines, 3D WebGL particle shaders.')">
+              <i class="fab fa-js text-yellow-400 text-2xl"></i>
+              <div>
+                <span class="text-white font-bold block text-sm">JavaScript &amp; Three.js</span>
+                <span class="text-zinc-400 text-[11px]">90% Engine Architecture</span>
+              </div>
+            </div>
+
+            <div class="px-6 py-4 rounded-2xl bg-white/[0.03] hover:bg-red-400/10 border border-white/10 hover:border-red-400 flex items-center gap-4 font-mono text-xs shrink-0 transition-all cursor-pointer shadow-lg" onclick="inspectMarquee('HTML5 & CSS3 Layouts', '95%', 'Fluid typography, Flex/Grid systems, 60fps hardware transitions.')">
+              <i class="fab fa-html5 text-red-400 text-2xl"></i>
+              <div>
+                <span class="text-white font-bold block text-sm">HTML5 &amp; CSS3</span>
+                <span class="text-zinc-400 text-[11px]">95% Semantic Layout</span>
+              </div>
+            </div>
+
+            <div class="px-6 py-4 rounded-2xl bg-white/[0.03] hover:bg-white/20 border border-white/10 hover:border-white flex items-center gap-4 font-mono text-xs shrink-0 transition-all cursor-pointer shadow-lg" onclick="inspectMarquee('Git & GitHub CI/CD', '88%', 'Branching workflows, PR reviews, automated Vercel/Surge edge delivery.')">
+              <i class="fab fa-github text-white text-2xl"></i>
+              <div>
+                <span class="text-white font-bold block text-sm">Git &amp; GitHub</span>
+                <span class="text-zinc-400 text-[11px]">88% DevOps Workflow</span>
+              </div>
+            </div>
+
+            <div class="px-6 py-4 rounded-2xl bg-white/[0.03] hover:bg-gold/20 border border-white/10 hover:border-gold flex items-center gap-4 font-mono text-xs shrink-0 transition-all cursor-pointer shadow-lg" onclick="inspectMarquee('UI Design Systems', '90%', 'Dark glassmorphism tokens, bento structures, micro-interactions.')">
+              <i class="fas fa-gem text-gold text-2xl"></i>
+              <div>
+                <span class="text-white font-bold block text-sm">UI Architecture</span>
+                <span class="text-zinc-400 text-[11px]">90% Design System Craft</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Live Interactive Spotlight HUD -->
+        <div id="marquee-spotlight-box" class="bg-black/80 border border-white/15 rounded-2xl p-5 font-mono text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xl">
+          <div class="flex items-center gap-3">
+            <span class="w-2.5 h-2.5 rounded-full bg-gold animate-pulse"></span>
+            <span id="spotlight-title" class="text-white font-bold">Tap / Hover any card to inspect verified production parameters</span>
+          </div>
+          <span id="spotlight-metric" class="text-gold font-bold">HOVER INSPECTOR</span>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="text-center text-xs font-mono text-zinc-500 py-12 max-w-7xl mx-auto border-t border-white/10 mt-16">
+    <span>Skills Showcase Lab &bull; Bespoke Engineering for Manish Kumar Soni</span>
+  </footer>
+
+  <!-- ==================== JAVASCRIPT INTERACTIONS ==================== -->
+  <script>
+    // 1. Showcase Concept Switcher
+    function switchConcept(conceptId) {
+      document.querySelectorAll('.concept-section').forEach(sec => sec.classList.add('hidden'));
+      document.querySelectorAll('.concept-btn').forEach(btn => {
+        btn.classList.remove('active', 'bg-gold', 'text-black', 'shadow-lg');
+        btn.classList.add('text-zinc-400', 'border-white/10');
+      });
+
+      const target = document.getElementById(conceptId);
+      if (target) target.classList.remove('hidden');
+
+      if (event && event.currentTarget) {
+        event.currentTarget.classList.add('active', 'bg-gold', 'text-black', 'shadow-lg');
+        event.currentTarget.classList.remove('text-zinc-400', 'border-white/10');
+      }
+    }
+
+    // 2. Concept 1: Frontend Module Switcher
+    const feModules = {
+      ssr: {
+        desc: "Full-stack Next.js 15 architecture utilizing server-side rendering, nested layouts, client hydration, and hardware-accelerated 60FPS CSS physics.",
+        pct: "92%",
+        width: "92%",
+        title: "SSR PIPELINE",
+        code: `<div class="text-zinc-500">// Next.js 15 Server Action</div><div><span class="text-purple-400">export async function</span> <span class="text-cyan-300">getMonograph</span>() {</div><div class="pl-4 text-zinc-400"><span class="text-gold">const</span> data = <span class="text-purple-400">await</span> fetchCadastral();</div><div class="pl-4 text-emerald-400">return { render: "60fps", latency: "12ms" };</div><div>}</div>`
+      },
+      canvas: {
+        desc: "Interactive 3D WebGL Canvas raycasting, diurnal sun angle shadow projections, and real-time CAD ruler drag math.",
+        pct: "88%",
+        width: "88%",
+        title: "3D RAYCAST ENGINE",
+        code: `<div class="text-zinc-500">// 3D Canvas Solar Math</div><div><span class="text-purple-400">function</span> <span class="text-cyan-300">renderSolarRaycast</span>(hour, azimuth) {</div><div class="pl-4 text-zinc-400">ctx.project3D(sunX, sunY, sunZ);</div><div class="pl-4 text-emerald-400">return { shadowAlpha: 0.14, fps: 60 };</div><div>}</div>`
+      },
+      tokens: {
+        desc: "Dark-mode obsidian token system, specular glassmorphism micro-borders, and responsive fluid layout hierarchies.",
+        pct: "95%",
+        width: "95%",
+        title: "DESIGN TOKEN MATRIX",
+        code: `<div class="text-zinc-500">// Unlumen UI Design Tokens</div><div><span class="text-purple-400">:root</span> {</div><div class="pl-4 text-zinc-400">--bg-obsidian: <span class="text-gold">#08080a</span>;</div><div class="pl-4 text-emerald-400">--border-glass: rgba(255,255,255,0.08);</div><div>}</div>`
+      }
+    };
+
+    function setFrontendModule(mod) {
+      document.querySelectorAll('.fe-pill').forEach(btn => {
+        if (btn.dataset.fe === mod) {
+          btn.className = 'fe-pill active px-3 py-1.5 rounded-lg bg-cyanAccent text-black font-bold transition-all text-[11px]';
+        } else {
+          btn.className = 'fe-pill px-3 py-1.5 rounded-lg text-zinc-400 hover:text-white transition-all text-[11px]';
+        }
+      });
+
+      const d = feModules[mod];
+      document.getElementById('fe-desc').textContent = d.desc;
+      document.getElementById('fe-pct').textContent = d.pct;
+      document.getElementById('fe-bar').style.width = d.width;
+      document.getElementById('fe-widget-title').textContent = d.title;
+      document.getElementById('fe-code-preview').innerHTML = d.code;
+    }
+
+    // 3. Concept 2: IDE Code Snippets & Benchmark
+    const ideTabsData = {
+      frontend: `// Next.js 15 & React 19 Frontend Suite
+import { useState, useTransition } from 'react';
+import { motion } from 'framer-motion';
+
+export default function MonographAtelier({ project }) {
+  const [isPending, startTransition] = useTransition();
+  const [activeFloor, setActiveFloor] = useState(1);
+
+  return (
+    <section className="min-h-screen bg-stone-950 text-white font-serif">
+      <h1 className="text-7xl font-light tracking-tight">
+        {project.title} — Monolithic Sanctuary
+      </h1>
+      <div className="grid grid-cols-12 gap-8 mt-12">
+        <CADBlueprintViewer scale="1:50" interactiveRuler={true} />
+        <SolarRaycastCanvas azimuth="142° SE" diurnalLighting={true} />
+      </div>
+    </section>
+  );
+}`,
+      ai: `# Python 3 & OpenAI GPT-4o Autonomous Agent
+import os
+from openai import OpenAI
+from pydantic import BaseModel
+
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+class DossierReport(BaseModel):
+    topic: str
+    verified_sources: list[str]
+    executive_synthesis: str
+    actionable_takeaways: list[str]
+
+def run_agentic_research(query: str) -> DossierReport:
+    """Executes multi-step web scraping, RAG chunking & source verification"""
+    completion = client.beta.chat.completions.parse(
+        model="gpt-4o",
+        messages=[
+            {"role": "system", "content": "You are a senior investigative AI research agent."},
+            {"role": "user", "content": f"Synthesize comprehensive market dossier on: {query}"}
+        ],
+        response_format=DossierReport
+    )
+    return completion.choices[0].message.parsed`,
+      database: `-- Supabase PostgreSQL Schema with pgvector
+CREATE EXTENSION IF NOT EXISTS vector;
+
+CREATE TABLE document_embeddings (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    document_id UUID REFERENCES documents(id) ON DELETE CASCADE,
+    content_chunk TEXT NOT NULL,
+    embedding vector(1536),
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Enable Row-Level Security
+ALTER TABLE document_embeddings ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Users can only query their own embedding documents"
+ON document_embeddings FOR SELECT
+USING (auth.uid() = (SELECT user_id FROM documents WHERE id = document_embeddings.document_id));
+
+-- High-speed cosine similarity index
+CREATE INDEX ON document_embeddings USING ivfflat (embedding vector_cosine_ops) WITH (lists = 100);`,
+      arch: `{
+  "developer": "Manish Kumar Soni",
+  "role": "Web Developer & AI Automation Builder",
+  "core_stack": {
+    "frontend": ["Next.js 15 (App Router)", "React 19", "Tailwind CSS", "TypeScript", "Three.js"],
+    "backend_and_ai": ["Python 3.12", "OpenAI GPT-4o SDK", "FastAPI", "n8n Webhooks"],
+    "database": ["Supabase PostgreSQL", "pgvector (Cosine Similarity)", "Row-Level Security"],
+    "devops": ["Git", "GitHub Actions", "Vercel Edge CDN", "Surge Deployments"]
+  },
+  "benchmarks": {
+    "ssr_hydration_ms": 112,
+    "canvas_frame_rate": "60 FPS Native",
+    "vector_query_latency_ms": 38,
+    "wcag_accessibility": "AA Passed"
+  }
+}`
+    };
+
+    function setIdeTab(tab) {
+      document.querySelectorAll('.ide-tab').forEach(btn => {
+        if (btn.dataset.tab === tab) {
+          btn.className = 'ide-tab active px-3.5 py-1.5 rounded-lg bg-black/60 text-cyanAccent border border-cyanAccent/30 font-semibold transition-all';
+        } else {
+          btn.className = 'ide-tab px-3.5 py-1.5 rounded-lg text-zinc-400 hover:text-white border border-transparent hover:border-white/10 transition-all';
+        }
+      });
+      const code = ideTabsData[tab];
+      document.getElementById('ide-code-display').innerHTML = `<pre><code>${escapeHtml(code)}</code></pre>`;
+    }
+    setIdeTab('frontend');
+
+    function escapeHtml(text) {
+      return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    function runBenchmarkTest() {
+      const btn = document.getElementById('benchmark-btn-text');
+      const speed = document.getElementById('ide-status-speed');
+      btn.textContent = 'Benchmarking...';
+      speed.textContent = 'Testing latency...';
+
+      setTimeout(() => {
+        const randMs = Math.floor(Math.random() * 25) + 95;
+        btn.textContent = '✓ 60FPS Verified';
+        speed.textContent = `SSR Load: ${randMs}ms (Ultra Fast)`;
+        setTimeout(() => {
+          btn.textContent = 'Run Benchmark';
+        }, 3000);
+      }, 700);
+    }
+
+    // 4. Concept 3: Constellation Radar Selection
+    const constellationData = {
+      core: {
+        cat: "MANISH KUMAR SONI",
+        title: "Full-Stack Core Engine",
+        desc: "Integrated architecture combining modern React SSR, autonomous Python agent workflows, and resilient vector database persistence.",
+        specs: [
+          { l: "Mastery Index:", v: "8+ Production Technologies", c: "text-gold font-bold" },
+          { l: "Primary Focus:", v: "Web Apps & AI Agents", c: "text-white" },
+          { l: "Verified Deployments:", v: "AURA, Nova Dental, AutoDoc", c: "text-cyanAccent" }
+        ]
+      },
+      nextjs: {
+        cat: "FRONTEND FRAMEWORK",
+        title: "Next.js 15 & React 19",
+        desc: "Server-side rendering, client component hydration, streaming layouts, and Tailwind CSS responsive design systems.",
+        specs: [
+          { l: "Architecture Index:", v: "92% Mastery", c: "text-cyanAccent font-bold" },
+          { l: "Key Paradigm:", v: "App Router & Server Actions", c: "text-white" },
+          { l: "Live Use Case:", v: "AURA Architecture & Nova Dental", c: "text-gold" }
+        ]
+      },
+      python: {
+        cat: "BACKEND & AUTOMATION",
+        title: "Python 3 Ecosystem",
+        desc: "Writing resilient backend services, asynchronous REST API scrapers, and automated AI data pipelines.",
+        specs: [
+          { l: "Scripting Index:", v: "85% Mastery", c: "text-amber-400 font-bold" },
+          { l: "Key Libraries:", v: "FastAPI, Requests, BeautifulSoup", c: "text-white" },
+          { l: "Live Use Case:", v: "Autonomous Research Agent", c: "text-gold" }
+        ]
+      },
+      ai: {
+        cat: "INTELLIGENT SYSTEMS",
+        title: "OpenAI GPT-4o & RAG",
+        desc: "Developing multi-stage Retrieval-Augmented Generation workflows, document chunking, and structured output parsing.",
+        specs: [
+          { l: "AI Pipeline Index:", v: "88% Mastery", c: "text-purpleAccent font-bold" },
+          { l: "Models Used:", v: "GPT-4o, text-embedding-3", c: "text-white" },
+          { l: "Live Use Case:", v: "AutoDoc AI Document Q&A", c: "text-gold" }
+        ]
+      },
+      supabase: {
+        cat: "PERSISTENCE & SECURITY",
+        title: "Supabase & PostgreSQL",
+        desc: "Relational database modeling, pgvector cosine search embeddings, and strict Row-Level Security (RLS) enforcement.",
+        specs: [
+          { l: "Database Index:", v: "85% Mastery", c: "text-emeraldAccent font-bold" },
+          { l: "Key Feature:", v: "pgvector & Real-Time Auth", c: "text-white" },
+          { l: "Live Use Case:", v: "User Vault & Document Embeddings", c: "text-gold" }
+        ]
+      },
+      js: {
+        cat: "CORE LANGUAGE & 3D",
+        title: "JavaScript ES6+ & Three.js",
+        desc: "Deep DOM event loops, asynchronous promises, WebGL canvas shaders, and custom cursor coordinate mapping.",
+        specs: [
+          { l: "Core JS Index:", v: "90% Mastery", c: "text-yellow-400 font-bold" },
+          { l: "Graphics Engine:", v: "Three.js 3D Raycasting", c: "text-white" },
+          { l: "Live Use Case:", v: "3D Torus Particle System & CAD Ruler", c: "text-gold" }
+        ]
+      }
+    };
+
+    function selectConstellation(key) {
+      document.querySelectorAll('.constellation-node').forEach(node => node.classList.remove('active-node'));
+      const d = constellationData[key];
+      document.getElementById('radar-category').textContent = d.cat;
+      document.getElementById('radar-title').textContent = d.title;
+      document.getElementById('radar-desc').textContent = d.desc;
+      document.getElementById('radar-specs').innerHTML = d.specs.map(s => `<div class="flex justify-between"><span class="text-zinc-400">${s.l}</span> <span class="${s.c}">${s.v}</span></div>`).join('');
+    }
+
+    // 5. Concept 4: Marquee Spotlight Inspector
+    function inspectMarquee(title, score, desc) {
+      document.getElementById('spotlight-title').textContent = `${title}: ${desc}`;
+      document.getElementById('spotlight-metric').textContent = `SCORE: ${score}`;
+    }
+  </script>
+</body>
+</html>

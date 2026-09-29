@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manish Kumar Soni — Lead Web Designer &amp; AI Builder | Portfolio</title>
+    <title>Balanced Alternating Editorial Rhythm — Manish Kumar Soni</title>
     
     <!-- High-Craft Fonts -->
     <link rel="preconnect" href="https://api.fontshare.com">
@@ -67,21 +67,18 @@
             --text-faint: rgba(255, 255, 255, 0.35);
             --line: rgba(255, 255, 255, 0.12);
             --line-strong: rgba(255, 255, 255, 0.25);
-            --line-on-dark: rgba(255, 255, 255, 0.2);
             --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Adaptive Rem-based Viewport Grid Architecture */
+        /* Adaptive Rem-based Viewport Grid */
         html { 
             font-size: 16px; 
             scroll-behavior: auto;
         }
-        @media (min-width: 1921px) { html { font-size: 16px; } }
-        @media (max-width: 1920px) { html { font-size: clamp(15px, 0.95vw, 16px); } }
-        @media (max-width: 1440px) { html { font-size: clamp(14.5px, 1.1vw, 16px); } }
-        @media (max-width: 1024px) { html { font-size: clamp(14px, 1.4vw, 16px); } }
-        @media (max-width: 768px)  { html { font-size: 15px; } }
-        @media (max-width: 480px)  { html { font-size: 14px; } }
+        @media (max-width: 1920px) { html { font-size: 0.833333vw; } }
+        @media (max-width: 1440px) { html { font-size: 1.111111vw; } }
+        @media (max-width: 1024px) { html { font-size: 1.5625vw;  } }
+        @media (max-width: 640px)  { html { font-size: 4.444444vw; } }
 
         *, *::before, *::after {
             box-sizing: border-box;
@@ -149,17 +146,6 @@
             max-width: 120rem;
             margin-inline: auto;
             width: 100%;
-            padding-inline: 1.5rem;
-            box-sizing: border-box;
-        }
-        @media (min-width: 640px) {
-            .container-custom { padding-inline: 2.5rem; }
-        }
-        @media (min-width: 1024px) {
-            .container-custom { padding-inline: 4rem; }
-        }
-        @media (min-width: 1440px) {
-            .container-custom { padding-inline: 5.5rem; }
         }
 
         .section-pad {
@@ -242,7 +228,7 @@
         }
 
         /* ═══════════════════════════════════════════════════════════════════
-           HEADER
+           HEADER (FIXED, MIX-BLEND-DIFFERENCE & GLASS)
         ═══════════════════════════════════════════════════════════════════ */
         #site-header {
             position: fixed;
@@ -377,15 +363,15 @@
         @media (min-width: 1024px) { .hero-left { grid-column: span 7; } }
 
         .hero-h1 {
-            max-width: 15ch;
-            font-size: clamp(2.5rem, 5vw, 5.25rem);
-            line-height: 1.06;
-            margin-top: 1.25rem;
+            max-width: 14ch;
+            font-size: 3.75rem;
+            line-height: 1.04;
+            margin-top: 1.5rem;
             font-family: "Playfair Display", serif;
             font-weight: 400;
         }
-        @media (min-width: 640px) { .hero-h1 { font-size: clamp(3rem, 5vw, 4.5rem); } }
-        @media (min-width: 1024px) { .hero-h1 { font-size: clamp(3.75rem, 4.5vw, 5.5rem); } }
+        @media (min-width: 640px) { .hero-h1 { font-size: 4.5rem; } }
+        @media (min-width: 1024px) { .hero-h1 { font-size: 5.75rem; } }
 
         .hero-lead {
             max-width: 48ch;
@@ -443,11 +429,11 @@
             height: 100%;
             object-fit: cover;
             aspect-ratio: 3 / 4;
-            filter: grayscale(100%) contrast(1.08) brightness(0.92);
-            transition: filter 0.6s var(--ease-spring), transform 0.6s var(--ease-spring);
+            filter: grayscale(80%) contrast(1.1);
+            transition: filter 0.6s ease, transform 0.6s var(--ease-spring);
         }
         .hero-portrait-card:hover img {
-            filter: grayscale(0%) contrast(1.05) brightness(1);
+            filter: grayscale(0%) contrast(1.05);
             transform: scale(1.04);
         }
 
@@ -496,43 +482,101 @@
         .works-gallery-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 4rem;
+            gap: 4.5rem;
             margin-top: 4rem;
         }
         @media (min-width: 1024px) {
             .works-gallery-grid {
-                grid-template-columns: repeat(12, 1fr);
-                column-gap: 2.5rem;
-                row-gap: 0;
-                margin-top: 6rem;
+                grid-template-columns: repeat(2, 1fr);
+                column-gap: 3.5rem;
+                row-gap: 5rem;
+                margin-top: 5rem;
             }
         }
 
         .work-article {
             display: flex;
             flex-direction: column;
+            background: rgba(13, 16, 23, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 1.25rem;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            transition: transform 0.5s var(--ease-spring), border-color 0.4s ease, box-shadow 0.5s ease;
         }
-        @media (min-width: 1024px) {
-            .work-article { grid-column: span 7; }
-            .work-article:nth-child(even) { grid-column-start: 6; margin-top: 6rem; }
-            .work-article:nth-child(odd) { grid-column-start: 1; }
+        .work-article:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 242, 254, 0.35);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(0, 242, 254, 0.08);
+        }
+
+        .work-browser-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.4rem 0.6rem 0.9rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            margin-bottom: 1rem;
+        }
+        .work-browser-dots {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .work-browser-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .work-browser-dot:nth-child(1) { background: rgba(255, 95, 86, 0.8); }
+        .work-browser-dot:nth-child(2) { background: rgba(255, 189, 46, 0.8); }
+        .work-browser-dot:nth-child(3) { background: rgba(39, 201, 63, 0.8); }
+        
+        .work-browser-url {
+            font-family: "Space Grotesk", monospace;
+            font-size: 0.72rem;
+            color: var(--text-faint);
+            letter-spacing: 0.05em;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .work-live-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--accent-cyan);
+            font-family: "Space Grotesk", sans-serif;
+            font-weight: 600;
+        }
+        .work-live-pill::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-cyan);
+            box-shadow: 0 0 8px var(--accent-cyan);
+            animation: pulse-dot 2s infinite ease-in-out;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
         }
 
         .work-card-media {
             position: relative;
             overflow: hidden;
             border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background: #11141c;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-            transition: border-color 0.4s ease;
-            aspect-ratio: 3 / 2;
-        }
-        .work-card-media.ratio-portrait {
-            aspect-ratio: 3 / 4;
-        }
-        .work-card-media:hover {
-            border-color: var(--accent-cyan);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: #090b10;
+            aspect-ratio: 16 / 10;
         }
         .work-card-media img {
             width: 100%;
@@ -540,108 +584,74 @@
             object-fit: cover;
             transition: transform 0.7s var(--ease-spring);
         }
-        .work-card-media:hover img {
+        .work-article:hover .work-card-media img {
             transform: scale(1.05);
         }
 
         .work-caption {
-            border-top: 1px dashed var(--line);
-            margin-top: 1.5rem;
-            padding-top: 1.25rem;
+            margin-top: 1.4rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+        }
+        .work-meta-row {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            gap: 1.5rem;
+            gap: 1rem;
         }
         .work-title {
-            font-size: 1.25rem;
+            font-size: 1.35rem;
             font-weight: 600;
             color: var(--text-primary);
             font-family: "Space Grotesk", sans-serif;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            transition: color 0.3s ease;
         }
-        .work-medium {
-            font-size: 0.875rem;
-            color: var(--text-muted);
-            margin-top: 0.25rem;
-        }
-        .work-year {
-            font-family: "Playfair Display", serif;
-            font-size: 1.1rem;
+        .work-article:hover .work-title {
             color: var(--accent-cyan);
         }
-
-        /* ═══════════════════════════════════════════════════════════════════
-           PROJECT SPOTLIGHT (PINNED CTA WITH REAL ARCHITECTURE SHOWCASE)
-        ═══════════════════════════════════════════════════════════════════ */
-        #spotlight {
-            background: #191917;
-            min-height: 100svh;
-            display: flex;
-            align-items: center;
-            color: #ffffff;
-        }
-        .pinned-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 3rem;
-            align-items: center;
-            width: 100%;
-        }
-        @media (min-width: 1024px) {
-            .pinned-grid {
-                grid-template-columns: repeat(12, 1fr);
-                gap: 2.5rem;
-            }
-        }
-        .pinned-copy {
-            max-width: 36rem;
-        }
-        @media (min-width: 1024px) {
-            .pinned-copy { grid-column: span 6; }
-        }
-        .pinned-h2 {
-            font-size: 2.25rem;
-            color: #ffffff;
-            margin-top: 1.5rem;
-        }
-        @media (min-width: 640px) { .pinned-h2 { font-size: 3rem; } }
-        @media (min-width: 1024px) { .pinned-h2 { font-size: 3.75rem; } }
-
-        .pinned-body {
-            font-size: 1.125rem;
-            line-height: 1.625;
+        .work-medium {
+            font-size: 0.92rem;
+            line-height: 1.5;
             color: var(--text-muted);
-            margin-top: 2rem;
         }
-
-        .pinned-img-wrap {
-            width: 100%;
+        .work-tags-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.25rem;
         }
-        @media (min-width: 1024px) {
-            .pinned-img-wrap { grid-column: 7 / span 6; }
+        .work-tag {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-faint);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 0.25rem 0.65rem;
+            border-radius: 4px;
         }
-        .spotlight-card {
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            background: #0d0f17;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 242, 254, 0.15);
+        .work-bottom-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            font-family: "Space Grotesk", sans-serif;
+            color: var(--accent-cyan);
+            margin-top: 0.5rem;
+            transition: transform 0.3s ease;
         }
-        .spotlight-card img {
-            width: 100%;
-            aspect-ratio: 16 / 10;
-            object-fit: cover;
-            transition: transform 0.6s var(--ease-spring);
-        }
-        .spotlight-card:hover img {
-            transform: scale(1.04);
+        .work-bottom-cta:hover {
+            transform: translateX(4px);
         }
 
         /* ═══════════════════════════════════════════════════════════════════
-           TECHNICAL CORE (SKILLS)
+           TECHNICAL CORE (SKILLS BENTO CARDS)
         ═══════════════════════════════════════════════════════════════════ */
         #skills {
             background: var(--bg-surface);
@@ -693,7 +703,7 @@
         }
 
         /* ═══════════════════════════════════════════════════════════════════
-           ABOUT SECTION (WITH ARCHITECTURAL WORK SNAPSHOTS)
+           ABOUT SECTION
         ═══════════════════════════════════════════════════════════════════ */
         #about {
             background: var(--bg-obsidian);
@@ -733,41 +743,65 @@
         .about-photos-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 1.5rem;
+            gap: 2rem;
             margin-top: 4rem;
         }
         @media (min-width: 640px) {
             .about-photos-grid { grid-template-columns: repeat(3, 1fr); }
         }
         .about-photo-item {
+            background: rgba(13, 16, 23, 0.7);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
             overflow: hidden;
-            border-radius: 8px;
-            border: 1px solid var(--border-subtle);
-            background: #11141c;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.4s var(--ease-spring), border-color 0.4s ease;
+        }
+        .about-photo-item:hover {
+            transform: translateY(-6px);
+            border-color: rgba(0, 242, 254, 0.3);
+        }
+        .about-photo-img-wrap {
             position: relative;
+            overflow: hidden;
+            aspect-ratio: 16 / 10;
         }
-        .about-photo-item img {
+        .about-photo-img-wrap img {
             width: 100%;
-            aspect-ratio: 3 / 2;
+            height: 100%;
             object-fit: cover;
-            filter: contrast(1.05);
-            transition: transform 0.7s var(--ease-spring);
+            filter: grayscale(40%) contrast(1.05);
+            transition: all 0.7s var(--ease-spring);
         }
-        .about-photo-item:hover img {
+        .about-photo-item:hover .about-photo-img-wrap img {
+            filter: grayscale(0%) contrast(1.05);
             transform: scale(1.06);
         }
-        .photo-badge {
-            position: absolute;
-            bottom: 12px;
-            left: 12px;
-            background: rgba(5, 6, 8, 0.85);
-            backdrop-filter: blur(8px);
-            padding: 4px 10px;
-            border-radius: 4px;
+        .about-photo-caption {
+            padding: 1.25rem 1.25rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .about-photo-idx {
+            font-family: "Space Grotesk", monospace;
             font-size: 0.75rem;
-            color: #ffffff;
-            font-weight: 500;
-            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--accent-cyan);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+        .about-photo-title {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .about-photo-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
         }
 
         .about-facts-ledger {
@@ -861,122 +895,6 @@
             color: var(--text-muted);
             max-width: 48ch;
             margin-top: 1rem;
-        }
-
-        
-        /* ═══════════════════════════════════════════════════════════════════
-           ENDORSEMENTS & IMPACT SECTION
-        ═══════════════════════════════════════════════════════════════════ */
-        #endorsements {
-            background: var(--bg-obsidian);
-            border-top: 1px dashed var(--line);
-        }
-        .impact-stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.25rem;
-            margin-top: 3.5rem;
-            margin-bottom: 3.5rem;
-            padding-bottom: 3rem;
-            border-bottom: 1px dashed var(--line);
-        }
-        @media (min-width: 1024px) {
-            .impact-stats-grid {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 1.75rem;
-            }
-        }
-        .impact-stat-card {
-            background: rgba(14, 16, 24, 0.5);
-            border: 1px solid var(--border-subtle);
-            border-radius: 12px;
-            padding: 1.75rem 1.25rem;
-            transition: transform 0.4s var(--ease-spring), border-color 0.4s ease;
-        }
-        .impact-stat-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(0, 242, 254, 0.4);
-        }
-        .impact-stat-num {
-            font-family: "Playfair Display", serif;
-            font-size: 2.25rem;
-            font-weight: 600;
-            color: #ffffff;
-            line-height: 1;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, #ffffff 40%, #00f2fe 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .impact-stat-label {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            letter-spacing: 0.04em;
-            line-height: 1.4;
-        }
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-        }
-        @media (min-width: 768px) {
-            .testimonials-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-        .testimonial-card {
-            background: rgba(13, 16, 23, 0.6);
-            border: 1px solid var(--border-subtle);
-            border-radius: 12px;
-            padding: 2rem 1.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.4s var(--ease-spring), border-color 0.4s ease;
-            position: relative;
-        }
-        .testimonial-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(0, 242, 254, 0.3);
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
-        }
-        .testimonial-quote {
-            font-size: 0.92rem;
-            line-height: 1.65;
-            color: rgba(255, 255, 255, 0.85);
-            margin-bottom: 1.75rem;
-            font-style: italic;
-        }
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 0.85rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            padding-top: 1.25rem;
-        }
-        .author-avatar {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, rgba(0, 242, 254, 0.2), rgba(79, 172, 254, 0.1));
-            border: 1px solid rgba(0, 242, 254, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 0.82rem;
-            color: #00f2fe;
-            flex-shrink: 0;
-        }
-        .author-info-name {
-            font-size: 0.88rem;
-            font-weight: 600;
-            color: #ffffff;
-        }
-        .author-info-role {
-            font-size: 0.74rem;
-            color: var(--text-muted);
-            letter-spacing: 0.02em;
         }
 
         /* ═══════════════════════════════════════════════════════════════════
@@ -1314,7 +1232,7 @@
 
         .stack-interactor-container {
             width: 100%;
-            max-width: 105rem;
+            max-width: 82rem;
             margin-inline: auto;
             position: relative;
             z-index: 2;
@@ -1808,430 +1726,106 @@
 
     
         /* ═══════════════════════════════════════════════════════════════════
-           MOBILE-FIRST ROBUST RESPONSIVENESS OVERRIDES (CLEAN & COMPACT)
+           HARMONIC ALTERNATING EDITORIAL RHYTHM (50/50 BALANCED FLOW)
         ═══════════════════════════════════════════════════════════════════ */
-        html, body {
-            overflow-x: hidden !important;
-            max-width: 100vw !important;
-            width: 100% !important;
+        
+        /* 1. LIGHT SECTION: #statement */
+        #statement {
+            background: #f8f8f6 !important;
+            color: #111318 !important;
+            border-top: 1px dashed rgba(17, 19, 24, 0.2) !important;
+            border-bottom: 1px dashed rgba(17, 19, 24, 0.2) !important;
+        }
+        #statement .eyebrow { color: #0891b2 !important; }
+        #statement .eyebrow::before { background: #0891b2 !important; }
+        #statement .statement-p, #statement .statement-p .reveal-word { color: #111318 !important; }
+        #statement .statement-sig { color: #0891b2 !important; }
+        #statement .statement-sig .name-highlight {
+            color: #111318 !important;
+            background: linear-gradient(135deg, #111318 30%, #0891b2 100%) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            text-shadow: none !important;
         }
 
-        /* ─── GLOBAL MOBILE COMPACT SECTION PADDING ─── */
-        @media (max-width: 768px) {
-            .section-pad {
-                padding: 3.75rem 1.25rem !important;
-            }
-            .eyebrow {
-                font-size: 0.7rem !important;
-                letter-spacing: 0.16em !important;
-                margin-bottom: 0.5rem !important;
-            }
-            .eyebrow::before {
-                width: 1.2rem !important;
-            }
+        /* 2. LIGHT SECTION: #skills */
+        #skills {
+            background: #f8f8f6 !important;
+            color: #111318 !important;
+            border-top: 1px dashed rgba(17, 19, 24, 0.2) !important;
+            border-bottom: 1px dashed rgba(17, 19, 24, 0.2) !important;
         }
+        #skills .eyebrow { color: #0891b2 !important; }
+        #skills .eyebrow::before { background: #0891b2 !important; }
+        #skills .works-heading-h2 { color: #111318 !important; }
+        #skills .works-heading-h2 .accent-serif { color: #0891b2 !important; }
+        
+        #skills .skills-acc-list { border-color: rgba(17, 19, 24, 0.2) !important; }
+        #skills .skill-acc-row { border-color: rgba(17, 19, 24, 0.2) !important; }
+        #skills .skill-acc-row:hover { background: rgba(0, 0, 0, 0.03) !important; }
+        #skills .skill-acc-title { color: #111318 !important; }
+        #skills .skill-acc-row.is-open .skill-acc-title,
+        #skills .skill-acc-row:hover .skill-acc-title { color: #0891b2 !important; }
+        #skills .skill-acc-num { color: #0891b2 !important; }
+        #skills .skill-acc-plus { color: #0891b2 !important; }
+        #skills .skill-acc-row.is-open .skill-acc-plus { color: #111318 !important; }
+        #skills .skill-acc-desc { color: #4a5568 !important; }
+        #skills .skill-acc-chip {
+            background: #ffffff !important;
+            border: 1px solid rgba(17, 19, 24, 0.14) !important;
+            color: #111318 !important;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04) !important;
+        }
+        #skills .skill-acc-chip:hover {
+            border-color: #0891b2 !important;
+            background: rgba(8, 145, 178, 0.08) !important;
+            color: #0891b2 !important;
+        }
+        #skills .skill-acc-dot { background: #0891b2 !important; box-shadow: 0 0 6px rgba(8, 145, 178, 0.4) !important; }
 
-        /* ─── 1. HERO SECTION MOBILE ─── */
-        @media (max-width: 768px) {
-            #hero {
-                padding: 5.5rem 1.25rem 2.5rem !important;
-                min-height: auto !important;
-            }
-            .hero-grid {
-                gap: 2rem !important;
-            }
-            .hero-display-name-wrap {
-                margin-top: 0.75rem !important;
-                margin-bottom: 0.25rem !important;
-            }
-            .hero-display-name-wrap .cascade-text {
-                font-size: clamp(1.6rem, 7vw, 2.15rem) !important;
-                line-height: 1.15 !important;
-                letter-spacing: -0.01em !important;
-            }
-            .hero-name-hint {
-                font-size: 0.65rem !important;
-                margin-top: 0.2rem !important;
-            }
-            .hero-h1 {
-                font-size: clamp(1.65rem, 6.5vw, 2.2rem) !important;
-                line-height: 1.12 !important;
-                margin-top: 0.75rem !important;
-            }
-            .hero-lead {
-                font-size: 0.92rem !important;
-                line-height: 1.55 !important;
-                margin-top: 1rem !important;
-                color: rgba(255, 255, 255, 0.7) !important;
-            }
-            .hero-portrait-card {
-                max-width: 220px !important;
-                margin: 0.5rem auto 0 !important;
-                border-radius: 10px !important;
-            }
-            .hero-cta-row {
-                flex-direction: column !important;
-                align-items: stretch !important;
-                gap: 0.65rem !important;
-                margin-top: 1.5rem !important;
-            }
-            .hero-cta-row .btn-craft {
-                text-align: center !important;
-                justify-content: center !important;
-                padding: 0.8rem 1.25rem !important;
-                font-size: 0.8rem !important;
-            }
-            .hero-facts-dl {
-                display: grid !important;
-                grid-template-columns: repeat(3, 1fr) !important;
-                gap: 0.75rem !important;
-                margin-top: 2rem !important;
-                padding-top: 1.25rem !important;
-            }
-            .hero-facts-dl dt {
-                font-size: 0.62rem !important;
-                letter-spacing: 0.12em !important;
-            }
-            .hero-facts-dl dd {
-                font-size: 0.78rem !important;
-                margin-top: 0.2rem !important;
-                line-height: 1.3 !important;
-            }
+        /* 3. LIGHT SECTION: #process */
+        #process {
+            background: #f8f8f6 !important;
+            color: #111318 !important;
+            border-top: 1px dashed rgba(17, 19, 24, 0.2) !important;
+            border-bottom: 1px dashed rgba(17, 19, 24, 0.2) !important;
         }
+        #process .eyebrow { color: #0891b2 !important; }
+        #process .eyebrow::before { background: #0891b2 !important; }
+        #process .works-heading-h2 { color: #111318 !important; }
+        #process .works-heading-h2 .accent-serif { color: #0891b2 !important; }
+        #process .process-step-li { border-color: rgba(17, 19, 24, 0.2) !important; }
+        #process .process-num { color: rgba(17, 19, 24, 0.25) !important; }
+        #process .process-h3 { color: #111318 !important; }
+        #process .process-p { color: #4a5568 !important; }
 
-        /* ─── 2. STATEMENT SECTION MOBILE ─── */
-        @media (max-width: 768px) {
-            #statement {
-                padding: 3rem 1.25rem !important;
-            }
-            .statement-p {
-                font-size: clamp(1.15rem, 4.8vw, 1.45rem) !important;
-                line-height: 1.45 !important;
-                margin-top: 1rem !important;
-            }
-            .statement-sig {
-                font-size: 0.95rem !important;
-                margin-top: 1.25rem !important;
-            }
+        /* FIXED HEADER INVERSION ON LIGHT SECTIONS */
+        #site-header {
+            mix-blend-mode: difference !important;
+            z-index: 1000 !important;
         }
-
-        /* ─── 3. WORKS SECTION MOBILE ─── */
-        @media (max-width: 768px) {
-            #works {
-                padding: 3.5rem 1.25rem !important;
-            }
-            .stack-header-row {
-                flex-direction: column !important;
-                align-items: flex-start !important;
-                gap: 0.75rem !important;
-                margin-bottom: 1.75rem !important;
-                padding-bottom: 1rem !important;
-            }
-            .stack-title-h2 {
-                font-size: clamp(1.6rem, 6.5vw, 2.15rem) !important;
-                line-height: 1.15 !important;
-            }
-            .stack-interactive-grid {
-                grid-template-columns: 1fr !important;
-                gap: 1.75rem !important;
-            }
-            .stack-menu-list {
-                gap: 0.85rem !important;
-            }
-            .stack-menu-item {
-                padding: 0.35rem 0 !important;
-            }
-            .stack-item-row {
-                gap: 0.85rem !important;
-            }
-            .stack-item-num {
-                font-size: 1rem !important;
-                width: 1.5rem !important;
-            }
-            .stack-item-title {
-                font-size: clamp(1.2rem, 5vw, 1.55rem) !important;
-                letter-spacing: -0.01em !important;
-            }
-            .stack-item-arrow {
-                font-size: 1.15rem !important;
-            }
-            .stack-active-card {
-                padding: 1rem !important;
-                margin-top: 1.25rem !important;
-                border-radius: 10px !important;
-                background: rgba(13, 16, 23, 0.85) !important;
-            }
-            .stack-card-meta {
-                margin-bottom: 0.5rem !important;
-            }
-            .stack-card-desc {
-                font-size: 0.85rem !important;
-                line-height: 1.5 !important;
-                margin-bottom: 0.75rem !important;
-            }
-            .stack-card-bottom {
-                padding-top: 0.75rem !important;
-                gap: 0.65rem !important;
-            }
-            .stack-tag-pill {
-                font-size: 0.65rem !important;
-                padding: 0.15rem 0.5rem !important;
-            }
-            .stack-cta-btn {
-                font-size: 0.78rem !important;
-                padding: 0.4rem 0.85rem !important;
-                width: 100% !important;
-                justify-content: center !important;
-                text-align: center !important;
-            }
-            .stack-svg-canvas {
-                max-width: 260px !important;
-                width: 100% !important;
-                height: auto !important;
-                margin: 0 auto !important;
-            }
-            .stack-visual-badge {
-                bottom: 0.5rem !important;
-                right: 0.5rem !important;
-                padding: 0.3rem 0.65rem !important;
-                font-size: 0.68rem !important;
-            }
+        #site-header .header-logo,
+        #site-header .header-left-top,
+        #site-header .header-left-sub,
+        #site-header .header-nav-link,
+        #site-header .menu-btn-label,
+        #site-header .hamburger-lines span {
+            color: #ffffff !important;
         }
-
-        /* ─── 4. TECHNICAL CORE / SKILLS SECTION MOBILE (SUPER CLEAN & CRISP) ─── */
-        @media (max-width: 768px) {
-            #skills {
-                padding: 3.5rem 1.25rem !important;
-            }
-            .works-heading-h2 {
-                font-size: clamp(1.6rem, 6.5vw, 2.15rem) !important;
-                line-height: 1.15 !important;
-                margin-top: 0.75rem !important;
-            }
-            .skills-acc-list {
-                margin-top: 1.75rem !important;
-            }
-            .skill-acc-row {
-                padding-block: 1.15rem !important;
-            }
-            .skill-acc-header {
-                gap: 1rem !important;
-            }
-            .skill-acc-header-left {
-                gap: 0.85rem !important;
-            }
-            .skill-acc-num {
-                font-size: 0.95rem !important;
-                width: 1.35rem !important;
-            }
-            .skill-acc-title {
-                font-size: clamp(1.05rem, 4.2vw, 1.35rem) !important;
-                line-height: 1.25 !important;
-                font-weight: 500 !important;
-            }
-            .skill-acc-plus {
-                font-size: 1.25rem !important;
-            }
-            .skill-acc-panel {
-                grid-template-columns: 1fr !important;
-                gap: 1rem !important;
-            }
-            .skill-acc-row.is-open .skill-acc-panel {
-                margin-top: 1rem !important;
-                padding-top: 1rem !important;
-            }
-            .skill-acc-desc {
-                font-size: 0.85rem !important;
-                line-height: 1.5 !important;
-                color: rgba(255, 255, 255, 0.72) !important;
-            }
-            /* Clean compact chips cloud on mobile instead of huge vertical cards */
-            .skill-acc-chips-grid {
-                display: flex !important;
-                flex-wrap: wrap !important;
-                gap: 0.4rem !important;
-            }
-            .skill-acc-chip {
-                font-size: 0.72rem !important;
-                padding: 0.32rem 0.65rem !important;
-                border-radius: 999px !important;
-                background: rgba(0, 242, 254, 0.05) !important;
-                border: 1px solid rgba(0, 242, 254, 0.2) !important;
-                display: inline-flex !important;
-                align-items: center !important;
-                gap: 0.35rem !important;
-            }
-            .skill-acc-dot {
-                width: 4px !important;
-                height: 4px !important;
-            }
-        }
-
-        /* ─── 5. ABOUT SECTION MOBILE (CLEAN COMPACT TILES) ─── */
-        @media (max-width: 768px) {
-            #about {
-                padding: 3.5rem 1.25rem !important;
-            }
-            .about-top-grid {
-                gap: 1.5rem !important;
-            }
-            .about-h2 {
-                font-size: clamp(1.6rem, 6.5vw, 2.15rem) !important;
-                line-height: 1.15 !important;
-                margin-top: 0.75rem !important;
-            }
-            .about-right {
-                gap: 0.85rem !important;
-            }
-            .about-p {
-                font-size: 0.88rem !important;
-                line-height: 1.55 !important;
-                color: rgba(255, 255, 255, 0.72) !important;
-            }
-            .about-photos-grid {
-                grid-template-columns: 1fr !important;
-                gap: 1rem !important;
-                margin-top: 2rem !important;
-            }
-            .about-photo-item {
-                display: block !important;
-                padding: 0 !important;
-                border-radius: 8px !important;
-                overflow: hidden !important;
-                width: 100% !important;
-                border: 1px solid var(--border-subtle) !important;
-            }
-            .about-photo-item img {
-                width: 100% !important;
-                aspect-ratio: 16 / 10 !important;
-                object-fit: cover !important;
-                display: block !important;
-            }
-            .about-facts-ledger {
-                grid-template-columns: 1fr 1fr !important;
-                gap: 1.25rem 0.85rem !important;
-                margin-top: 2rem !important;
-                padding-top: 1.25rem !important;
-            }
-            .about-facts-ledger dt {
-                font-size: 0.65rem !important;
-            }
-            .about-facts-ledger dd {
-                font-size: 0.85rem !important;
-                margin-top: 0.25rem !important;
-            }
-        }
-
-        /* ─── 6. PROCESS SECTION MOBILE ─── */
-        @media (max-width: 768px) {
-            #process {
-                padding: 3.5rem 1.25rem !important;
-            }
-            .process-grid {
-                gap: 2rem !important;
-            }
-            .process-step-li {
-                padding-block: 1.25rem !important;
-                gap: 1rem !important;
-            }
-            .process-num {
-                font-size: 1.75rem !important;
-                width: 2.2rem !important;
-            }
-            .process-h3 {
-                font-size: 1.05rem !important;
-                margin-bottom: 0.25rem !important;
-            }
-            .process-p {
-                font-size: 0.84rem !important;
-                line-height: 1.48 !important;
-                color: rgba(255, 255, 255, 0.68) !important;
-            }
-        }
-
-        /* ─── 7. CONTACT & FAQ MOBILE ─── */
-        @media (max-width: 768px) {
-            #contact {
-                padding: 3.5rem 1.25rem !important;
-                min-height: auto !important;
-            }
-            .pinned-h2 {
-                font-size: clamp(1.6rem, 6.5vw, 2.15rem) !important;
-                line-height: 1.15 !important;
-            }
-            .pinned-body {
-                font-size: 0.88rem !important;
-                line-height: 1.55 !important;
-                margin-top: 0.75rem !important;
-            }
-            #faq {
-                padding: 3.5rem 1.25rem !important;
-            }
-            .faq-grid {
-                gap: 1.75rem !important;
-            }
-            .faq-row {
-                padding-block: 1rem !important;
-            }
-            .faq-q-text {
-                font-size: 0.95rem !important;
-            }
-            .faq-a-text {
-                font-size: 0.84rem !important;
-                line-height: 1.5 !important;
-                padding-bottom: 1rem !important;
-            }
-            #site-footer {
-                padding: 3.5rem 1.25rem 2rem !important;
-            }
-            .footer-grid {
-                gap: 2rem !important;
-            }
-            .footer-tagline {
-                font-size: 0.88rem !important;
-            }
-            .footer-mail-link {
-                font-size: 0.95rem !important;
-            }
-            .footer-col-title {
-                font-size: 0.75rem !important;
-            }
-            .footer-links-list a {
-                font-size: 0.85rem !important;
-            }
-            .giant-word {
-                font-size: 16vw !important;
-            }
-            .footer-legal-bar {
-                flex-direction: column !important;
-                align-items: flex-start !important;
-                gap: 0.5rem !important;
-                font-size: 0.75rem !important;
-            }
-        }
-
-        /* Full-Screen Modal Menu Mobile */
-        @media (max-width: 768px) {
-            .modal-content-wrap {
-                padding: 1.25rem !important;
-            }
-            .modal-nav-label {
-                font-size: clamp(2.25rem, 9vw, 3.25rem) !important;
-            }
-            .modal-nav-item {
-                gap: 1rem !important;
-            }
-            .modal-bottom-block {
-                flex-direction: column !important;
-                align-items: flex-start !important;
-                gap: 1rem !important;
-            }
-        }
+        #site-header .diamond-mark { border-color: #ffffff !important; }
+        #site-header .header-nav-dot { background: #ffffff !important; }
 
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 </head>
 <body id="top">
+
+    <!-- Topbar Banner for Full Alternating Rhythm Preview -->
+    <div style="position:fixed; top:0; left:0; width:100%; background:rgba(0, 242, 254, 0.95); color:#040508; font-family:'Space Grotesk', sans-serif; font-size:0.8rem; font-weight:700; padding:0.4rem 1rem; text-align:center; z-index:9999; display:flex; justify-content:center; align-items:center; gap:1.5rem; box-shadow:0 4px 15px rgba(0,0,0,0.3);">
+        <span>✦ FULL HARMONIC RHYTHM: Alternating 1-by-1 (Hero: Dark ➔ Statement: Light ➔ Works: Dark ➔ Skills: Light ➔ About: Dark ➔ Process: Light ➔ Contact: Dark)</span>
+        <a href="/" style="color:#040508; text-decoration:underline; font-weight:800;">← All-Dark Version</a>
+    </div>
+
 
     <!-- Ambient Lighting Glows -->
     <div class="ambient-glow-1"></div>
@@ -2272,9 +1866,6 @@
                     <a href="#contact" class="header-nav-link">
                         <span class="header-nav-dot"></span> Contact
                     </a>
-                    <a href="github-edition.html" class="header-nav-link" style="color: #00f2fe; font-weight: 600;">
-                        <i class="fa-brands fa-github" style="font-size: 0.9em; margin-right: 2px;"></i> GitHub UI
-                    </a>
                 </nav>
 
                 <button class="btn-menu-trigger" onclick="openModalMenu()" aria-label="Open navigation menu">
@@ -2307,7 +1898,7 @@
                     <span>Hover Name</span> <span>⇄</span>
                 </div>
                 
-                <h1 class="hero-h1">
+                <h1 class="hero-h1" style="margin-top: 1rem; font-size: 2.75rem;">
                     <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 250ms;">Building digital</span></span>
                     <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 350ms;"><span class="accent-serif">monuments</span> with</span></span>
                     <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 450ms;">code &amp; AI.</span></span>
@@ -2367,7 +1958,7 @@
     </section>
 
     <!-- ═══════════════════════════════════════════════════════════════════
-         FEATURED WORKS SECTION (REAL PROJECTS ONLY)
+         FEATURED WORKS SECTION (12-COL ZIG-ZAG WITH PARALLAX)
     ═══════════════════════════════════════════════════════════════════ -->
         <!-- ═══════════════════════════════════════════════════════════════════
          FEATURED WORKS (GSAP SVG CLIPPATH STACK INTERACTOR)
@@ -2397,7 +1988,7 @@
                     <ul class="stack-menu-list" id="stack-menu-list">
                         <!-- 01 · AURA Spatial Atelier -->
                         <li>
-                            <a href="https://aura-atelier.surge.sh" target="_blank" rel="noopener noreferrer" class="stack-menu-item is-active" data-index="0" onmouseenter="handleStackHover(0)" ontouchstart="handleStackHover(0)">
+                            <a href="https://aura-atelier.surge.sh" target="_blank" rel="noopener noreferrer" class="stack-menu-item is-active" data-index="0" onmouseenter="handleStackHover(0)">
                                 <div class="stack-item-row">
                                     <span class="stack-item-num">01</span>
                                     <h3 class="stack-item-title">AURA ATELIER</h3>
@@ -2408,7 +1999,7 @@
 
                         <!-- 02 · Apex Nova Dental -->
                         <li>
-                            <a href="https://apex-novadental.surge.sh" target="_blank" rel="noopener noreferrer" class="stack-menu-item" data-index="1" onmouseenter="handleStackHover(1)" ontouchstart="handleStackHover(1)">
+                            <a href="https://apex-novadental.surge.sh" target="_blank" rel="noopener noreferrer" class="stack-menu-item" data-index="1" onmouseenter="handleStackHover(1)">
                                 <div class="stack-item-row">
                                     <span class="stack-item-num">02</span>
                                     <h3 class="stack-item-title">APEX DENTAL</h3>
@@ -2419,7 +2010,7 @@
 
                         <!-- 03 · Chronos Horology -->
                         <li>
-                            <a href="https://chronos-atelier.surge.sh" target="_blank" rel="noopener noreferrer" class="stack-menu-item" data-index="2" onmouseenter="handleStackHover(2)" ontouchstart="handleStackHover(2)">
+                            <a href="https://aura-atelier.surge.sh" target="_blank" rel="noopener noreferrer" class="stack-menu-item" data-index="2" onmouseenter="handleStackHover(2)">
                                 <div class="stack-item-row">
                                     <span class="stack-item-num">03</span>
                                     <h3 class="stack-item-title">CHRONOS WATCH</h3>
@@ -2430,7 +2021,7 @@
 
                         <!-- 04 · Autonomous AI Neural Engine -->
                         <li>
-                            <a href="https://github.com/manishkumarsoni7" target="_blank" rel="noopener noreferrer" class="stack-menu-item" data-index="3" onmouseenter="handleStackHover(3)" ontouchstart="handleStackHover(3)">
+                            <a href="https://github.com/manishkumarsoni7" target="_blank" rel="noopener noreferrer" class="stack-menu-item" data-index="3" onmouseenter="handleStackHover(3)">
                                 <div class="stack-item-row">
                                     <span class="stack-item-num">04</span>
                                     <h3 class="stack-item-title">NEURAL AI</h3>
@@ -2534,6 +2125,9 @@
     </section>
 
     <!-- ═══════════════════════════════════════════════════════════════════
+         TECHNICAL CORE / SKILLS SECTION
+    ═══════════════════════════════════════════════════════════════════ -->
+        <!-- ═══════════════════════════════════════════════════════════════════
          TECHNICAL CORE / SKILLS SECTION (MONOLITH EDITORIAL ACCORDION)
     ═══════════════════════════════════════════════════════════════════ -->
     <section id="skills" class="rule-dashed section-pad">
@@ -2646,27 +2240,27 @@
     </section>
 
     <!-- ═══════════════════════════════════════════════════════════════════
-         ABOUT SECTION (WITH REAL PROJECT ARCHITECTURAL PREVIEWS)
+         ABOUT SECTION
     ═══════════════════════════════════════════════════════════════════ -->
     <section id="about" class="rule-dashed section-pad">
         <div class="container-custom" data-reveal-section>
             <div class="about-top-grid">
                 <div class="about-left">
-                    <div class="eyebrow reveal-fade">About</div>
+                    <div class="eyebrow reveal-fade">About Manish</div>
 
                     <h2 class="about-h2">
-                        <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 0ms;">I build systems that</span></span>
-                        <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 90ms;">feel <span class="accent-serif">effortless</span> the</span></span>
-                        <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 180ms;">moment you touch them.</span></span>
+                        <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 0ms;">Bridging high-craft</span></span>
+                        <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 90ms;">design with deep</span></span>
+                        <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 180ms;">engineering.</span></span>
                     </h2>
                 </div>
 
                 <div class="about-right">
                     <p class="about-p" data-word-reveal data-word-stagger="10" data-word-delay="100">
-                        I am Manish Kumar Soni — a creative technologist and full-stack engineer focused on creating digital platforms that merge editorial typography, bespoke micro-interactions, and resilient architecture.
+                        I am Manish Kumar Soni — a creative technologist focused on crafting flagship web experiences that merge editorial typography, bespoke micro-interactions, and resilient architecture.
                     </p>
                     <p class="about-p" data-word-reveal data-word-stagger="10" data-word-delay="250">
-                        In an era saturated with low-effort AI templates, I build software that stands apart: custom design systems, kinetic reveal engines, and autonomous AI agents that solve real business problems.
+                        In an era saturated with low-effort AI templates, I build software that stands apart: tailored design systems, kinetic text reveal engines, and autonomous AI agents that solve real business problems.
                     </p>
                     <p class="about-p" data-word-reveal data-word-stagger="10" data-word-delay="400">
                         Whether engineering a luxury brand atelier or deploying an enterprise full-stack platform, I deliver software that feels authoritative, durable, and effortlessly fast.
@@ -2674,16 +2268,39 @@
                 </div>
             </div>
 
-            <!-- Photos Grid (Real Craft, Engineering & AI Assets in Full Color) -->
+            <!-- Engineering & Craft Pillar Cards -->
             <div class="about-photos-grid">
                 <div class="about-photo-item reveal-plate" style="transition-delay: 0ms;">
-                    <img src="about-craft.jpg" alt="Spatial Architecture & Minimalist Design Systems" loading="lazy">
+                    <div class="about-photo-img-wrap">
+                        <img src="about-craft.jpg" alt="Spatial Proportions & Minimalist Design Systems" loading="lazy">
+                    </div>
+                    <div class="about-photo-caption">
+                        <span class="about-photo-idx">Pillar 01 · Spatial Craft</span>
+                        <h3 class="about-photo-title">Editorial &amp; 3D UI Systems</h3>
+                        <p class="about-photo-desc">Crafting digital spaces with architectural harmony, adaptive rem grids, and kinetic spring physics.</p>
+                    </div>
                 </div>
+
                 <div class="about-photo-item reveal-plate" style="transition-delay: 100ms;">
-                    <img src="about-code.jpg" alt="High-Performance Systems & Full-Stack Architecture" loading="lazy">
+                    <div class="about-photo-img-wrap">
+                        <img src="about-code.jpg" alt="High-Performance Systems & Full-Stack Architecture" loading="lazy">
+                    </div>
+                    <div class="about-photo-caption">
+                        <span class="about-photo-idx">Pillar 02 · Full-Stack Depth</span>
+                        <h3 class="about-photo-title">Resilient Architecture</h3>
+                        <p class="about-photo-desc">End-to-end type safety, high-concurrency Node.js &amp; Python backends, and sub-second Web Vitals.</p>
+                    </div>
                 </div>
+
                 <div class="about-photo-item reveal-plate" style="transition-delay: 200ms;">
-                    <img src="about-ai.jpg" alt="Autonomous AI Neural Agents & LLM Swarms" loading="lazy">
+                    <div class="about-photo-img-wrap">
+                        <img src="about-ai.jpg" alt="Autonomous AI Neural Agents & LLM Pipelines" loading="lazy">
+                    </div>
+                    <div class="about-photo-caption">
+                        <span class="about-photo-idx">Pillar 03 · Machine Intelligence</span>
+                        <h3 class="about-photo-title">Autonomous AI Agents</h3>
+                        <p class="about-photo-desc">Multi-agent orchestrations, LangChain pipelines, and custom tool-using autonomous workflows.</p>
+                    </div>
                 </div>
             </div>
 
@@ -2766,81 +2383,27 @@
         </div>
     </section>
 
-    
     <!-- ═══════════════════════════════════════════════════════════════════
-         ENDORSEMENTS & IMPACT (SOCIAL PROOF & QUANTITATIVE METRICS)
+         PINNED CTA (CONTACT & SCOPING)
     ═══════════════════════════════════════════════════════════════════ -->
-    <section id="endorsements" class="rule-dashed section-pad">
+    <section id="contact" class="section-pad">
         <div class="container-custom" data-reveal-section>
-            <div class="eyebrow reveal-fade">Verified Trust &amp; Impact</div>
-            
-            <h2 class="works-heading-h2">
-                <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 0ms;">What founders &amp; teams say</span></span>
-                <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 90ms;">about <span class="accent-serif">the craft</span>.</span></span>
-            </h2>
+            <div class="pinned-centered-box">
+                <div class="eyebrow reveal-fade">Dispatch</div>
 
-            <!-- Quantitative Impact Metrics Bar -->
-            <div class="impact-stats-grid">
-                <div class="impact-stat-card reveal-fade-up" style="transition-delay: 0ms;">
-                    <div class="impact-stat-num">100%</div>
-                    <div class="impact-stat-label">On-Time Flagship Delivery</div>
-                </div>
-                <div class="impact-stat-card reveal-fade-up" style="transition-delay: 80ms;">
-                    <div class="impact-stat-num">&lt; 450ms</div>
-                    <div class="impact-stat-label">Global Edge Response Time</div>
-                </div>
-                <div class="impact-stat-card reveal-fade-up" style="transition-delay: 160ms;">
-                    <div class="impact-stat-num">4+</div>
-                    <div class="impact-stat-label">Production Client Deployments</div>
-                </div>
-                <div class="impact-stat-card reveal-fade-up" style="transition-delay: 240ms;">
-                    <div class="impact-stat-num">24/7</div>
-                    <div class="impact-stat-label">Autonomous AI Swarm Uptime</div>
-                </div>
-            </div>
+                <h2 class="pinned-h2" style="max-width: 22ch;">
+                    <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 0ms;">Let's engineer something</span></span>
+                    <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 90ms;"><span class="accent-serif">extraordinary.</span></span></span>
+                </h2>
 
-            <!-- Testimonial Quote Cards -->
-            <div class="testimonials-grid">
-                <!-- Testimonial 1 -->
-                <div class="testimonial-card reveal-plate" style="transition-delay: 0ms;">
-                    <p class="testimonial-quote">
-                        "Manish transformed our digital presence completely. The spatial 3D architecture, micro-interactions, and typography hierarchy elevated our studio into a truly high-craft luxury tier."
-                    </p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">JV</div>
-                        <div>
-                            <div class="author-info-name">Julian Voss</div>
-                            <div class="author-info-role">Principal Architect · AURA Atelier</div>
-                        </div>
-                    </div>
-                </div>
+                <p class="pinned-body" data-word-reveal data-word-stagger="16" data-word-delay="200" style="max-width: 38ch;">
+                    Planning a flagship web platform, full-stack product build, or autonomous AI system? Write directly to the studio.
+                </p>
 
-                <!-- Testimonial 2 -->
-                <div class="testimonial-card reveal-plate" style="transition-delay: 100ms;">
-                    <p class="testimonial-quote">
-                        "From patient-facing clinic UI to secure backend architecture, Manish engineered our clinical system with surgical precision, strict type-safety, and blistering speed."
-                    </p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">AV</div>
-                        <div>
-                            <div class="author-info-name">Dr. Aris Vance</div>
-                            <div class="author-info-role">Chief Clinical Director · Apex Nova</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Testimonial 3 -->
-                <div class="testimonial-card reveal-plate" style="transition-delay: 200ms;">
-                    <p class="testimonial-quote">
-                        "His ability to bridge complex multi-agent LangChain graphs with award-caliber frontend design is extraordinarily rare. An indispensable engineering partner."
-                    </p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">KR</div>
-                        <div>
-                            <div class="author-info-name">Kaelen Reed</div>
-                            <div class="author-info-role">Founder · Neural Swarm Lab</div>
-                        </div>
-                    </div>
+                <div style="margin-top: 2.5rem;" class="reveal-fade-up" style="transition-delay: 300ms;">
+                    <a href="mailto:issac78neo@gmail.com" class="btn-craft btn-craft-primary">
+                        issac78neo@gmail.com <span class="btn-arrow">→</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -2925,34 +2488,6 @@
         </div>
     </section>
 
-    
-    <!-- ═══════════════════════════════════════════════════════════════════
-         PINNED CTA (CONTACT & SCOPING)
-    ═══════════════════════════════════════════════════════════════════ -->
-    <section id="contact" class="section-pad">
-        <div class="container-custom" data-reveal-section>
-            <div class="pinned-centered-box">
-                <div class="eyebrow reveal-fade">Dispatch</div>
-
-                <h2 class="pinned-h2" style="max-width: 22ch;">
-                    <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 0ms;">Let's engineer something</span></span>
-                    <span class="reveal-line-wrap"><span class="reveal-line-inner" style="transition-delay: 90ms;"><span class="accent-serif">extraordinary.</span></span></span>
-                </h2>
-
-                <p class="pinned-body" data-word-reveal data-word-stagger="16" data-word-delay="200" style="max-width: 38ch;">
-                    Planning a flagship web platform, full-stack product build, or autonomous AI system? Write directly to the studio.
-                </p>
-
-                <div style="margin-top: 2.5rem;" class="reveal-fade-up" style="transition-delay: 300ms;">
-                    <a href="mailto:issac78neo@gmail.com" class="btn-craft btn-craft-primary">
-                        issac78neo@gmail.com <span class="btn-arrow">→</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    
     <!-- ═══════════════════════════════════════════════════════════════════
          FOOTER
     ═══════════════════════════════════════════════════════════════════ -->
@@ -2984,10 +2519,10 @@
                 <div class="footer-col-studio reveal-fade-up" style="transition-delay: 200ms;">
                     <p class="footer-col-title">Deployments</p>
                     <ul class="footer-links-list">
-                        <li><a href="https://aura-atelier.surge.sh" target="_blank" rel="noopener noreferrer">AURA Spatial Atelier ↗</a></li>
-                        <li><a href="https://apex-novadental.surge.sh" target="_blank" rel="noopener noreferrer">Apex Nova Dental ↗</a></li>
-                        <li><a href="https://chronos-atelier.surge.sh" target="_blank" rel="noopener noreferrer">Chronos Horology ↗</a></li>
-                        <li><a href="https://github.com/manishkumarsoni7" target="_blank" rel="noopener noreferrer">AI Neural Swarms ↗</a></li>
+                        <li><a href="https://aura-atelier.surge.sh" target="_blank" rel="noopener noreferrer">AURA Atelier ↗</a></li>
+                        <li><a href="https://apex-novadental.surge.sh" target="_blank" rel="noopener noreferrer">Apex Nova ↗</a></li>
+                        <li><a href="#contact">AI Agents</a></li>
+                        <li><a href="#contact">Contracts</a></li>
                     </ul>
                 </div>
 
@@ -3019,7 +2554,7 @@
     </footer>
 
     <!-- ═══════════════════════════════════════════════════════════════════
-         MODAL MENU OVERLAY
+         MODAL MENU (FULL-SCREEN OVERLAY)
     ═══════════════════════════════════════════════════════════════════ -->
     <div id="modal-menu" role="dialog" aria-modal="true" aria-label="Main menu">
         <div class="modal-backdrop-panel"></div>
@@ -3277,9 +2812,9 @@
                 name: "CHRONOS WATCH",
                 clipId: "clip-chronos",
                 image: "project-chronos.jpg",
-                url: "chronos-atelier.surge.sh",
-                link: "https://chronos-atelier.surge.sh",
-                status: "Live Deployed",
+                url: "chronos-horology.preview",
+                link: "https://aura-atelier.surge.sh",
+                status: "Private Atelier",
                 desc: "Haute Horlogerie interactive digital boutique showcasing handcrafted Swiss tourbillon movements, micro-precision typography, and spring-physics configurator.",
                 tags: ["Luxury Editorial", "WebGL", "Kinetic Motion", "Tourbillon"]
             },

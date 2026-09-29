@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skills Lab — 5 Luxury Mobile-Optimized Variations | Manish Kumar Soni</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@300;400;500;700&family=Manrope:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      --bg: #07080a;
+      --surface: #0e1015;
+      --surface-card: #13161f;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(0, 242, 254, 0.4);
+      --accent: #00f2fe;
+      --gold: #d4af37;
+      --gold-glow: rgba(212, 175, 55, 0.35);
+      --purple: #a855f7;
+      --emerald: #10b981;
+      --text: #f5f2eb;
+      --muted: #8e9aa8;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Manrope', sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* 3D Flip Card Styles */
+    .perspective-1000 {
+      perspective: 1000px;
+    }
+    .transform-style-3d {
+      transform-style: preserve-3d;
+    }
+    .backface-hidden {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .rotate-y-180 {
+      transform: rotateY(180deg);
+    }
+    .flipped {
+      transform: rotateY(180deg);
+    }
+
+    /* Infinite Marquee */
+    @keyframes marqueeLeft {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+    @keyframes marqueeRight {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0%); }
+    }
+    .animate-marquee-left {
+      display: flex;
+      width: 200%;
+      animation: marqueeLeft 25s linear infinite;
+    }
+    .animate-marquee-right {
+      display: flex;
+      width: 200%;
+      animation: marqueeRight 25s linear infinite;
+    }
+    .animate-marquee-left:hover, .animate-marquee-right:hover {
+      animation-play-state: paused;
+    }
+
+    /* Stacked Deck Layers */
+    .deck-card {
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+    }
+    .deck-card.active {
+      transform: translateY(0px) scale(1) !important;
+      z-index: 30;
+      opacity: 1;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 242, 254, 0.15);
+      border-color: rgba(0, 242, 254, 0.5);
+    }
+    .deck-card.inactive-1 {
+      transform: translateY(35px) scale(0.95);
+      z-index: 20;
+      opacity: 0.85;
+    }
+    .deck-card.inactive-2 {
+      transform: translateY(70px) scale(0.90);
+      z-index: 10;
+      opacity: 0.65;
+    }
+
+    /* Custom Scrollbar Hide */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="p-3 sm:p-8 selection:bg-cyan-500/20 selection:text-cyan-300">
+
+  <!-- ==================== STICKY TOPBAR SWITCHER ==================== -->
+  <header class="sticky top-0 z-50 bg-[#0a0c10]/90 backdrop-blur-2xl border border-white/10 rounded-2xl p-3 sm:p-4 mb-8 shadow-2xl max-w-6xl mx-auto">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-3">
+      
+      <div class="flex items-center justify-between w-full md:w-auto">
+        <a href="index.html" class="flex items-center gap-2 text-xs font-mono text-zinc-400 hover:text-white transition-colors">
+          <i class="fas fa-arrow-left"></i>
+          <span>Main Portfolio</span>
+        </a>
+        <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-[11px] font-mono text-cyan-400">
+          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+          <span>5 MOBILE VARIATIONS LAB</span>
+        </div>
+      </div>
+
+      <!-- 5 Variation Selector Tabs -->
+      <div class="flex items-center gap-1.5 overflow-x-auto max-w-full pb-1 md:pb-0 no-scrollbar w-full md:w-auto">
+        <button onclick="switchTab('tab-v1')" class="var-btn active px-3.5 py-2 rounded-xl text-xs font-mono font-semibold transition-all whitespace-nowrap bg-cyan-400 text-black shadow-lg" data-tab="tab-v1">
+          1. 3D Swipe &amp; Flip Cards
+        </button>
+        <button onclick="switchTab('tab-v2')" class="var-btn px-3.5 py-2 rounded-xl text-xs font-mono text-zinc-400 hover:text-white transition-all whitespace-nowrap border border-white/5 hover:border-white/20" data-tab="tab-v2">
+          2. Dynamic Island HUD
+        </button>
+        <button onclick="switchTab('tab-v3')" class="var-btn px-3.5 py-2 rounded-xl text-xs font-mono text-zinc-400 hover:text-white transition-all whitespace-nowrap border border-white/5 hover:border-white/20" data-tab="tab-v3">
+          3. Kinetic Tech Marquee
+        </button>
+        <button onclick="switchTab('tab-v4')" class="var-btn px-3.5 py-2 rounded-xl text-xs font-mono text-zinc-400 hover:text-white transition-all whitespace-nowrap border border-white/5 hover:border-white/20" data-tab="tab-v4">
+          4. iOS Stacked Wallet
+        </button>
+        <button onclick="switchTab('tab-v5')" class="var-btn px-3.5 py-2 rounded-xl text-xs font-mono text-zinc-400 hover:text-white transition-all whitespace-nowrap border border-white/5 hover:border-white/20" data-tab="tab-v5">
+          5. Linear Cyber Matrix
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT CONTAINER ==================== -->
+  <main class="max-w-6xl mx-auto min-h-[600px]">
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         VARIATION 1: 3D TOUCH-SWIPE & FLIP HOLOGRAPH CARDS (HYBRID #2 + #8)
+         ══════════════════════════════════════════════════════════════════ -->
+    <section id="tab-v1" class="var-section space-y-6">
+      
+      <div class="text-center space-y-2 max-w-2xl mx-auto">
+        <span class="text-xs font-mono text-cyan-400 tracking-widest uppercase">VARIATION 01 / TOUCH CAROUSEL + 3D FLIP</span>
+        <h2 class="font-serif text-3xl sm:text-4xl text-white font-light">3D Swipe &amp; Flip Domain Cards</h2>
+        <p class="text-xs sm:text-sm text-zinc-400 font-light">
+          📱 <strong>Mobile Gesture:</strong> Swipe left/right on mobile. Tap any card to 3D flip and reveal production use-cases without taking up long vertical screen space.
+        </p>
+      </div>
+
+      <!-- Carousel Container with Touch-Drag Support -->
+      <div class="relative py-4">
+        
+        <!-- Cards Wrapper -->
+        <div id="v1-carousel" class="flex gap-5 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory no-scrollbar px-2 sm:px-0">
+          
+          <!-- Card 1: Frontend Architecture -->
+          <div class="snap-center shrink-0 w-[88vw] sm:w-[350px] lg:w-[360px] h-[430px] perspective-1000">
+            <div class="card-flip-inner relative w-full h-full transform-style-3d transition-transform duration-700 cursor-pointer" onclick="toggleCardFlip(this)">
+              
+              <!-- Front Face -->
+              <div class="absolute inset-0 backface-hidden rounded-3xl bg-gradient-to-b from-[#131722] to-[#0a0c10] border border-cyan-500/30 p-6 flex flex-col justify-between shadow-2xl hover:border-cyan-400 transition-colors">
+                <div>
+                  <div class="flex items-center justify-between mb-4">
+                    <span class="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 font-mono text-[10px] tracking-wider font-bold">
+                      01 / DOMAIN
+                    </span>
+                    <span class="text-xs font-mono text-zinc-400 flex items-center gap-1">
+                      <i class="fas fa-rotate text-cyan-400 text-[10px]"></i> Tap to Flip
+                    </span>
+                  </div>
+                  <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 text-2xl mb-4">
+                    <i class="fab fa-react"></i>
+                  </div>
+                  <h3 class="font-serif text-2xl text-white font-medium">Frontend &amp; UI Architecture</h3>
+                  <p class="text-xs text-zinc-400 font-light mt-2 leading-relaxed">
+                    High-performance modern web interfaces, component tokenization, and 60FPS WebGL canvas engines.
+                  </p>
+                </div>
+
+                <div class="space-y-3 pt-4 border-t border-white/5">
+                  <div class="flex items-center justify-between font-mono text-xs">
+                    <span class="text-zinc-400">Next.js 15 &bull; React 19</span>
+                    <span class="text-cyan-400 font-bold">92% Mastery</span>
+                  </div>
+                  <div class="w-full h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+                    <div class="w-[92%] h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full"></div>
+                  </div>
+                  <div class="flex flex-wrap gap-1.5 pt-1 font-mono text-[10px] text-zinc-300">
+                    <span class="px-2 py-0.5 rounded bg-white/5 border border-white/10">Tailwind</span>
+                    <span class="px-2 py-0.5 rounded bg-white/5 border border-white/10">Three.js</span>
+                    <span class="px-2 py-0.5 rounded bg-white/5 border border-white/10">TypeScript</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Back Face -->
+              <div class="absolute inset-0 backface-hidden rotate-y-180 rounded-3xl bg-gradient-to-b from-[#181d2c] to-[#0c0e16] border border-cyan-400 p-6 flex flex-col justify-between shadow-2xl">
+                <div>
+                  <div class="flex items-center justify-between mb-3 font-mono text-[10px] text-cyan-300">
+                    <span>PRODUCTION REPERTOIRE</span>
+                    <span>FLIPPED ↩</span>
+                  </div>
+                  <h4 class="font-serif text-xl text-white font-semibold">Where I Applied This:</h4>
+                  <ul class="space-y-3 text-xs text-zinc-300 mt-4 font-light">
+                    <li class="flex items-start gap-2">
+                      <i class="fas fa-check-circle text-cyan-400 text-xs mt-0.5"></i>
+                      <span><strong>AURA Monolith Site:</strong> 100vh full-bleed hero, CAD ruler, and 3D diurnal raycasting.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <i class="fas fa-check-circle text-cyan-400 text-xs mt-0.5"></i>
+                      <span><strong>Nova Dental Clinic:</strong> Interactive dental arch map &amp; VITA shade picker.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <i class="fas fa-check-circle text-cyan-400 text-xs mt-0.5"></i>
+                      <span><strong>DevFlow Studio:</strong> Real-time API test console &amp; JSON formatter.</span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="text-[10px] font-mono text-zinc-400 text-center pt-3 border-t border-white/10">
+                  Tap again to flip back
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Card 2: AI Agents & Automation -->
+          <div class="snap-center shrink-0 w-[88vw] sm:w-[350px] lg:w-[360px] h-[430px] perspective-1000">
+            <div class="card-flip-inner relative w-full h-full transform-style-3d transition-transform duration-700 cursor-pointer" onclick="toggleCardFlip(this)">
+              
+              <!-- Front Face -->
+              <div class="absolute inset-0 backface-hidden rounded-3xl bg-gradient-to-b from-[#1c1428] to-[#0a0c10] border border-purple-500/30 p-6 flex flex-col justify-between shadow-2xl hover:border-purple-400 transition-colors">
+                <div>
+                  <div class="flex items-center justify-between mb-4">
+                    <span class="px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 font-mono text-[10px] tracking-wider font-bold">
+                      02 / DOMAIN
+                    </span>
+                    <span class="text-xs font-mono text-zinc-400 flex items-center gap-1">
+                      <i class="fas fa-rotate text-purple-400 text-[10px]"></i> Tap to Flip
+                    </span>
+                  </div>
+                  <div class="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-2xl mb-4">
+                    <i class="fas fa-brain"></i>
+                  </div>
+                  <h3 class="font-serif text-2xl text-white font-medium">AI Systems &amp; Python Agents</h3>
+                  <p class="text-xs text-zinc-400 font-light mt-2 leading-relaxed">
+                    Retrieval-Augmented Generation (RAG), embeddings, automated web research agents, and n8n webhooks.
+                  </p>
+                </div>
+
+                <div class="space-y-3 pt-4 border-t border-white/5">
+                  <div class="flex items-center justify-between font-mono text-xs">
+                    <span class="text-zinc-400">OpenAI &bull; Python &bull; RAG</span>
+                    <span class="text-purple-400 font-bold">88% Mastery</span>
+                  </div>
+                  <div class="w-full h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+                    <div class="w-[88%] h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></div>
+                  </div>
+                  <div class="flex flex-wrap gap-1.5 pt-1 font-mono text-[10px] text-zinc-300">
+                    <span class="px-2 py-0.5 rounded bg-white/5 border border-white/10">GPT-4o</span>
+                    <span class="px-2 py-0.5 rounded bg-white/5 border border-white/10">FastAPI</span>
+                    <span class="px-2 py-0.5 rounded bg-white/5 border border-white/10">n8n</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Back Face -->
+              <div class="absolute inset-0 backface-hidden rotate-y-180 rounded-3xl bg-gradient-to-b from-[#241738] to-[#0c0e16] border border-purple-400 p-6 flex flex-col justify-between shadow-2xl">
+                <div>
+                  <div class="flex items-center justify-between mb-3 font-mono text-[10px] text-purple-300">
+                    <span>PRODUCTION REPERTOIRE</span>
+                    <span>FLIPPED ↩</span>
+                  </div>
+                  <h4 class="font-serif text-xl text-white font-semibold">Where I Applied This:</h4>
+                  <ul class="space-y-3 text-xs text-zinc-300 mt-4 font-light">
+                    <li class="flex items-start gap-2">
+                      <i class="fas fa-check-circle text-purple-400 text-xs mt-0.5"></i>
+                      <span><strong>AutoDoc AI:</strong> Document question-answering with citation page indexing.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <i class="fas fa-check-circle text-purple-400 text-xs mt-0.5"></i>
+                      <span><strong>AI Research Agent:</strong> Web search parsing &amp; automated markdown report synthesis.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <i class="fas fa-check-circle text-purple-400 text-xs mt-0.5"></i>
+                      <span><strong>Support Bot Engine:</strong> Context-compressed knowledge base QA.</span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="text-[10px] font-mono text-zinc-400 text-center pt-3 border-t border-white/10">
+                  Tap again to flip back
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Card 3: Database & Cloud Infrastructure -->
+          <div class="snap-center shrink-0 w-[88vw] sm:w-[350px] lg:w-[360px] h-[430px] perspective-1000">
+            <div class="card-flip-inner relative w-full h-full transform-style-3d transition-transform duration-700 cursor-pointer" onclick="toggleCardFlip(this)">
+              
+              <!-- Front Face -->
+              <div class="absolute inset-0 backface-hidden rounded-3xl bg-gradient-to-b from-[#101e18] to-[#0a0c10] border border-emerald-500/30 p-6 flex flex-col justify-between shadow-2xl hover:border-emerald-400 transition-colors">
+                <div>
+                  <div class="flex items-center justify-between mb-4">
+                    <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-mono text-[10px] tracking-wider font-bold">
+                      03 / DOMAIN
+                    </span>
+                    <span class="text-xs font-mono text-zinc-400 flex items-center gap-1">
+                      <i class="fas fa-rotate text-emerald-400 text-[10px]"></i> Tap to Flip
+                    </span>
+                  </div>
+                  <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-2xl mb-4">
+                    <i class="fas fa-database"></i>
+                  </div>
+                  <h3 class="font-serif text-2xl text-white font-medium">Databases &amp; Cloud Systems</h3>
+                  <p class="text-xs text-zinc-400 font-light mt-2 leading-relaxed">
+                    Relational PostgreSQL modeling, Row-Level Security (RLS), pgvector embeddings, and Git CI/CD pipelines.
+                  </p>
+                </div>
+
+                <div class="space-y-3 pt-4 border-t border-white/5">
+                  <div class="flex items-center justify-between font-mono text-xs">
+                    <span class="text-zinc-400">Supabase &bull; SQL &bull; Vercel</span>
+                    <span class="text-emerald-400 font-bold">85% Mastery</span>
+                  </div>
+                  <div class="w-full h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+                    <div class="w-[85%] h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full"></div>
+                  </div>
+                  <div class="flex flex-wrap gap-1.5 pt-1 font-mono text-[10px] text-zinc-300">
+                    <span class="px-2 py-0.5 rounded bg-white/5 border border-white/10">pgvector</span>
+                    <span class="px-2 py-0.5 rounded bg-white/5 border border-white/10">RLS</span>
+                    <span class="px-2 py-0.5 rounded bg-white/5 border border-white/10">GitHub CI</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Back Face -->
+              <div class="absolute inset-0 backface-hidden rotate-y-180 rounded-3xl bg-gradient-to-b from-[#14281e] to-[#0c0e16] border border-emerald-400 p-6 flex flex-col justify-between shadow-2xl">
+                <div>
+                  <div class="flex items-center justify-between mb-3 font-mono text-[10px] text-emerald-300">
+                    <span>PRODUCTION REPERTOIRE</span>
+                    <span>FLIPPED ↩</span>
+                  </div>
+                  <h4 class="font-serif text-xl text-white font-semibold">Where I Applied This:</h4>
+                  <ul class="space-y-3 text-xs text-zinc-300 mt-4 font-light">
+                    <li class="flex items-start gap-2">
+                      <i class="fas fa-check-circle text-emerald-400 text-xs mt-0.5"></i>
+                      <span><strong>Supabase Vector Vault:</strong> Embeddings storage &amp; cosine similarity querying.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <i class="fas fa-check-circle text-emerald-400 text-xs mt-0.5"></i>
+                      <span><strong>User Session Store:</strong> Real-time auth &amp; row-level access rules.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <i class="fas fa-check-circle text-emerald-400 text-xs mt-0.5"></i>
+                      <span><strong>Edge Deployment:</strong> GitHub to Vercel/Surge automated builds.</span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="text-[10px] font-mono text-zinc-400 text-center pt-3 border-t border-white/10">
+                  Tap again to flip back
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Carousel Indicator Dots (for mobile touch hint) -->
+        <div class="flex items-center justify-center gap-2 pt-2 sm:hidden">
+          <span class="w-6 h-1.5 rounded-full bg-cyan-400"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-zinc-700"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-zinc-700"></span>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         VARIATION 2: DYNAMIC ISLAND / FLOATING SEGMENTED HUD
+         ══════════════════════════════════════════════════════════════════ -->
+    <section id="tab-v2" class="var-section hidden space-y-6">
+      <div class="text-center space-y-2 max-w-2xl mx-auto">
+        <span class="text-xs font-mono text-amber-400 tracking-widest uppercase">VARIATION 02 / DYNAMIC ISLAND HUD</span>
+        <h2 class="font-serif text-3xl sm:text-4xl text-white font-light">Interactive 1-Tap Telemetry</h2>
+        <p class="text-xs sm:text-sm text-zinc-400 font-light">
+          📱 <strong>Mobile Advantage:</strong> Single high-tech viewport card. Tapping floating pills morphs the card instantly without any page scrolling.
+        </p>
+      </div>
+
+      <!-- Floating Segmented Control -->
+      <div class="flex items-center justify-center p-1.5 bg-[#12151e] border border-white/10 rounded-full max-w-md mx-auto shadow-xl">
+        <button onclick="setHudDomain('frontend')" class="hud-pill active flex-1 py-2 px-3 rounded-full text-xs font-mono font-bold transition-all bg-gradient-to-r from-amber-400 to-yellow-500 text-black shadow-lg" data-hud="frontend">
+          ⚡ Frontend
+        </button>
+        <button onclick="setHudDomain('ai')" class="hud-pill flex-1 py-2 px-3 rounded-full text-xs font-mono text-zinc-400 hover:text-white transition-all" data-hud="ai">
+          🤖 AI Agents
+        </button>
+        <button onclick="setHudDomain('backend')" class="hud-pill flex-1 py-2 px-3 rounded-full text-xs font-mono text-zinc-400 hover:text-white transition-all" data-hud="backend">
+          🗄️ Database
+        </button>
+      </div>
+
+      <!-- Morphing Telemetry Showcase Box -->
+      <div class="bg-gradient-to-b from-[#131622] to-[#0a0c10] border border-amber-500/30 rounded-3xl p-6 sm:p-8 max-w-3xl mx-auto shadow-2xl relative overflow-hidden">
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/10 pb-4 mb-6 gap-2 font-mono text-xs">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping"></span>
+            <span id="hud-status" class="text-amber-300 font-bold">MODULE: FRONTEND ARCHITECTURE</span>
+          </div>
+          <span class="text-zinc-500 font-mono">SPEC: VERIFIED PRODUCTION CODE</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+          <div class="space-y-4">
+            <h3 id="hud-title" class="font-serif text-3xl text-white">Next.js 15 &bull; React 19 Ecosystem</h3>
+            <p id="hud-desc" class="text-xs text-zinc-400 font-light leading-relaxed">
+              Engineering full-bleed responsive viewports, custom cursor shaders, modular React primitives, and Framer Motion spring micro-physics.
+            </p>
+            <div class="flex flex-wrap gap-2 pt-1 font-mono text-xs" id="hud-chips">
+              <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-zinc-300">TypeScript</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-zinc-300">Tailwind CSS</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-zinc-300">Three.js</span>
+            </div>
+          </div>
+
+          <div class="bg-black/50 border border-white/10 rounded-2xl p-5 space-y-4 font-mono text-xs">
+            <div class="flex justify-between items-center text-zinc-400">
+              <span>Proficiency Index</span>
+              <span id="hud-pct" class="text-amber-400 font-bold text-sm">92%</span>
+            </div>
+            <div class="w-full h-2 bg-zinc-800 rounded-full overflow-hidden">
+              <div id="hud-bar" class="w-[92%] h-full bg-gradient-to-r from-amber-400 to-yellow-500 rounded-full transition-all duration-500"></div>
+            </div>
+
+            <div class="space-y-2 pt-2 border-t border-white/5 text-[11px] text-zinc-400" id="hud-metrics">
+              <div class="flex justify-between"><span>SSR Hydration:</span> <span class="text-white">&lt; 120ms</span></div>
+              <div class="flex justify-between"><span>Render Rate:</span> <span class="text-white">60 FPS Native</span></div>
+              <div class="flex justify-between"><span>Accessibility:</span> <span class="text-emerald-400">WCAG AA Standard</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         VARIATION 3: INFINITE KINETIC TECH MARQUEE (MAGIC UI PRO)
+         ══════════════════════════════════════════════════════════════════ -->
+    <section id="tab-v3" class="var-section hidden space-y-6">
+      <div class="text-center space-y-2 max-w-2xl mx-auto">
+        <span class="text-xs font-mono text-purple-400 tracking-widest uppercase">VARIATION 03 / CONTINUOUS TICKER</span>
+        <h2 class="font-serif text-3xl sm:text-4xl text-white font-light">Kinetic Tech Marquee</h2>
+        <p class="text-xs sm:text-sm text-zinc-400 font-light">
+          📱 <strong>Mobile Advantage:</strong> Ultra-dynamic motion that never stops. Tap any floating badge to pause and inspect live repository stats.
+        </p>
+      </div>
+
+      <!-- Marquee Wrapper -->
+      <div class="bg-gradient-to-b from-[#14101e] to-[#08090d] border border-purple-500/20 rounded-3xl p-6 sm:p-10 space-y-6 overflow-hidden shadow-2xl relative">
+        
+        <!-- Row 1: Leftward Float -->
+        <div class="relative overflow-hidden py-1">
+          <div class="animate-marquee-left flex gap-4">
+            <div onclick="inspectChip('Next.js 15 App Router', '92%', 'Server components, nested layouts, SSR streaming.')" class="cursor-pointer px-5 py-3 rounded-2xl bg-white/5 hover:bg-purple-500/20 border border-white/10 hover:border-purple-400 flex items-center gap-3 font-mono text-xs shrink-0 transition-all">
+              <i class="fab fa-react text-cyan-400 text-lg"></i>
+              <span class="text-white font-bold">Next.js 15</span>
+              <span class="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 text-[10px]">92%</span>
+            </div>
+            <div onclick="inspectChip('Python 3 Automation', '85%', 'API integrations, text processing, AI webhooks.')" class="cursor-pointer px-5 py-3 rounded-2xl bg-white/5 hover:bg-purple-500/20 border border-white/10 hover:border-purple-400 flex items-center gap-3 font-mono text-xs shrink-0 transition-all">
+              <i class="fab fa-python text-amber-400 text-lg"></i>
+              <span class="text-white font-bold">Python 3</span>
+              <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px]">85%</span>
+            </div>
+            <div onclick="inspectChip('OpenAI GPT-4o API', '88%', 'Retrieval-Augmented Generation, embeddings, prompt tuning.')" class="cursor-pointer px-5 py-3 rounded-2xl bg-white/5 hover:bg-purple-500/20 border border-white/10 hover:border-purple-400 flex items-center gap-3 font-mono text-xs shrink-0 transition-all">
+              <i class="fas fa-brain text-purple-400 text-lg"></i>
+              <span class="text-white font-bold">OpenAI SDK</span>
+              <span class="px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 text-[10px]">88%</span>
+            </div>
+            <div onclick="inspectChip('Tailwind CSS', '95%', 'Modern responsive layouts, dark theme tokens, glassmorphism.')" class="cursor-pointer px-5 py-3 rounded-2xl bg-white/5 hover:bg-purple-500/20 border border-white/10 hover:border-purple-400 flex items-center gap-3 font-mono text-xs shrink-0 transition-all">
+              <i class="fab fa-css3-alt text-blue-400 text-lg"></i>
+              <span class="text-white font-bold">Tailwind CSS</span>
+              <span class="px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 text-[10px]">95%</span>
+            </div>
+            <!-- Duplicate for infinite smooth loop -->
+            <div onclick="inspectChip('Next.js 15 App Router', '92%', 'Server components, nested layouts, SSR streaming.')" class="cursor-pointer px-5 py-3 rounded-2xl bg-white/5 hover:bg-purple-500/20 border border-white/10 hover:border-purple-400 flex items-center gap-3 font-mono text-xs shrink-0 transition-all">
+              <i class="fab fa-react text-cyan-400 text-lg"></i>
+              <span class="text-white font-bold">Next.js 15</span>
+              <span class="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 text-[10px]">92%</span>
+            </div>
+            <div onclick="inspectChip('Python 3 Automation', '85%', 'API integrations, text processing, AI webhooks.')" class="cursor-pointer px-5 py-3 rounded-2xl bg-white/5 hover:bg-purple-500/20 border border-white/10 hover:border-purple-400 flex items-center gap-3 font-mono text-xs shrink-0 transition-all">
+              <i class="fab fa-python text-amber-400 text-lg"></i>
+              <span class="text-white font-bold">Python 3</span>
+              <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px]">85%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2: Rightward Float -->
+        <div class="relative overflow-hidden py-1">
+          <div class="animate-marquee-right flex gap-4">
+            <div onclick="inspectChip('Supabase & PostgreSQL', '82%', 'Relational modeling, Row Level Security, pgvector.')" class="cursor-pointer px-5 py-3 rounded-2xl bg-white/5 hover:bg-emerald-500/20 border border-white/10 hover:border-emerald-400 flex items-center gap-3 font-mono text-xs shrink-0 transition-all">
+              <i class="fas fa-database text-emerald-400 text-lg"></i>
+              <span class="text-white font-bold">Supabase PostgreSQL</span>
+              <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px]">82%</span>
+            </div>
+            <div onclick="inspectChip('Three.js 3D Canvas', '80%', 'Interactive raycasting, particle clouds, orbital math.')" class="cursor-pointer px-5 py-3 rounded-2xl bg-white/5 hover:bg-emerald-500/20 border border-white/10 hover:border-emerald-400 flex items-center gap-3 font-mono text-xs shrink-0 transition-all">
+              <i class="fas fa-cube text-indigo-400 text-lg"></i>
+              <span class="text-white font-bold">Three.js WebGL</span>
+              <span class="px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 text-[10px]">80%</span>
+            </div>
+            <div onclick="inspectChip('Git & GitHub DevOps', '88%', 'Branching, PR reviews, CI/CD automated deployments.')" class="cursor-pointer px-5 py-3 rounded-2xl bg-white/5 hover:bg-emerald-500/20 border border-white/10 hover:border-emerald-400 flex items-center gap-3 font-mono text-xs shrink-0 transition-all">
+              <i class="fab fa-github text-white text-lg"></i>
+              <span class="text-white font-bold">Git &amp; GitHub</span>
+              <span class="px-2 py-0.5 rounded bg-zinc-500/20 text-zinc-300 text-[10px]">88%</span>
+            </div>
+            <div onclick="inspectChip('JavaScript ES6+', '88%', 'Async/await, DOM engine, closures, fetch pipelines.')" class="cursor-pointer px-5 py-3 rounded-2xl bg-white/5 hover:bg-emerald-500/20 border border-white/10 hover:border-emerald-400 flex items-center gap-3 font-mono text-xs shrink-0 transition-all">
+              <i class="fab fa-js text-yellow-400 text-lg"></i>
+              <span class="text-white font-bold">JavaScript ES6+</span>
+              <span class="px-2 py-0.5 rounded bg-yellow-500/20 text-yellow-300 text-[10px]">88%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Chip Info Bottom Toast -->
+        <div id="marquee-inspect-card" class="bg-black/60 border border-white/15 rounded-2xl p-4 font-mono text-xs flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
+            <span id="inspect-title" class="text-white font-bold">Tap any moving chip to inspect benchmark dossier</span>
+          </div>
+          <span id="inspect-score" class="text-purple-400 font-bold">HOVER / TAP</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         VARIATION 4: IOS STACKED WALLET DECK
+         ══════════════════════════════════════════════════════════════════ -->
+    <section id="tab-v4" class="var-section hidden space-y-6">
+      <div class="text-center space-y-2 max-w-2xl mx-auto">
+        <span class="text-xs font-mono text-emerald-400 tracking-widest uppercase">VARIATION 04 / APPLE WALLET DECK</span>
+        <h2 class="font-serif text-3xl sm:text-4xl text-white font-light">Stacked Pass Deck</h2>
+        <p class="text-xs sm:text-sm text-zinc-400 font-light">
+          📱 <strong>Mobile Advantage:</strong> Native iOS pass interaction. Tapping a card pulls it to the front with smooth spring physics.
+        </p>
+      </div>
+
+      <!-- 3D Stack Container -->
+      <div class="relative h-[480px] max-w-lg mx-auto pt-6 px-4">
+        
+        <!-- Pass 1: Frontend -->
+        <div id="deck-0" onclick="bringDeckToFront(0)" class="deck-card active absolute inset-x-4 h-[360px] rounded-3xl bg-gradient-to-b from-[#1a2333] to-[#0c1017] border border-cyan-400/40 p-6 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center text-xs font-mono text-cyan-300 mb-3">
+              <span>PASS 01 / STACK</span>
+              <span class="px-2 py-0.5 rounded bg-cyan-400 text-black font-bold text-[10px]">ACTIVE FRONT</span>
+            </div>
+            <h3 class="font-serif text-3xl text-white">Frontend &amp; Next.js</h3>
+            <p class="text-xs text-zinc-300 font-light mt-2">Next.js 15, React 19, Three.js 3D engines, Tailwind responsive CSS.</p>
+          </div>
+          <div class="space-y-2 pt-4 border-t border-white/10 font-mono text-xs">
+            <div class="flex justify-between text-zinc-400"><span>Architecture Score:</span> <span class="text-cyan-400 font-bold">92%</span></div>
+            <div class="flex justify-between text-zinc-400"><span>Live Builds:</span> <span class="text-white">AURA Atelier &bull; Nova Dental</span></div>
+          </div>
+        </div>
+
+        <!-- Pass 2: AI & Python -->
+        <div id="deck-1" onclick="bringDeckToFront(1)" class="deck-card inactive-1 absolute inset-x-4 h-[360px] rounded-3xl bg-gradient-to-b from-[#26163b] to-[#0d0a14] border border-purple-400/40 p-6 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center text-xs font-mono text-purple-300 mb-3">
+              <span>PASS 02 / STACK</span>
+              <span class="text-[10px] text-zinc-400">TAP TO EXPAND</span>
+            </div>
+            <h3 class="font-serif text-3xl text-white">AI Agents &amp; Python</h3>
+            <p class="text-xs text-zinc-300 font-light mt-2">OpenAI GPT-4o, RAG Vector Search, Document Chunking, n8n automation.</p>
+          </div>
+          <div class="space-y-2 pt-4 border-t border-white/10 font-mono text-xs">
+            <div class="flex justify-between text-zinc-400"><span>AI Pipeline Score:</span> <span class="text-purple-400 font-bold">88%</span></div>
+            <div class="flex justify-between text-zinc-400"><span>Live Builds:</span> <span class="text-white">AutoDoc AI &bull; Research Agent</span></div>
+          </div>
+        </div>
+
+        <!-- Pass 3: Database & Cloud -->
+        <div id="deck-2" onclick="bringDeckToFront(2)" class="deck-card inactive-2 absolute inset-x-4 h-[360px] rounded-3xl bg-gradient-to-b from-[#13261c] to-[#0a120d] border border-emerald-400/40 p-6 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center text-xs font-mono text-emerald-300 mb-3">
+              <span>PASS 03 / STACK</span>
+              <span class="text-[10px] text-zinc-400">TAP TO EXPAND</span>
+            </div>
+            <h3 class="font-serif text-3xl text-white">Supabase &amp; Cloud</h3>
+            <p class="text-xs text-zinc-300 font-light mt-2">PostgreSQL schema, Row Level Security, pgvector embeddings, Git DevOps.</p>
+          </div>
+          <div class="space-y-2 pt-4 border-t border-white/10 font-mono text-xs">
+            <div class="flex justify-between text-zinc-400"><span>Database Score:</span> <span class="text-emerald-400 font-bold">85%</span></div>
+            <div class="flex justify-between text-zinc-400"><span>Live Builds:</span> <span class="text-white">Vector Storage &bull; Vercel CI</span></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         VARIATION 5: LINEAR CYBER SPEC MATRIX
+         ══════════════════════════════════════════════════════════════════ -->
+    <section id="tab-v5" class="var-section hidden space-y-6">
+      <div class="text-center space-y-2 max-w-2xl mx-auto">
+        <span class="text-xs font-mono text-cyan-400 tracking-widest uppercase">VARIATION 05 / LINEAR SPEC MATRIX</span>
+        <h2 class="font-serif text-3xl sm:text-4xl text-white font-light">Linear Cyber Spec Rows</h2>
+        <p class="text-xs sm:text-sm text-zinc-400 font-light">
+          📱 <strong>Mobile Advantage:</strong> Crisp, high-contrast linear telemetry with glowing micro-meters and live verification badges.
+        </p>
+      </div>
+
+      <div class="bg-[#0b0d13] border border-white/10 rounded-3xl p-6 sm:p-8 space-y-4 max-w-3xl mx-auto shadow-2xl">
+        
+        <!-- Row 1 -->
+        <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-cyan-400/40 transition-all space-y-2">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <i class="fab fa-react text-cyan-400 text-lg"></i>
+              <span class="text-sm font-semibold text-white">Next.js 15 &amp; React 19</span>
+            </div>
+            <div class="flex items-center gap-2 font-mono text-xs">
+              <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] hidden sm:inline">PRODUCTION READY</span>
+              <span class="text-cyan-400 font-bold">92%</span>
+            </div>
+          </div>
+          <div class="w-full h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+            <div class="w-[92%] h-full bg-cyan-400 rounded-full"></div>
+          </div>
+          <div class="text-[11px] font-mono text-zinc-400 flex justify-between pt-1">
+            <span>Server Components &bull; SSR Hydration</span>
+            <span>Used in AURA &amp; Nova</span>
+          </div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-purple-400/40 transition-all space-y-2">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <i class="fas fa-brain text-purple-400 text-lg"></i>
+              <span class="text-sm font-semibold text-white">AI APIs &amp; Python Agents</span>
+            </div>
+            <div class="flex items-center gap-2 font-mono text-xs">
+              <span class="px-2 py-0.5 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20 text-[10px] hidden sm:inline">RAG PIPELINES</span>
+              <span class="text-purple-400 font-bold">88%</span>
+            </div>
+          </div>
+          <div class="w-full h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+            <div class="w-[88%] h-full bg-purple-400 rounded-full"></div>
+          </div>
+          <div class="text-[11px] font-mono text-zinc-400 flex justify-between pt-1">
+            <span>OpenAI GPT-4o &bull; Vector Embeddings</span>
+            <span>Used in AutoDoc AI</span>
+          </div>
+        </div>
+
+        <!-- Row 3 -->
+        <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-emerald-400/40 transition-all space-y-2">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <i class="fas fa-database text-emerald-400 text-lg"></i>
+              <span class="text-sm font-semibold text-white">Supabase &amp; PostgreSQL</span>
+            </div>
+            <div class="flex items-center gap-2 font-mono text-xs">
+              <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] hidden sm:inline">VECTOR STORAGE</span>
+              <span class="text-emerald-400 font-bold">85%</span>
+            </div>
+          </div>
+          <div class="w-full h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+            <div class="w-[85%] h-full bg-emerald-400 rounded-full"></div>
+          </div>
+          <div class="text-[11px] font-mono text-zinc-400 flex justify-between pt-1">
+            <span>pgvector &bull; Row Level Security (RLS)</span>
+            <span>Cloud Database</span>
+          </div>
+        </div>
+
+        <!-- Row 4 -->
+        <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-amber-400/40 transition-all space-y-2">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <i class="fab fa-js text-yellow-400 text-lg"></i>
+              <span class="text-sm font-semibold text-white">JavaScript ES6+ &amp; WebGL Canvas</span>
+            </div>
+            <div class="flex items-center gap-2 font-mono text-xs">
+              <span class="px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 text-[10px] hidden sm:inline">60FPS ENGINE</span>
+              <span class="text-yellow-400 font-bold">88%</span>
+            </div>
+          </div>
+          <div class="w-full h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+            <div class="w-[88%] h-full bg-yellow-400 rounded-full"></div>
+          </div>
+          <div class="text-[11px] font-mono text-zinc-400 flex justify-between pt-1">
+            <span>Async Loop &bull; Three.js 3D Particles</span>
+            <span>Interactive Shaders</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-xs font-mono text-zinc-500 py-12 max-w-6xl mx-auto border-t border-white/10 mt-12">
+    <span>Skills Lab &bull; Created for Manish Kumar Soni Portfolio Optimization</span>
+  </footer>
+
+  <script>
+    // Tab Switcher
+    function switchTab(tabId) {
+      document.querySelectorAll('.var-section').forEach(sec => sec.classList.add('hidden'));
+      document.querySelectorAll('.var-btn').forEach(btn => {
+        btn.classList.remove('active', 'bg-cyan-400', 'text-black', 'shadow-lg');
+        btn.classList.add('text-zinc-400');
+      });
+
+      const activeSec = document.getElementById(tabId);
+      if (activeSec) activeSec.classList.remove('hidden');
+
+      if (event && event.currentTarget) {
+        event.currentTarget.classList.add('active', 'bg-cyan-400', 'text-black', 'shadow-lg');
+        event.currentTarget.classList.remove('text-zinc-400');
+      }
+    }
+
+    // 1. 3D Card Flip on Touch/Click
+    function toggleCardFlip(cardInner) {
+      cardInner.classList.toggle('flipped');
+    }
+
+    // 2. Dynamic Island HUD Switcher
+    const hudData = {
+      frontend: {
+        status: "MODULE: FRONTEND ARCHITECTURE",
+        title: "Next.js 15 &bull; React 19 Ecosystem",
+        desc: "Engineering full-bleed responsive viewports, custom cursor shaders, modular React primitives, and Framer Motion spring micro-physics.",
+        pct: "92%",
+        width: "92%",
+        chips: ["TypeScript", "Tailwind CSS", "Three.js"],
+        metrics: [
+          { l: "SSR Hydration:", v: "< 120ms", c: "text-white" },
+          { l: "Render Rate:", v: "60 FPS Native", c: "text-white" },
+          { l: "Accessibility:", v: "WCAG AA Standard", c: "text-emerald-400" }
+        ]
+      },
+      ai: {
+        status: "MODULE: AI INTELLIGENCE & AGENTS",
+        title: "Python 3 &bull; OpenAI GPT-4o SDK",
+        desc: "Constructing multi-stage Retrieval-Augmented Generation (RAG) pipelines, context-compression document parsers, and automated web research workflows.",
+        pct: "88%",
+        width: "88%",
+        chips: ["GPT-4o", "FastAPI", "n8n Webhooks", "LangChain"],
+        metrics: [
+          { l: "Embedding Latency:", v: "< 85ms", c: "text-white" },
+          { l: "Context Retrieval:", v: "Top-K Cosine Match", c: "text-purple-400" },
+          { l: "Agent Execution:", v: "Autonomous Loop", c: "text-white" }
+        ]
+      },
+      backend: {
+        status: "MODULE: CLOUD & DATABASE PERSISTENCE",
+        title: "Supabase &bull; PostgreSQL &bull; pgvector",
+        desc: "Architecting scalable relational database schemas, Row-Level Security (RLS) policies, cosine vector indexing, and automated Git continuous integration.",
+        pct: "85%",
+        width: "85%",
+        chips: ["PostgreSQL", "pgvector", "Git CI/CD", "Vercel"],
+        metrics: [
+          { l: "Query Performance:", v: "Indexed B-Tree", c: "text-white" },
+          { l: "Vector Dimension:", v: "1536-dim Embeddings", c: "text-emerald-400" },
+          { l: "Deployment Pipeline:", v: "Zero-Downtime Edge", c: "text-white" }
+        ]
+      }
+    };
+
+    function setHudDomain(domain) {
+      document.querySelectorAll('.hud-pill').forEach(btn => {
+        if (btn.dataset.hud === domain) {
+          btn.className = 'hud-pill active flex-1 py-2 px-3 rounded-full text-xs font-mono font-bold transition-all bg-gradient-to-r from-amber-400 to-yellow-500 text-black shadow-lg';
+        } else {
+          btn.className = 'hud-pill flex-1 py-2 px-3 rounded-full text-xs font-mono text-zinc-400 hover:text-white transition-all';
+        }
+      });
+
+      const d = hudData[domain];
+      document.getElementById('hud-status').textContent = d.status;
+      document.getElementById('hud-title').innerHTML = d.title;
+      document.getElementById('hud-desc').textContent = d.desc;
+      document.getElementById('hud-pct').textContent = d.pct;
+      document.getElementById('hud-bar').style.width = d.width;
+      document.getElementById('hud-chips').innerHTML = d.chips.map(c => `<span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-zinc-300">${c}</span>`).join('');
+      document.getElementById('hud-metrics').innerHTML = d.metrics.map(m => `<div class="flex justify-between"><span>${m.l}</span> <span class="${m.c}">${m.v}</span></div>`).join('');
+    }
+
+    // 3. Marquee Chip Inspector
+    function inspectChip(name, score, desc) {
+      document.getElementById('inspect-title').textContent = `${name}: ${desc}`;
+      document.getElementById('inspect-score').textContent = `PROFICIENCY: ${score}`;
+    }
+
+    // 4. Apple Wallet Stack Interaction
+    let currentDeckFront = 0;
+    function bringDeckToFront(index) {
+      const cards = [document.getElementById('deck-0'), document.getElementById('deck-1'), document.getElementById('deck-2')];
+      
+      cards.forEach((card, i) => {
+        card.className = 'deck-card absolute inset-x-4 h-[360px] rounded-3xl p-6 flex flex-col justify-between transition-all duration-500';
+        
+        if (i === index) {
+          card.classList.add('active');
+          if (i === 0) card.classList.add('bg-gradient-to-b', 'from-[#1a2333]', 'to-[#0c1017]', 'border-cyan-400/50');
+          if (i === 1) card.classList.add('bg-gradient-to-b', 'from-[#26163b]', 'to-[#0d0a14]', 'border-purple-400/50');
+          if (i === 2) card.classList.add('bg-gradient-to-b', 'from-[#13261c]', 'to-[#0a120d]', 'border-emerald-400/50');
+        } else if ((i + 1) % 3 === index) {
+          card.classList.add('inactive-1');
+          if (i === 0) card.classList.add('bg-gradient-to-b', 'from-[#1a2333]', 'to-[#0c1017]', 'border-cyan-400/20');
+          if (i === 1) card.classList.add('bg-gradient-to-b', 'from-[#26163b]', 'to-[#0d0a14]', 'border-purple-400/20');
+          if (i === 2) card.classList.add('bg-gradient-to-b', 'from-[#13261c]', 'to-[#0a120d]', 'border-emerald-400/20');
+        } else {
+          card.classList.add('inactive-2');
+          if (i === 0) card.classList.add('bg-gradient-to-b', 'from-[#1a2333]', 'to-[#0c1017]', 'border-cyan-400/10');
+          if (i === 1) card.classList.add('bg-gradient-to-b', 'from-[#26163b]', 'to-[#0d0a14]', 'border-purple-400/10');
+          if (i === 2) card.classList.add('bg-gradient-to-b', 'from-[#13261c]', 'to-[#0a120d]', 'border-emerald-400/10');
+        }
+      });
+    }
+  </script>
+</body>
+</html>

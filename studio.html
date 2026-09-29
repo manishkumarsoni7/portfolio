@@ -1,0 +1,1873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manish Kumar Soni — Creative Web Architect & AI Builder | Studio Edition</title>
+    
+    <!-- Premium Fonts: Syne, Space Grotesk, Cormorant Garamond, JetBrains Mono, Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome 6 Pro-Style Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Three.js for 3D Interactive Canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        /* ═══════════════════════════════════════════════════════════════════
+           CSS RESET & LUXURY ARCHITECTURAL DESIGN SYSTEM
+           Inspired by: Fractiona, ChainGPT, Alex 3D, SpaceEdu, Unlumen & Magic UI
+        ═══════════════════════════════════════════════════════════════════ */
+        :root {
+            --bg-base: #060608;
+            --bg-surface: #0b0c10;
+            --bg-card: rgba(14, 15, 20, 0.75);
+            --bg-glass: rgba(255, 255, 255, 0.025);
+            --border-subtle: rgba(255, 255, 255, 0.07);
+            --border-hover: rgba(255, 255, 255, 0.22);
+            --border-glow: rgba(229, 169, 60, 0.35);
+            
+            --gold-primary: #E5A93C;
+            --gold-bright: #FFD479;
+            --gold-dim: #9E7422;
+            --gold-glow: rgba(229, 169, 60, 0.15);
+            
+            --cyan-accent: #00f2fe;
+            --cyan-glow: rgba(0, 242, 254, 0.2);
+            --purple-accent: #b05cf8;
+            --purple-glow: rgba(176, 92, 248, 0.2);
+            
+            --text-primary: #F4F4F6;
+            --text-secondary: #9496A1;
+            --text-muted: #5C5E6B;
+            
+            --font-display: 'Syne', sans-serif;
+            --font-serif: 'Cormorant Garamond', Georgia, serif;
+            --font-sans: 'Inter', sans-serif;
+            --font-tech: 'Space Grotesk', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 22px;
+            --radius-full: 9999px;
+            
+            --spring: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            font-size: 16px;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            position: relative;
+            background: var(--bg-base);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        ::selection {
+            background: var(--gold-primary);
+            color: #000;
+        }
+
+        /* ═══ ARCHITECTURAL CROSSHAIR & GRID BACKGROUND ═══ */
+        .grid-backdrop {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background-size: 80px 80px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        }
+
+        .ambient-radial-glow {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background: 
+                radial-gradient(circle at 50% 15%, rgba(229, 169, 60, 0.07) 0%, transparent 60%),
+                radial-gradient(circle at 85% 60%, rgba(176, 92, 248, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 15% 85%, rgba(0, 242, 254, 0.04) 0%, transparent 50%);
+        }
+
+        /* ═══ 3D WEBGL CONTAINER ═══ */
+        #hero-3d-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* ═══ MOUSE CURSOR & SPOTLIGHT ═══ */
+        .cursor-dot {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 8px;
+            background: var(--gold-primary);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease-out, opacity 0.3s;
+        }
+
+        .cursor-aura {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 38px;
+            height: 38px;
+            border: 1px solid rgba(229, 169, 60, 0.4);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: transform 0.22s var(--spring), width 0.3s, height 0.3s, border-color 0.3s;
+        }
+
+        .cursor-active .cursor-aura {
+            width: 56px;
+            height: 56px;
+            border-color: var(--gold-primary);
+            background: rgba(229, 169, 60, 0.08);
+        }
+
+        /* ═══ TOP FLOATING LUXURY NAVBAR ═══ */
+        .studio-nav-wrapper {
+            position: fixed;
+            top: 24px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            z-index: 100;
+            padding: 0 24px;
+        }
+
+        .studio-navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 32px;
+            background: rgba(12, 13, 18, 0.82);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-full);
+            padding: 8px 12px 8px 24px;
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+            max-width: 960px;
+            width: 100%;
+            transition: all 0.4s var(--spring);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 1.15rem;
+            letter-spacing: -0.5px;
+            color: #fff;
+        }
+
+        .nav-logo-mark {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--gold-primary), #63430c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: #000;
+            font-weight: 900;
+            font-family: var(--font-mono);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            list-style: none;
+        }
+
+        .nav-link-item a {
+            position: relative;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 500;
+            font-family: var(--font-tech);
+            letter-spacing: 0.3px;
+            padding: 8px 14px;
+            border-radius: var(--radius-full);
+            transition: all 0.25s ease;
+        }
+
+        .nav-link-item a:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-link-item a.active {
+            color: #fff;
+            background: rgba(229, 169, 60, 0.12);
+            border: 1px solid rgba(229, 169, 60, 0.25);
+        }
+
+        .nav-cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #fff;
+            color: #000;
+            text-decoration: none;
+            font-family: var(--font-tech);
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 10px 20px;
+            border-radius: var(--radius-full);
+            transition: all 0.3s var(--spring);
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15);
+            border: none;
+            cursor: pointer;
+        }
+
+        .nav-cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(229, 169, 60, 0.35);
+            background: var(--gold-primary);
+        }
+
+        /* ═══ SECTION CONTAINER ═══ */
+        .studio-container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ═══ HERO MONOLITH ═══ */
+        .hero-monolith {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: 140px;
+            padding-bottom: 80px;
+            position: relative;
+        }
+
+        .hero-crosshair-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid rgba(229, 169, 60, 0.3);
+            background: rgba(229, 169, 60, 0.05);
+            backdrop-filter: blur(12px);
+            padding: 6px 16px;
+            border-radius: var(--radius-full);
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--gold-bright);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 28px;
+            width: fit-content;
+        }
+
+        .status-dot-pulse {
+            width: 7px;
+            height: 7px;
+            background: var(--gold-primary);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--gold-primary);
+            animation: pulseGlow 2s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.85); }
+        }
+
+        .hero-main-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.8rem, 7.5vw, 6.2rem);
+            font-weight: 800;
+            line-height: 0.95;
+            letter-spacing: -2px;
+            color: #fff;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+        }
+
+        .hero-main-title .gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, var(--gold-bright) 50%, var(--gold-primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-style: normal;
+        }
+
+        .hero-main-title .serif-italic {
+            font-family: var(--font-serif);
+            font-weight: 400;
+            font-style: italic;
+            text-transform: none;
+            letter-spacing: 0;
+            color: rgba(255, 255, 255, 0.85);
+            -webkit-text-fill-color: initial;
+        }
+
+        .hero-subparagraph {
+            max-width: 640px;
+            font-size: 1.15rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        .hero-actions-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 60px;
+        }
+
+        .btn-monolith {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, var(--gold-primary) 0%, #B8801C 100%);
+            color: #000;
+            font-family: var(--font-tech);
+            font-size: 0.95rem;
+            font-weight: 700;
+            padding: 16px 32px;
+            border-radius: var(--radius-full);
+            text-decoration: none;
+            transition: all 0.35s var(--spring);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(229, 169, 60, 0.3);
+            cursor: pointer;
+        }
+
+        .btn-monolith:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(229, 169, 60, 0.45);
+            background: linear-gradient(135deg, #FFD479 0%, var(--gold-primary) 100%);
+        }
+
+        .btn-glass-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            color: #fff;
+            font-family: var(--font-tech);
+            font-size: 0.95rem;
+            font-weight: 600;
+            padding: 16px 28px;
+            border-radius: var(--radius-full);
+            text-decoration: none;
+            border: 1px solid var(--border-subtle);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .btn-glass-secondary:hover {
+            border-color: var(--border-hover);
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+        }
+
+        /* ═══ TELEMETRY HUD BAR (Fractiona / SpaceEdu Style) ═══ */
+        .telemetry-hud-strip {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 24px 0;
+            margin-top: auto;
+        }
+
+        .hud-cell {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            position: relative;
+            padding: 0 16px;
+            border-left: 1px solid var(--border-subtle);
+        }
+
+        .hud-cell:first-child {
+            border-left: none;
+            padding-left: 0;
+        }
+
+        .hud-metric {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #fff;
+            line-height: 1;
+        }
+
+        .hud-metric span {
+            color: var(--gold-primary);
+            font-size: 1.4rem;
+        }
+
+        .hud-label {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* ═══ SECTION HEADERS ═══ */
+        .section-header-block {
+            margin-bottom: 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .section-tagline {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--gold-primary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .section-tagline::before {
+            content: "+";
+            font-size: 1rem;
+            color: var(--gold-bright);
+        }
+
+        .section-headline {
+            font-family: var(--font-display);
+            font-size: clamp(2.2rem, 4vw, 3.4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -1px;
+            color: #fff;
+        }
+
+        .section-headline em {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-weight: 400;
+            color: var(--gold-bright);
+        }
+
+        /* ═══ CAPABILITIES BENTO STUDIO (ChainGPT + Magic UI Bento) ═══ */
+        .bento-studio-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            margin-bottom: 120px;
+        }
+
+        .bento-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s var(--spring);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .bento-card:hover {
+            border-color: var(--border-glow);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.8), 0 0 30px rgba(229, 169, 60, 0.08);
+        }
+
+        .bento-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.03), transparent);
+            pointer-events: none;
+            transition: 0.7s;
+        }
+
+        .bento-card:hover::before {
+            left: 100%;
+        }
+
+        .col-span-8 { grid-column: span 8; }
+        .col-span-4 { grid-column: span 4; }
+        .col-span-6 { grid-column: span 6; }
+        .col-span-12 { grid-column: span 12; }
+
+        .bento-corner-tag {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .bento-icon-box {
+            width: 52px;
+            height: 52px;
+            border-radius: var(--radius-md);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin-bottom: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .bento-card:hover .bento-icon-box {
+            border-color: var(--gold-primary);
+            background: rgba(229, 169, 60, 0.1);
+            color: var(--gold-bright);
+        }
+
+        .bento-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .bento-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+
+        /* Interactive SSR Visualizer inside Bento 1 */
+        .ssr-interactive-stage {
+            background: rgba(6, 7, 10, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-md);
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .ssr-stage-tabs {
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding-bottom: 12px;
+        }
+
+        .ssr-tab-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .ssr-tab-btn.active {
+            color: var(--cyan-accent);
+            background: rgba(0, 242, 254, 0.1);
+            border-color: rgba(0, 242, 254, 0.3);
+        }
+
+        .ssr-code-view {
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            color: #d1d5db;
+            line-height: 1.5;
+        }
+
+        .token-kwd { color: #f43f5e; }
+        .token-fn { color: #38bdf8; }
+        .token-str { color: #a3e635; }
+        .token-attr { color: #fbbf24; }
+
+        /* Interactive AI Terminal inside Bento 2 */
+        .ai-terminal-box {
+            background: #000;
+            border: 1px solid rgba(176, 92, 248, 0.3);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+        }
+
+        .ai-term-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--purple-accent);
+        }
+
+        .ai-term-body {
+            color: #a78bfa;
+            line-height: 1.6;
+        }
+
+        .ai-prompt-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            padding: 8px 12px;
+            color: #fff;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            margin-top: 10px;
+            outline: none;
+        }
+
+        .ai-prompt-input:focus {
+            border-color: var(--purple-accent);
+        }
+
+        /* ═══ INTERACTIVE ACCORDION / SHOWCASE WORKS (Alex 3D & Fractiona) ═══ */
+        .showcase-monolith-wrap {
+            margin-bottom: 140px;
+        }
+
+        .project-accordion-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .project-accordion-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: all 0.4s var(--spring);
+            cursor: pointer;
+        }
+
+        .project-accordion-item:hover, .project-accordion-item.is-expanded {
+            border-color: var(--border-glow);
+            background: rgba(18, 19, 26, 0.95);
+        }
+
+        .accordion-trigger-row {
+            display: grid;
+            grid-template-columns: 80px 1.5fr 1fr 180px 40px;
+            align-items: center;
+            padding: 28px 36px;
+            gap: 20px;
+        }
+
+        .proj-num {
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .proj-name-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .proj-name {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.5px;
+        }
+
+        .proj-subtag {
+            font-family: var(--font-tech);
+            font-size: 0.85rem;
+            color: var(--gold-bright);
+        }
+
+        .proj-tech-stack {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tech-pill {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-subtle);
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+        }
+
+        .proj-action-tag {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: #000;
+            background: var(--gold-primary);
+            font-weight: 700;
+            padding: 8px 16px;
+            border-radius: var(--radius-full);
+            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .proj-action-tag:hover {
+            background: #fff;
+            transform: scale(1.05);
+        }
+
+        .accordion-arrow {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            transition: transform 0.4s var(--spring);
+            text-align: right;
+        }
+
+        .project-accordion-item.is-expanded .accordion-arrow {
+            transform: rotate(90deg);
+            color: var(--gold-primary);
+        }
+
+        .accordion-drawer-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s var(--spring), padding 0.5s var(--spring);
+            border-top: 0 solid var(--border-subtle);
+            background: rgba(8, 9, 13, 0.6);
+        }
+
+        .project-accordion-item.is-expanded .accordion-drawer-content {
+            max-height: 520px;
+            padding: 32px 36px 36px 36px;
+            border-top-width: 1px;
+        }
+
+        .drawer-inner-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .drawer-preview-box {
+            position: relative;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border-subtle);
+            aspect-ratio: 16/9;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .drawer-preview-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s var(--spring);
+        }
+
+        .project-accordion-item:hover .drawer-preview-box img {
+            transform: scale(1.04);
+        }
+
+        .drawer-info-pane {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .drawer-summary {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .drawer-features-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .drawer-features-list li {
+            font-family: var(--font-tech);
+            font-size: 0.9rem;
+            color: #d1d5db;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .drawer-features-list li i {
+            color: var(--gold-primary);
+            font-size: 0.8rem;
+        }
+
+        .drawer-buttons-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        /* ═══ METHODOLOGY / 5-STEP PROTOCOL (Sanlife & Deadpool style) ═══ */
+        .process-pipeline-wrap {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+            margin-bottom: 140px;
+        }
+
+        .process-step-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 28px 22px;
+            position: relative;
+            transition: all 0.3s var(--spring);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 220px;
+        }
+
+        .process-step-card:hover {
+            border-color: var(--gold-primary);
+            transform: translateY(-4px);
+            background: rgba(20, 22, 30, 0.8);
+        }
+
+        .process-step-num {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.12);
+            line-height: 1;
+            margin-bottom: 16px;
+            transition: color 0.3s;
+        }
+
+        .process-step-card:hover .process-step-num {
+            color: var(--gold-primary);
+        }
+
+        .process-step-title {
+            font-family: var(--font-tech);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .process-step-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ═══ VERIFIED DIGITAL ECOSYSTEM ═══ */
+        .ecosystem-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 140px;
+        }
+
+        .eco-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.35s var(--spring);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .eco-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+        }
+
+        .eco-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .eco-icon {
+            font-size: 2rem;
+            color: #fff;
+        }
+
+        .eco-badge {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--gold-bright);
+            background: rgba(229, 169, 60, 0.1);
+            border: 1px solid rgba(229, 169, 60, 0.3);
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            letter-spacing: 1px;
+        }
+
+        .eco-title {
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .eco-handle {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .eco-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .eco-link-foot {
+            font-family: var(--font-tech);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--gold-bright);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: gap 0.2s;
+        }
+
+        .eco-card:hover .eco-link-foot {
+            gap: 12px;
+            color: #fff;
+        }
+
+        /* ═══ DISPATCH TERMINAL / CONTACT STUDIO ═══ */
+        .dispatch-terminal-card {
+            background: linear-gradient(180deg, rgba(14, 15, 22, 0.95) 0%, rgba(9, 10, 15, 0.98) 100%);
+            border: 1px solid var(--border-glow);
+            border-radius: var(--radius-lg);
+            padding: clamp(32px, 5vw, 60px);
+            margin-bottom: 100px;
+            box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.9), 0 0 40px rgba(229, 169, 60, 0.05);
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 48px;
+        }
+
+        .dispatch-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .dispatch-meta-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 32px;
+        }
+
+        .dispatch-meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .dispatch-meta-label {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .dispatch-meta-val {
+            font-family: var(--font-tech);
+            font-size: 1.1rem;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .dispatch-meta-val a {
+            color: var(--gold-bright);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .dispatch-meta-val a:hover {
+            color: #fff;
+        }
+
+        .dispatch-form {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .field-group {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .field-label {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .studio-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            padding: 14px 18px;
+            color: #fff;
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.25s ease;
+        }
+
+        .studio-input:focus {
+            border-color: var(--gold-primary);
+            background: rgba(229, 169, 60, 0.04);
+            box-shadow: 0 0 20px rgba(229, 169, 60, 0.15);
+        }
+
+        /* ═══ FOOTER STUDIO ═══ */
+        .studio-footer {
+            border-top: 1px solid var(--border-subtle);
+            padding: 40px 0 60px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--gold-bright);
+        }
+
+        /* ═══ RESPONSIVENESS ═══ */
+        @media (max-width: 1024px) {
+            .col-span-8, .col-span-4, .col-span-6 { grid-column: span 12; }
+            .telemetry-hud-strip { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+            .hud-cell { border-left: none; padding: 0; }
+            .process-pipeline-wrap { grid-template-columns: repeat(2, 1fr); }
+            .ecosystem-grid { grid-template-columns: 1fr; }
+            .dispatch-terminal-card { grid-template-columns: 1fr; }
+            .accordion-trigger-row { grid-template-columns: 40px 1fr 120px 30px; }
+            .proj-tech-stack { display: none; }
+            .drawer-inner-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .studio-navbar { padding: 8px 16px; }
+            .telemetry-hud-strip { grid-template-columns: 1fr; }
+            .process-pipeline-wrap { grid-template-columns: 1fr; }
+            .accordion-trigger-row { grid-template-columns: 30px 1fr 30px; }
+            .proj-action-tag { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Architectural Background Grid & Atmospheric Radial Gradients -->
+    <div class="grid-backdrop"></div>
+    <div class="ambient-radial-glow"></div>
+
+    <!-- 3D Three.js Interactive Engine Canvas -->
+    <canvas id="hero-3d-canvas"></canvas>
+
+    <!-- Custom Cursor Follower & Dot -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-aura" id="cursorAura"></div>
+
+    <!-- Floating Master Navbar -->
+    <div class="studio-nav-wrapper">
+        <header class="studio-navbar">
+            <a href="#monolith" class="nav-logo">
+                <div class="nav-logo-mark">M</div>
+                <span>MANISH<span style="color:var(--gold-primary);">.STUDIO</span></span>
+            </a>
+            
+            <ul class="nav-links">
+                <li class="nav-link-item"><a href="#monolith" class="active">Overview</a></li>
+                <li class="nav-link-item"><a href="#capabilities">Architecture</a></li>
+                <li class="nav-link-item"><a href="#works">Deployments</a></li>
+                <li class="nav-link-item"><a href="#protocol">Protocol</a></li>
+                <li class="nav-link-item"><a href="#dispatch">Dispatch</a></li>
+            </ul>
+
+            <a href="#dispatch" class="nav-cta-btn">
+                <span>Hire Manish</span>
+                <i class="fas fa-arrow-up-right-from-square" style="font-size:0.75rem;"></i>
+            </a>
+        </header>
+    </div>
+
+    <!-- MAIN STUDIO WRAPPER -->
+    <main class="studio-container">
+
+        <!-- ═══ HERO MONOLITH ═══ -->
+        <section class="hero-monolith" id="monolith">
+            
+            <div class="hero-crosshair-badge">
+                <span class="status-dot-pulse"></span>
+                <span>SYSTEM ONLINE &bull; OPEN FOR CONTRACTS 2026</span>
+            </div>
+
+            <h1 class="hero-main-title">
+                Creative <span class="gradient-text">Web Architect</span> &amp; <br>
+                <span class="serif-italic">Autonomous AI</span> Builder
+            </h1>
+
+            <p class="hero-subparagraph">
+                I engineer bespoke high-performance web products, generative AI agents, and tactile digital architectures. Specialized in React 19, Next.js App Router, Python micro-services, and 3D spatial web canvases.
+            </p>
+
+            <div class="hero-actions-row">
+                <a href="#dispatch" class="btn-monolith">
+                    <span>Initiate Project Contract</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="#works" class="btn-glass-secondary">
+                    <span>Explore Flagship Works</span>
+                    <i class="fas fa-compass"></i>
+                </a>
+                <a href="https://github.com/manishkumarsoni7" target="_blank" rel="noopener noreferrer" class="btn-glass-secondary" style="padding: 16px 20px;">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+
+            <!-- Live Telemetry HUD Bar (Fractiona / SpaceEdu Style) -->
+            <div class="telemetry-hud-strip">
+                <div class="hud-cell">
+                    <div class="hud-metric">100<span>%</span></div>
+                    <div class="hud-label">Lighthouse Performance</div>
+                </div>
+                <div class="hud-cell">
+                    <div class="hud-metric">60<span>FPS</span></div>
+                    <div class="hud-label">WebGL Frame Physics</div>
+                </div>
+                <div class="hud-cell">
+                    <div class="hud-metric">05<span>+</span></div>
+                    <div class="hud-label">Verified Live Flagships</div>
+                </div>
+                <div class="hud-cell">
+                    <div class="hud-metric">&lt;15<span>ms</span></div>
+                    <div class="hud-label">Edge Route Latency</div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ═══ CAPABILITIES BENTO STUDIO (ChainGPT + Magic UI) ═══ -->
+        <section id="capabilities" style="padding-top: 100px;">
+            <div class="section-header-block">
+                <span class="section-tagline">Engine &bull; Specifications</span>
+                <h2 class="section-headline">Architectural <em>Capabilities</em></h2>
+            </div>
+
+            <div class="bento-studio-grid">
+
+                <!-- Bento Card 1: Next.js SSR Engine (col-8) -->
+                <div class="bento-card col-span-8">
+                    <span class="bento-corner-tag">FRONTEND ARCHITECTURE</span>
+                    <div>
+                        <div class="bento-icon-box">
+                            <i class="fab fa-react" style="color:var(--cyan-accent);"></i>
+                        </div>
+                        <h3 class="bento-title">Next.js 15 &amp; React 19 Core Engine</h3>
+                        <p class="bento-desc">
+                            Leveraging React Server Components (RSC), App Router streaming hydration, Tailwind CSS design tokenization, and edge caching for sub-second global responses.
+                        </p>
+                    </div>
+
+                    <!-- Interactive SSR Visualizer -->
+                    <div class="ssr-interactive-stage">
+                        <div class="ssr-stage-tabs">
+                            <button class="ssr-tab-btn active" onclick="switchSsrCode('rsc', this)">ServerComponent.tsx</button>
+                            <button class="ssr-tab-btn" onclick="switchSsrCode('hook', this)">useFluidAnimation.ts</button>
+                            <button class="ssr-tab-btn" onclick="switchSsrCode('tailwind', this)">tokens.config.ts</button>
+                        </div>
+                        <pre class="ssr-code-view" id="ssrCodeOutput"><code><span class="token-kwd">export async function</span> <span class="token-fn">ArchitecturePortal</span>() {
+  <span class="token-kwd">const</span> telemetry = <span class="token-kwd">await</span> <span class="token-fn">fetchEdgeTelemetry</span>({ cache: <span class="token-str">'force-cache'</span> });
+  <span class="token-kwd">return</span> &lt;<span class="token-fn">DynamicCanvas</span> <span class="token-attr">metrics</span>={telemetry} <span class="token-attr">fps</span>={<span class="token-attr">60</span>} /&gt;;
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- Bento Card 2: AI Pipelines & Autonomous Agents (col-4) -->
+                <div class="bento-card col-span-4">
+                    <span class="bento-corner-tag">AI INTELLIGENCE</span>
+                    <div>
+                        <div class="bento-icon-box">
+                            <i class="fas fa-brain" style="color:var(--purple-accent);"></i>
+                        </div>
+                        <h3 class="bento-title">Autonomous AI &amp; Vector RAG</h3>
+                        <p class="bento-desc">
+                            Prompt orchestration, tool-calling agents, structured JSON schema outputs, and Supabase pgvector semantic retrievals.
+                        </p>
+                    </div>
+
+                    <!-- Interactive AI Terminal Mini-App -->
+                    <div class="ai-terminal-box">
+                        <div class="ai-term-header">
+                            <span><i class="fas fa-terminal"></i> MANISH_AGENT_v2</span>
+                            <span style="font-size:0.7rem; color:#a3e635;">ONLINE</span>
+                        </div>
+                        <div class="ai-term-body" id="aiTerminalBody">
+                            &gt; System initialized.<br>
+                            &gt; Ready to parse query parameters.
+                        </div>
+                        <input type="text" class="ai-prompt-input" placeholder="Type query &amp; hit enter..." id="aiPromptInput" onkeydown="handleAiTerminal(event)">
+                    </div>
+                </div>
+
+                <!-- Bento Card 3: 3D Spatial Canvas (col-4) -->
+                <div class="bento-card col-span-4">
+                    <span class="bento-corner-tag">CREATIVE CODE</span>
+                    <div>
+                        <div class="bento-icon-box">
+                            <i class="fas fa-cubes" style="color:var(--gold-bright);"></i>
+                        </div>
+                        <h3 class="bento-title">3D WebGL &amp; Shader Physics</h3>
+                        <p class="bento-desc">
+                            Three.js hardware-accelerated shaders, raycasting spatial interactions, and 60FPS inertial lerp camera physics for luxury immersion.
+                        </p>
+                    </div>
+                    <div style="font-family:var(--font-mono); font-size:0.78rem; color:var(--gold-bright); border:1px solid rgba(229,169,60,0.25); background:rgba(229,169,60,0.06); padding:10px 14px; border-radius:8px;">
+                        &check; Three.js r128 Shader Engine Loaded
+                    </div>
+                </div>
+
+                <!-- Bento Card 4: High-Reliability Backend & Cloud DevOps (col-8) -->
+                <div class="bento-card col-span-8">
+                    <span class="bento-corner-tag">DATABASE &amp; CLOUD DEVOPS</span>
+                    <div>
+                        <div class="bento-icon-box">
+                            <i class="fas fa-database" style="color:#10B981;"></i>
+                        </div>
+                        <h3 class="bento-title">PostgreSQL, Supabase RLS &amp; Cloud CI/CD</h3>
+                        <p class="bento-desc">
+                            Row-Level Security (RLS) data isolation, custom REST &amp; GraphQL endpoints, Python FastAPI micro-services, and automated multi-environment GitHub Action pipelines.
+                        </p>
+                    </div>
+                    <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                        <span class="tech-pill"><i class="fas fa-shield-alt" style="color:#10B981; margin-right:4px;"></i> Supabase RLS Auth</span>
+                        <span class="tech-pill"><i class="fab fa-python" style="color:#fbbf24; margin-right:4px;"></i> Python FastAPI</span>
+                        <span class="tech-pill"><i class="fab fa-docker" style="color:#38bdf8; margin-right:4px;"></i> Docker Containers</span>
+                        <span class="tech-pill"><i class="fas fa-bolt" style="color:var(--gold-primary); margin-right:4px;"></i> Vercel Edge Global CI</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ═══ FLAGSHIP WORKS / INTERACTIVE ACCORDION (Alex 3D & Fractiona) ═══ -->
+        <section id="works" class="showcase-monolith-wrap">
+            <div class="section-header-block">
+                <span class="section-tagline">Selected Archives</span>
+                <h2 class="section-headline">Verified Production <em>Flagships</em></h2>
+            </div>
+
+            <div class="project-accordion-list">
+
+                <!-- 01. AURA Spatial Atelier -->
+                <div class="project-accordion-item is-expanded" onclick="toggleAccordion(this)">
+                    <div class="accordion-trigger-row">
+                        <span class="proj-num">01</span>
+                        <div class="proj-name-wrap">
+                            <h3 class="proj-name">AURA Atelier</h3>
+                            <span class="proj-subtag">Spatial Architecture &amp; Solar Raycasting</span>
+                        </div>
+                        <div class="proj-tech-stack">
+                            <span class="tech-pill">Next.js 15</span>
+                            <span class="tech-pill">Three.js</span>
+                            <span class="tech-pill">Tailwind</span>
+                        </div>
+                        <a href="https://aura-atelier.surge.sh" target="_blank" rel="noopener noreferrer" class="proj-action-tag" onclick="event.stopPropagation()">
+                            <span>Launch</span>
+                            <i class="fas fa-external-link-alt" style="font-size:0.7rem;"></i>
+                        </a>
+                        <div class="accordion-arrow"><i class="fas fa-chevron-right"></i></div>
+                    </div>
+                    
+                    <div class="accordion-drawer-content">
+                        <div class="drawer-inner-grid">
+                            <div class="drawer-preview-box">
+                                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80" alt="AURA Architecture Studio" />
+                            </div>
+                            <div class="drawer-info-pane">
+                                <p class="drawer-summary">
+                                    A monolithic, award-winning architectural platform crafted for luxury spatial ateliers. Features real-time interactive CAD measurement rulers, 3D diurnal solar raycasting simulation, and Web Audio acoustic resonance.
+                                </p>
+                                <ul class="drawer-features-list">
+                                    <li><i class="fas fa-check-circle"></i> Live Interactive CAD Blueprint Ruler</li>
+                                    <li><i class="fas fa-check-circle"></i> 3D Diurnal Solar Shadow Angle Calculator</li>
+                                    <li><i class="fas fa-check-circle"></i> 100vh Monolithic Visual Experience</li>
+                                </ul>
+                                <div class="drawer-buttons-row">
+                                    <a href="https://aura-atelier.surge.sh" target="_blank" rel="noopener noreferrer" class="btn-monolith" style="padding:10px 22px; font-size:0.85rem;" onclick="event.stopPropagation()">
+                                        Open Live Atelier
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 02. Nova Dental -->
+                <div class="project-accordion-item" onclick="toggleAccordion(this)">
+                    <div class="accordion-trigger-row">
+                        <span class="proj-num">02</span>
+                        <div class="proj-name-wrap">
+                            <h3 class="proj-name">Nova Dental</h3>
+                            <span class="proj-subtag">Surgical Healthcare &amp; Shade Engine</span>
+                        </div>
+                        <div class="proj-tech-stack">
+                            <span class="tech-pill">React</span>
+                            <span class="tech-pill">TypeScript</span>
+                            <span class="tech-pill">Supabase</span>
+                        </div>
+                        <a href="https://apex-novadental.surge.sh" target="_blank" rel="noopener noreferrer" class="proj-action-tag" onclick="event.stopPropagation()">
+                            <span>Launch</span>
+                            <i class="fas fa-external-link-alt" style="font-size:0.7rem;"></i>
+                        </a>
+                        <div class="accordion-arrow"><i class="fas fa-chevron-right"></i></div>
+                    </div>
+                    
+                    <div class="accordion-drawer-content">
+                        <div class="drawer-inner-grid">
+                            <div class="drawer-preview-box">
+                                <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1000&q=80" alt="Nova Dental Clinic" />
+                            </div>
+                            <div class="drawer-info-pane">
+                                <p class="drawer-summary">
+                                    Pristine clinical medical platform engineered for high-precision dental practices. Features an anatomical 32-tooth dental arch diagnostic selector, VITA Classical porcelain shade picker, and live schedule matrix.
+                                </p>
+                                <ul class="drawer-features-list">
+                                    <li><i class="fas fa-check-circle"></i> Interactive 32-Tooth Dental Arch Diagnostic Map</li>
+                                    <li><i class="fas fa-check-circle"></i> VITA Classical Shade Picker &amp; Enamel Matcher</li>
+                                    <li><i class="fas fa-check-circle"></i> Live Doctor Consultation Booking Engine</li>
+                                </ul>
+                                <div class="drawer-buttons-row">
+                                    <a href="https://apex-novadental.surge.sh" target="_blank" rel="noopener noreferrer" class="btn-monolith" style="padding:10px 22px; font-size:0.85rem;" onclick="event.stopPropagation()">
+                                        Open Clinic Portal
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 03. Chronos Horology -->
+                <div class="project-accordion-item" onclick="toggleAccordion(this)">
+                    <div class="accordion-trigger-row">
+                        <span class="proj-num">03</span>
+                        <div class="proj-name-wrap">
+                            <h3 class="proj-name">Chronos Horology</h3>
+                            <span class="proj-subtag">Swiss High-End Timepiece Showcase</span>
+                        </div>
+                        <div class="proj-tech-stack">
+                            <span class="tech-pill">Three.js</span>
+                            <span class="tech-pill">WebGL</span>
+                            <span class="tech-pill">Framer Motion</span>
+                        </div>
+                        <a href="client-demos.html" class="proj-action-tag" onclick="event.stopPropagation()">
+                            <span>Launch</span>
+                            <i class="fas fa-external-link-alt" style="font-size:0.7rem;"></i>
+                        </a>
+                        <div class="accordion-arrow"><i class="fas fa-chevron-right"></i></div>
+                    </div>
+                    
+                    <div class="accordion-drawer-content">
+                        <div class="drawer-inner-grid">
+                            <div class="drawer-preview-box">
+                                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1000&q=80" alt="Chronos Horology" />
+                            </div>
+                            <div class="drawer-info-pane">
+                                <p class="drawer-summary">
+                                    An ultra-luxury horological inspection platform inspired by haute horlogerie. Features 360-degree rotational physics, mechanical tourbillon telemetry, and dynamic bezel illumination.
+                                </p>
+                                <ul class="drawer-features-list">
+                                    <li><i class="fas fa-check-circle"></i> 360° Interactive Dial &amp; Bezel Inspector</li>
+                                    <li><i class="fas fa-check-circle"></i> Tourbillon Escapement Frequency Telemetry</li>
+                                    <li><i class="fas fa-check-circle"></i> High-Precision Luxury Dark Tech Aesthetic</li>
+                                </ul>
+                                <div class="drawer-buttons-row">
+                                    <a href="client-demos.html" class="btn-monolith" style="padding:10px 22px; font-size:0.85rem;" onclick="event.stopPropagation()">
+                                        View Client Suite
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ═══ METHODOLOGY / HOW I BUILD (Sanlife style 5-step) ═══ -->
+        <section id="protocol" style="margin-bottom: 120px;">
+            <div class="section-header-block">
+                <span class="section-tagline">Execution Flow</span>
+                <h2 class="section-headline">Engineering <em>Protocol</em></h2>
+            </div>
+
+            <div class="process-pipeline-wrap">
+                <div class="process-step-card">
+                    <div class="process-step-num">01</div>
+                    <div>
+                        <h4 class="process-step-title">Discover</h4>
+                        <p class="process-step-desc">Deconstruct business goals, edge bottlenecks, and UX friction points before committing code.</p>
+                    </div>
+                </div>
+                <div class="process-step-card">
+                    <div class="process-step-num">02</div>
+                    <div>
+                        <h4 class="process-step-title">Architect</h4>
+                        <p class="process-step-desc">Define component tokenization, database schemas, and AI agent prompt graphs.</p>
+                    </div>
+                </div>
+                <div class="process-step-card">
+                    <div class="process-step-num">03</div>
+                    <div>
+                        <h4 class="process-step-title">Develop</h4>
+                        <p class="process-step-desc">Code ultra-modular, accessible Next.js/React frontend with 60FPS fluid motion physics.</p>
+                    </div>
+                </div>
+                <div class="process-step-card">
+                    <div class="process-step-num">04</div>
+                    <div>
+                        <h4 class="process-step-title">Integrate</h4>
+                        <p class="process-step-desc">Connect Supabase pgvector databases, Gemini/OpenAI tool calling, and REST pipelines.</p>
+                    </div>
+                </div>
+                <div class="process-step-card">
+                    <div class="process-step-num">05</div>
+                    <div>
+                        <h4 class="process-step-title">Ship</h4>
+                        <p class="process-step-desc">Deploy with zero-downtime CI/CD, verify 100 Lighthouse scores, and monitor live telemetry.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ VERIFIED DIGITAL ECOSYSTEM ═══ -->
+        <section style="margin-bottom: 120px;">
+            <div class="section-header-block">
+                <span class="section-tagline">Verified Nodes</span>
+                <h2 class="section-headline">Digital <em>Ecosystem</em></h2>
+            </div>
+
+            <div class="ecosystem-grid">
+                <!-- GitHub -->
+                <a href="https://github.com/manishkumarsoni7" target="_blank" rel="noopener noreferrer" class="eco-card">
+                    <div>
+                        <div class="eco-top">
+                            <i class="fab fa-github eco-icon"></i>
+                            <span class="eco-badge">ACTIVE CODE</span>
+                        </div>
+                        <h3 class="eco-title">GitHub Hub</h3>
+                        <div class="eco-handle">@manishkumarsoni7</div>
+                        <p class="eco-desc">Open-source repositories, Next.js web applications, Python automation scripts, and experimental AI agent workflows.</p>
+                    </div>
+                    <div class="eco-link-foot">
+                        <span>Explore Repositories</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+
+                <!-- LinkedIn -->
+                <a href="https://www.linkedin.com/in/manishkumarsoni7" target="_blank" rel="noopener noreferrer" class="eco-card">
+                    <div>
+                        <div class="eco-top">
+                            <i class="fab fa-linkedin-in eco-icon" style="color:#0A66C2;"></i>
+                            <span class="eco-badge">CONNECT</span>
+                        </div>
+                        <h3 class="eco-title">LinkedIn Network</h3>
+                        <div class="eco-handle">in/manishkumarsoni7</div>
+                        <p class="eco-desc">Professional network, engineering updates, software architectures, and developer collaborations.</p>
+                    </div>
+                    <div class="eco-link-foot">
+                        <span>Connect on LinkedIn</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/themanish.ai" target="_blank" rel="noopener noreferrer" class="eco-card">
+                    <div>
+                        <div class="eco-top">
+                            <i class="fab fa-instagram eco-icon" style="color:#E4405F;"></i>
+                            <span class="eco-badge">DEV LOGS</span>
+                        </div>
+                        <h3 class="eco-title">Instagram Studio</h3>
+                        <div class="eco-handle">@themanish.ai</div>
+                        <p class="eco-desc">Design engineering experiments, UI motion snippets, and developer journey highlights.</p>
+                    </div>
+                    <div class="eco-link-foot">
+                        <span>Follow @themanish.ai</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- ═══ DISPATCH TERMINAL / DIRECT CONTACT ═══ -->
+        <section id="dispatch">
+            <div class="section-header-block">
+                <span class="section-tagline">Direct Link</span>
+                <h2 class="section-headline">Initiate <em>Dispatch</em></h2>
+            </div>
+
+            <div class="dispatch-terminal-card">
+                <div class="dispatch-left">
+                    <div>
+                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+                            <span class="status-dot-pulse"></span>
+                            <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--gold-bright); letter-spacing:1px;">AVAILABLE FOR NEW PROJECTS</span>
+                        </div>
+                        <h3 style="font-family:var(--font-display); font-size:2rem; font-weight:800; color:#fff; line-height:1.2; margin-bottom:12px;">
+                            Let's Engineer Something Exceptional.
+                        </h3>
+                        <p style="color:var(--text-secondary); font-size:0.95rem; line-height:1.6;">
+                            Have an idea for a web product, AI tool, or premium digital platform? Send a direct dispatch and I'll respond within 24 hours.
+                        </p>
+                    </div>
+
+                    <ul class="dispatch-meta-list">
+                        <li class="dispatch-meta-item">
+                            <span class="dispatch-meta-label">Primary Communication</span>
+                            <span class="dispatch-meta-val"><a href="mailto:issac78neo@gmail.com">issac78neo@gmail.com ↗</a></span>
+                        </li>
+                        <li class="dispatch-meta-item">
+                            <span class="dispatch-meta-label">Location / Timezone</span>
+                            <span class="dispatch-meta-val">India &bull; IST (UTC+5:30) &bull; Global Remote</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Form -->
+                <form class="dispatch-form" onsubmit="handleDispatchForm(event)">
+                    <div class="field-group">
+                        <label class="field-label" for="clientName">Your Identifier / Name</label>
+                        <input type="text" id="clientName" class="studio-input" placeholder="e.g. Alex Vance" required>
+                    </div>
+                    
+                    <div class="field-group">
+                        <label class="field-label" for="clientEmail">Email Address</label>
+                        <input type="email" id="clientEmail" class="studio-input" placeholder="e.g. alex@studio.design" required>
+                    </div>
+
+                    <div class="field-group">
+                        <label class="field-label" for="projectScope">Project Brief &amp; Objectives</label>
+                        <textarea id="projectScope" class="studio-input" rows="4" placeholder="Describe the application, stack requirements, and timeline..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-monolith" style="width:100%; justify-content:center; margin-top:8px;">
+                        <span>Transmit Proposal</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+
+                    <div id="dispatchSuccess" style="display:none; color:var(--gold-bright); font-family:var(--font-mono); font-size:0.85rem; text-align:center; padding:10px; background:rgba(229,169,60,0.1); border-radius:6px; border:1px solid rgba(229,169,60,0.3);">
+                        &check; Proposal received! Thank you, Manish will reply promptly.
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- ═══ FOOTER STUDIO ═══ -->
+        <footer class="studio-footer">
+            <div class="footer-left">
+                <span class="footer-status-pill"><span class="status-dot-pulse"></span> ALL SYSTEMS STABLE</span>
+                <span>&bull; &copy; 2026 MANISH KUMAR SONI</span>
+            </div>
+            <div>
+                <span>BUILT WITH CRAFT &bull; NEXT-GEN STUDIO EDITION</span>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- ═══ INTERACTIVE JAVASCRIPT LOGIC ═══ -->
+    <script>
+        // Custom Mouse Cursor Physics
+        const dot = document.getElementById('cursorDot');
+        const aura = document.getElementById('cursorAura');
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let auraX = mouseX;
+        let auraY = mouseY;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            dot.style.left = `${mouseX}px`;
+            dot.style.top = `${mouseY}px`;
+        });
+
+        function animateCursor() {
+            auraX += (mouseX - auraX) * 0.15;
+            auraY += (mouseY - auraY) * 0.15;
+            aura.style.left = `${auraX}px`;
+            aura.style.top = `${auraY}px`;
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Cursor Hover Expansion on Interactive Elements
+        document.querySelectorAll('a, button, input, textarea, .project-accordion-item, .bento-card').forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('cursor-active'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-active'));
+        });
+
+        // 3D Three.js Background Simulation (Glowing Kinetic Polyhedron & Orbit Dust)
+        (function initThree() {
+            const canvas = document.getElementById('hero-3d-canvas');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 25;
+
+            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            // Geometric Wireframe Monolith (Icosahedron)
+            const geometry = new THREE.IcosahedronGeometry(9, 1);
+            const wireframeMaterial = new THREE.MeshBasicMaterial({
+                color: 0xE5A93C,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.18
+            });
+            const mesh = new THREE.Mesh(geometry, wireframeMaterial);
+            mesh.position.set(12, 0, 0);
+            scene.add(mesh);
+
+            // Inner Polyhedron
+            const innerGeo = new THREE.OctahedronGeometry(5, 0);
+            const innerMat = new THREE.MeshBasicMaterial({
+                color: 0x00f2fe,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.25
+            });
+            const innerMesh = new THREE.Mesh(innerGeo, innerMat);
+            innerMesh.position.set(12, 0, 0);
+            scene.add(innerMesh);
+
+            // Particle Starfield Dust
+            const particleCount = 200;
+            const particleGeo = new THREE.BufferGeometry();
+            const positions = new Float32Array(particleCount * 3);
+            for (let i = 0; i < particleCount * 3; i++) {
+                positions[i] = (Math.random() - 0.5) * 60;
+            }
+            particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            const particleMat = new THREE.PointsMaterial({
+                color: 0xE5A93C,
+                size: 0.12,
+                transparent: true,
+                opacity: 0.4
+            });
+            const particles = new THREE.Points(particleGeo, particleMat);
+            scene.add(particles);
+
+            // Responsive Resize
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                if (window.innerWidth < 1024) {
+                    mesh.position.set(0, 0, -5);
+                    innerMesh.position.set(0, 0, -5);
+                } else {
+                    mesh.position.set(12, 0, 0);
+                    innerMesh.position.set(12, 0, 0);
+                }
+            });
+            if (window.innerWidth < 1024) {
+                mesh.position.set(0, 0, -5);
+                innerMesh.position.set(0, 0, -5);
+            }
+
+            // Mouse Parallax
+            let targetX = 0;
+            let targetY = 0;
+            window.addEventListener('mousemove', (e) => {
+                targetX = (e.clientX / window.innerWidth - 0.5) * 0.4;
+                targetY = (e.clientY / window.innerHeight - 0.5) * 0.4;
+            });
+
+            function renderLoop() {
+                mesh.rotation.x += 0.002;
+                mesh.rotation.y += 0.003;
+                innerMesh.rotation.x -= 0.003;
+                innerMesh.rotation.y -= 0.004;
+                particles.rotation.y += 0.0005;
+
+                mesh.rotation.y += (targetX - mesh.rotation.y) * 0.05;
+                mesh.rotation.x += (targetY - mesh.rotation.x) * 0.05;
+
+                renderer.render(scene, camera);
+                requestAnimationFrame(renderLoop);
+            }
+            renderLoop();
+        })();
+
+        // Accordion Trigger Logic
+        function toggleAccordion(item) {
+            const isAlreadyExpanded = item.classList.contains('is-expanded');
+            document.querySelectorAll('.project-accordion-item').forEach(el => el.classList.remove('is-expanded'));
+            if (!isAlreadyExpanded) {
+                item.classList.add('is-expanded');
+            }
+        }
+
+        // SSR Code Switcher
+        function switchSsrCode(type, btn) {
+            document.querySelectorAll('.ssr-tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const output = document.getElementById('ssrCodeOutput');
+            if (type === 'rsc') {
+                output.innerHTML = `<code><span class="token-kwd">export async function</span> <span class="token-fn">ArchitecturePortal</span>() {\n  <span class="token-kwd">const</span> telemetry = <span class="token-kwd">await</span> <span class="token-fn">fetchEdgeTelemetry</span>({ cache: <span class="token-str">'force-cache'</span> });\n  <span class="token-kwd">return</span> &lt;<span class="token-fn">DynamicCanvas</span> <span class="token-attr">metrics</span>={telemetry} <span class="token-attr">fps</span>={<span class="token-attr">60</span>} /&gt;;\n}</code>`;
+            } else if (type === 'hook') {
+                output.innerHTML = `<code><span class="token-kwd">export function</span> <span class="token-fn">useFluidPhysics</span>(ref) {\n  <span class="token-fn">useEffect</span>(() =&gt; {\n    <span class="token-kwd">const</span> spring = <span class="token-fn">createSpring</span>({ stiffness: <span class="token-attr">300</span>, damping: <span class="token-attr">24</span> });\n    <span class="token-kwd">return</span> () =&gt; spring.<span class="token-fn">destroy</span>();\n  }, [ref]);\n}</code>`;
+            } else if (type === 'tailwind') {
+                output.innerHTML = `<code><span class="token-kwd">export const</span> designTokens = {\n  obsidian: <span class="token-str">'#060608'</span>,\n  goldGlow: <span class="token-str">'rgba(229, 169, 60, 0.15)'</span>,\n  springEasing: <span class="token-str">'cubic-bezier(0.16, 1, 0.3, 1)'</span>\n};</code>`;
+            }
+        }
+
+        // Interactive AI Terminal
+        function handleAiTerminal(e) {
+            if (e.key === 'Enter') {
+                const input = document.getElementById('aiPromptInput');
+                const body = document.getElementById('aiTerminalBody');
+                const val = input.value.trim();
+                if (!val) return;
+
+                body.innerHTML = `&gt; User: ${val}<br>&gt; <span style="color:var(--gold-bright);">Processing via Gemini 2.0 Flash...</span>`;
+                input.value = '';
+
+                setTimeout(() => {
+                    let reply = `&gt; [Agent]: Stack verified. Manish is ready to engineer this using Next.js 15 &amp; Python agents with 60FPS fluid UI.`;
+                    if (val.toLowerCase().includes('hire') || val.toLowerCase().includes('contact')) {
+                        reply = `&gt; [Agent]: Direct dispatch open at issac78neo@gmail.com. Scroll to bottom or click "Hire Manish"!`;
+                    }
+                    body.innerHTML = `&gt; User: ${val}<br>${reply}`;
+                }, 400);
+            }
+        }
+
+        // Handle Dispatch Form Submit
+        function handleDispatchForm(e) {
+            e.preventDefault();
+            const success = document.getElementById('dispatchSuccess');
+            success.style.display = 'block';
+            setTimeout(() => {
+                e.target.reset();
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
