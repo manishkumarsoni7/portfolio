@@ -1,141 +1,131 @@
-<div align="center">
+# 💫 About Me:
 
-  <!-- CLEAN EDITORIAL SVG BANNER -->
-  <a href="https://manishkumarsoni.surge.sh" target="_blank">
-    <img src="https://capsule-render.vercel.app/api?type=waving&color=0:050608,40:0d1117,100:00f2fe&height=180&section=header&text=MANISH+KUMAR+SONI&fontSize=38&fontColor=ffffff&fontAlignY=38&desc=Lead+Web+Designer+%7C+Full-Stack+Architect+%7C+Autonomous+AI+Engineer&descSize=14&descColor=8b949e&descAlignY=64" width="100%" alt="Manish Kumar Soni Banner" />
-  </a>
-
-  <!-- TYPING SUBHEADING -->
-  <img src="https://readme-typing-svg.demolab.com?font=Space+Grotesk&weight=600&size=18&duration=2800&pause=1000&color=00F2FE&center=true&vCenter=true&width=700&lines=Building+Awwwards-Caliber+Spatial+Web+Platforms;Engineering+Autonomous+Multi-Agent+LLM+Execution+Graphs;Next.js+15+%7C+React+19+%7C+Strict+TypeScript+%7C+Python+3.12;Delivering+Sub-450ms+Edge+Performance" alt="Typing Subheading" />
-
-  <br/><br/>
-
-  <!-- METRIC & STATUS BADGES -->
-  <p align="center">
-    <a href="https://manishkumarsoni.surge.sh" target="_blank">
-      <img src="https://img.shields.io/badge/PORTFOLIO-manishkumarsoni.surge.sh-00f2fe?style=flat-square&logo=safari&logoColor=black&labelColor=050608" alt="Portfolio" />
-    </a>
-    <a href="mailto:issac78neo@gmail.com">
-      <img src="https://img.shields.io/badge/EMAIL-issac78neo@gmail.com-white?style=flat-square&logo=gmail&logoColor=white&labelColor=050608" alt="Email" />
-    </a>
-    <a href="https://linkedin.com/in/manishkumarsoni7" target="_blank">
-      <img src="https://img.shields.io/badge/LINKEDIN-manishkumarsoni7-0077b5?style=flat-square&logo=linkedin&logoColor=white&labelColor=050608" alt="LinkedIn" />
-    </a>
-    <img src="https://img.shields.io/badge/STATUS-AVAILABLE_FOR_Q4_CONTRACTS-39d353?style=flat-square&logo=githubactions&logoColor=white&labelColor=050608" alt="Status" />
-  </p>
-
-</div>
+👋 Hi, I'm **Manish Kumar Soni**.<br>
+💻 **Lead Web Designer & Full-Stack Architect** | Next.js 15 • React 19 • Strict TypeScript • Python<br>
+🤖 **Autonomous AI Systems Engineer** | Building Multi-Agent LangChain Graphs & LLM Pipelines<br>
+🏛️ **Spatial Craft & Motion** | Engineering Awwwards-Caliber Digital Ateliers with Sub-450ms Edge Performance<br>
+🌱 Pushing the frontiers of agentic AI and high-craft frontend engineering every single day.
 
 ---
 
-### 👨‍💻 Executive Summary
+## 🌐 Socials & Connect:
 
-I am a **Creative Technologist & Lead Full-Stack Engineer** specializing in the intersection of **award-winning frontend craft** and **autonomous AI architecture**. Over the past several years, I have engineered flagship client platforms, multi-agent LLM systems, and high-concurrency cloud backends with strict type-safety and sub-second Web Vitals.
-
-- 🔭 **Core Specialization:** Next.js 15 (App Router), React 19, Strict TypeScript, GSAP Motion, and Python AI graphs.
-- 🤖 **Autonomous AI:** Architecting resilient multi-agent execution swarms with LangChain, Gemini Pro SDK, and vector RAG.
-- ⚡ **Engineering Standard:** 100/100 Core Web Vitals, dynamic root-rem adaptive scaling, zero runtime type regressions.
-- 📍 **Location:** India · Collaborating worldwide across US, European, and Asian timezones.
+[![Portfolio](https://img.shields.io/badge/Live_Portfolio-%2300F2FE.svg?style=for-the-badge&logo=safari&logoColor=black)](https://manishkumarsoni.surge.sh)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/manishkumarsoni7)
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:issac78neo@gmail.com)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/manishkumarsoni7)
+[![Profile Views](https://komarev.com/ghpvc/?username=manishkumarsoni7&label=PROFILE+VIEWS&color=00f2fe&style=for-the-badge)](https://manishkumarsoni.surge.sh)
 
 ---
 
-### 🚀 Flagship Production Deployments
+# 💻 Tech Stack & Arsenal:
+
+### 🎨 Frontend & Spatial Motion
+![Next.js](https://img.shields.io/badge/Next.js_15-%23000000.svg?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![React](https://img.shields.io/badge/React_19-%2320232A.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![HTML5](https://img.shields.io/badge/HTML5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Three.js](https://img.shields.io/badge/Three.js-%23000000.svg?style=for-the-badge&logo=three.js&logoColor=white)
+![GSAP](https://img.shields.io/badge/GSAP_3-%2388CE02.svg?style=for-the-badge&logo=greensock&logoColor=white)
+
+### 🤖 AI, LLMs & Multi-Agent Swarms
+![Python](https://img.shields.io/badge/Python_3.12-%233776AB.svg?style=for-the-badge&logo=python&logoColor=white)
+![LangChain](https://img.shields.io/badge/LangChain-%231C3C3C.svg?style=for-the-badge&logo=langchain&logoColor=white)
+![Google Gemini](https://img.shields.io/badge/Gemini_Pro_API-%238E75B2.svg?style=for-the-badge&logo=google&logoColor=white)
+![OpenAI](https://img.shields.io/badge/OpenAI_API-%23412991.svg?style=for-the-badge&logo=openai&logoColor=white)
+![Pinecone](https://img.shields.io/badge/Pinecone_Vector_DB-%23000000.svg?style=for-the-badge&logo=pinecone&logoColor=white)
+
+### ⚙️ Backend, Cloud & DevOps
+![Node.js](https://img.shields.io/badge/Node.js-%23339933.svg?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![Express.js](https://img.shields.io/badge/Express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-%233ECF8E.svg?style=for-the-badge&logo=supabase&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-%232496ED.svg?style=for-the-badge&logo=docker&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel_Edge-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
+![Git](https://img.shields.io/badge/Git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
+
+---
+
+# 🚀 Featured Flagship Deployments:
 
 <table>
-  <thead>
-    <tr>
-      <th width="50%">Project & Architecture</th>
-      <th width="50%">Live Production Access</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <b>🏛️ AURA Spatial Atelier</b><br/>
-        <sub>Bespoke luxury digital atelier engineered with real-time 3D spatial configurators, smooth kinetic reveals, and sub-second Web Vitals.</sub><br/>
-        <code>Next.js 15</code> · <code>Three.js</code> · <code>TypeScript</code> · <code>GSAP Motion</code>
-      </td>
-      <td>
-        <a href="https://aura-atelier.surge.sh" target="_blank"><b>Live Deployment ↗</b></a><br/>
-        <code>Production Ready · Edge Optimized</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <b>🦷 Apex Nova Dental Suite</b><br/>
-        <sub>High-precision surgical dental clinical studio with interactive appointment triage, patient records schema, and strict type safety.</sub><br/>
-        <code>React 19</code> · <code>Tailwind CSS</code> · <code>PostgreSQL</code> · <code>Supabase</code>
-      </td>
-      <td>
-        <a href="https://manishkumarsoni.surge.sh" target="_blank"><b>Verified Clinical Suite ↗</b></a><br/>
-        <code>Enterprise Triage Platform</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <b>⏱️ Chronos Haute Horlogerie</b><br/>
-        <sub>Swiss tourbillon movement timepiece showcase with kinetic spring-physics configurator and micro-precision typography.</sub><br/>
-        <code>Vanilla JS (ESM)</code> · <code>Lenis Smooth Scroll</code> · <code>Spring Physics</code>
-      </td>
-      <td>
-        <a href="https://chronos-atelier.surge.sh" target="_blank"><b>Live Atelier ↗</b></a><br/>
-        <code>Global Edge CDN</code>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <b>🤖 Autonomous AI Neural Swarms</b><br/>
-        <sub>Resilient multi-agent execution graphs engineered for automated web research, real-time code synthesis, and Gemini tool pipelines.</sub><br/>
-        <code>Python 3.12</code> · <code>LangChain</code> · <code>Gemini Pro SDK</code> · <code>Pinecone RAG</code>
-      </td>
-      <td>
-        <a href="https://manishkumarsoni.surge.sh" target="_blank"><b>Multi-Agent Platform ↗</b></a><br/>
-        <code>24/7 Swarm Cluster</code>
-      </td>
-    </tr>
-  </tbody>
+  <tr>
+    <td width="50%">
+      <h3>🏛️ AURA Spatial Atelier</h3>
+      <p><b>Spatial 3D Architecture & Configurator</b></p>
+      <p>Bespoke luxury digital atelier engineered with real-time 3D spatial configurators, smooth kinetic reveals, and sub-second Web Vitals.</p>
+      <p>
+        <a href="https://aura-atelier.surge.sh" target="_blank">
+          <img src="https://img.shields.io/badge/Live_Deployment-00f2fe?style=for-the-badge&logo=googlechrome&logoColor=black" alt="Live Demo" />
+        </a>
+      </p>
+      <code>Next.js 15</code> · <code>Three.js</code> · <code>TypeScript</code> · <code>GSAP</code>
+    </td>
+    <td width="50%">
+      <h3>🦷 Apex Nova Dental Care</h3>
+      <p><b>Precision Surgical Clinical Studio</b></p>
+      <p>High-precision surgical dental clinical platform with interactive appointment triage, patient records schema, and strict type safety.</p>
+      <p>
+        <a href="https://manishkumarsoni.surge.sh" target="_blank">
+          <img src="https://img.shields.io/badge/Verified_Suite-39d353?style=for-the-badge&logo=react&logoColor=black" alt="Live Demo" />
+        </a>
+      </p>
+      <code>React 19</code> · <code>Tailwind CSS</code> · <code>PostgreSQL</code> · <code>Supabase</code>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <h3>⏱️ Chronos Haute Horlogerie</h3>
+      <p><b>Swiss Timepiece Movement Atelier</b></p>
+      <p>Swiss tourbillon movement timepiece showcase with kinetic spring-physics configurator and micro-precision typography.</p>
+      <p>
+        <a href="https://chronos-atelier.surge.sh" target="_blank">
+          <img src="https://img.shields.io/badge/Live_Atelier-f1e05a?style=for-the-badge&logo=javascript&logoColor=black" alt="Live Demo" />
+        </a>
+      </p>
+      <code>Vanilla JS (ESM)</code> · <code>Lenis Scroll</code> · <code>Spring Physics</code>
+    </td>
+    <td width="50%">
+      <h3>🤖 Autonomous AI Swarms</h3>
+      <p><b>Multi-Agent LLM Graph Network</b></p>
+      <p>Resilient multi-agent execution graphs engineered for automated web research, real-time code synthesis, and Gemini tool pipelines.</p>
+      <p>
+        <a href="https://manishkumarsoni.surge.sh" target="_blank">
+          <img src="https://img.shields.io/badge/Launch_Swarm-bc8cff?style=for-the-badge&logo=python&logoColor=black" alt="Live Demo" />
+        </a>
+      </p>
+      <code>Python 3.12</code> · <code>LangChain</code> · <code>Gemini Pro SDK</code> · <code>Pinecone</code>
+    </td>
+  </tr>
 </table>
 
 ---
 
-### 🛠️ Technical Stack & Tooling Ecosystem
-
-```
-┌─────────────────────────┬────────────────────────────────────────────────────────┐
-│ FRONTEND CRAFT          │ Next.js 15 · React 19 · TypeScript · Tailwind CSS · GSAP│
-├─────────────────────────┼────────────────────────────────────────────────────────┤
-│ AI & MULTI-AGENT SWARMS │ LangChain · Python 3.12 · Gemini Pro · OpenAI · Pinecone│
-├─────────────────────────┼────────────────────────────────────────────────────────┤
-│ BACKEND & DATABASE      │ Node.js · Express · PostgreSQL · Supabase · REST / GQL │
-├─────────────────────────┼────────────────────────────────────────────────────────┤
-│ CLOUD & INFRASTRUCTURE  │ Docker · Git CI/CD · Vercel Edge · Surge Global CDN    │
-└─────────────────────────┴────────────────────────────────────────────────────────┘
-```
-
----
-
-### 📊 Real-Time Engineering Analytics
+# 📊 GitHub Stats & Streaks:
 
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=manishkumarsoni7&show_icons=true&theme=radical&bg_color=050608&border_color=30363d&title_color=00f2fe&text_color=8b949e&icon_color=00f2fe&hide_border=false" width="48%" alt="GitHub Stats" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=manishkumarsoni7&layout=compact&theme=radical&bg_color=050608&border_color=30363d&title_color=00f2fe&text_color=8b949e&hide_border=false" width="48%" alt="Top Languages" />
-</div>
 
-<br/>
+<img src="https://github-readme-stats.shion.dev/api?username=manishkumarsoni7&theme=radical&show_icons=true&include_all_commits=true&count_private=true" alt="Manish's GitHub Stats" />
+<br/><br/>
+<img src="https://streak-stats.demolab.com/?user=manishkumarsoni7&theme=radical" alt="GitHub Streak" />
+<br/><br/>
+<img src="https://github-readme-stats.shion.dev/api/top-langs/?username=manishkumarsoni7&theme=radical&include_all_commits=true&count_private=true&layout=compact" alt="Top Languages" />
 
-<div align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=manishkumarsoni7&theme=radical&background=050608&border=30363d&stroke=30363d&ring=00f2fe&fire=00f2fe&currStreakLabel=00f2fe" alt="GitHub Streak" />
 </div>
 
 ---
 
-### 📬 Direct Dispatch & Contact
+### ✍️ Random Dev Quote:
 
-If you are planning a flagship web platform, full-stack product build, or autonomous AI system, connect directly:
+<div align="center">
+  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical" alt="Random Dev Quote" />
+</div>
 
-- 🌐 **Portfolio:** [manishkumarsoni.surge.sh](https://manishkumarsoni.surge.sh)
-- ✉️ **Email:** [issac78neo@gmail.com](mailto:issac78neo@gmail.com)
-- 💼 **LinkedIn:** [linkedin.com/in/manishkumarsoni7](https://linkedin.com/in/manishkumarsoni7)
+---
 
 <div align="center">
   <sub>© 2026 Manish Kumar Soni · Engineered with precision and zero compromise.</sub>
